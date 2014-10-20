@@ -1,0 +1,23 @@
+= fibnacci =
+
+F0 = 0
+
+F1 = F2 = 1
+
+Fn = F(n-1) + F(n-2)
+
+== property ==
+SUM(Fi),0<=i<=n = F(n+2) - 1
+
+SUM(i*Fi),1<=i<=n = n*F(n+2) - F(n+3) + 2
+
+Lucas'Therem::
+GCD(Fm, Fn) = F(GCD(m, n))
+
+Cassini's Formula/Simson's Relation::
+F(n+1)*F(n-1) = (Fn)^2 + (-1)^n
+
+Shifting Property::
+F(m+n) = Fm*F(n+1) + F(m-1)*Fn
+
+Fn = (phi^n - (1-phi)^n)/sqrt(5)
