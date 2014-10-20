@@ -1,2 +1,2 @@
 = math =
-[[number_theory]]
+[[number_theory|number_theory]]
