@@ -1,5 +1,5 @@
-
- == test format ==
+= vimwiki =
+== test format ==
 = First Level Title =
 == Sencod Level Title ==
 === Third Level Title ===
