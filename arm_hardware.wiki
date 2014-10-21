@@ -1,0 +1,5 @@
+* lr    link register
+* pc    program counter(R15)
+* sp    stack pointer(R13)
+* cpsr  current program status register
+* spsr  saved program status register

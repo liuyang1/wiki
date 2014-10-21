@@ -1,0 +1,132 @@
+
+=== logic about file ===
+- -d    dir exist?
+- -z    var exist?
+- -f    file exist?
+- -L    link exist?
+- -r    read?
+- -w    write?
+- -x    executable?
+- !     negtive
+
+== array ==
+# define
+arr[0]=1
+arr[1]=2
+
+bash::
+arr=(1 2)
+arr=(1, 2)
+
+# access
+${array_name[index]}
+
+access all items
+${array_name[@]}
+${array_name[*]}
+
+# loop on array
+for a in ${array[@]}
+do
+    ...
+done
+
+# loop on array with index
+{{{
+for (( i = 0 ; i < ${#names[@]} ; i++ )) do
+    echo ${names[$i]}
+done
+}}}
+== dynamic var name ==
+{{{
+b=a
+a=1
+echo ${!b}
+}}}
+this will display 1, this mean metaprogramming, code generation.
+
+== display command ==
+script::
+set -v on
+
+cmd::
+bash -v
+
+== getops ==
+参数解析
+
+== loop ==
+=== for ===
+=== while ===
+=== until ===
+{{{
+    until command ; do
+        do sth...
+    done
+}}}
+== fucntion ==
+=== grammer ===
+sh
+
+FuncName(){
+    body
+}
+
+bash
+
+function FuncName(){
+    body
+}
+and compatable with sh style, but XXX: sh not compatable with bash style
+
+=== return value ===
+# return expression
+only return number, like other programing language.
+
+using $?, to access last command exit value
+
+if mytest args; then
+    dosth
+fi
+
+good to use as conditional
+
+# change global or environment Var to return value
+
+but last 2 method won't work when run in subprocess, as not return value for subprocess,
+and child-process cannot modify parent-process env-var
+
+# using stdout to return val,
+`ret=$(func param1 prarm2)`
+
+not output anything, will mix stdout
+
+
+= shell comparation =
+
+* zsh and bash handle `complete` different. zsh could not support this directly.
+
+* zsh handle for space delemiter string is error.
+
+* zsh will initiative expand asterisk symbol self first, so when faild, maybe whole command will stop.
+
+`ls /usr/*/pythonabc* /usr/*/lib/python* 2>/dev/null`
+
+using `noglob`, will prevent zsh to expand asterisk, for example: `noglob echo 2*3 | bc`
+
+but `ls` still fail
+
+----
+default ubuntu and debian, sh is DASH
+
+== export source ==
+export to make it work in child-shell
+
+source to make it work in parent-shell
+
+and DOT is only for sh, and bash compatable with sh
+
+export -f FuncName
+export Varname
+
+XXX: can not export array Var

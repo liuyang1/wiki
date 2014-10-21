@@ -1,0 +1,347 @@
+= vim tips =
+
+== 命令参数 ==
+* +N    表示到行号
+* +     表示到最后一行
+
+=== 编辑远程主机上的文件 ===
+{{{
+    vim scp://username:password@hostaddr/path/to/file
+}}}
+后台实际上传输为本地临时文件,编辑结束后,会传递回去.
+ref:[[http://vim.wikia.com/wiki/Editing_remote_files_via_scp_in_vim]]
+
+对于使用sshconfig简化的地址可以如下:
+
+vim scp://hd0/.bash_profile
+
+
+==设置==
+- :set paste/nopaste            设置进入粘贴模式,这样复制粘贴代码的时候,自动缩进就会失效.很有用.
+- :set number                   打开显示行号
+- set keywordprg=man\ -a        设置man(大K)的检索,参数为-a,这样就会显示所有的manual,而不是只有第一条
+
+== 插入模式下 ==
+
+更多的关于inert模式下的快捷键,直接:help insert-index
+===自动补全===
+- *<C-P>*           向前搜索可匹配词,补全.
+- <C-N>         后****
+- *<C-X><C-L>*  向前,句子
+- <C-X><C-F>    向后,句子 
+=== 缩进 indent ===
+- <C-D/T>       *插入模式下,缩进/反缩进当前行* 为什么我之前不会用?!
+- 0<C-D>        取消本行的缩进(直接到缩进到行首)
+
+=== 删除 delete ===
+- <C-W>         *插入模式下,向后删除一个单词*,插入模式的功能异常犀利啊!
+- <C-U>         删除左侧的一整行
+- <C-H>         删除,和一般的<BS>效果是完全一样的.
+
+== 复制部分内容 ==
+- <C-Y>         复制上一行同一列的内容
+- <C-E>         复制下一行同一列的内容
+
+=== 移动 ===
+- <Shift-Left>/<Shift-Right>    移动,按照单词
+- <C-Up>/<C-Down>               上下翻页
+=== 退出编辑模式 ===
+- ESC/<C-[>,<C-3>               C-[,这种方式应该挺方便的.
+- <C-C>                         这个也可以,更为方便了.
+
+=== temp insert mode ===
+- *<C-O>*                       临时退出到一般模式,之后会自动返回到插入模式
+- 这种方式可以用于组合使用normal mode下面的快捷键, 然而做成保留插入模式的幻象.
+
+例如<C-O>$,可以用于插入模式下到行尾
+
+
+== 替换模式 ==
+一般模式下,使用R进入替换模式.
+
+==一般模式==
+
+=== 进入编辑模式 ===
+- cc            删除本行,并进入写入状态
+- C/c$          delete line form cursor, enter insert mode
+
+- cw            delete word from cursor,进入写入状态
+- ciw           delete whole word, enter insert mode
+- caw           delele whold word(and more space), enter insert mode
+
+=== 辅助输入 ===
+- .             自动重复输入内容
+
+===删除===
+- dd                删除一行
+- [1~9]dd           删除几行
+- *D*               删除到行尾,_不用使用d$这么恶心的操作了._
+- di",di[,di{       删除对应的符号内部的内容
+- dw                删除一个单词
+- dW                删除从该位置到下一个空白处
+- dtC               直到符号C的内容删除（t是till的意思），不包含符号C
+- dfC               直到符号C的内容删除（包含符号C本身）
+- dNfC              直到符号C出现N次的内容都删除
+- dG                delete to end line of file
+- d1G               delete to first line of file
+
+===复制/粘贴===
+
+==== 内部复制粘贴 ====
+- ]p                    粘贴,并且自动按照新位置进行缩进 _赞_
+
+====系统复制粘贴====
+- <C-insert>            系统复制
+- <Shift-insert>        系统粘贴
+- :set paste
+- :set nopaste          设置进入粘贴模式,这样复制粘贴代码的时候,自动缩进就会失效.很有用.
+
+===移动===
+- <C-F/B>               前/后翻页
+- <C-D/U>               前后翻半页
+- *zz/zt/zb             光标所在行移到屏幕中间,上面,下面*很有用!
+- ''                    *移动到光标上一个停靠位置*,很神,应该也非常有用.
+- '.                    移动到上一次的修改位置
+- L/M/H                 移动到页面的下部,中间,上部
+- f/F[字母]             向前或者向后跳转到该字符
+- nnnG          跳转到指定行
+- 024l          跳转到第24列,注意这个其实是组合命令,0移动到行首,然后向右移动24列
+
+====块跳转====
+- ]]/[[                 跳转块
+- [{                    跳转到函数开头
+- ]}                    跳转到函数结尾
+- {                     跳转到小块的开头
+- }                     跳转到小块的结尾
+
+====文件跳转====
+- gf                    跳转到文件
+- gd                    跳转到定义(局部变量)
+- K                     跳转到man手册
+{{{
+    可以通过配置vimrc
+    set keywordprg=man\ -a
+    来配置打开所有的man页面
+}}}
+
+=== search 查找===
+- /表达式
+- */#                       *查找光标所在字符*,就是这么神奇的功能. *,顺序查找,#逆序查找
+- g*/g#                 查找含当前词作为一部分的词,包括注释内容
+- gd                    类似上面,但是不包括注释
+- gD
+- ]I                    查找被调用的函数出现的位置(单个文件中)
+
+=== fold 折叠 ===
+- zn                    禁用折叠
+- zN                    打开折叠
+
+- zm                    关闭所有折叠
+- zM                    关闭所有折叠及嵌套折叠
+- zr                    打开所有折叠
+- zR                    打开所有折叠及嵌套折叠
+- zi                    关闭/打开所有折叠
+
+- zo                    打开当前折叠
+- zc                    关闭当前折叠
+
+- zj                    移动到下一个折叠
+- zk                    移动到上一个折叠
+==命令模式下==
+=== exit ===
+- :x
+使用该命令而不是:wq,这样只有当文件修改的时候,才会进行保存与修改时间的操作.
+不然,直接退出.
+这样对于源文件的时候,非常有用.避免错误的理解时间,重复进行编译或者更新操作.
+
+- :up               如果更新则保存
+- r![cmd]           *将命令的结果导入到当前的vim编辑的文件中*
+                    这个功能在某些时侯非常有用.如果你想二次处理shell的结果.
+===删除===
+- :g/[PATTERN]/d    删除所有匹配表达式的行(vim才支持的特性)
+- :v/[PATTERN]/d    不匹配则删除
+- :s/[PATTERN]//gn  统计个数,不会进行实际的替换
+
+== mark 书签 ==
+- m[a-z,A-Z]       设置书签
+- '[a-z,A-Z]      书签跳转
+=== replace 替换===
+==== replace action ====
+- s_flags
+| & | keep the flag from the previous substitute cmd |
+| e | using regural expression                       |
+| g | global repalce                                 |
+| c | confirm each substitution                      |
+| i | ignore case                                    |
+| I | Don't ignore case                              |
+- ~~:1,$s/表达式1/表达式2/g~~   全文替换表达式1为表达式2
+- :%s/表达式1/表达式2/g     同上,比上面少了2个字符
+
+== 多缓冲区 ==
+- :bd               关闭当前缓冲区(也会保存,但可能没有触发写入的其他插件(vimwiki的自动导出功能)
+- :b[n]             选择第几个缓冲区
+- :bn/bp            下一个/上一次缓冲区(直接快捷键<C-^>就可以完成,就是按键不方便)
+- :b#               下一个缓冲区
+- <C-^>/<C-6>       缓冲区跳转
+- n<C-^>            跳转到到第n个缓冲区
+- edit #N           跳转到第n个缓冲区
+
+
+== 多tab支持 ==
+多tab和多缓冲区的不同之处,在于tab是页面的分布状态而已.缓冲区是一致的.
+
+- :tab new          新打开一个tab
+- :tabnew           新建一个tab,并且打开文件
+- :tabclose INDEX   关闭标签页,默认关闭当前页
+- :tabonly          关闭所有的其他标签页
+- :tabedit          在新的标签页打开
+- :tabnext/gt          切换到下一个标签页
+- :tabp/gT          切换到上一个标签页
+- :tabs             列出所有的标签页
+
+tab页面重新排列
+- :tab sball        为现有的每个buffer分配一个tab页面
+
+命令参数
+
+vim -p first second 依次打开文件,在不同的tab页面
+== window 窗口分割 ==
+http://yuzifu.net/book/vimdoc/windows.html
+
+=== open windows ===
+- CTRL-W s          split window
+- CTRL-W v          vertical split windows
+- CTRL-W n          split window and init a blank file
+
+- :sp/:vsp          分割窗口/纵向分割窗口(比使用全部命令split与vsplit省事一点点)
+
+=== close window ===
+- CTRL-W q
+- :q                close window and if no window exist, quit vim
+
+- CTRL-W c
+- :cls[se][!]       close window  (but can not close last window)
+
+- CTRL-W o
+- :on[ly][!]        close other window
+
+=== switch of windows ===
+- <Ctrl-W><Ctrl-W>  切换窗口
+- <Ctrl-W>f         打开光标所在的文件
+- <Ctrl-W>_         使得当前缓冲区窗口最大化
+- <Ctrl-W>+/-       增大/减少当前缓冲区窗口
+- <Ctrl-W>h/j/k/l   切换到上下左右窗口
+
+=== move windows ===
+- <C-W>x            交换窗口
+- Ctrl-W T          move this windows to new tab page
+                    (but when have only one window, can not do this)
+
+== 二进制文件 ==
+编辑二进制文件,要加-b选项,从而避免如自动换行之类的问题.
+
+之后使用:%!xxd进行转换.
+
+:%!xxd -r转换回来.
+
+== diff模式 ==
+- ]c,[c             跳到下一个/上一个差异点
+- do                将另一个文本的内容复制到本文本的当前行(差异消除)
+- dp                将本差异点复制到另一个文本中(差异消除)
+
+== session ==
+# write a session file
+
+:mkseesion [filename]
+
+- make a session file and overwrite old file
+
+:!mksession [filename]
+
+# load a session file
+
+- under shell
+vim -S [filename]
+- under vim cmd mode
+:source [filename]
+
+== 自定义快捷键 ==
+使用map命令自定义快捷键.
+
+_注意:_
+<C-M>和<cr>的快捷键在很多平台下是一样的.因此不要设置这个作为快捷键.避免影响某些场景下回车键的行为.
+
+==权限问题==
+当编辑一份文件,有打开权限,但是没有编辑权限,这样打开之后就会提醒只读文件,编辑之后也无法保存.这样如果你编辑之后,发现无法保存,肯定非常沮丧.使用下面的方法可以避免这个问题.
+~~ {{{ :%! sudo tee % > /dev/null ...input password <L> }}} ~~
+这个更为方便啊.
+- :w ! sudo tee %
+
+
+==配色方案==
+molokai大爱!
+==装逼==
+matrix
+    黑客帝国屏保,VIM的屏保
+
+
+每行插入行号
+{{{
+%s/^/\=line(".")
+}}}
+
+== 特殊符号的显示 ==
+vimrc中配置如下
+
+{{{
+set list
+set listchars=tab:\>\-,trail:<,extends:>
+}}}
+
+== 问题 ==
+mouse=a
+
+在CLI下面,使用这个配置可能会造成vim无法启动
+
+=== 快捷键问题 ===
+terminal工作于7bit模式,这样就无法照顾到所有的按键序列,有些按键序列,就获取不到.
+
+可以通过修改term的类型.
+
+ref:[[http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal]]
+== 其他站点 ==
+不错的站点
+
+http://wiki.hotoo.me/Vim.html
+
+TODO:
+http://amix.dk/vim/vimrc.html
+
+http://spf13.com/post/ultimate-vim-config/
+
+{{{
+    Vim7.3 的持久撤销
+    Vim 7.3 提供 持久撤销 (Persistent Undo) 功能，即使文件关闭后，再次打开时仍然可以撤销文件关闭之前的编辑历史。要使用这一功能，在 vimrc 中添加
+
+    " 重启后撤销历史可用 persistent undo 
+    set undofile
+    set undodir=$VIMFILES/\_undodir
+    set undolevels=1000 "maximum number of changes that can be undone
+    set undofile - 开启本功能。开启之后会默认在文件当前目录下建立一个 filename.ext.un~ 的文件，自然是会给我们带来麻烦的。所以配置一个 undodir 集中放置所有undofile。
+
+    $VIMFILES/\_undodir - $VIMFILES 是我们之前在 vimrc 中定义的环境变量， windows 下是 $VIM/vimfiles/ 。请注意，为了和其他目录区分，undodir前面有下划线 _undodir 。因为有下划线，前面的反斜杠又不可少了。而且这个目录必须自己手动建立。如果不存在，Vim 是不会帮你自动建立的。
+}}}
+
+查找每行长度超过70个字符的行
+
+/\%>70v.\+
+
+输入unicode字符
+
+Ctrl-V u 200b,则输入U+200b这个字符
+
+删除行尾的空格
+:% s/\s\+$//g
+
+== vim 脚本 ==
+函数名称,必须以大写字母开始

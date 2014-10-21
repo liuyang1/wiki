@@ -1,0 +1,7 @@
+= minicom =
+
+using Ctrl-A E, to enable echo back, so you can input.
+
+not good, using Putty now.
+
+= putty =

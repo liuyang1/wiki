@@ -1,0 +1,10 @@
+
+== doctest ==
+
+python -m doctest -v [FileName]
+
+docstring
+"""
+>>>testinput()
+testoutput
+"""

@@ -1,0 +1,5 @@
+
+== stack protector ==
+- -fstack-protector         only for func using char array
+- -fstack-protector-all     for all func
+- -fno-stack-protector

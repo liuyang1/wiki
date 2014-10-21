@@ -1,0 +1,17 @@
+== addr2line ==
+
+addr2line -f [PC pinter] -e [filename]
+
+== gcov ==
+coverage test tool
+
+# using gcc with -fprofile-arcs -ftest-coverage
+# run it, get *.gcda file
+# gcov [option] sourcefilename, generate sourcefilename.gcov
+
+based on sourcefilename.gcov, get coverage test info
+
+=== option ===
+# -a, --all-blocks (otherwise, only output "main" block info)
+# -b, --branch-probabilities
+# -c, --branch-counts (default on)

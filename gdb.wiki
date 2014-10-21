@@ -1,0 +1,106 @@
+= gdb使用手册 =
+mtime: 2013-03-27 18:05:40 
+----
+== handbook ==
+- run [args]
+- start [args]
+- Ctrl-C
+- cont          继续运行
+
+- next          step-over
+- step          step-into
+- finish        step-out
+
+- break file:lineno
+- watch file:lineno     跟踪点
+- watch expr            观察点
+
+- bt,where              栈跟踪
+- bt N                  栈跟踪N层
+- bt -N                 栈跟踪从0开始N层.
+- print expr            输出表达式
+- display               显示表达式
+
+- set var var=expr      设置变量
+- set env var[=val]     设置环境变量
+
+- Disassemble           显示机器码
+- nexti                 机器码step-over
+- stepi                 机器吗setp-into
+
+- condition bnum        条件断点
+- handle,signal         事件断点
+- catch,throw           异常断点
+- break function        函数断点
+- tbreak                临时断点
+- info breakpoints      显示断点
+- delete/d                删除断点
+
+- commands bnum         命令连接到断点
+- printf/p                输出到命令行
+
+- info function expr    查找函数
+- list                  显示代码
+- call expr             调用函数
+- return expr           修改函数返回值
+
+- wahtais arg           输出类型
+- ptype arg             输出类型描述
+- x arg                 输出内存
+- frame arg             选择栈帧
+- up/down               上下移动栈帧
+- info frame            输出栈帧 
+- thread [N]            切换到线程N
+
+- until/u LINENUM       直到LINENUM行,可以用于跳出循环,或者直接到第几行
+
+
+== 带参数 ==
+r --Ice.Config=tvodconfig
+
+这样就可以带参数了.
+
+
+== gdb脚本 ==
+gdb的脚本,直接为test.cmd.然后在内部就可以添加具体的gdb命令.
+
+例如
+{{{
+	backtrace
+	quit
+}}}
+命令参数为
+`gdb StreamingServer core.xxx -x test.cmd | tee filename`
+
+这样gdb的输出,就会自动重定向到文件中.
+== bash脚本调试 ==
+对于bash脚本类的程序,无法通过gdb进行调试.但是该脚本最终会运行一个bin程序,这样就需要使用gdb -p的方法,进行debug.
+
+使用外部额外bash脚本,可以在gdb中控制程序的运行.从而实现gdb对于bash中隐藏调用的bin程序进行调试.
+
+具体见test.g/shell/test.sh
+
+关健这里使用了动态export,也就是export -n方法.
+
+这个方法是zsh没有的,所以该脚本为bash脚本.
+
+{{{
+#! /usr/bin/env bash
+GDB_READY=0
+while [ "==" ]
+do
+	if [ "$GDB_READY" = "0" ];then
+		export FORCE_REFRESH_ENV=1
+		sleep 1
+		export -n FORCE_REFRESH_ENV
+		echo "waiting"+$GDB_READY
+	else 
+		if [ "$GDB_READY" = "1" ];then
+			./vlc
+			GDB_READY=2
+		else
+			sleep 1
+		fi
+	fi
+done
+}}}

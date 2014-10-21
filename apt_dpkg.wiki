@@ -1,0 +1,11 @@
+== apt ==
+=== auto update for security ===
+
+using unattend-upgrades
+
+and `sudo unattend-upgrade`
+
+== dpkg ==
+dpkg --get-selections
+
+

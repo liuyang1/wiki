@@ -1,0 +1,3 @@
+存在bug,j disp应该到display/src的目录,但是每次都到display目录就结束了.
+
+自己debug一下

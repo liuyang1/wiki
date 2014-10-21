@@ -1,0 +1,32 @@
+= awk =
+`awk 'BEGIN {start_action} {action} END {stop_action}' filename`
+
+- $0 整行
+- $n 表示第n项.
+- $NF最后一行,  $(NF-2)倒数第2行
+
+- $NR 正在处理的行号
+
+- $FS指明字段分隔符号
+
+`awk -F "[()]" '{print $2}'`
+extract from bracket, (bead) -> bead
+
+变量累计,再综合BEGIN,END的用法
+
+`awk 'BEGIN {sum=0} {sum=sum+$5} END {print sum}' filename`
+
+引入判断
+输出状态为200的那一行内容
+`awk '{if ($(NF-2)=="200") {print $0}}' logs.txt`
+
+- -i inplace 本地转换
+- -i[SUFFIX]    支持保存原始文件,原文件增加后缀SUFFIX
+
+- -v VAR=KEY
+`awk -v key="START" '{if ($2==key) {print $3}}' filename`
+
+notice:
+* $2=="START" to compare with string
+* $2==key, NOT conclude $
+
