@@ -1,4 +1,4 @@
-
+= shell script programming =
 === logic about file ===
 - -d    dir exist?
 - -z    var exist?
@@ -8,6 +8,7 @@
 - -w    write?
 - -x    executable?
 - !     negtive
+- -nt   compare access time with two files
 
 == array ==
 # define
@@ -37,13 +38,6 @@ for (( i = 0 ; i < ${#names[@]} ; i++ )) do
     echo ${names[$i]}
 done
 }}}
-== dynamic var name ==
-{{{
-b=a
-a=1
-echo ${!b}
-}}}
-this will display 1, this mean metaprogramming, code generation.
 
 == display command ==
 script::
@@ -85,10 +79,14 @@ only return number, like other programing language.
 
 using $?, to access last command exit value
 
+0, ok, success.
+other value, some error happend
+
+{{{
 if mytest args; then
     dosth
 fi
-
+}}}
 good to use as conditional
 
 # change global or environment Var to return value
@@ -101,6 +99,19 @@ and child-process cannot modify parent-process env-var
 
 not output anything, will mix stdout
 
+== meta skill ==
+=== dynamic var name ===
+{{{
+b=a
+a=1
+echo ${!b}
+}}}
+this will display 1, this mean metaprogramming, code generation.
+
+=== command string ===
+run a command stored in string.
+
+`eval "$command"`
 
 = shell comparation =
 

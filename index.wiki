@@ -1,2 +1,37 @@
-= math =
-[[number_theory|number_theory.wiki]]
+= wiki =
+[[TODO]]
+
+== shell tool ==
+=== text tool ===
+* [[ack]]
+* [[awk]]
+* [[sed]]
+* [[vim]]
+* [[vim_plugin]]
+
+=== software management ===
+* [[apt_dpkg]]
+
+=== compiler and others ===
+* [[gcc]]
+* [[gdb]]
+* [[make]]
+* [[binutils]]
+* [[git]]
+* [[gerrit]]
+
+== programming language ==
+* [[python]]
+* [[shell]]
+* [[win_bat]]
+
+=== multimedia ===
+* [[ffmpeg]]
+
+== android ==
+* [[adb]]
+* [[android_test]]
+* [[arm_hardware]]
+
+== math ==
+[[number_theory|number theory]]

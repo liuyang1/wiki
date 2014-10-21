@@ -1,0 +1,5 @@
+== problem ==
+=== squash commit first ===
+repush commit to gerrit server again without any changes, will cause this problem.
+
+need do some changes. better update commit message.
