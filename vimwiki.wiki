@@ -3,7 +3,7 @@
 = First Level Title =
 == Sencod Level Title ==
 === Third Level Title ===
-when whitespace before titile, the title will be center.
+
 
 *BOLD*
 
@@ -25,9 +25,18 @@ for (( i = 0 ; i < "${#name[@]} ; i++)) do
 done
 }}}
 
+``` bash
+for (( i = 0 ; i < "${#name[@]} ; i++)) do
+    echo ${name[$i]}
+done
+```
+
 * seqnum0
 * seqnum1
 
 # seqnum0
 ## seqnum00
 # seqnum1
+
+:github not support:
+when whitespace before titile, the title will be center.
