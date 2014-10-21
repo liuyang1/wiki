@@ -1,17 +1,17 @@
-= shell script programming =
+ = shell script programming =
 === logic about file ===
-- -d    dir exist?
-- -z    var exist?
-- -f    file exist?
-- -L    link exist?
-- -r    read?
-- -w    write?
-- -x    executable?
-- !     negtive
-- -nt   compare access time with two files
+* -d    dir exist?
+* -z    var exist?
+* -f    file exist?
+* -L    link exist?
+* -r    read?
+* -w    write?
+* -x    executable?
+* !     negtive
+* -nt   compare access time with two files
 
 == array ==
-# define
+* define
 arr[0]=1
 arr[1]=2
 
@@ -19,20 +19,20 @@ bash::
 arr=(1 2)
 arr=(1, 2)
 
-# access
+* access
 ${array_name[index]}
 
 access all items
 ${array_name[@]}
 ${array_name[*]}
 
-# loop on array
+* loop on array
 for a in ${array[@]}
 do
     ...
 done
 
-# loop on array with index
+* loop on array with index
 {{{
 for (( i = 0 ; i < ${#names[@]} ; i++ )) do
     echo ${names[$i]}
@@ -40,10 +40,10 @@ done
 }}}
 
 == display command ==
-script::
+:script:
 set -v on
 
-cmd::
+:cmd:
 bash -v
 
 == getops ==
