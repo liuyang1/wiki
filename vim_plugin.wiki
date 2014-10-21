@@ -20,3 +20,24 @@ better?
 `ctags -R --sort=foldcase`
 
 though tags file is samesize, but not occur "E431 can not find tag" error
+
+== tagbar ==
+=== ctagstype ===
+=== kinds ===
+ctags --list-kinds={language name}
+
+short long [fold [stl]]
+
+fold:1 (should be folded)
+stl:using for tagbar#currenttag()
+
+:example:
+p function prototype
+
+vimwiki
+h:header
+
+=== sro ===
+the scope resolution operator
+
+=== kind2scope ===

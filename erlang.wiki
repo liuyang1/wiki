@@ -1,0 +1,126 @@
+= erlang 语言实战 =
+mtime: 2013-06-19 19:15:02 
+----
+
+== 语法格式 ==
+=== 注释 ===
+添加注释采用%开头的为注释,风格类似与C++的//注释
+
+=== 语法 ===
+# 小写字符组成的单词,全为保留词,以及符号变量.
+# 只有大写字母开头的词,才可以作为变量,才可以进行赋值.
+
+=== 句法 ===
+==== 模块与函数表达式 ====
+MODULE:FUNC
+
+切勿书写为 ~~MODULE.FUNC~~ ,这样是错误的.
+==== if表达式 ====
+==== case表达式 ====
+==== receive表达式 ====
+----
+== 数据类型 ==
+=== 原子 ===
+=== 元组 ===
+=== 列表与字符串 ===
+=== 模式匹配 ===
+
+=== 进程 ===
+erlang中进程属于第一级别类型.
+
+==== 注册进程 ====
+约束:
+- The Name must be an atom.
+- A process can only have one, and a name can be associated with only one process.
+- The local and global registries are separate. (A process is registered globally via global:register_name(Name, Pid).)
+- There can be a lag between when a process is registered, and when it can receive messages under its registered name. ie: calling “register(myprocess, self())”, and then immediately calling “myprocess ! message”, can cause an error.
+
+=== 进程字典 ===
+每个进程都有自己的进程字典.
+
+Each process has a local store called the "Process Dictionary". The following BIFs are used to manipulate the process dictionary:
+# get() returns the entire process dictionary.
+# get(Key) returns the item associated with Key (Key is any Erlang data structure), or, returns the special atom undefined if no value is associated with Key.
+# put(Key, Value) associate Value with Key. Returns the old value associated with Key, or, undefined if no such association exists.
+# erase() erases the entire process dictionary. Returns the entire process diction before it was erased.
+# erase(Key) erases the value associated with Key. Returns the old value associated with Key, or, undefined if no such association exists.
+# get_keys(Value) returns a list of all keys whose associated value is Value.
+
+Note that using the Process Dictionary:
+- Destroys referencial transparency
+- Makes debugging difficult
+- Survives Catch/Throw
+So:
+*Use_with_care*
+*Do not over use - try the clean version first*
+
+无论进程字典多么诱人,不要碰他.
+
+- 因为程序的行为难以理解.
+- 任务无法从一个进程迁移到另外一个进程,因为可能存在任务的信息在进程字典中.
+- 如果将不同客户端的信息存入到进程字典中,那么就只能使用单进程来处理所有的会话.
+
+=== ets ===
+ets 是 erlang term storage. 而且可以在进程之间共享.
+
+ets 不是简单的字典,可以通过配置,工作与下面几种方法.
+# 键唯一.(默认配置)
+# 键唯一,但是值不唯一,同时键值不可以都一样.
+# 键值随意,可以出现完全相同的行.
+
+=== process dict 与 ets 比较 ===
+# 前者在内存中,后者就是个简单的数据库,在硬盘会有备份.
+# 前者的操作速度大概在100ns级别,而ets的速度,大约在us级别
+
+gproc 和 menisa 是两个外置的erlang字典方案.使用其他应该也很不错的.
+
+其中 gproc 类似与进程字典
+----
+== erlang shell使用 ==
+# erl启动erlang shell
+# q()退出
+
+# c(filename),编译erl模块
+
+# pwd(),当前路径
+# cd(Dir),路径跳转
+# ls(),ls(Dir),显示路径下内容,默认为当前路径
+
+# i()打印运行时信息
+# memory(),打印内容占用信息
+
+# help(),帮助
+
+# h(),历史输入命令,以及结果
+# v(N),显示历史命令的结果
+
+=== 命令行参数 ===
+-pa     添加系统运行的路径
+
+=== 任务控制模块 ===
+使用Ctrl+G进入任务控制模块.
+
+该模块,可以接入,中断,杀死,任意一个任务.
+
+同时,可以启动或者停止一个本地erlang shell,或者一个远程erlang shell
+
+----
+
+== socket库 ==
+=== 套接字模式 ===
+
+- 主动模式（选项{active, true}）一般让人很喜欢，非阻塞消息接收，但在系统无法应对超大流量请求时，客户端发送的数据快过服务器可以处理的速度，那么系统就可能会造成消息缓冲区被塞满，可能出现持续繁忙的流量的极端情况下，系统因请求而溢出，虚拟机造成内存不足的风险而崩溃。
+- 使用被动模式（选项{active, false}）的套接字，底层的TCP缓冲区可用于抑制请求，并拒绝客户端的消息，在接收数据的地方都会调用gen_tcp:recv，造成阻塞（单进程模式下就只能消极等待某一个具体的客户端套接字，很危险）。需要注意的是，操作系统可能还会做一些缓存允许客户端机器继续发送少量数据，然后才会将其阻塞，此时Erlang尚未调用recv函数。
+- 混合型模式（半阻塞），使用选项{active, once}打开，主动仅针对一个消息，在控制进程发送完一个数据消息后，必须显示调用inet:setopts(Socket, [{active, once}])重新激活以便接受下一个消息（在此之前，系统处于阻塞状态）。可见，混合型模式综合了主动模式和被动模式的两者优势，可实现流量控制，防止服务器被过多消息淹没。
+
+----
+== 常见错误 ==
+# 需要将运行新的进程的函数,添加到模块的export处.
+    否则会有spawn该线程的时候,就会失败
+
+# function_clause   No matching function clause is found when evaluating a function call.
+== 系统监控 ==
+wsar
+
+== 虚拟机 ==
+beam

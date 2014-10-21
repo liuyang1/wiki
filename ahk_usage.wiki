@@ -1,0 +1,8 @@
+
+互换CapsLock与LCtrl
+
+CapsLock::LCtrl
+
+LCtrl::CapsLock
+
+

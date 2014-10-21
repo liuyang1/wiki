@@ -1,0 +1,130 @@
+= a.ts 一个解析示例 =
+
+关键是3个ts文件就可以了(没错,仅仅3个ts文件,因此ts的解析其实并不复杂.还应该说非常简单才是的).
+
+== 总体过程 ==
+# 找到PID==#0的PAT,ts包.从此开始解析,之前的都可以忽略掉.
+	# 解析PAT包.得到PMT包的PID值.
+# 找到PID为PMT包对应的TS包.解析PMT值.
+	# 得到对应内部音视频载荷数据的PID.
+# 根据得到的音视频PID,分析得到PES数据.
+# PES数据就是对应的内部载荷数据.
+
+== a.ts示例 ==
+=== PAT解析 ===
+{{{
+0000188 47 40 00 10 00 00 b0 0d 00 01 c1 00 00 00 01 ef
+0000204 ff 36 90 e2 3d ff ff ff ff ff ff ff ff ff ff ff
+0000220 ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+*
+*0000364 ff ff ff ff ff ff ff ff ff ff ff ff
+0000376
+}}}
+==== ts头部解析 ====
+
+- 47 -> sync_byte
+- 40 ->	transport_error_idc : 0
+		payload_unit_start_idc : 1
+		transport_priority : 0
+- 40 00 ->	PID : #000
+- 10 ->	transport_scrambling_control : 00
+		adaptation_field_control : 01(only have payload,not have adaptation field)
+		coutinuty_counter : 0
+
+==== pointer_field 解析 ====
+- 00	->	指定有效负载的位置.为之后立刻为有效负载.
+
+==== PAT头部解析 ====
+- 00	->	table_id	#00,为PAT.
+- b0 0d -> section_len 为 0x0d,也就是13个字节.
+- 00 01 -> transport_stream_id 为#0001(用于多路复用)
+- c1  ->	version_number为0,
+		current_next_idc为1,当前有效,不然可抛弃.
+- 00	->	section_number为0
+- 00	->	last_section_num,总共有section个数就1个.
+
+==== PAT数据解析 ====
+- 00 01 -> program number 为1.
+- EF FF -> network_PID为#fff.
+
+最后4个字节为CRC校验位.
+
+[]解析完毕.
+
+=== PMT解析 ===
+{{{
+0000376 47 4f ff 10 00 02 b0 12 00 01 c1 00 00 e1 00 f0
+0000392 00 1b e1 00 f0 00 15 bd 4d 56 ff ff ff ff ff ff
+0000408 ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+*
+*0000552 ff ff ff ff ff ff ff ff ff ff ff ff
+0000564
+}}}
+=== ts头部解析 ===
+PID为#fff,仅包含数据
+=== pointer field解析 ===
+立即开始
+=== PMT头部解析 ===
+- 02 -> stream_id,为PMT数据
+- b0 12 -> section_len为18个字节.
+- 00 01 -> program_num为1
+- 00 00 -> section_num为#0,且仅有1个section
+- e1 00 -> PCR_PID为#100
+- f0 00 -> program_info_len为0(跳过后面的描述符)
+
+==== PMT数据解析 ====
+- 1b ->　stream_type为1b.查表为AVC视频.(stream_type为1f,则为SVC视频)
+- e1 00 -> PID为#100
+- f0 00 -> ES_info_len为0.
+
+最后4个字节为CRC校验.
+
+[]解析完毕.
+
+
+== PES数据解析 ==
+{{{
+0000564 47 41 00 30 07 10 ff ff fa 22 fe 00 00 00 01 e0
+0000580 2f fe 80 c0 0a 31 00 01 00 01 1f ff ff e8 8b 00
+0000596 00 00 01 09 f0 00 00 00 01 67 4d 40 1e 92 56 04
+0000612 01 0d 80 88 00 00 1f 48 00 07 53 10 78 b1 69 c0
+0000628 00 00 00 01 68 ea 8c b2 00 00 01 06 05 ff ff b7
+0000644 dc 45 e9 bd e6 d9 48 b7 96 2c d8 20 d9 23 ee ef
+0000660 78 32 36 34 20 2d 20 63 6f 72 65 20 31 30 30 20
+0000676 2d 20 48 2e 32 36 34 2f 4d 50 45 47 2d 34 20 41
+0000692 56 43 20 63 6f 64 65 63 20 2d 20 43 6f 70 79 6c
+0000708 65 66 74 20 32 30 30 33 2d 32 30 31 30 20 2d 20
+0000724 68 74 74 70 3a 2f 2f 77 77 77 2e 76 69 64 65 6f
+0000740 6c 61 6e 2e 6f 72 67 2f 78 32 36 34
+0000752
+}}}
+=== ts头部解析 ===
+PID为#100,同时包含数据和adaptation_field.
+=== adatation_field解析 ===
+- 07 -> 长度7个字节.
+- 10 -> adation_field的内容.这里为PCR信息.
+
+=== PCR解析 ===
+ff ff fa 22 fe 00
+
+-> 解析为PCR信息,8589931589.
+	PCR_ext信息为0.
+
+=== PES头部解析 ===
+- 00 00 01 -> PES前缀
+- e0 -> stream_id
+- 2f fe -> PES_packet_len 为 12286字节.
+ 
+=== PES可选头部解析 ===
+- 80 -> 
+- c0 -> 含有pts,dts信息.
+- 0a -> 长度为10.
+- 31 00 01 00 01 -> pts解析为0??
+- 1f ff ff e8 8b -> dts解析.
+
+=== PES载荷 ===
+- 00 00 00 01 -> H.264前缀.
+- 09 f0 -> AUD
+- 00 00 00 01 -> H.264前缀
+- 01 67 4d .......
+-> H.264数据

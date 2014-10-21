@@ -1,0 +1,100 @@
+=AAC格式解析=
+2012年2月27日 19:11
+
+{{{
+http://blog.sina.com.cn/s/blog_5be1061c0100bmgh.html
+AAC文件格式解析 (2008-11-30 22:01:56)转载▼
+标签： aac 文件格式 解析 it        分类： WINCE应用软件
+今天有了一个新任务，要把RTSP的音频流存成文件，格式是AAC的。
+网上找了很久，也没有找到关于AAC文件的格式。
+后来请教了一个专门作编解码的同事，在ISO MPEG的文档里可能会有相关的信息。
+花了很长时间去找ISO的文档，ISO是收费的，网络是免费了，虽然难了点，但还是找到了部分的文档。其中辛苦不足为外人道也。
+在找了个quicktime可以播放的aac文件，边看文档，边分析一下，总算是基本搞定了。但是有的文档没找到，还有些字段不知是什么意思。不管了，反正能放了:)
+ 
+AAC格式是frame head + frame length, 没有文件头。感到比较奇怪的，我觉得应该是有文件头的，文档上也有adts_fixed_header，但是好像没有头quicktime也能放，那就先不管了吧。
+参见ISO/IEC 11496-3 1.1 Interchange format streams
+ 
+ 
+adts_frame()
+{
+byte_alignment()
+adts_fixed_header()
+adts_variable_header()
+adts_error_check()
+óISO/IEC ISO/IEC CD 14496-3 Subpart 4: 1998
+MPEG-4 CD 14496-3 Subpart 4 / 20:09 / 22.06.98 11
+for( i=0; i<number_of_raw_data_blocks_in_frame+1; i++) {
+raw_data_block()
+}
+}
+ 
+adts_fixed_header()
+{
+syncword      12 bslbf
+ID        1 bslbf
+layer       2 uimsbf
+protection_absent    1 bslbf
+profile      2 uimsbf
+sampling_frequency_index  4 uimsbf
+private_bit     1 bslbf
+channel_configuration   3 uimsbf
+original/copy     1 bslbf
+home       1 bslbf
+emphasis      2 bslbf
+}
+ 
+adts_variable_header()
+{
+copyright_identification_bit 1 bslbf
+copyright_identification_start 1 bslbf
+frame_length 13 bslbf
+adts_buffer_fullness 11 bslbf
+number_of_raw_data_blocks_in_frame 2 uimsfb
+}
+ 
+ 存文件的代码：
+   static char head1[7];
+   int temp = frame_len + 7;
+   head1[0] = (char)0xff;
+   head1[1] = (char)0xf9;
+   int sr_index = rtp_aac_get_sr_index(aac_param_ptr->sample_rate);
+   head1[2] = (0x01<<6)|(sr_index<<2)|0x00;
+   //head1[3] = (char)0x80;  //双声道？ a=rtpmap:97 mpeg4-generic/44100/2
+   head1[3] = (char)0x40;    //单声道？ a=rtpmap:97 mpeg4-generic/44800
+   head1[4] = (temp>>3)&0xff;
+   head1[5] = ((temp&0x07)<<5|0x1f);
+   head1[6] = (char)0xfc;
+ 
+   fwrite(head1,1,sizeof(head1),g_file_audio);
+   fwrite(frame_buf,1,frame_len,g_file_audio);
+ 
+其中frame_buf是一帧的数据，framec_len是帧长度。
+ 
+简单的说明和困惑：
+长度为7个字节
+ 
+syncword       12 bit   1111 1111 1111
+ID                 1 bit     1 for mpeg audio
+layer              2 bit     not sure, I set to 00
+protection_absent   1 bit   set to 1
+profile           2 bit   1  for AAC main
+sampling_frequency_index   4 bit   sample rate index
+private_bit    1 bit     set to 0
+channel_configuration   3 bit  是不是声道数？
+在SDP中有  a=rtpmap:97 mpeg4-generic/44100/2  此时  channel_configuration ＝ 010
+a=rtpmap:97 mpeg4-generic/44800   此时 channel_configuration ＝ 001
+original/copy  1 bit    set to 0
+home      1 bit     set ot 0
+emphasis  2bit  set to 00
+copyright_identification_bit   1 bit   set to 0
+copyright_identification_start  1 bit  set to 0
+frame_length                     13 bit   这个长度是包括head 7个字节的
+最后添FC    最后两个字段没搞清楚
+ 
+文档不全，对编解码也知之甚少，只能靠分析别人的文件和试验了，至少能出声音了。
+ 
+ 
+http://blog.csdn.net/evanwu_85/article/details/5946594
+ 
+http://biliucheng.blog.163.com/blog/static/1065258520101185532528/
+}}}

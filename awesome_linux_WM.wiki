@@ -1,0 +1,72 @@
+
+=awesome配置文档=
+http://blog.csdn.net/wearenoth/article/details/7489157
+http://josephpan.net/blog/?p=992
+
+awesome的配置,不需要需改.xinitrc,这个文件用于自动启动,目前ubunut已经采用了会话管理器,因此不需要这个.
+
+awesome的配置文件在.config/awesome/rc.lua.注意,从/etc/xdg/awesome/rc.lua复制到上述位置,进一步修改,如果仅仅是新建,然后自己添加,这样不是一个有效的配置文件,是不可以的.
+
+快捷键
+- Mod4 win键/super键
+- Mod1 Alt键
+- Control ctrl键
+
+快捷键列表
+- #+Enter	运行term
+- #+r		运行"运行框"
+- #+shift+c	关闭当前窗口
+- #+m		最大化窗口
+- #+ctrl+R	重启awesome
+- #+j/k		切换窗口(依次切换,(当Alt+Tab,不好用的时候使用)
+- #+1/2/..	切换虚拟窗口
+- #+left/right 依次切换虚拟桌面
+- #+ctrl+1~9	把当前桌面与1~9桌面合并显示(有使用潜力)
+- #+shift+j	互换窗口
+- #+h/l		增大/减少主区域大小
+- #+space	调整到下一个窗口布局
+- #+shift+space	调整到上一个窗口布局
+- #+ctrl+space	调整到窗口是否为浮动
+
+切换屏幕
+- Mod4+Ctrl+j	切换到下一个屏幕
+- Mod4+Ctrl+k	切换到上一个屏幕
+- Mod4+o		将当前切换到下一个屏幕
+{{{
+	如果窗口为浮动模式,则上方的任务栏会有飞鸟状的图标.只有当窗口不是浮动模式,才会按照窗口布局进行分布.		
+}}}
+- #+shift+1~9	移动当前程序到目标工作区
+
+== 主题设置 ==
+设置主题
+
+== 声音设置 ==
+安装pavucontrol,然后dbus-launch pavucontrol就可以控制声音了.
+
+
+== linux下窗口信息获取 ==
+对于linux下,可以通过xprop程序获取窗口信息.
+
+xprop | grep WM_CLASS
+
+可以获取窗口类的名称,在设置Chromium-browser的awesome规则适合用到.
+
+== 无法设置壁纸的问题 ==
+这是因为awesome的配置文件,后台也是使用其他东西实现的.
+
+具体到设置壁纸,使用的是feh.
+
+安装feh即可解决这个问题.
+
+----
+== 问题 ==
+偶尔会出现无法移动鼠标的问题.
+
+这是因为gtk的程序,影响了后台的鼠标事件的处理.
+
+解决办法就是关掉一些gtk的程序.或者不要使用free这种窗口模式,避免gtk程序经常resize.
+
+2014-01-08 15:45:53
+Mod4 + o 移动窗口到下一个屏幕的功能会失效.
+
+如果显卡的某些设置有问题的情况,会引起这种问题.Xinerama的功能要开启.

@@ -8,6 +8,7 @@
 * [[sed]]
 * [[vim]]
 * [[vim_plugin]]
+* [[cloc_usage|cloc]]
 
 === software management ===
 * [[apt_dpkg]]
@@ -20,18 +21,49 @@
 * [[git]]
 * [[gerrit]]
 
-== programming language ==
-* [[python]]
-* [[shell]]
-* [[win_bat]]
-
 === multimedia ===
 * [[ffmpeg]]
+* [[vlc]]
+
+=== Window Manager ===
+* [[awesome_linux_WM|Awesome WM]]
+
+=== browser ===
+* [[chrome_usage|Chrome]]
+
+== programming language ==
+
+=== c-family lang ===
+
+=== python-like lang ===
+* [[python]]
+* [[ruby]]
+=== script lang ===
+* [[shell]]
+* [[win_bat]]
+=== functional lang ===
+* [[haskell]]
+* [[clojure]]
+* [[scheme]]
+* [[erlang]]
+
+=== other ===
+* [[ahk_usage|Auto Hot Key]]
+
+== filetype ==
+* [[m3u8]]
+* [[mpegts_format|MPEG-TS]]
+* [[AAC_format|aac]]
+* [[HEVC]]
 
 == android ==
 * [[adb]]
 * [[android_test]]
 * [[arm_hardware]]
 
+== book list ==
+* [[6001_SICP|SICP]]
+
+* [[algo]]
 == math ==
 [[number_theory|number theory]]

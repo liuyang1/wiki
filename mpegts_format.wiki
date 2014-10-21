@@ -1,0 +1,281 @@
+=ts格式=
+
+{{{
+TS包的大小为188,为ATM信元的4倍.
+ATM信元为53字节,其中信元头5B,信元体为48字节.
+因此对应4倍为192字节.
+TS流由一个或则多个PES包组合而来.
+TS的头部4B,其他为184B.
+ 
+TS的载荷可以为任意内容.因为其本身为传输层协议栈.传输规范由PSI信息决定.
+}}}
+== ts标准中的格式说明 ==
+bslbf		位串,坐标为第一个.
+uimsbf		无符号位整位,高位在前.
+== ts头部格式 ==
+
+ts_packet(){
+	bslbf	8	sync_byte;//0x47
+	bslbf	1	transport_error_idc;//if 1,occur one error.discard this ts packet.
+	bslbf	1	payload_unit_start_idc;// pes,1,表示为pes分组首字节.0表明开始不是pes分组.
+										// psi
+	bslbf	1	transport_priority
+	uimsbf	13	PID
+	bslbf	2	transport_scrambling_control;//加密模式,00表示未加密
+	bslbf	2	adaptation_field_control;//first bit,contain adaptation.second bit,contain data_byte.00,为未来使用保留.
+	uimsbf	4	continuity_counter;//计数位,注意,这个计数位仅仅随着该PID的数据包增加,如果只有adaptation,则不应该增加.
+	// -- 以上固定为4个字节.
+	// adaptation_field(as contorl)
+	// data_byte(ascontrol)空分组PID应该为0x1FFF.数据可以为任意值.
+}
+
+== 调整字段语义. ==
+adaptation_field(){
+	uimsbf	8	adaptation_field_length;//注意不包含自身这个字节的长度,也就是后面部分的长度.
+	if(adaptation_field_length>0){
+		bslbf	1	discontinuity_idc;//该参数的意义较为复杂
+		bslbf	1	random_access_dic;//当payload_unit_start_idc为1时,下一个PES分组的首字节就在random_access_dic为1的分组中出现.	否则,则在下一个同一个PID的payload_unit_start_idc为1的分组中出现.
+		bslbf	1	ES_priority_idc;
+		bslbf	1	PCR_flag;
+		bslbf	1	OPCR_flag;
+		bslbf	1	splicing_point_flag;
+		bslbf	1	transport_private_data_flag;
+		bslbf	1	adaptation_field_ext_flag;
+		if(PCR_flag=='1'){
+			uimsbf	33	program_clock_ref_base;
+			bslbf	6	reserved;
+			uimsbf	9	program_clock_ref_ext;
+		}
+		if(OPCR_flag=='1'){
+			uimsbf	33	original_program_clock_ref_base;
+			bslbf	6	reserved;
+			uimsbf	9	original_program_clock_ref_ext;
+		}
+		if(splicing_point_flag=='1'){
+			tcimsbf	8	splice_countdown;//
+		}
+		if(transport_private_data_flag=='1'){
+			uimsbf	8	tranport_private_data_length;
+			bslbf	8*len	private_data_type;
+		}
+		if(adaptation_field_ext_flag=='1'){
+			//TODO;
+		}
+		bslbf	8*N	stuffing_byte;//"0xFF"
+		
+	}
+	
+== PES ==
+PES_Packet(){
+	bslbf	24	packet_start_code_prefix;//"0x00 0001"
+	ulimsbf	8	stream_id;// 0xBC~0xFF
+	
+	ulimsbf	16	PES_packet_length;
+	if(...){
+		'10';
+		bslbf	2	PES_scrambling_control;
+		bslbf	1	PES_priority;
+		bslbf	1	data_align_idc;
+		bslbf	1	copyright;
+		bslbf	1	original_or_copy;
+		bslbf	2	PTD_DTS_flags;
+		bslbf	1	ESCR_flag;
+		bslbf	1	ES_rate_flag;
+		bslbf	1	DSM_trick_mode_flag;
+		bslbf	1	additional_copy_info_flag;
+		bslbf	1	PES_CRC_flag;
+		bslbf	1	PES_ext_flag;
+		bslbf	8	PES_header_data_len;
+		if(PTS_DTS_flags=='10'){
+			PTS;
+		}
+		if(PTS_DTS_flags=='11'){
+			PTS;
+			DTS;
+		}
+		if(ES_rate_flag=='1'){
+			ES_rate;
+		}
+		if(DSM_trick_mode_flag=='1'){
+			DSM_trick_mode;
+		}
+		if(additional_copy_info_flag=='1'){
+			additional_copy_info;
+		}
+		if(PES_CRC_flag=='1'){
+			previous_PES_packet_CRC;
+		}
+		if(PES_ext_flag=='1'){
+			PES_ext;
+		}
+	}
+	else if(...){
+		PES_packet_data_byte;
+	}
+	else if(stream_id==padding_stream){
+		bslbf	8*N	padding_byte;
+	}
+
+}
+
+stream_id list
+
+1011 1100	1	program_stream_map
+
+== PSI ==
+program spec info
+
+PAT,PMT,等信息.
+== PAT ==
+PID#	0x00
+
+PAT(){
+	uimsbf	8	table_id;//0x00
+	bslbf	1	section_syntax_idc;//1
+	'0'
+	bslbf	2	reserved;
+	uimsbf	12	section_len;
+	uimsbf	16	tranport_stream_id;
+	bslbf	2	reserved;
+	uimsbf	5	version_num;
+	bslbf	1	current_next_idc;
+	uimsbf	8	section_num;
+	uimsbf	8	last_section_num;
+	for(i=0;i<N;i++){
+		uimsbf	16	program_num;
+		bslbf	3	reserved;
+		if(program_num=='0'){
+			network_PID;
+		}else{
+			program_map_PID;
+		}
+	}
+	rpchof	32	CRC_32;
+}
+==PMT==
+PMT(){
+	//TODO
+}
+==CAT==
+==PTS,DTS==
+==空包==
+{{{
+空包（Null Packets)
+有些传输架构，比如在ATSC和DVB的TS中强制限制比特率。为了保证流可以达到此固定的比特率，多路
+ 
+合成器需要插入一些附加的包。PID 0x1FFF被来表示这种类型的数据包。这些包中不包括任何数据载荷
+ 
+,接收器当收到这种数据包时将忽略它的内容。
+ 
+基于随机访问媒介的TS定义更改
+}}}
+
+== 封装H.264数据 ==
+基于H.222 2006-05标准
+
+2.14
+
+必须封装在PES包中.
+
+符合附录H.264标准附录B的定义.具有如下约束.
+# 每个AVC AU必须保留一个AU分割NALu.
+	note:
+	如果AU分割NALu出现,则是一个AVC AU的第一个NALu.则还有简化了对于图像的检测.避免处理片头信息.对于基层和扩展层的判断也是特别有用的.(因为slice的顺序可能是乱的).
+# 每个字节流的负载AU分割符的NALu,应该只包含一个0-byte的字节元素.
+	note:
+		
+		见附录B.
+# 所有的SPS和PPS必须出现在AVC视频流中.因为这个是解码AVC视频必须的.
+# 每个hdr_paramters()中low_delay_hrd_flags设为1的AVC视频流,
+	必须包含VUI参数,其中timing_info_present_flag置为1.
+
+为了解码XX,建议,每个AVC视频流都应该包含VUI信息.
+
+2.14.2 PES封装.
+最高层需要一个AVC视频描述符.
+----
+基于H.222 2009-03修订
+
+
+= 解析过程 =
+# 188字节为一个ts包.
+# 解析ts包的固定位.
+
+== MPEG2-system decooder side ==
+
+Syntax
+- TS
+- PS
+- PES packet
+- PAT
+- CAT
+- PMT
+- private section
+- Program Stream Map
+- Program Stream Directory
+
+== TS syntax ==
+
+| ts packet 1	|	ts packet 2	|	...	ts packet n	
+
+ts packet->
+	Header	|	payload
+
+Header->
+	sync_byte(8)|transport_error_idc(1)|payload_unit_start_idc(1)|transport_priority(1)|PID(13)|transport_scrambling_control(2)|adaptation_field_control(2)|continuity_counter(4)|adaptation_field
+
+adaptation_field->
+	adaptation_field_length(8)|discontinuity_dic(1)|random_access_idc(1)|ES_priority_idc(1)|5_flags(5)|optional_fields|stuffing_bytes(8*N)
+
+optional_fields->
+	PCR(42)|OPCR(42)|splice_countdown(8)|transport_private_data_length(8)|transport_private_data(1..len)|3flags(3)|optiona_fields2|stuffing_bytes(8*N)
+
+optiona_fields2->
+	ltw_valid_flag(1)|ltw_offset(15)|(2)|piecewise_rate(22)|splice_type(4)|DTS_next_AU(33)
+
+== PS syntax ==
+
+pack1	pack2	...	packN
+
+pack1->
+	pack_header|PES_packet1|PES_packet2|...
+
+pack_header->
+	pack_start_code(32)|'01'(2)|SCR(42)|program_mux_rate(22)|(5)|pack_stuffing_len(i)|pack_stuffing_byte(8*(1...i))|system_header
+
+system_header->
+	system_header_start_code(32)|header_len(16)|rate_bound(22)|audio_bound(6)|fixed_falg(1)|CSPS(flag)|system_audio_lock_flag(1)|system_video_flag(1)|video_bound(5)|private_rate_restriction_flag(1)|7|Nloop
+
+Nloop->
+	stream_id(8)|'11'(2)|P-STD_buffer_bound_scale|P-STD_buffer_size_bound(13)|REPEAT
+	
+== PES packet syntax ==
+
+packet_start_code_prefix(24)|stream_id(8)|PES_packet_len(16)|optinao_PES_Header|PES_packet_data_byte
+
+optinao_PES_Header->
+	'10'(2)|PES_scrambling_control(2)|PES_priority(1)|data_alignment_idc(1)|copyright(1)|original_or_copy(1)|7flags(8)|PES_header_data_len(8)|optinal_field|stuffing_byte(m*8)
+
+optinal_field->
+	PTSDTS(33)|ESCR(42)|ES_rate(22)|DSM_trick_mode(8)|additional_copy_info(7)|previous_PES_CRC(16)|PES_ext
+
+PES_ext->
+	5flags(5)|optinal_field
+
+optinal_field->
+	PES_private_data(128)|pack_header_field(8)|program_packet_seq_cntr(22)|P_STR_buffer(8)|PES_ext_field_len(16)|PES_ext_field_data ???
+
+== PAT_syntax ==
+table_id(8)|section_syntax_idc(1)|'0'|2|section_len(12)|transport_stream_id(16)|2|version_number(5)|current_next_idc(1)|section_num(8)|last_section_num(8)|Nloop|CRC(32)
+
+Nloop->
+	program_num 0(24)|3|networkPID(13)|REPEAT
+
+== PMT syntax ==
+table_id(8)|section_syntax_idc(1)|'0'|2|section_len(12)|number(16)|2|version_number(5)|current_next_idc(1)|section_num(8)|number(8)|3|PCR_PID(13)|4|program_info_len|Nloopdescriptors|Nloop|CRC(32)
+
+Nloop->
+	stream_type(8)|3|elementary_PID(13)|4|ES_info_len(12)|Nloopdescriptors???
+
+[[a_ts_praser_sample]]
+

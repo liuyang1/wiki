@@ -1,0 +1,7 @@
+= cloc 使用 =
+mtime: 2012-12-17 14:18:53 
+----
+统计代码行数.
+
+clock . --exclude-dir=test,.git
+

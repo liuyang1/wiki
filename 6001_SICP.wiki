@@ -1,0 +1,24 @@
+= SICP video =
+
+eval/apply is a LOOP.
+
+== 1a ==
+
+CS is not science.is not about computer,physics.
+
+compare between CS for us vs. Geometry for Egyptians.
+
+develop a way to talk precisely about HOW-TO knowledge.
+
+Newton Method to calc sqrt(x)
+
+PROCEDURE
+
+build computer program,
+the only reason of that's possible is because there are techniques for CONTROLLING the COMPLEXITY of these large systems.
+
+CS deals with IDEALIZED components.so CS not have limitations of our own minds.
+
+# BLACK-BOX abstraction.
+# Conventinal interface
+	
