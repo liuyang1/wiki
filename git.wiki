@@ -43,3 +43,21 @@ rebase compare with cherry-pick
 因为不需要经历一点点的commit过程,而是直接将某个commit移动过去.
 
 这是git的分布式设计所决定的.
+
+== date ==
+* default
+show timestamp in the original timezone
+* local
+show timestamp as current user's local timezone
+* short
+only show date
+* relative
+show date relative to current time
+* rfc2822
+show time as RFC2822, which often using in email message
+(look like same with default)
+* iso/iso8601
+as iso format
+(look like same with default)
+* raw
+git raw format (seconds number and timezone)

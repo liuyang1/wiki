@@ -1,4 +1,71 @@
- = shell script programming =
+= shell script programming =
+
+== gotchas ==
+
+* assign reserved words or chars to var name.
+* using a hyphen or other reserved char name.
+only use _ in var or function name.
+* using same name for a var and a function.
+* using whitespace inappropriately.
+In bash, you have to using whitespace exactly.
+for var init, not using whitespace, other issue, add whitespace.
+* add semicolon ; for the final command in code block.
+or bash can not detect EOF.
+* uninit var will get blank string default.
+using set -u or set -o nounset to defend this BUG.
+* = -eq, different meaning
+= is for string compare, while -eq for number.
+* string compare
+> < for redirect stdin or stdout, \< \> is for string compare.
+-gt -lt is for number.
+* using let for var assign
+let is only for number arithmetic operations on var.
+* var with [], need to be quoted with ""
+* quoting a var containg whitespace prevents auto spliting.
+* commands will faild to execute when script runner lacks permissions.
+* DONOT using - as a redirection operator.
+* exit staus of an arithmetic not equivalent to an errorcode.
+* using DOS-stype \r\n will fail to execute
+dos2unix to transfer it.
+* not push whitespace in front of termiating limit string of a here document.
+here document will introduce when next time use it.
+* puting more ouput when using echo result as return value.
+* not trying using var in a subshell
+* piping echo output to a read may produce unexpcted results.
+may not quit.
+example:
+tail -f somefile | grep abc
+* not using SUID command, this is dangrous.
+* using shell script for CGI maybe problems, as shell var are not typesafe.
+shell script is so easy to crack.
+SHELLSHOCK.
+* bash does not handle double slash // string correctly.
+
+using shellcheck to detect this warnings to write robust bash script.
+
+
+== bash basic ==
+=== more bash options ===
+* -v                verbose
+* -u/-o nounset     unset var, will quit
+* -e/-o errexit     exit when any command return false
+but now you can judge on $?, will have to use && or || to combine command
+* -o pipefall       fail when one of pipe fall (default as last command)
+reverse operation +v or +u ...
+
+=== trap ===
+trap for clean state, when script have some exceptional condition.
+
+trap command signal [signal ...]
+
+* INT   Interrupt, Ctrl-C
+* TERM  Terminate, kill
+* EXIT  exit, when script exit, send this signal
+
+XXX:
+trap will continue run command which after it.
+so remember add a "exit" in trap command.
+this is like case: break in C.
 === logic about file ===
 * -d    dir exist?
 * -z    var exist?
@@ -9,6 +76,21 @@
 * -x    executable?
 * !     negtive
 * -nt   compare access time with two files
+
+=== logic about string ===
+* =     equal?
+* ==    equal?
+* !=    not equal?
+* -n    is null? or is not init?
+
+string with wildcard, using start symbol.
+
+$abc == *abc*
+
+=== logic about number ===
+* -eq   equal?
+* -gt   greater than
+* -lt   less than
 
 == array ==
 * define
@@ -91,7 +173,8 @@ good to use as conditional
 
 # change global or environment Var to return value
 
-but last 2 method won't work when run in subprocess, as not return value for subprocess,
+but last 2 method won't work when run in subprocess,
+as not return value for subprocess,
 and child-process cannot modify parent-process env-var
 
 # using stdout to return val,

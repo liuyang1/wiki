@@ -3,6 +3,6 @@
 
 such as: tiwlan0, eth0, lo
 
-- netcfg
+* netcfg [<interface> {dhcp|up|down}]
 
 - ip addr

@@ -2,6 +2,8 @@
 [[TODO]]
 
 == shell tool ==
+
+* [[shell_cmd]]
 === text tool ===
 * [[ack]]
 * [[awk]]
