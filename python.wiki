@@ -1,4 +1,42 @@
 = python =
+
+== IO ==
+* write
+* str
+we can use rjust, ljust, center, zfill, this will generate new string, but much more readable for output.
+
+str.format()
+
+'...{}...'.format('spam', 'eggs')
+
+'...{1}...'.format('eggs', 'spam')
+
+'...{food}'.format('eggs')
+
+this will generate more readable code, and dictionay output
+
+```
+dct={'a':"1",'b':"2",'c':"3",'d':"4"}
+print "{a},{b},{c}".format(**dct)
+```
+
+```
+format_spec ::=  [[fill]align][sign][#][0][width][,][.precision][type]
+fill        ::=  <any character>
+align       ::=  "<" | ">" | "=" | "^"
+sign        ::=  "+" | "-" | " "
+width       ::=  integer
+precision   ::=  integer
+type        ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
+```
+* repr
+repr is like str, but repr output can be read by interpreter.
+
+=== format string syntax ===
+[[https://docs.python.org/2/library/string.html#format-examples|Format examples]]
+=== template strings ===
+[[https://docs.python.org/2/library/string.html#template-strings|Template strings]]
+
 [[python_lib]]
 
 [[python_test]]

@@ -40,7 +40,7 @@
 * [[ruby]]
 === script lang ===
 * [[shell]]
-* [[win_bat]]
+* [[win_bat|Windows bat]]
 === functional lang ===
 * [[haskell]]
 * [[clojure]]
@@ -64,6 +64,6 @@
 == book list ==
 * [[6001_SICP|SICP]]
 
+== theory knowledge ==
 * [[algo]]
-== math ==
-[[number_theory|number theory]]
+* [[number_theory|number theory]]
