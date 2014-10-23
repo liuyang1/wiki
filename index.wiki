@@ -47,6 +47,7 @@
 === script lang ===
 * [[shell]]
 * [[win_bat|Windows bat]]
+* [[vim_script|Vim Script]]
 === functional lang ===
 * [[haskell]]
 * [[clojure]]

@@ -1,5 +1,235 @@
 = git =
 
+== 上游问题 ==
+git remote add upstream XXX
+
+git fetch upstream
+
+git merge upstream/master
+
+git push
+
+删除上游
+
+git remote rm UPSTREAM
+== diff ==
+- git diff 查看目前未缓存的修改
+- git diff --cache 查看已经add的修改内容
+- git diff HEAD 同时查看已经缓存和未缓存的修改内容
+
+== add to stage ==
+使用-p,交互式方式,可以更为细节的控制哪些更改需要加入到stage.最后对其进行commit.
+
+这种方式设置支持到行级别.
+== tag ==
+- 添加tag	git tag -a vXXX -m "MMM"
+- 删除tag	git tag -d vXXX
+- push远程tag	git push --tags
+- 删除远程tag	git push origin :vXXX
+
+== 撤销最后一个commit ==
+git reset HEAD~1
+
+== 撤销merge ==
+git reset --hard hash值即可
+
+== 撤销一个push到远端服务器的commit ==
+git reset --hard	#清空工作区,也可以用于git pull之后发生冲突之后,的撤销操作.
+
+git rm删除文件,或者作出其他修改.
+
+git add .,再添加修改.
+
+git commit --amend -m "msg"
+
+git push origin +master:master(这一步很关键)
+
+这样就可以了.
+
+ref:http://blog.csdn.net/brave_heart_lxl/article/details/6651077
+
+== gitignore ==
+经常会在代码目录下面生成很多无用的东西,因此需要自动忽略一些文件,可以通过这个方法.
+
+添加.gitignore文件(对每个文件下面,不仅仅是每个repo下)
+
+添加.gitignore_global
+
+通过命令git config --global core.excluedsfile ~/.giti来.
+
+具体需要忽略的文件,写作上面的文件中.
+
+例如:
+*.exe
+*.a
+*.so
+等等.
+
+
+==服务器配置==
+
+服务器更新
+{{{
+	mkdir /path/to/git/repo
+	cd /path/to/git/repo
+	git --bare init
+}}}
+客户端使用
+之前需要建立git目录,并且坐同步之类的..
+{{{
+	git init
+	git add *
+	git commit -m "MSG"
+	//必须有一次commit历史,才可以进行后续的git push origin master操作,不然会发生错误.
+	//mtime: 2012-10-23 16:52:02
+}}}
+之后第一次到服务器上
+{{{
+	git remote add origin user@host:/path/to/git/repo
+	git push origin master
+}}}
+以后同步到服务器上只需要
+{{{
+	git push
+}}}
+
+如果到一个新的机器上面,需要首先clone代码库
+{{{
+	git clone user@host:/path/
+}}}
+
+更新到最新版本到master
+{{{
+	git pull user@host:/path/ master
+	git pull origin master
+}}}
+== 分支与合并 ==
+创建分支
+
+git checkout -b dev master
+
+发布分支到master
+
+git checkout master
+
+git merge --no-ff dev
+
+--no-ff
+说明不采用fast-forward merge,这种方法仅仅将master分支指向dev分支,容易造成分支混乱
+
+删除分支
+
+git br -d BRANCHNAME
+
+强制删除分支
+
+git br -D BRANCHNAME
+== 颜色输出 ==
+对于一个蛋疼的人来说,丰富多彩的颜色输出是特别有必要的.
+
+git配置颜色输出
+
+git config --global --add color.ui true
+== 问题解决 ==
+解决 your branch is ahead of origin master by 1 commit 类似的问题
+
+mtime: 2013-01-03 19:24:43 
+
+这根本就不是一个问题,完全是因为使用不熟悉误解的.这个意思,就是本地的repo的commit领先于origin分支,因此仅仅通过git push即可解决这个问题.
+
+== 中文乱码问题 ==
+没有相对较好的方法,强制设为utf8是一个办法.
+
+所有文本文件设为utf8
+
+配置
+core.quotepath false
+i18n.logoutputencoding utf8
+i18n.commitecoding utf8
+----
+
+== git 统计 ==
+使用gitstats工具.
+
+gitstats /path/to/git/repos /stat/result/path
+
+之后可以到统计结果的地方,打开index.html查看
+
+== gitlab ==
+一个自托管git管理软件
+
+==ref==
+[[http://hi.baidu.com/wentaokou/item/647c472793012757c28d595f]]
+[[http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/zh_cn/ch06.html]]
+
+介绍的好文章
+http://rogerdudler.github.com/git-guide/index.zh.html
+
+read it agian!
+
+
+== 移除大文件 ==
+git gc
+
+git count-objects -v
+
+git verify-pack -v .git/objects/pack/pack-XXXX.idx | sort -k 3 -n | tail -3
+
+列出最大的三个文件
+
+git rev-list --objects --all | grep 7a93XXX
+
+查看该hash值对应的文件名
+
+git log --pretty=oneline -- FILENAME
+
+git filter-branch --index-filter 'git rm --cached --ignore-unmatch FILENAME' -- LOGHASH
+
+重写commit信息.
+
+rm -Rf .git/refs/original
+
+rm -Rf .git/logs
+
+git gc
+
+git count-objects -v
+
+git prune --expire FILENAME
+
+真正删除物理上的文件
+
+== 查看具体每个文件的修改历史 ==
+git log FILENAME
+
+git show HASHVALUE
+
+== git svn协作 ==
+git-svn是一个远程为svn,本地修改采用git的工具.
+
+更新到svn repo之前先进行同步,防止冲突
+git svn rebase
+
+将git本地的修改同步到svn repo内.
+git svn dcommit
+
+git 和 svn 的 tag 方面的原理是不一样的. 因此在 git-svn 中, 一般采用
+
+git svn branch --tag
+或者
+git svn tag
+用于创建 tags, 然后就可以 dcommit 了.
+
+
+== git repo镜像 ==
+git push --mirror URL
+
+== tig ==
+控制台浏览工具
+
+可以方便的检查变更.具体之后在尝试吧.
+
+ref::[[http://cmonkey.github.io/blog/2012/04/01/tig/]]
 == clean ==
 用于清除git的多余的文件
 必须添加-f或者-n参数.

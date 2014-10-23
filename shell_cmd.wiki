@@ -1,0 +1,28 @@
+=== find ===
+
+=== xargs ===
+
+when you combine use FIND and XARGS, will have to using -print0 to
+delimter filenames, not newline or whitespace character.
+
+== system and admin ==
+=== user and group ===
+useradd
+
+groupadd
+
+chown
+
+who
+
+su
+
+sudo
+
+passwd
+
+wall
+
+broadcast message to all user who login and with terminal enabled MESG
+
+talk

@@ -96,7 +96,7 @@ vim scp://hd0/.bash_profile
 - :set paste
 - :set nopaste          设置进入粘贴模式,这样复制粘贴代码的时候,自动缩进就会失效.很有用.
 
-===移动===
+===移动 move / jump ===
 - <C-F/B>               前/后翻页
 - <C-D/U>               前后翻半页
 - *zz/zt/zb             光标所在行移到屏幕中间,上面,下面*很有用!
@@ -106,6 +106,7 @@ vim scp://hd0/.bash_profile
 - f/F[字母]             向前或者向后跳转到该字符
 - nnnG          跳转到指定行
 - 024l          跳转到第24列,注意这个其实是组合命令,0移动到行首,然后向右移动24列
+* %                     move to match char, for exmaples: ( aabc )
 
 ====块跳转====
 - ]]/[[                 跳转块

@@ -1,71 +1,7 @@
 = shell script programming =
 
-== gotchas ==
-
-* assign reserved words or chars to var name.
-* using a hyphen or other reserved char name.
-only use _ in var or function name.
-* using same name for a var and a function.
-* using whitespace inappropriately.
-In bash, you have to using whitespace exactly.
-for var init, not using whitespace, other issue, add whitespace.
-* add semicolon ; for the final command in code block.
-or bash can not detect EOF.
-* uninit var will get blank string default.
-using set -u or set -o nounset to defend this BUG.
-* = -eq, different meaning
-= is for string compare, while -eq for number.
-* string compare
-> < for redirect stdin or stdout, \< \> is for string compare.
--gt -lt is for number.
-* using let for var assign
-let is only for number arithmetic operations on var.
-* var with [], need to be quoted with ""
-* quoting a var containg whitespace prevents auto spliting.
-* commands will faild to execute when script runner lacks permissions.
-* DONOT using - as a redirection operator.
-* exit staus of an arithmetic not equivalent to an errorcode.
-* using DOS-stype \r\n will fail to execute
-dos2unix to transfer it.
-* not push whitespace in front of termiating limit string of a here document.
-here document will introduce when next time use it.
-* puting more ouput when using echo result as return value.
-* not trying using var in a subshell
-* piping echo output to a read may produce unexpcted results.
-may not quit.
-example:
-tail -f somefile | grep abc
-* not using SUID command, this is dangrous.
-* using shell script for CGI maybe problems, as shell var are not typesafe.
-shell script is so easy to crack.
-SHELLSHOCK.
-* bash does not handle double slash // string correctly.
-
-using shellcheck to detect this warnings to write robust bash script.
-
-
 == bash basic ==
-=== more bash options ===
-* -v                verbose
-* -u/-o nounset     unset var, will quit
-* -e/-o errexit     exit when any command return false
-but now you can judge on $?, will have to use && or || to combine command
-* -o pipefall       fail when one of pipe fall (default as last command)
-reverse operation +v or +u ...
 
-=== trap ===
-trap for clean state, when script have some exceptional condition.
-
-trap command signal [signal ...]
-
-* INT   Interrupt, Ctrl-C
-* TERM  Terminate, kill
-* EXIT  exit, when script exit, send this signal
-
-XXX:
-trap will continue run command which after it.
-so remember add a "exit" in trap command.
-this is like case: break in C.
 === logic about file ===
 * -d    dir exist?
 * -z    var exist?
@@ -121,13 +57,34 @@ for (( i = 0 ; i < ${#names[@]} ; i++ )) do
 done
 }}}
 
-== display command ==
+=== more bash options ===
+* -v                verbose
+* -u/-o nounset     unset var, will quit
+* -e/-o errexit     exit when any command return false
+but now you can judge on $?, will have to use && or || to combine command
+* -o pipefall       fail when one of pipe fall (default as last command)
+reverse operation +v or +u ...
+
+example::
 :script:
 set -v on
 
 :cmd:
 bash -v
 
+=== trap ===
+trap for clean state, when script have some exceptional condition.
+
+trap command signal [signal ...]
+
+* INT   Interrupt, Ctrl-C
+* TERM  Terminate, kill
+* EXIT  exit, when script exit, send this signal
+
+XXX:
+trap will continue run command which after it.
+so remember add a "exit" in trap command.
+this is like case: break in C.
 == getops ==
 参数解析
 
@@ -182,6 +139,40 @@ and child-process cannot modify parent-process env-var
 
 not output anything, will mix stdout
 
+== string operation ==
+=== judge or get string var value ===
+* ${var}            var value, same with var
+* ${var-DEFAULT}    if var not exist, return default.
+* ${var:-DEFAULT}   if var not exist or is blank string, return default.
+* ${var=DEFAULT}    if var not exist, setting its value to DEFAULT
+* ${var:=DEFAULT}   if var not exist or is blank string, setting its value to 
+DEFAULT
+* ${var+OTHER}      if var exist, then return OTHER, else return blank string.
+* ${var:+OTHER}     if var setting, ...
+* ${var?ERR_MSG}    if var not exist, then print ERR_MSG
+* ${var:?ERR_MSG}   if var not setting, ...
+* ${!varprefix*}    match all var which startswith varprefix (only return var
+name)
+* ${!varprefix@}    lbid
+
+=== string operation ===
+* ${#string}        length of str
+* ${str:pos}        substr from pos
+* ${str:pos:len}    substr from pos and length is len
+* ${str#sub}        from head, delete shortest matched substr
+* ${str##sub}       from head, delete longest matched substr
+* ${str%sub}        from tail, delete shortest matched substr
+* ${str%%sub}       from tail, delete longest matched substr
+* ${str/sub/rep}    replace first sub to rep
+* ${str//sub/rep}   replace all sub to rep
+* ${str/#sub/rep}   if str has sub as its prefix, then replace rep to sub
+* ${str/%sub/rep}   if str has sub as its suffix, then replace rep to sub
+
+all sub could be a Regular Expression.
+
+`${var##*/}`        var is path, delete all dirname, get basename
+`${var%/*}`       var is path, delete basename, get dirname
+
 == meta skill ==
 === dynamic var name ===
 {{{
@@ -224,3 +215,47 @@ export -f FuncName
 export Varname
 
 XXX: can not export array Var
+== gotchas ==
+
+* assign reserved words or chars to var name.
+* using a hyphen or other reserved char name.
+only use _ in var or function name.
+* using same name for a var and a function.
+* using whitespace inappropriately.
+In bash, you have to using whitespace exactly.
+for var init, not using whitespace, other issue, add whitespace.
+* add semicolon ; for the final command in code block.
+or bash can not detect EOF.
+* uninit var will get blank string default.
+using set -u or set -o nounset to defend this BUG.
+* = -eq, different meaning
+= is for string compare, while -eq for number.
+* string compare
+> < for redirect stdin or stdout, \< \> is for string compare.
+-gt -lt is for number.
+* using let for var assign
+let is only for number arithmetic operations on var.
+* var with [], need to be quoted with ""
+* quoting a var containg whitespace prevents auto spliting.
+* commands will faild to execute when script runner lacks permissions.
+* DONOT using - as a redirection operator.
+* exit staus of an arithmetic not equivalent to an errorcode.
+* using DOS-stype \r\n will fail to execute
+dos2unix to transfer it.
+* not push whitespace in front of termiating limit string of a here document.
+here document will introduce when next time use it.
+* puting more ouput when using echo result as return value.
+* not trying using var in a subshell
+* piping echo output to a read may produce unexpcted results.
+may not quit.
+example:
+tail -f somefile | grep abc
+* not using SUID command, this is dangrous.
+* using shell script for CGI maybe problems, as shell var are not typesafe.
+shell script is so easy to crack.
+SHELLSHOCK.
+* bash does not handle double slash // string correctly.
+
+using shellcheck to detect this warnings to write robust bash script.
+
+* add local,readonly decorator

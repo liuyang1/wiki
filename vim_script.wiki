@@ -1,0 +1,13 @@
+= vim script =
+== function ==
+function name usually starts with Captial char.
+
+== string ==
+string using "." to combine.
+
+"+" always want transfer to integer and calc.
+
+so "a" + "b" is 0, as 0 + 0 is 0
+
+tips::
+using echom can test string operations.
