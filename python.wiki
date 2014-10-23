@@ -1,5 +1,8 @@
 = python =
 
+[[python_lib]]
+
+[[python_test]]
 == IO ==
 * write
 * str
@@ -37,9 +40,6 @@ repr is like str, but repr output can be read by interpreter.
 === template strings ===
 [[https://docs.python.org/2/library/string.html#template-strings|Template strings]]
 
-[[python_lib]]
-
-[[python_test]]
 
 === uncompile ===
 :uncomplyle2:

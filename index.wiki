@@ -4,6 +4,8 @@
 == shell tool ==
 
 * [[shell_cmd]]
+* [[security_tool|Security Tools]]
+* [[zip_cmd|Archive tools]]
 === text tool ===
 * [[ack]]
 * [[awk]]
@@ -27,11 +29,13 @@
 * [[ffmpeg]]
 * [[vlc]]
 
+* [[image_tool|Image Tools]]
 === Window Manager ===
 * [[awesome_linux_WM|Awesome WM]]
 
 === browser ===
 * [[chrome_usage|Chrome]]
+* [[text_browser|Text-Mode browser]]
 
 == programming language ==
 

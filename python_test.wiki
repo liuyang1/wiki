@@ -8,3 +8,14 @@ docstring
 >>>testinput()
 testoutput
 """
+
+== pydoc ==
+help generate python document
+
+* -w    write html document file
+* -k    will search all avaiable module
+* -p    port, to start a web server on port
+
+using pydoc web server, easily browser python document offline.
+
+good tools!!
