@@ -67,6 +67,9 @@ vim scp://hd0/.bash_profile
 
 - cw            delete word from cursor,进入写入状态
 - ciw           delete whole word, enter insert mode
+- ci"           delete contain between in "", enter insert mode
+- ci(           like as above
+- ci<           like as above
 - caw           delele whold word(and more space), enter insert mode
 
 === 辅助输入 ===
@@ -101,7 +104,8 @@ vim scp://hd0/.bash_profile
 - <C-D/U>               前后翻半页
 - *zz/zt/zb             光标所在行移到屏幕中间,上面,下面*很有用!
 - ''                    *移动到光标上一个停靠位置*,很神,应该也非常有用.
-- '.                    移动到上一次的修改位置
+- '.                    移动到上一次的修改位置, move to head of last line
+- `                     move to last postion(exactly)
 - L/M/H                 移动到页面的下部,中间,上部
 - f/F[字母]             向前或者向后跳转到该字符
 - nnnG          跳转到指定行
@@ -112,6 +116,8 @@ vim scp://hd0/.bash_profile
 - ]]/[[                 跳转块
 - [{                    跳转到函数开头
 - ]}                    跳转到函数结尾
+- ]'/['                 skip to next/previous lower mark line
+- ]`/[`                 skip to next/previous lower mark postion
 - {                     跳转到小块的开头
 - }                     跳转到小块的结尾
 

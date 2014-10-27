@@ -28,6 +28,12 @@ $abc == *abc*
 * -gt   greater than
 * -lt   less than
 
+== assign ==
+directly assign
+V=val
+
+=== read ===
+read -p "prompt message" val
 == array ==
 * define
 arr[0]=1
@@ -88,6 +94,16 @@ this is like case: break in C.
 == getops ==
 参数解析
 
+== judge and branch ==
+
+=== case ===
+{{{
+    case $val in
+        [0]* ) ...break;;
+        [1]* ) ...break;;
+        * ) ...;;
+    esca
+}}}
 == loop ==
 === for ===
 === while ===
