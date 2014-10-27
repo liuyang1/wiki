@@ -1,2 +1,310 @@
-= fileinput =
+= python lib =
+
+== fileinput ==
 using for trace file input or from stdin.
+
+==filesystem==
+===watchdog===
+
+==system工具==
+===fabric===
+部署执行命令工具,如果有很多机器上面执行命令,这个软件就会比较有用了.
+
+http://www.cnblogs.com/holbrook/archive/2012/03/05/2380398.html
+
+==system monitor==
+===supervisor===
+监控与控制进程工具
+
+- 安装
+	`pip install supervisor`
+- 配置
+	- 初始化配置
+	`echo_supervisor_conf > /etc/suerpvisor.conf`
+	- 网络监视
+	打开inet_http_server配置内容.*默认关闭,需打开*
+	- 增加监视任务
+{{{class="brush:plain"
+	[program:test]
+	command=/home/liuy/test/py/supervisor/test.py
+	autostart=false
+	autorestart=true
+	stopsignal=KILL
+	redirect_stderr=true
+	stdout_logfile=/home/liuy/test/py/supervisor/test.out
+	stdout_logfile_backups=5
+	stdout_logfile_maxbytes=1MB
+}}}
+	各项配置的内容都非常简单易懂.
+	更多配置参考这里[[http://supervisord.org/]]
+- 使用
+	- 运行supervisord,在后台.运行supervisord -n在前台.
+		运行在后台,杀死supervisord不影响监控程序,在前台,杀死,监控程序也会杀死.
+	- 运行supervisorctl,可以进入控制交互.
+		- start [task]	开始任务
+		- stop	[task]	停止任务
+		- status		显示任务状态
+		- tail [-f] [task]	跟踪任务输出.
+		*注意*:supervisord直接将标准输出调整到日志输出.这个如果不使用上面的配置,应该就没有了.
+	- 使用默认的网页设置,则直接打开127.0.0.1:9001可以看到监控的网页界面.
+
+- 总结
+	# 使用该工具,可以很方便的给自己的程序增加监督程序,特别是其自动重启程序的功能.
+	# 可以方便添加日志功能(不过相比python的标准logging模块还是弱很多啊
+===unagi.py===
+	_这个是工具,不是库_
+    系统监控据,小而松散的集群环境,可信的用户运行不同的程序.帮助用户搜集机器资源,并且报告状态.运行于集群的每个机器上,共享机器信息.也可以作为小的http服务器,从而得到状态汇报.
+    commit::
+        这个就是我想做出来的类似BeeKeeper的东西.
+    支持:
+        - CPU负载
+        - 硬盘与网络IO负载
+        - 内存
+        - 繁忙进程
+        - 当前用户
+        - 系统syslog信息
+===网络抓包===
+首先要安装两个包 pcap 和dpkt 
+我是使用python2.5 不过这两个包都是要另外安装的. 
+{{{class="brush: python"
+import pcap 
+import dpkt 
+a=pcap.pcap() 
+a.setfilter('arp')   # 可以是'tcp' 'udp' 'port 80'等过滤用的 
+for i,j in a: 
+tem=dpkt.ethernet.Ethernet(j) 
+print ("%s %x",i,tem) 
+
+print repr(str(j))  也可以这样，自己看一下效果。。。 
+之后再分析。。。。 
+
+import pcap 
+import binascii 
+a=pcap.pcap() 
+a.setfilter('arp') 
+try: 
+for i,j in a: 
+  t=binascii.hexlify(j) 
+  print t 
+except: 
+print 'stop' 
+n=raw_input() 
+输出十六进制的原始数据。
+}}}
+
+==并发编程==
+    
+==脚本==
+===pexpect===
+expect脚本的python实现.
+==多语言==
+[[python_ctype|ctype库]]
+
+# struct库
+ctypes库是将c/C++引入到python.而struct库是将python的数据内容可以转换到C/C++可以识别的格式.也可以逆向
+一般可以使用下面的格式转换.
+struct.pack(">H",a)
+
+将a按照大端顺序作为short写入.
+
+| unsigned char | B |
+
+
+ref:http://docs.python.org/release/3.1.2/library/struct.html
+
+== c扩展方式对比 ==
+参考:http://www.udpwork.com/item/8187.html
+
+- c api
+在C语言程序中包含python.h头文件,引入python库,python对象在C中标识位PyObject,等等最后编译为动态链接库,
+
+最后就可以在python中import这个库,然后就和一般用法一致.
+
+- swig
+多语言转换,
+
+也就是在不改变原始C语言程序的基础上,通过wrapper,利用swig格式的接口文件,定义二者之间的对应关系.然后由swig自动生成c api的代码,之后如上.
+
+- sip
+由swig发展而来,知识接口文件更为简易方便.
+
+- cython
+利用类似python的语言,来编写调用C程序的接口,并且同时方便的调用C和python函数.
+
+- ctypes
+标准库
+
+可以直接调用原生的C库(so库).
+
+- cffi
+类似ctypes,但是更为方便,不需要一定编译为so文件,可以直接调用C原始文件(其实是帮助你生成的so库,所以是一样的)
+
+== *ML parser ==
+=== beautifulsoup ===
+据说存在诡异问题,没有实际使用,未知.
+=== lxml ===
+比前者轻量快速.
+
+
+== HTTP服务 ==
+python -m SimpleHTTPServer
+
+开启当前文件目录为HTTP服务器,端口号为8000
+
+python -m CGIHTTPServer
+
+开启完整的webserver
+
+== pylucene install == 
+1,install java
+2,add global var,as JAVA_HOME, CLASS_PATH,etc.
+3,patch for setup tool for install jcc as share mode
+4,config Makefile
+5,make and make install
+
+== 框架 ==
+- zope
+目前已经是zope3,也就是Grok项目
+- Django
+- pylons
+
+== cms ==
+- plone
+基于Zope2
+注重安全性
+
+== 多进程方法 ==
+
+推荐使用subprocess方法.它替代了Popen,spawn,system等方法.
+=== subprocess ===
+==== call ====
+call(args)
+
+运行程序,args描述.等待命令完成,返回returncode.
+==== check_call ====
+check_call(args)
+
+运行程序args.运行带程序结束.
+如果返回值,不是0的话,抛出CalledProcessError异常,该异常携带返回值作为属性.
+
+==== check_output ====
+运行程序,并且返回输出作为字符串.
+
+如果返回值不是0,则抛出异常.如上.
+
+==== Popen ====
+开子进程的方法
+
+- p=subprocess.Popen(cmd)
+- p.poll()检查子进程是否结束,设置并返回return值.
+- p.wait()等待子进程结束,设置并返回return值.
+- communicate(),与进程交互,发送数据到标准输入.读取数据从stdout,stderr,直到受到eof.
+- send_signal发送信号.
+- terminate()终止进程,发送SIGTERM或者调用TerminateProcess()
+- kill()kill进程,发送SIGKILL.
+
+在linux上使用的是exevcp,在Windows上使用的是CreateProcess.
+
+`可以使用shlex.split()来对命令进行分割.`
+
+
+
+=== multiprocessing ===
+
+== 数学方面的库 ==
+=== itertools ===
+无穷迭代器
+
+* count,计数迭代器
+* repeat,重复计算器
+* cycle,循环计数器
+
+最短输入序列终止的迭代器
+* chain 多个列表序列
+* compress 数据,选择器,其中选择器为一个布尔序列
+* dropwhile,生成序列,从预测函数成功
+* groupby,分组,序列+分组函数 TODO:
+* ifilter
+* ifilterfalse,按照谓词函数进行判定序列
+* islice
+* imap
+* starmap
+* tee
+* takewhile,生成序列,直到预测函数失败
+* izip
+
+组合生成器
+提供了组合数学上需要的工具,比如组合,排列等.
+
+* 组合方法
+itertools.combinations()
+
+* 排列方法
+itertools.permutations()
+
+=== math ===
+factorial,阶乘
+
+== random ==
+- randint(from, to) 两个都是闭区间
+- random()    生成(0,1)随机数
+- shuffle(seq)  随机排列
+== esky ==
+用于自动更新
+
+=== 教程 ===
+根目录为其esky提供的启动的程序.
+下属目录,为程序的若干版本.目录中程序,则为py2exe生成的包.
+
+== readline ==
+import readline
+
+提供输入的readline支持.向上则得到上一次输入,左右移动光标,等等
+
+== pickle ==
+pickle 用于python的数据序列化工作
+
+注意,这里是file,而不是文件名,因此必须先打开文件,然后才可以调用
+{{{
+pickle.dump(obj,file)
+pickle.load(file)
+}}}
+
+== numpy ==
+大名鼎鼎,主要用于科学计算领域.
+
+=== numpy.matrix ===
+注意,不是方法!这样就不需要进行函数调用,而是直接返回.
+
+属性::
+- I inverse翻转
+- T transpose转置
+- shape 矩阵的大小,返回一个tuple
+
+方法::
+- dump 调用pickle进行dump(可以通过load方法,返回相应的数/矩阵/数组)
+
+默认的乘法已经被重载了,因此可以直接调用,完成乘法.
+
+slice的方法,和C语言的不一样.使用如下方式M[1,2].这里也支持python风格的切片方式
+
+== JPype ==
+python-java bridge
+
+== profile ==
+python的标准库profile工具
+
+python -m profile XXX.py
+
+== networkx ==
+图论相关的库
+
+依赖于matplotlib进行画图.进而依赖tcl/tk,而且需要准确的版本,因此没有成功安装使用上.
+
+== cmd ==
+交互式cli的接口,可以简单化匹配之类的问题
+
+当然,这部分,手动完成也是可以的,就是代码不好看而已
+
+== curses ==
+cli的界面库

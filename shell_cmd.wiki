@@ -1,4 +1,11 @@
 = shell 工具列表 =
+=== sort ===
+* -f, --ignore-case
+* -n, --numberic-sort       sort it as number
+* -h, --human-numeric-sort  sort human-readable format as number
+* -r, --reverse             reverse the result of comparisons
+* -k, --key=POS1[,POS2]     start a key at POS1...
+
 === find ===
 
 === xargs ===
@@ -69,7 +76,7 @@ luit -encoding gbk telnet bbs.ustc.edu.cn
 
 == xargs + type ==
 
-find -type d | xargs sudo chmod 755 
+find -type d | xargs sudo chmod 755
 
 找到所有文件夹,全部转换为755模式
 

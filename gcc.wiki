@@ -3,3 +3,21 @@
 - -fstack-protector         only for func using char array
 - -fstack-protector-all     for all func
 - -fno-stack-protector
+
+== others ==
+* -v                        verbose output for parameter details
+
+= ld =
+ld is a linker.
+
+one alias collect or collect2.
+
+normally, DONOT using ld command directly, as gcc will hidden so many param of
+ld.
+
+* --entry main              spec entry is main
+* -T, --scriptfile          add spec file, which overlay system ld script, but
+could accumlate.
+
+= ldd =
+print shared libraries deps

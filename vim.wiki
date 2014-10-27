@@ -346,3 +346,6 @@ Ctrl-V u 200b,则输入U+200b这个字符
 
 == vim 脚本 ==
 函数名称,必须以大写字母开始
+
+= perf analysis =
+vim --startuptime a.log
