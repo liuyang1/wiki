@@ -6,6 +6,7 @@
 * [[shell_cmd]]
 * [[security_tool|Security Tools]]
 * [[zip_cmd|Archive tools]]
+* [[graphviz]]
 === text tool ===
 * [[ack]]
 * [[awk]]

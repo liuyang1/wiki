@@ -155,13 +155,24 @@ and child-process cannot modify parent-process env-var
 
 not output anything, will mix stdout
 
+# using eval functional style return
+{{{
+    function pass_back_a_string() {
+        eval "$1='a test str'"
+    }
+    pass_back_a_string return_var
+    echo $return=var
+}}}
+
+this's fantastic. even return_var is local var, this style could pass return
+value to it.
 == string operation ==
 === judge or get string var value ===
 * ${var}            var value, same with var
 * ${var-DEFAULT}    if var not exist, return default.
 * ${var:-DEFAULT}   if var not exist or is blank string, return default.
 * ${var=DEFAULT}    if var not exist, setting its value to DEFAULT
-* ${var:=DEFAULT}   if var not exist or is blank string, setting its value to 
+* ${var:=DEFAULT}   if var not exist or is blank string, setting its value to
 DEFAULT
 * ${var+OTHER}      if var exist, then return OTHER, else return blank string.
 * ${var:+OTHER}     if var setting, ...

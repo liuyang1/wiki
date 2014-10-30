@@ -1,0 +1,24 @@
+= graphviz =
+== dot ==
+plot bi-graph.
+
+tree and graph struct
+== circo ==
+circle, deps
+
+
+== networkx ==
+try next time
+=figure plot=
+===matplotlib===
+    ...
+===rrdtool===
+    据说较复杂...
+=== graphviz ===
+    UML图绘制工具
+=== DrawIt ===
+    vim插件,绘制简单的ascii图表.
+=== graphite ===
+绘图工具,可以用于数据收集之后的自动绘图.
+=== visage ===
+一个colltecd的前端,可以作为网页界面,同时收集数据存储未JSON格式.

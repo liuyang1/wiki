@@ -47,10 +47,11 @@ vim scp://hd0/.bash_profile
 - <C-Up>/<C-Down>               上下翻页
 === 退出编辑模式 ===
 - ESC/<C-[>,<C-3>               C-[,这种方式应该挺方便的.
-- <C-C>                         这个也可以,更为方便了.
+- <C-c>                         这个也可以,更为方便. should totally alternative
+                                of ESC key
 
 === temp insert mode ===
-- *<C-O>*                       临时退出到一般模式,之后会自动返回到插入模式
+- *<C-o>*                       临时退出到一般模式,之后会自动返回到插入模式
 - 这种方式可以用于组合使用normal mode下面的快捷键, 然而做成保留插入模式的幻象.
 
 例如<C-O>$,可以用于插入模式下到行尾
@@ -130,6 +131,18 @@ vim scp://hd0/.bash_profile
     set keywordprg=man\ -a
     来配置打开所有的man页面
 }}}
+
+== text object ==
+* w word
+* p pargraph
+* s string
+* square braket: block of bracket
+* and other symbol or html tag
+
+for example: va{ will select a block;
+yaw will copy whole word
+ci" will change content in quote
+this is so useful for moving, deleting, and so on.
 
 === search 查找===
 - /表达式
