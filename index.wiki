@@ -14,6 +14,7 @@
 * [[vim]]
 * [[vim_plugin]]
 * [[cloc_usage|cloc]]
+* [[emcas]]
 
 === software management ===
 * [[apt_dpkg]]
@@ -50,6 +51,7 @@
 * [[win_bat|Windows bat]]
 * [[vim_script|Vim Script]]
 === functional lang ===
+* [[smlnj|ML]]
 * [[haskell]]
 * [[clojure]]
 * [[scheme]]

@@ -1,0 +1,19 @@
+= emcas =
+
+== basic ==
+
+Meta is Alt key, not Win key, or Mod4 key.
+
+* C-x C-c    quit
+* C-x C-s    save file(update write)
+* C-x C-f    find file
+
+* C-x 2      split frame
+* C-x 3      vsplit frame
+* C-x o      move to other window
+* C-M-v      scroll down other window?
+
+* M-x list-packages to install package from internet
+click at install button, then install it.
+
+* C-c C-s   run command(in SML mode, run sml)

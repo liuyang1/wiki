@@ -308,3 +308,8 @@ python -m profile XXX.py
 
 == curses ==
 cli的界面库
+
+== python-notebook ==
+depends on::
+pyzmq jinja2 tornado
+numpy scipy pylab matplotlib

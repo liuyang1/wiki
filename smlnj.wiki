@@ -1,0 +1,7 @@
+= ML =
+== grammer ==
+every statement with ; tail.
+
+use "first.sml";
+
+to load a file
