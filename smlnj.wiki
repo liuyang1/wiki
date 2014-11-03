@@ -1,7 +1,72 @@
 = ML =
-== grammer ==
-every statement with ; tail.
+== syntax ==
+every expression with ; tail.
 
 use "first.sml";
 
 to load a file
+
+function call without bracket.
+
+so this is invalid: abs(-10);
+
+== semantics ==
+ML is a static-typed programming language.
+not like python.
+
+type-checking (before program runs, extend static env)
+
+evalution (as program runs, extend dynamic env)
+
+runtime checking:
+# syntax
+# type-cheching
+# evalution
+
+=== if ===
+if-then-else expression, e2,e3, and entire expr must have same type T.
+
+default return value *it*
+
+=== fun ===
+fun x0 (x1 : t1, … , xn : tn) = e
+
+== data struct ==
+=== list ===
+fixed “number of pieces” that may have different types
+
+cons::
+If e1 evaluates to v and e2 evaluates to a list [v1,…,vn],
+then e1::e2 evaluates to [v,…,vn]
+
+* e1::e2 (* pronounced “cons” *)
+* null e
+* hd/tl e to get head or tail of e
+=== tuple ===
+any “number of pieces” that all have the same type
+warn:: must same type!!
+
+==== pair ====
+build (e1, e2)
+access #1 e #2 e
+
+fun div_mod (x : int, y : int) =
+  (x div y, x mod y)
+
+=== option ===
+is a type, decrator return value
+* valOf
+* isSome
+== logic ==
+* andalso
+* orelse
+* not
+
+compare symbol::
+= > < <> >= <=
+
+= repl =
+== shadow ==
+when "assign" var to same name val, this will shadown orignal value.
+
+so in ML, no "assign"

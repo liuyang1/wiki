@@ -17,3 +17,4 @@ Meta is Alt key, not Win key, or Mod4 key.
 click at install button, then install it.
 
 * C-c C-s   run command(in SML mode, run sml)
+* C-d       finish command(just as exit)
