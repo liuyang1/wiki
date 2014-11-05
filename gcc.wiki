@@ -1,4 +1,38 @@
 
+= rarely std =
+== multi-char const ==
+using for init a INT var with multi-char,such as:
+
+int v = 'ab';
+
+this will cause a warning.
+
+instead of this:
+
+int v = '\x61\x62';
+
+this compiles without warning, but warning when get '-pedantic'.
+
+=== using as enum ===
+when use as enum, will clearly and short code.
+{{{
+switch (tag) {
+    case 'TAG1':...;
+    case 'TAG2':...;
+}
+}}}
+but this is so tricky, really not recommend to use this feature.
+=== using as meta info ===
+in mp4 box type, this will easily encode as
+`int fytp = 'fytp';`
+=== problems ===
+# endian-ness
+# incomplete multi-char and padding
+different compiler will impl different style.
+
+so not portable.
+= extend =
+struct init, as . style.
 == stack protector ==
 - -fstack-protector         only for func using char array
 - -fstack-protector-all     for all func

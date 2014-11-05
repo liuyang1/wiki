@@ -45,6 +45,7 @@
 == programming language ==
 
 === c-family lang ===
+* [[c_lang|C]]
 
 === python-like lang ===
 * [[python]]
@@ -62,6 +63,7 @@
 
 === other ===
 * [[ahk_usage|Auto Hot Key]]
+* [[markup_lang|Markup language]]
 
 == filetype ==
 * [[m3u8]]

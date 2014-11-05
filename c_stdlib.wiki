@@ -1,0 +1,10 @@
+== file operation ==
+=== fopen ===
+FILE *fopen(const char *filename, const char *mode);
+
+mode with "r/w/a/t+"
+
+when running with POSIX, using 't' mode, fopen() will fail with a msg indicate
+a non-valid mode was specified.
+
+* at+       append, and if not exist, will create

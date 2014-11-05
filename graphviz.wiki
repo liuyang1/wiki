@@ -6,6 +6,11 @@ tree and graph struct
 == circo ==
 circle, deps
 
+== layout ==
+* rank
+same
+* rankdir
+TB, LR
 == HTML-like lables ==
 | tag   |                     |
 | B     | bold                |
@@ -42,17 +47,29 @@ property::
 XXX:
 must using svg:cairo:cairo format to support substring or superstring.
 == networkx ==
-try next time
+networkx is a graph-theory analyze tool.
+
+part use to plot figure.
+
+support for graphviz layout.
 =figure plot=
 ===matplotlib===
     python lib, using for math plot, such as math function.
-===rrdtool===
-    据说较复杂...
 === graphviz ===
     UML图绘制工具
 === DrawIt ===
     vim插件,绘制简单的ascii图表.
+===rrdtool===
+    据说较复杂...
+    plot for watch system.
 === graphite ===
-绘图工具,可以用于数据收集之后的自动绘图.
+    绘图工具,可以用于数据收集之后的自动绘图.
+
+# store numberic time-series data
+# render graphs of this data on demand
+
+=== livegraph ===
+same like graphlite, plot and explore your data in real-time!
+
 === visage ===
-一个colltecd的前端,可以作为网页界面,同时收集数据存储未JSON格式.
+    一个colltecd的前端,可以作为网页界面,同时收集数据存储未JSON格式.

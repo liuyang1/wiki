@@ -1,0 +1,3 @@
+= C =
+== stdlib ==
+[[c_stdlib|std lib]]
