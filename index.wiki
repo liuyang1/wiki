@@ -18,6 +18,7 @@
 
 === software management ===
 * [[apt_dpkg]]
+* [[yum]]
 
 === compiler and others ===
 * [[gcc]]
@@ -27,6 +28,8 @@
 * [[git]]
 * [[gerrit]]
 
+=== terminal ===
+* [[urxvt]]
 === multimedia ===
 * [[ffmpeg]]
 * [[vlc]]

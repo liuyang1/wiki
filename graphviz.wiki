@@ -6,12 +6,46 @@ tree and graph struct
 == circo ==
 circle, deps
 
+== HTML-like lables ==
+| tag   |                     |
+| B     | bold                |
+| I     | italic              |
+| SUB   | subscript           |
+| SUP   | superscript         |
+| <BR/> | newline             |
+| FONT  | font                |
+| U     | underline           |
+| O     | overline text       |
+| S     | strike-through text |
 
+spec::
+{{{
+label: text | table
+table: textitem | text textitem
+textitem: string | <BR/> | <FONT>text</FONT> ...
+table: [<FONT>] <TABLE> rows </TABLE> [/<FONT>]
+rows: row | rows row | rows <HR/> row
+row: <TR> cells </TR>
+cells: cell | cells cell | cells <VR/> cell
+cell: <TD>label</TD> | <TD> <IMG/> </TD>
+}}}
+
+property::
+* ALIGN             center/left/right???
+* BALIGN
+* BGCOLOR="color"
+* BORDER="value"
+* CELLBORDER
+* CELLPADDING
+* ...
+
+XXX:
+must using svg:cairo:cairo format to support substring or superstring.
 == networkx ==
 try next time
 =figure plot=
 ===matplotlib===
-    ...
+    python lib, using for math plot, such as math function.
 ===rrdtool===
     据说较复杂...
 === graphviz ===

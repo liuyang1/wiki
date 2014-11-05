@@ -8,4 +8,9 @@ and `sudo unattend-upgrade`
 == dpkg ==
 dpkg --get-selections
 
+== build-dep ==
+apt-get build-dep XXX
 
+install all build-depence software.
+
+so easy!!

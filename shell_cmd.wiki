@@ -8,6 +8,10 @@
 
 === find ===
 
+== filesystem ==
+=== readlink/readpath ===
+get softlink real directory
+
 === xargs ===
 
 when you combine use FIND and XARGS, will have to using -print0 to
@@ -40,7 +44,7 @@ talk
 ==== keychain ====
 eval $(keychain --eval --agents ssh -Q --quiet "/path/to/your/private/key")
 = tools =
-watch	周期运行任务
+watch   周期运行任务
 
 ttyload 图形化显示系统负载情况
 
