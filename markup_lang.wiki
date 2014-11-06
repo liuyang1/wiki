@@ -22,3 +22,34 @@ python
 ruby
 == octopress ==
 ruby
+
+== hexo ==
+node.js
+
+github flaverd-markdown format.
+
+partly compatialbe with octopress.
+
+= wiki sys =
+this page introduce much more wiki system:
+[[http://c2.com/cgi/wiki?PersonalWiki|o PersonalWiki]]
+== Tiddywiki ==
+this guys is so cool.
+
+only one file, with HTML, js, CSS.
+
+and entire wiki system, support search and tag.
+
+But I need version control, basic markup language format.
+
+and i doesn't need save it as local, but need a cloud app.
+
+== mediawiki ==
+wikipedia use it.
+
+== gollumn ==
+github develop and use it.
+
+support many format.
+
+javascript code.

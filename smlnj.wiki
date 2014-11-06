@@ -57,6 +57,15 @@ fun div_mod (x : int, y : int) =
 is a type, decrator return value
 * valOf
 * isSome
+== compound type ==
+record,using {} to directly create new type.
+* {f1=e1, ..., fn = en}
+* #myfieldname f
+
+tuple using for get by position, or by some field name as with records.
+
+
+
 == logic ==
 * andalso
 * orelse

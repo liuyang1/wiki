@@ -1,0 +1,162 @@
+=同步工具=
+2012-09-21 12:33:23 
+
+==代码版本控制==
+他们都可以作为同步工具使用.
+如:
+[[git]]
+
+==wget==
+获取整个目录/站点镜像
+{{{
+	wget -r -p -k -np http://srcpath ./localpath
+}}}
+- -c	断电续传
+- -r	递归下载
+- -nd	递归下载所有内容到同一目录
+- -np	递归下载,不搜索上层目录
+- -k	转换链接为相对链接
+- -L	不进入其他主机
+- -p	下载网页所需所有文件(图片,css之类)
+- -i	下载指定文件内容(文件内容为URL).
+
+== rsync ==
+非常强大的工具,支持部分更新.很多工具软件的后台都是调用它实现的.
+* 支持ssh透传.
+* *不支持ftp*
+利用ssh透传
+{{{
+	rsync -v -P -e ssh -C user@host:/path/to/file /local/path
+}}}
+
+`支持时间信息的同步,也就是沿用传递文件的时间信息`
+
+mtime:2012-09-26 11:06:02 
+from:[[expert_shell_scripting|shell专家指南]]
+
+	rsync使用-a开关, ~则包含隐藏文件(.文件)目录复制,保持权限,所有权和修改时间.~ 压缩模式
+	问题:
+
+	必须注意最后的"/",如果没有,则表示将文件夹复制到目标文件夹,如果有,则表示将文件夹下的所有文件,复制到目标文件夹
+
+* -e,通过特定的协议,比如最为常用的ssh
+* -z,进行压缩处理
+* -h,保持硬连接
+* -q,静默模式,错误不输出
+* -t,维护修改时间
+* -delete,删除多余的文件
+* --exclude=PATH,除去路径(相对路径)
+* -progress,显示进度
+
+*一个错误*
+
+rsync对于没有权限的复制,如需要root权限的复制,没有权限提醒,
+
+但是会进行复制过程,虽然没有复制结果.
+
+这个要小心.
+
+First rsync will copy it as temp file in dest dir, and transfer end, then chown
+as file's property. This maybe permission denied.
+
+so remove -a option, and try it again. The probelm gone.
+
+=== rsync 协议 ===
+ref::[[http://my.oschina.net/leejun2005/blog/75007]]
+
+rsync -av /SRC rsync://root@172.17.256.211:36000/modual/DestPath
+
+注意：这条语句显示的指明了使用rsync认证协议，port后的modual是rsync服务端配置文件rsyncd.conf
+
+里面配置的模块名，模块里面会包含一些用户名、密码、路径等认证信息。
+使用rsync认证，还有一种写法：
+
+rsync -av /SRC --port=36000 root@172.17.256.211::modual/DestPath
+
+注意：这种写法不需显示指定 rsync 协议，而是根据 :: 来识别的，端口自己用 --port 指定。
+
+而且这里 modual 前面没有 / 的。
+
+总结： 双冒号:: 是用在 rsync 协议里面的，: 一般用在ssh协议里面，这两种用法各有千秋：
+
+rsync协议你需要在rsync服务端配置模块，这增加了运维工作量，但是安全，因为不需要对客户公开帐号密码。
+
+ssh协议方便，不需配置，拿到帐号密码即可开工，但是对客户是暴露的，有安全风险。
+
+还需要注意的是用rsync协议认证的时候，后面跟的是模块名，而不是路径，这点要注意。
+
+== zsync ==
+ref::[[http://zsync.moria.org.uk/]]
+
+这个工具和rsync的原理是完全一致的.但是是一个客户端的实现,并不依赖与服务器.
+
+# 客户端实现
+# rsync over HTTP
+# 默认压缩
+
+作者还有一篇技术性的论文,以后可以看下.
+
+zsync有一个利用cygwin,mingw之类的Windows版本.
+[[https://www.assembla.com/spaces/zsync-windows/documents]]可以直接得到.
+
+
+== lsync ==
+利用inotify自动检测文件系统的变化,然后主动进行同步.也是利用rsync实现的.
+
+inotify是一个基于linux文件系统的特性.但是Windows上也存在类似的API,但是接口必然差距很大的.例如:ReadDirectoryChangesW()
+
+==lftp==
+rsync不支持ftp,因此找来这个工具.
+作为同步也还不错.
+示例脚本:
+{{{
+HOST="home.ustc.edu.cn"
+USER="liuyang1"
+PASS="XXXXXXXX"
+LCD="/home/liuy/notes/html"
+RCD="public_html/html"
+
+lftp -c "set ftp:list-options -a;
+open ftp://$USER:$PASS@$HOST;
+lcd $LCD;
+cd $RCD;
+mirror --reverse --delete --verbose \
+	--exclude-glob a-dir-to-exclude \
+	--exclude-glob a-file-to-exclude \
+	--exclude-glob a-file-group-to-exclude* \
+	--exclude-glob other-files-to-exclude"
+}}}
+上面的脚本是从本地向服务器同步,也可以从服务器向本地同步,这样的话,将
+{{{
+	--reverse
+}}}
+去掉即可.
+
+== DirSync Pro ==
+== unison ==
+同步,跨平台.
+http://www.cis.upenn.edu/~bcpierce/unison/
+
+因此可以考虑使用在CMS与xing当中.
+
+
+这个工具,并不能完全满足我们的需求.
+
+# 双向同步.我们需要的是单向同步.
+# 支持检测
+
+停止开发
+== netcat ==
+必须双向都包含这个软件,这个软件本身是linux自带,
+
+主要是将网络内容写入到socket.
+
+{{{
+server$ nc -l -p 5000 > outfile.tgz
+
+client$ nc -q0 server.example.com 5000 < infile.tgz
+}}}
+
+wiki的页面::[[http://en.wikipedia.org/wiki/Comparison_of_file_synchronization_software]]
+
+所有的同步软件
