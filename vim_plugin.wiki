@@ -22,8 +22,8 @@ better?
 though tags file is samesize, but not occur "E431 can not find tag" error
 
 == tagbar ==
-=== ctagstype ===
-=== kinds ===
+=== tags-file-format ===
+==== kinds ====
 ctags --list-kinds={language name}
 
 short long [fold [stl]]
@@ -37,7 +37,18 @@ p function prototype
 vimwiki
 h:header
 
-=== sro ===
+==== sro ====
 the scope resolution operator
 
-=== kind2scope ===
+==== kind2scope ====
+how to map kind to scope.
+
+a dict describing the mapping of tag kinds with one-char representation.
+
+==== scope2kind ====
+
+=== extend tagbar ===
+* add a definition to Exuberant Ctags
+simple regular expr-based parsing, but not support scopes!!
+
+* create a specialized program

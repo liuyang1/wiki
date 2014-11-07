@@ -47,6 +47,7 @@
 
 === c-family lang ===
 * [[c_lang|C]]
+* [[posix_prog|POSIX programming]]
 
 === python-like lang ===
 * [[python]]

@@ -114,7 +114,8 @@ vim scp://hd0/.bash_profile
 * %                     move to match char, for exmaples: ( aabc )
 
 ====块跳转====
-- ]]/[[                 跳转块
+- ]]/[[                 跳转块, search next line begin with { or }
+so if function with { as tail, this method won't detect it, and skip it.
 - [{                    跳转到函数开头
 - ]}                    跳转到函数结尾
 - ]'/['                 skip to next/previous lower mark line
@@ -146,7 +147,7 @@ this is so useful for moving, deleting, and so on.
 
 === search 查找===
 - /表达式
-- */#                       *查找光标所在字符*,就是这么神奇的功能. *,顺序查找,#逆序查找
+- */#                   *查找光标所在字符* *,顺序查找,#逆序查找
 - g*/g#                 查找含当前词作为一部分的词,包括注释内容
 - gd                    类似上面,但是不包括注释
 - gD
@@ -179,7 +180,7 @@ this is so useful for moving, deleting, and so on.
                     这个功能在某些时侯非常有用.如果你想二次处理shell的结果.
 ===删除===
 - :g/[PATTERN]/d    删除所有匹配表达式的行(vim才支持的特性)
-- :v/[PATTERN]/d    不匹配则删除
+- :v/[PATTERN]/d    不匹配则删除, delete when not match pattern
 - :s/[PATTERN]//gn  统计个数,不会进行实际的替换
 
 == mark 书签 ==

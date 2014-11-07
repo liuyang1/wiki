@@ -1,0 +1,16 @@
+= POSIX programming =
+
+== dynamic linking loader ==
+* void *dlopen(const char *filename, int flag);
+* char *dlerror(void);
+* void *dlsym(void *handle, const char *symbol);
+* int dlclose(void* handle);
+
+must link with -ldl.
+
+{{{
+func = dlsym(fd, "sin");
+(*func)(args);
+}}}
+
+not complex, but so useful!
