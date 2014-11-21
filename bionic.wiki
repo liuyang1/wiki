@@ -1,0 +1,13 @@
+= bionic =
+
+bionic is a C library impl in Android.
+
+== Arch ==
+support syscall in SYSCALLS.txt, analysis by genssycall.py.
+
+== time_t ==
+NOTE:
+bionic using time64.h for 64bit version time.h, not just a time.h again.
+
+== pthread ==
+NOT have pthread_cancel func.

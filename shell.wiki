@@ -1,6 +1,8 @@
 = shell script programming =
 
 == bash basic ==
+NOTE:
+shell not have type system.
 
 === logic about file ===
 * -d    dir exist?

@@ -1,5 +1,9 @@
 = wiki =
-[[TODO]]
+dummy: [[TODO]]
+
+== topic ==
+* [[BookList]]
+* [[Android]]
 
 == shell tool ==
 
@@ -73,10 +77,6 @@
 * [[AAC_format|aac]]
 * [[HEVC]]
 
-== android ==
-* [[adb]]
-* [[android_test]]
-* [[arm_hardware]]
 
 == book list ==
 * [[6001_SICP|SICP]]

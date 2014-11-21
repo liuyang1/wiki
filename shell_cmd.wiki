@@ -19,7 +19,27 @@ delimter filenames, not newline or whitespace character.
 
 == system and admin ==
 === user and group ===
-useradd
+==== useradd ====
+default value, (NO option), this cmd, will NOT
+# NOT create home dir
+# NOT permission to login
+# NOT create password
+
+* -b create HOME_DIR base-dir(such as /home)
+* -d create HOME_DIR, (such as /home/username)
+* -m create HOME
+* -M NOT create user's home
+* -D defaults, directly using default values
+
+==== adduser, addgroup ====
+a interactive command. using for manual operation.
+
+this command will 
+# add user and group
+# add home dir
+# copy default bash config(from /etc/skel) to homedir.
+# ask password
+# input more information.
 
 groupadd
 

@@ -41,6 +41,9 @@ struct init, as . style.
 == others ==
 * -v                        verbose output for parameter details
 
+= gcc =
+== option ==
+* m32,m64                   spec for 32bit or 64bit code
 = ld =
 ld is a linker.
 
