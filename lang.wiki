@@ -1,0 +1,24 @@
+= programming language =
+
+== c-family lang ==
+* [[c_lang|C]]
+* [[posix_prog|POSIX programming]]
+
+== python-like lang ==
+* [[python]]
+* [[ruby]]
+== script lang ==
+* [[shell]]
+* [[win_bat|Windows bat]]
+* [[vim_script|Vim Script]]
+== functional lang ==
+* [[smlnj|ML]]
+* [[haskell]]
+* [[clojure]]
+* [[scheme]]
+* [[erlang]]
+
+== other ==
+* [[ahk_usage|Auto Hot Key]]
+* [[markup_lang|Markup language]]
+

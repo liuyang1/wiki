@@ -1,0 +1,33 @@
+= github =
+mtime: 2013-01-03 19:31:59 
+----
+github是一个非常流行的代码托管网站.
+
+== 配置ssh登录 ==
+使用这个即可.
+https://help.github.com/articles/generating-ssh-keys
+
+使用制定的密钥登录,这个略微麻烦一点.
+
+# 生成密钥文件(略)
+# 配置github的登录密钥
+	# 配置.ssh/config文件,添加
+{{{
+	Host github1
+		hostname github.com
+		user git
+		identityFile ****file
+}}}
+# 测试登录
+	ssh -T github1
+# 对于repo,修改远端的目标
+	修改为git@github1:[usrname]/[repo.git]
+# 测试git push
+
+*注意*:
+远端的地址为github1,不是其他的.
+
+== 已经建立的repo如何同步到github上去 ==
+直接通过push的mirror命令即可
+
+git push --mirror git@github.com:yourname/repo.git

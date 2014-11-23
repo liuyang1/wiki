@@ -1,5 +1,7 @@
 = git =
 
+= topic =
+[[github]]
 == 上游问题 ==
 git remote add upstream XXX
 
@@ -12,6 +14,33 @@ git push
 删除上游
 
 git remote rm UPSTREAM
+
+== clean a file ==
+clean it in history
+
+git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch projects/Moon.mp3' --prune-empty --tag-name-filter cat -- --all
+
+prune space
+
+{{{
+rm -rf .git/refs/original
+git reflog expire --expire=now --all
+git gc --prune=now
+git gc --aggressive --prune=now
+}}}
+
+== merge other repo ==
+merge it as other remote repo
+
+{{{
+git remote add other [../path/to/repo1/]
+git fetch other
+git checkout -b [repo1branch] others/master
+git checkout master
+git merge [repo1branch]
+}}}
+
+= base =
 == diff ==
 - git diff 查看目前未缓存的修改
 - git diff --cache 查看已经add的修改内容

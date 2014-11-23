@@ -1,0 +1,15 @@
+= X window =
+== xdg-open ==
+default tools
+
+=== xdg-mime ===
+xdg mime manager
+
+xdg-mime query default x-scheme-handler/http
+
+xdg-mime query filetype photo.jpg
+
+xdg-mime default chromium.desktop x-scheme-handler/http
+
+=== xdg-open ===
+xdg open http://www.ustc.edu.cn

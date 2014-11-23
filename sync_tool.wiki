@@ -61,6 +61,8 @@ as file's property. This maybe permission denied.
 
 so remove -a option, and try it again. The probelm gone.
 
+[[http://serverfault.com/questions/364709/how-to-keep-rsync-from-chowning-transfered-files|stackoverflow]]
+this give more hint.
 === rsync 协议 ===
 ref::[[http://my.oschina.net/leejun2005/blog/75007]]
 

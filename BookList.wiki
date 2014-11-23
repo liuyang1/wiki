@@ -1,2 +1,5 @@
-
-[[parsing_tech|Parsing Techniques]]
+= BookList =
+== compiler ==
+* [[parsing_tech|Parsing Techniques]]
+== functional programming language ==
+* [[6001_SICP|SICP]]
