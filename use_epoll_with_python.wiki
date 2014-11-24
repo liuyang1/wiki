@@ -1,0 +1,7 @@
+中文翻译
+
+http://digdeeply.info/archives/10051470.html
+
+英文原文
+
+http://scotdoyle.com/python-epoll-howto.html

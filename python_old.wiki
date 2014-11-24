@@ -1,0 +1,227 @@
+= python的资料搜集 =
+mtime: 2013-05-01 11:26:58 
+----
+
+[[python_trick]]
+== 代码规范 ==
+- [[pep8]]
+- [[pythonic]]
+
+== 库 ==
+- [[python_lib]]
+- [[python_ctype]]
+- [[gevent_python|gevent库]]
+
+== book ==
+- [[python_for_Unix_System_admin]]
+- [[python_history]]
+- [[Dive_into_python]]
+- [[python_for_Unix_System_admin|Python系统管理]]
+
+== 笔记 ==
+- [[use_epoll_with_python]]
+
+[[python_os|python跨平台支持]]
+
+== 特性 ==
+* [[yield_python|python的yield特性]]
+* [[lambda_python|python的lambda特性]]
+
+== python shell ==
+# bpython
+# ipython
+
+使用ipython,可以交互式的快速了解一个包的使用方法.
+
+# ipdb
+交互式的python,debug工具
+=== metaclass元编程 ===
+ref:[[http://blog.csdn.net/gzlaiyonghao/article/details/3048947]]
+
+
+== 坑 ==
+=== deepcopy ===
+python因为都是使用指针/标志来表示变量,因此必须要考虑deepcopy,如果想让一个东西被赋值,然后还可以再原先的值发生变化的情况下,保存以前的值,那么就需要deepcopy方法.
+=== list删除 ===
+众所周知,dict不可以在循环过程中,随意删除一个数值,同样的问题,也对于list成立.如果删除,则导致循环会少一个元素.从而出现各种各样的bug.
+
+=== 操作系统上不同 ===
+参考[[python_os]]
+
+_下面的描述仅适用与python2,在python3中发生一些变化._
+
+metaclass,可以动态生成一个class.
+
+{{{
+     “元类的魔幻变化比 99% 的用户所担心的更多，当你搞不懂是否真的需要用它的时候，就是不需要。”
+    —Tim Peters
+}}}
+{{{
+help(type)
+class type(object)
+| type(object) -> the object's type
+| type(name,bases,dict) -> a new type
+}}}
+其中第二种方法,就是动态创建一个类型的方法.
+{{{
+def __init__(self):
+    self.message = "hello,world"
+def sayHello(self):
+    print self.message
+attrs = { '__init__':__init__,'sayHello':sayHello}
+bases = (object,)
+Hello = type('Hello',bases,attrs)
+}}}
+这样Hello作为一个动态类型就创建出来了,下面就可以像一般使用类的方法,使用他了.
+
+真的是非常奇妙的方法.可以动态的修改逻辑,创建类型,甚至动态创建更多的东西,表达能力瞬间提升数倍啊...
+
+___metaclass___
+
+也就是从type继承方法,修改type的___new___方法,这样就可以进行内省属性字典和修改成员函数的目的.
+
+创建一个类的实例的过程,包含new和init两个步骤,init初始化一个实例,而new创建它.
+
+这里定义一个新类的new方法,而不是通过工厂函数,是为了让元类的信息接着被其子类继承.
+
+好处,作用
+# 装饰类的所有方法.
+# 自动插入新的方法
+# 创建时候注册类?
+# 提供接口注册,可以通过功能自动与接口适配(内省)
+# 类校验,检查类是否满足一定的条件.
+
+应用:
+# 例如一些ORM(对象关系映射)系统.比如:配置信息或者数据库信息,根据信息的读取,可以动态的创建新的对应的类来.比如Django ORM就是这样的.
+
+如前所述,理解它,但是尽量避免使用它.
+* 可以使用装饰器,来完成一些功能.
+* 也可以使用字典的槽slot来完成一些动态信息(对于纯数据的类).
+* monkey patch也可以发挥类似的作用.
+----
+ref:[[http://blog.jobbole.com/21351/]]
+
+在python中,类也是一个对象.
+`这里涉及到类和对象的区别,一般理解,对象是一个类的实例.这里类也是一个对象,是因为类是元类的一个实例`
+`或者反过来.元类的一个对象,一个普通的类,是可以创建对象(类实例)的,所以它是一个类`
+
+{{{
+    class Foo(object):
+        bar = True
+}}}
+完全等同于
+{{{
+    Foo = type('Foo',(),{'bar':True})
+}}}
+`这个例子,相比前面的更为简洁而明了`
+
+这里type其实是python中所有类的元类.当然,你也可以自定义一个元类出来.
+
+元类的作用:
+# 拦截一般类的创建
+# 修改类
+# 返回修改之后的类
+
+
+=== 装饰器 ===
+decorator
+
+ref:[[http://www.ibm.com/developerworks/cn/linux/l-cpdecor.html]]
+
+修改decorator之后定义的函数和方法.
+
+decorator的参数(至少)是一个函数,返回的结果也要是一个函数.
+
+注意:
+* decorator不可以修改类实例化本身,但是可以修改类的方法.
+* 而且decorator不可以动态的增加/删除方法,只是可以修改方法的行为.但是也可以通过修饰__new__方法(这个最好不要去做)
+
+最典型的应用就是:
+
+是一个函数或者方法完成"其他额外的功能",同时完成其本质工作.
+
+例如:
+# 打印日志,或者跟踪信息,存储/缓存,线程锁定(同步),输出重定向等之类.
+# 远程过程调用RPC,soap等都可以通过这个完成.
+
+==== decorator模块 ====
+这是python的一个标准模块.
+
+通过这个可以使得decorator更为规范.也就是将装饰器函数本身,使用@decorator进行装饰.
+
+{{{
+	from decorator import decorator
+	@decorator
+	def trace(f, *args, **kw):
+		print "calling %s with args %s, %s" % (f.func_name, args, kwargs)
+		return f(*args, **kw)
+}}}
+
+=== context manager ===
+with 语句
+
+自动析构相应的资源.或者对其进行检查.
+
+=== head tail 解析列表 ===
+{{{
+	mylist = range(4)
+	a, *b = mylist
+	# a -> 0
+	# b -> 1 2 3
+	a, *b, c = mylst
+	# a -> 0
+	# b -> 1 2
+	# c -> 4
+}}}
+
+这种风格和lisp衍生语言中的car/cdr,head/tail解析方式非常相似.
+
+这个特性只有python3上面才有.
+
+不过对于python似乎用处并不大.
+
+== 作用域 ==
+global就不需要多说了.
+
+还有nonlocal作用域关键词
+
+{{{
+def counter():
+	n = 0
+	def count():
+		nonlocal n
+		n += 1
+		return n
+	return count
+}}}
+这种写法,在scheme里面非常常见.可以用于创建闭包.
+
+
+== 作用域 ==
+LEGB
+本地作用域 当前作用域被嵌入的作用域 全局/模块作用域 内置作用域
+
+local -> enclosing local -> global -> built-in
+
+而我们使用的global以及nonlocal语句,是来改变作用域的.
+
+== 环境变量 ==
+PYTHONPATH,设置python的importing模块路径.
+
+格式与shell的PATH是完全一致的.一个或者多个路径,按照os.pathsep(在unix下是:号,在windows下是;符号).不存在的路径,被直接忽略.
+
+除了常规的路径,独立的PYTHONPATH项,也可以指向zip文件,包含纯粹的python模块.扩展模块,不可以从zip文件中导入的.
+
+== 命名tuple ==
+Item = namedtuple("Item", ['index', 'value', 'weight'])
+
+Item(i-1, int(parts[0]), int(parts[1]))
+
+== pip 使用 ==
+可是测试了好像没有效果
+
+可以通过设置PIP_DOWNLOAD_CACHE的环境变量,然后pip就会自动检测该路径下是否有下载完毕的包,就会从哪里进行安装.
+
+pip全部升级
+
+pip freeze --local | cut -d = -f 1 | xargs pip install -U

@@ -1,0 +1,233 @@
+= pep8 代码规范 =
+
+== 空格 ==
+# 每等级使用4个空格
+# 不要直接使用tab键
+# 不要混乱使用tab和空格
+# 函数之间只需要一个空行
+# 类之间需要两个空行
+
+- 字典,列表,元组,参数列表,以及字典的":"之后,加一个空格.不是之前.
+- 谓词操作符号,之间加空格
+- docstring中间不需要加空格
+- 参数列表内部的指定值,不要加空格
+
+
+变量空格(与前重复)
+- 变量赋值前后有空格
+- 函数参数见的,之后,要有空格
+- 逻辑判断符号前后,也要有空格
+- 多参数返回时候的逗号,之后也要有空格
+- 表示键值u关系的:,之前不可以有空格,之后要有空格,形如 k: v
+- 但是,表示默认参数的=号前后,不要有空格
+
+函数规则
+- 新的函数开始之前有两个空行
+- 类中函数之前空一行
+- 空行之中,不要有任何空格之类
+
+== 命名规则 ==
+- 对于函数,方法,属性使用小写单词组合.使用下划线组合.
+- 对于常量,使用小写或者全大写的.
+- 每个单词首字母大写,用于类名
+- 驼峰法,只用于兼容之前的约定?
+- 属性:公开的使用小写字母组合,内部的使用下划线开始,私有的使用两个下划线.
+
+== 行长度 ==
+- 每行不可以超过80个字符
+- 悬挂的行,悬挂到括号,中括号等上一个符号的下一个空格位置.
+- 也可以使用反斜线,(但是不推荐这种方式,因为其必须在行尾,之后不可以有空格,也很丑陋)
+
+== 长字符串 ==
+- 以r开始的,为raw string.
+- 不同的字符串,可以直接合并. "a" "b" == "ab"
+- 但是命名字符串,不可以 a b,invalid syntax
+- 多行字符串使用三个引号.
+
+== docstring & comments ==
+- docstring how to use code
+explain how to use code, and are for the users of your code.
+- comments why and how code works
+comments explain why, are for the maintainers of your code.include yourself.
+
+----
+Simple is better than complex.
+
+Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.
+
+— Brian W. Kernighan
+In other words, KISS!
+
+== swap values ==
+{{{
+b,a = a, b
+}}}
+== 元组 ==
+使用comma逗号,来创建元组,如果不使用逗号的话,就不是元组.
+{{{
+(1) == 1
+(1,) == (1,)
+}}}
+
+== 交互式的_ ==
+在解释器过程中,通过"_",存储者上次打印的语句.但是编程的时候是没有用的.
+
+== 子串构建字符串 ==
+", ".join(strlist)
+
+这种方式,可以处理大量的子串,不要使用循环"+",来进行字符串的拼接.
+
+== 检测None ==
+{{{
+is foo is None:
+    do_sth()
+}}}
+
+而不是
+{{{
+    if foo == None:
+        do_sth()
+}}}
+
+== list迭代 ==
+{{{
+for item in mylist:
+    print item
+}}}
+
+== 尽可能使用in ==
+{{{
+for key in d:
+    print key
+}}}
+一般会更快,而且对于多个容器都是可行的,而且是一个操作.
+
+== dict设置默认方法 ==
+这样可以设置默认值.
+
+== 默认的参数设置 ==
+默认参数设置,应该通过下面的方法
+
+{{{
+    def good_append(new_item,a_list=None):
+        if a_list is None:
+            a_list = []
+        a_list.append(new_item)
+        return a_list
+}}}
+
+== listcomp ==
+列表压缩,这个很好用.
+
+== 生成器 ==
+xrange是一种生成器.
+
+total = sum(num* num for num in xrange(1,101))
+
+当计算列表的过程是需要的最终结果的时候,使用listcomp
+
+如果计算的列表结果只是中间结果,最终是一个整体结果的,使用生成器比较好.
+
+== 使用DSU排序 ==
+{{{
+from operator import itermgetter
+alist.sort(key=itemgetter(1))
+}}}
+直接按照第2项,进行排序.
+
+== EAFP vs LBYL ==
+使用异常机制,而不是使用逻辑判断机制
+{{{
+    try:
+        return str(x)
+    except TypeError:
+        ...
+}}}
+
+== 程序结构 ==
+* Shebang
+* source encding declaration
+* Module docstring
+* imports(stdlib,third-party,private modules)
+* global const & init code
+* exceptions
+* moduel level functions
+* classes
+* main function
+
+示例:
+{{{
+#! /usr/bin/env python
+# example/script-template.py
+
+def main(args):
+    if not args:
+        print "Usage:..."
+        return 2
+    return 0
+
+
+if __name__ == '__main__':
+    import sys
+    sys.exit(main(sys.argv[1:]))
+}}}
+
+== OOP vs pythonic property ==
+ref:python3 OOP
+
+不要写形似OOP的代码.
+
+OOP风格
+{{{
+    class color:
+        def __init__(self,rgb_value,name):
+            self._rgb_val = rgb_value
+            sefl._name = name
+        def set_name(self,name):
+            self._name = name
+        def get_name(self):
+            return self._name
+}}}
+
+应该是如下的pythonic风格
+{{{
+    class color:
+        def __init__(self,rgb_value,name):
+            self.rgb_value = rgb_value
+            self._name = name
+        def _set_name(self,name):
+            # 使用系统性的函数
+            if not name:
+                raise Exception("Invalid name")
+            self._name = name
+        def _get_name(self):
+            return self._name
+        # 这里是关键
+        # 使用property关键词提升代码的可读性.
+        name = property(_get_name,_set_name)
+}}}
+之后可以直接通过color.name,c.name='XXX'来直接进行调用,而不是需要一通莫名的getter和setter方法.
+
+{{{
+    class Foo:
+        #...
+        @property
+        def spamm(self):
+            return make_spamm()
+    f = Foo()
+    myspamm = f.spamm
+}}}
+`总之是property的方法,这里借鉴下,具体再写`
+
+== static method ==
+静态方法,不是很有用.
+
+可以用于格式化,帮助函数等.
+
+== class method ==
+这种返回一个类,可以作为工厂方法
+
+== import规则 ==
+- 分列一行,不要写在同一行中
+
+----

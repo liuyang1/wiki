@@ -1,0 +1,30 @@
+= pythonic风格代码 =
+TODO:
+http://chrisarndt.de/talks/rupy/2008/output/slides.html
+
+== the zen of python ==
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced
+----
+Beautiful is better than ugly.
+
+Programs must be written for people to read, and only incidentally for machines to execute.
+
+— Abelson & Sussman, Structure and Interpretation of Computer Programs
+== swap ==
+a,b = b,a
+`这里其实直接就是tuple的赋值过程吧?`
+
+== 列表压缩 ==
+...经常使用,跳过
+
+

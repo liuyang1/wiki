@@ -259,6 +259,11 @@ git push --mirror URL
 可以方便的检查变更.具体之后在尝试吧.
 
 ref::[[http://cmonkey.github.io/blog/2012/04/01/tig/]]
+= basic =
+== author ==
+string, such as 'liuyang <liuyang@xxx.com>'
+
+this space between name and mail is necessary.
 == clean ==
 用于清除git的多余的文件
 必须添加-f或者-n参数.
@@ -292,9 +297,6 @@ ref::[[http://cmonkey.github.io/blog/2012/04/01/tig/]]
 == blame ==
 查看每行的改动
 git blame [filename]
-
-== issue ==
-rebase compare with cherry-pick
 
 == cherry-pick ==
 用于将某个commit迁移到其他的分支上.比rebase要有用.

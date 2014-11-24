@@ -1,0 +1,87 @@
+= python 小技巧 =
+
+== 判断一个变量的类型 ==
+isinstance(var, type)
+
+isinstance(lst, list)
+
+isinstance(lst, (int, str, list))
+
+== 判断是否可以迭代 ==
+可以直接判断是否还有 "__iter__" 属性
+
+use ABSTRACT Base Classes
+{{{
+import collections
+
+if isinstance(theElement, collections.Iterable):
+    # ...
+else:
+    # ...
+}}}
+
+`hasattr(myObj, '__iter__')`
+
+== 变参数 ==
+
+*vargs
+
+**kwargs
+
+splat call
+
+*,在python中称之为展开运算符(splat operator).可以自动展开,当进行一个函数调用的时候.
+
+== zip ==
+
+=== unzip ===
+zip(*m)
+
+=== 将列表划分为n个一组 ===
+l = range(10)
+zip(*([iter(l)] * 3))
+
+注意:
+这种划分方法,非整数(也就是不能被刚好划分的部分,将会被丢弃掉)
+
+=== 旋转矩阵 ===
+rotated = zip(*matrix[::-1])
+
+顺时针
+rotated = zip(*matrix)[::-1]
+
+== switch-case ==
+{{{
+def f(x):
+	return {
+		'foo': 1,
+		'bar': 2,
+	}.get(x,3) # 3 will be default value
+}}}
+
+== offset by 1 ==
+{{{
+	s = '123454321'
+	all(s[i] == s[-i-1] for i in range(len(s)))
+	all(s[i] == s[~i] for i in range(len(s)))
+}}}
+~0 == -1
+~1 == -2
+
+== 三目运算 ==
+greater = [b,a][a>b]
+
+greater = a if a>b else b
+
+== 默认值 ==
+text=''
+option = text or 'empty' # 'empty'
+
+== 字符串的center ==
+'foo'.center(10) # '   foo   '
+
+== collection ==
+=== Counter ===
+
+- elements  返回迭代器,重复每个元素,按照其统计频次
+- most_commmon 以频次作为顺序输出,返回一个元组列表,元组的第一项为内容,第二项为频次

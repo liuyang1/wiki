@@ -1,0 +1,17 @@
+= lambda_python =
+----
+
+利用lambda可以构造一些很精巧的函数,从而达到了程序的设计上避免各种较为繁琐的特性.(比如复杂的函数)
+
+例如:
+
+tic = lambda: 'at %1.1f seconds' % ( time.time())
+
+这样就可以直接在后面执行:
+
+print tic()
+
+这个好像没有出奇之处,只是简化了代码,不需要多余如下:
+
+def tic():
+    return 'at %1.1f seconds' % (time.time())

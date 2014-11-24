@@ -1,5 +1,15 @@
 
-== doctest ==
+== StringIO ==
+if you want same style output to string, or file, like cin/cout in C++.
+try this library.
+
+{{{
+# out = sys.stderr
+out = cStringIO.StringIO()
+print >> out, "abc"
+out.close()
+s = out.getvalue()
+}}}
 
 == cProfile ==
 profile tool

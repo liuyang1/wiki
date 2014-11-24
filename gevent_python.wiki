@@ -1,0 +1,81 @@
+
+=gevent=
+    libevent封装,同时支持协程,高并发,异步编程库.
+    应该比较强大.
+    
+* 快速事件循环 基于libevent,和epoll
+* 轻量级的执行单元 基于greenlet 协程
+* 重用标准库的API接口 例如Events,和Queues
+* 支持SSL
+* DNS获取通过libevent-dns获取
+* Monkey补丁,使得第三方的库也可以是协同的.
+* 基于libevent-http的快速的WSGI服务器
+
+----
+== 缺陷与陷阱 ==
+_gevent不支持多进程._
+
+也就是如果充分利用多核,则需要开启多个进程,然后通过nginx来反向代理,.
+
+注意:
+ gevent的patch方法,既有好处,也有坏处.坏处是部分情况下行为不可控了.
+
+gevent修改了
+# 所有的socket为非阻塞式的(也就是setsockopt(blocking=false))
+# 修改了socket的发送接收函数,发生阻塞的时候(EWOULDBLOCK异常),则将socket的fd添加到epoll回调函数.并且返回主协程.
+
+也就是gevent本质还是采用了事件监听和回调函数的方式,但是是通过socket打patch,使得这个过程透明化.
+
+gevent的patch影响返回为所有的python库,因此如果有其他的C库在python程序中同时使用,那些是不受影响的.
+
+----
+
+greenlet是C的扩展模块.
+
+并发的核心思想是将任务分解到小的并行子任务.子任务之间在一定程度上互不依赖.
+
+gevent执行程序之间的转换(切换)是通过Python的yield操作执行的.
+
+----
+
+== 具体代码 ==
+
+开启一个协程    gevent.spawn(FUNCNAME,ARG0,ARG1,...)
+
+_这里非常有 [[erlang]] 的风格_
+
+gevent.joinall(GREENLET_LIST)
+
+
+greenlet的状态
+# started
+# ready()
+# sucessful()   是否已经停止,并且无异常
+# value()       返回值
+# except()      异常
+
+*防止僵尸程序*
+
+主程序接收SIGQUIT时候,程序虽然可以结束,但是后台还有僵尸进程的存在.
+
+因此需要设定SIGQUIT的对应回调函数为gevent.shutdown().
+
+=== 超时机制 ===
+使用那个超时机制,防止程序无法完成.
+
+== gevent数据结构 ==
+=== Event事件 ===
+
+=== queues队列 ===
+
+最常见的操作为put/get操作.程序保证队列的互斥性.例如同时只有一个greenlet从队列中get()元素.
+
+默认put/get操作是非阻塞的.程序也可以设定为阻塞的.
+
+如果是阻塞式的,则需要添加超时机制,这样比较好.
+
+== 基于gevent的高级框架 ==
+
+=== gevent zeroMQ ===
+
+=== WSGI Server ===

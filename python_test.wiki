@@ -1,6 +1,33 @@
 
-== doctest ==
+== pydoc ==
+help generate python document
+用于自动生成相关的文档.主要是函数,以及全局变量.以及注释提取出来.
 
+* -w    write html document file
+* -k    will search all avaiable module
+* -p    port, to start a web server on port
+在本地的端口上,打开python的文档.可以在线访问本地已经安装的各个python模块的相关文档.
+
+using pydoc web server, easily browser python document offline.
+
+good tools!! simple, but so powerful!!
+
+== coverage ==
+using pip to install.
+
+* coverage run [python command]
+generate .coverage file stored the test data.
+
+* coverage report -m
+display test report in command.
+
+* coverage html
+generate htmlcov/index.html and other page.
+
+this tool have a nose plugin.
+
+= 测试组件 =
+== doctest ==
 python -m doctest -v [FileName]
 
 docstring
@@ -9,13 +36,20 @@ docstring
 testoutput
 """
 
-== pydoc ==
-help generate python document
+就是在docstring里面,填写相应的测试用例.
+缺点:
+# 代码与测试混合在一起,非常不好看,如果测试用例过多,也严重影响代码的观感.
+# 只能用于非常简单的测试.
+# "重载"了docstring的作用,就不能随便写docstring了.这不是其原本设计时候的目的.
 
-* -w    write html document file
-* -k    will search all avaiable module
-* -p    port, to start a web server on port
 
-using pydoc web server, easily browser python document offline.
+== nose ==
+nose支持的另外一种方式比较好用.
+就是按照一个默认的约定.文件名称含有test,函数以test开始,的为测试用例.然后就会直接执行相应的测试用例.
+进一步判断结果.
+这种方法,完全弥补了doctest的缺点.`话说doctest也不是为了重型测试使用的,本身就是为了测个简单玩意搞出来的`
 
-good tools!! simple, but so powerful!!
+执行命令`nosetests -s -v`
+
+也支持doctest这种测试方法.
+

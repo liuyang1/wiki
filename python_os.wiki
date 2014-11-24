@@ -1,0 +1,54 @@
+= python跨平台支持 =
+mtime: 2013-07-03 21:40:33 
+----
+== 32bit 64bit Win 路径问题 ==
+
+problem:
+
+# 32bit subprocess在x64 Windows下的问题
+就是虽然使用了system32路径,但是系统会默认转到\Windows\SysWOW64.
+
+而这个路径下,有些32位的程序是不存在的.
+
+可以使用\Windows\sysnative,这样就会定位到system32路径.
+
+[[http://evenrain.com/32-bit-python-get-problem-in-x64-windows/]]
+== Process ==
+
+因为Windows缺少os.fork(),因此有一些限制.
+
+os.fork()的相比与windows的进程或者linux的进程的不同之处,就是这里是copy环境,也就是复制原有的运行时变量.
+
+# more picklability
+    确保所有的用于Process.__init__()的参数,都是可以pickble的(也就是可以序列化的,pickle是python的一个序列化库).
+    这也就意味着,特别的,bound或者unbound的函数不可以直接用于target参数.定义这个函数,然后使用它.
+    同样,如果你的Process子类,要确保实例是可以pickle的,当Process.start()被call的时候.
+
+    之前碰到的问题,应该就是这样的,就是socket是不可以进行pickle的.
+
+
+# 全局变量
+    当Process.start()运行的时候,子进程中的全局变量可能和父进程,并不相同.
+    但是,mobule级别的常量不会有这种问题.
+
+# 主模块的安全import
+    确保主模块可以安全地被新的python解释器import.而不会导致任何副作用,例如开启一个新的进程.
+
+    就是避免模块中还有直接执行的代码.
+    
+-----
+
+multiprocessing模块本质上,设计基于POSIX系统.fork的系统调用.
+
+在这里OS上,子进程从父进程克隆状态,二者都保持运行从同一个地方.子进程有新的进程ID.
+
+这种情况下,multiprocessing,可以利用这些机制,迁移状态从父进程到子进程.这些子进程就有几乎所有需要的python状态.
+
+Windows没有fork.
+
+这样multiprocessing必须pickle状态,这样就需要运行新的python解释器,运行子进程脚本.几乎同时,父进程将会告诉子进程使用一些父进程的状态,这些状态信息需要通过pickle传递过去.(这个过程发生在Process.start()这个调用开始之前).
+这样子进程必须要import脚本到子进程.
+
+因此如果在import脚本过程发生的行为,就会执行两遍.一次在父进程,一次在子进程.
+
+----

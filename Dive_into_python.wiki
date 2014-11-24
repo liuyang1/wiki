@@ -1,0 +1,16 @@
+= Dive into python 3 =
+mtime: 2012-11-01 16:27:00 
+----
+== ch1 install ==
+skip
+
+== ch 2 new content ==
+2to3脚本
+
+python3中字符串都是Unicode字符串.
+
+XML应该改用element Tree库,不要使用其他的.而且它现在也是标准库的一部分.
+
+文档字符串是个很好的特性.它将编程过程与注释过程自然而然的融合在一起.而且能够提供更为丰富的信息输出.
+
+目前存在这个特性的,我只在python和common lisp中间看到过.

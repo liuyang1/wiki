@@ -2,8 +2,8 @@
 
 [[python_stdlib]]
 [[python_lib]]
-
 [[python_test]]
+[[python_old]]
 == IO ==
 * write
 * str

@@ -1,0 +1,27 @@
+= complexity =
+How to compute complexity of a function?
+
+NOTE:
+this is not algorithm complexity.
+
+== Cyclomatic Complexity ==
+based on brach number in function.
+
+V(G) = e - n + 2
+
+* e     edges number in control flowchart
+* n     nodes number in control flowchart
+
+All END nodes as only ONE node, even though not only one return statements or
+throw statements.
+
+This V(G) means need number of test cases to cover all branches.
+
+Normal conditon, this CC need less than 10 or 15.
+== complexity checking tool ==
+* PMD
+* CheckStyle
+* JavaNCSS
+
+== coverity checking tool ==
+* Cobertura

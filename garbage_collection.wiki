@@ -1,0 +1,38 @@
+= GC =
+
+== ref counter vs. GC ==
+=== ref counter ===
+ref counter using in C or C++.
+
+Pro::
+* Effitive
+* No stop all runtime
+* Object have determinastic life cycle
+* Easy to implment
+
+Con::
+* complexity is O(ref cnt), but GC with "mark-sweep" is O(memory's amount)
+* CANNOT solve loop-ref problem
+
+== GC in cPython ==
+Using ref counter to trace and recycle garbage.
+Based on it, Using "mark and sweep" to slove loop-ref problem.
+Using generation collection to save time.
+
+PyObject have a property ob_refcnt
+
+=== mark-and-sweep ===
+PyGC_Head struct
+
+# backup orignal ref-cnter
+# operate this copy, traversal this object, decrease all ref-object.
+# Ref-Cnter is zero split to two type: reachable and unreachable.
+# unreachable object will recycle.
+
+=== generation collection ===
+gc_generation struct
+
+Three generation.
+
+new object enter 0-th generation.
+When 0-th is full, then run GC process.
