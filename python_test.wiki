@@ -18,4 +18,4 @@ help generate python document
 
 using pydoc web server, easily browser python document offline.
 
-good tools!!
+good tools!! simple, but so powerful!!

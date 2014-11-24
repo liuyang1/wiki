@@ -1,0 +1,116 @@
+= scheme =
+mtime: 2013-01-15 20:03:15 
+auth: liuyang1
+----
+scheme语言是lisp语言的一个分支,我最初于2012年中对其有所接触.看了SICP的部分内容和yast.感觉还不错,但是很多东西渐渐又忘记了.
+
+看来需要反复学习,这次再行复习一遍,搜集笔记于此.
+----
+== 系统函数 ==
+=== 数学计算支持 ===
+- quotient 取整除法
+- 求余 remainder
+- 指数 expt
+
+随机数
+- random (random)产生0~1的随机数,(random 100),产生0~99的随机数
+
+=== 系统函数支持 ===
+- (sleep N),休息一定的秒数
+
+=== 打印显示 ===
+- display 显示,输出
+- displayln 显示输出,并且添加回车
+- newline 打印回车
+
+=== 逻辑判断 ===
+- not 非
+- = 等于,用于数字
+- equal? 用于判断atom,list的相等性
+- null? 是否为空串
+
+
+=== 高阶函数 ===
+map和for-each的区别
+
+for-each执行过程到每个元素,但是得到的返回值都抛弃了.
+
+=== 数据类型 ===
+对于关联列表
+((a . 1) (b . 2) (c . 3))
+这样,点对列表.每个点对的car为键值key.car为所关联的值
+
+(assv key association),取关联列表中的对应点对.
+
+==== 列表 ====
+支持的操作
+
+- cadr 取第二个
+- caadr 取第三个
+- ...
+- length 返回元素个数
+- list-ref 取第n个,例如(list-ref '(1 2 3) 0),这里也是从0开始的,如果长度超出,则会提示错误.
+- (list-tail *lst* *pos*)	返回pos位置之后的元素,作为列表
+- (apppend lst ...)		将任意多的列表拼接在一起
+- (reverse *lst*)		列表倒序
+- (list-set! list k val)
+
+==== 列表迭代 ====
+- (map *proc* *lst* ...) 映射函数,应用到所有元素
+- (andmap *proc* *lst* ...) 如果proc应用到元素上,结果为#f,则立刻返回,不会应用到之后元素.应用到最后,则将应用最后元素的结果作为返回值
+- (ormap proc lst...) 类似上面的,这里是或逻辑
+- (for-each proc lst ...+) 与map相似,但是结果是忽略的.
+- (foldl proc init lst ...+) foldl应用proc到元素,并且foldl组合返回值.
+(其实就是accumulate)
+- (foldr proc init lst ...+) 与foldl相似,但是方向不同.
+
+==== 列表过滤 ====
+- (filter pred lst)
+- (remove v lst [proc]) 删除列表中的第一个v元素
+- (remq v lst) 等同于(remove v lst eq?)
+- (remv v lst) (remove v lst eqv?)
+- (remove* v-lst lst [proc]) 从lst中删除v-lst中的每个元素的每个实例
+- (remq* ...)
+- (remv* ...)
+- (sort lst less-than? ...) 返回一个排序后的序列
+
+==== 列表搜索 ====
+- (member v lst) 定位lst中第一个equal? v的元素.如果有,则返回之后的子列表,否则返回#f
+- (memv ...) 使用eqv?
+- (memq ...) 使用eq?
+- (memf proc lst) 使用proc来确定是否为member
+- (findf proc lst) 返回该元素,或者#f
+- (assoc v lst [is-equal?]) 定位第一个car值为v的元素,(根据is-equal?).若存在,则返回该元素,否则返回#f
+- (assv v lst) 类似,使用eqv?
+- (assq ...) 类似,使用eq?
+- (assf proc lst) 类似,但是使用函数
+
+== for 语句 ==
+scheme的for语句,需要SRFI-42支持.默认guile是不开启的,racket开启.
+
+形式如下:
+
+(for (*for-claus* ...) body-or-break ... body)
+
+for-clause = [id seq-expr]
+    | [(id ...) seq-expr]
+    | #:when guard-expr
+    | #:unless guard-expr
+    | break-clause
+
+break-clause = #:break guard-expr
+    | #:final guard-expr
+
+body-or-break = body
+    | break-clause
+    
+seq-expr : sequence?
+
+ref::[[http://docs.racket-lang.org/reference/for.html]]
+== 解析器 ==
+[[scheme_inter_list]]
+
+== vim支持 ==
+slime插件
+
+[[vim_plugin]]

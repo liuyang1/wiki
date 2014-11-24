@@ -1,0 +1,9 @@
+
+== doctest ==
+
+== cProfile ==
+profile tool
+
+== HTTPSimpleServer ==
+NOTE:
+NOT supported by python3

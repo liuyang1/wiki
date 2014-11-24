@@ -1,5 +1,6 @@
 = python =
 
+[[python_stdlib]]
 [[python_lib]]
 
 [[python_test]]

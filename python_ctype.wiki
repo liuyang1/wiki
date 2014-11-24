@@ -1,0 +1,81 @@
+=ctype库=
+{{{
+C函数需要传递结构体指针是常事，但是和Python交互就有点麻烦事了，经过研究也可以了。
+<结构体指针作为函数参数>
+来看下C测试例子:
+
+[cpp] view plaincopyprint?
+
+	1. #include <stdio.h>  
+	2. typedef struct StructPointerTest* StructPointer;  
+	3. struct StructPointerTest{  
+	4.         int x;  
+	5.         int y;  
+	6. };  
+	7. void test(StructPointer p) {  
+	8.         p->x = 101;  
+	9.         p->y = 201;  
+	10. }  
+
+
+
+
+这里test里面需要传入结构体指针,函数中的实现很简单，就是改变x 和 y 的值这个函数将被python调用。使用Python调用时，需要模拟申明个结构体(class):
+
+[cpp] view plaincopyprint?
+
+	1. from ctypes import *  
+	2. class StructPointerTest(Structure):   
+	3.     _fields_ =[('x', c_int),  
+	4.                ('y', c_int)]  
+
+
+
+Usage:
+
+[cpp] view plaincopyprint?
+
+	1. ##Structure Pointer Operation  
+	2. SPTobj = pointer(StructPointerTest(1, 2))  
+	3. print SPTobj  
+	4. print SPTobj.contents.x   
+	5. print SPTobj.contents.y  
+
+
+<函数返回结构体指针>
+C函数测试例子改成如下:
+
+[cpp] view plaincopyprint?
+
+	1. StructPointer test() {  
+	2.         StructPointer p = (StructPointer)malloc(sizeof(struct StructPointerTest));  
+	3.         p->x = 101;  
+	4.         p->y = 201;  
+	5.         return p;  
+	6. }  
+
+
+
+
+Python程序处理如下:
+
+[python] view plaincopyprint?
+
+	1. from ctypes import *  
+	2. class StructPointer(Structure):  
+	3.         pass  
+	4.   
+	5. StructPointer._fields_=[('x', c_int),  
+	6.                         ('y', c_int),  
+	7.                         ('next', POINTER(StructPointer))]  
+	8.   
+	9.   
+	10. lib = cdll.LoadLibrary('./StructPointer.so')  
+	11. lib.test.restype = POINTER(StructPointer)  
+	12.   
+	13. p = lib.test()  
+	14. print p.contents.x  
+
+
+关于resttype可以参见 Tutorial : By default functions are assumed to return the C int type. Other return types can be specified by setting the restype attribute of the function object.
+}}}
