@@ -1,0 +1,84 @@
+= webservice =
+----
+
+ref:wiki
+
+webservice 是一种服务导向架构.通过web协议提供服务,目的是保证不同平台应用服务之间互操作.
+
+一般webservice包含3个部分: *这个没有准确的定义*
+
+* SOAP
+基于XML的可扩展消息信封格式,同时绑定传输协议(一般为http).
+
+* WSDL
+Web Service Description Language
+
+一个XML文档,用于描述服务端口访问方式和使用协议的细节.
+
+标准规范文档中接口的定义,就是来自于与此类似的东西.
+
+* UDDI
+用于发布和搜索web服务的协议.
+
+== SOAP ==
+SOAP::
+Simple Object Access Protocol
+
+信息交换协议.
+
+将webservice中远程调用和返回封装成机器可读的格式化数据.一般使用XML格式.完整定义了远程的过程,参数,返回值,出错信息等方面.
+
+WSDL是随之出现的,因为不同的webservice定义接口不完全相同.(但是是相似的).
+
+WSDL也是XML格式.用于描述那个服务器提供什么服务.怎样找到它,以及该服务器使用怎样的接口规范等.
+
+这样webservice过程,如下:
+
+# 获取该服务器的WSDL描述
+# 根据WSDL,构造一条格式化的SOAP请求发送给服务器.
+# 接收一条同样SOAP格式的应答
+# 根据WSDL解码数据.
+
+一般请求应答,都使用HTTP的POS方法.数据交换格式都是XML.
+
+== REST ==
+REpresentational State Transfort
+
+客户端通过申请资源实现状态的转换.
+
+特点:
+# 客户端和服务器结构
+# 无状态性.
+# 能够利用cache机制增加性能
+# 层次化
+# 按需
+
+REST是一种架构风格.
+
+== 区别/对比 ==
+
+SOAP仅仅使用POST方法,URI仅仅用于标识服务.
+
+REST则是面向资源的.使用GET/POST/PUT/DELETE直观表示获取,创建,更新,删除资源.
+
+_面向资源和面向事务_
+
+SOAP更为适合面向事务,而面向事务性的需求,是不可能通过无状态来解决的.
+
+=== REST的优点 ===
+- 复用HTTP的机制(而不是像SOAP一样,直接是在HTTP之上,而且和HTTP没有关系)
+
+    *事实上SOAP是下层协议无关的,只是经常用HTTP而已*
+    
+- 无状态
+
+    *每次请求包含响应所需的所有信息.所有状态信息存储在客户端.*
+    
+    这点非常有意义.
+    
+== 库 ==
+=== SOAP ===
+| 编程语言 | 第三方库       |
+| C        | gSOAP,axis/c   |
+| Java     | CXF,axis,XFire |
+| python   | soaplib        |

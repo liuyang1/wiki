@@ -1,0 +1,30 @@
+= 网络协议 =
+
+[[TCP]]
+
+[[UPnP_protocol]]
+
+[[webservice]]
+
+TODO:
+VRRP
+
+----
+移动互联网特性
+* CMWAP/CMNET的不同
+* 链接信号不稳定,必须考虑这种不稳定因素
+* 资费敏感,最小化数据传输
+* 高延迟问题
+
+因此一般采用:
+* XMPP
+* SIP/SIMPLE
+
+缺点是流量大,不考虑.
+
+微信内部采用SYNC协议,参考Activesyec实现.
+* 基于状态同步的协议(也就是协议交换,事实上是同步二者状态的过程)
+`这里的状态,以及状态序号的思路和[[arch]]#disruptor的思路是非常一致的`
+
+TODO:
+Activesyec

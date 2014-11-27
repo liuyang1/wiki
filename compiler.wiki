@@ -1,4 +1,6 @@
 = compiler =
 
 == topic ==
-[[garbage_collection]]
+[[garbage_collection|Garbage Collection]]
+
+[[type_system|Type System]]

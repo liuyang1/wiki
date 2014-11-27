@@ -56,6 +56,10 @@ git merge [repo1branch]
 - push远程tag	git push --tags
 - 删除远程tag	git push origin :vXXX
 
+== push ==
+git push origin localbranch:remotebranch
+
+remote will automatically create remotebranch
 == 撤销最后一个commit ==
 git reset HEAD~1
 

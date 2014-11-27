@@ -1,0 +1,9 @@
+= C test framework =
+
+== cmock ==
+add stub to replace original function, then we could test the interface/callee
+function independency.
+
+implement with Ruby
+
+== gtest ==

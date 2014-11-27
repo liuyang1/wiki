@@ -1,0 +1,315 @@
+= mfs使用 =
+
+== install ==
+
+=== mfsmsater install ===
+# 安装
+添加用户.
+
+groupadd mf
+
+useradd -g mfs mfs
+
+编译安装
+
+./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount
+
+make && make install
+
+# 修改配置
+
+初始化配置文件
+
+cp mfsmaster.cfg.dist mfsmaster.cfg
+
+cp mfsmetalogger.cfg.dist mfsmetalogger.cfg
+
+cp mfsexports.cfg.dist mfsexport.cfg
+
+设置访问权限
+
+在mfsexports.cfg中修改
+
+添加目标地址即可.
+
+# 初始化元数据文件
+注意:仅仅对于初始化的时侯,才需要该文件.
+
+cp metadata.mfs.empty metadata.mfs
+
+# 修改hosts
+
+添加IP地址 到mfsmaster
+
+----
+== web gui监控 ==
+mfscgiserv 运行就可以在9425端口检查运行状态.
+
+=== metaloggerserver安装 ===
+理论上metaloggerserver机器需要更为强大的机器才可以.该服务器用于备份使用.
+# 创建用户组与用户
+# ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var/lib --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount && make && make install
+
+cp mfsmetalogger.cfg.dist mfsmetalogger.cfg
+
+=== chunkserver安装 ===
+./configure --prefix=/usr --sysconfdir=/etc --localstate=/var/lib --with-default-user=mfs --with-default-group=mfs --distco-mfsmaster && make && make install
+
+cp mfschunkserver.cfg.dist mfschunkserver.cfg
+
+cp mfshdd.cfg.dist mfshdd.cfg
+
+# 配置
+创建目录/mnt/mfschunks1
+
+== mfsclient ==
+mount
+
+* -a 自动添加
+* -F    启动fork进行mount(这样可以同时进行,而且失败不会影响其他机器)
+
+mfsmount /mnt/mfs fuse mfsmaster=MFSMASTER_IP,mfsport=MFSMASTER_PORT,_netdev 0 0
+
+netdev 说明,这是一个网络设备,必须在网络正常情况下才会启动.
+
+autofs是一个自动文件系统挂载的工具.
+
+== 恢复 ==
+*这是很重要的一节*
+
+mfschunkserver start
+
+mfsmaster start
+
+mfsmount /mnt/mfs -H mfsmaster
+
+== 丢失文件找回 ==
+mfsfilerepair
+
+== 启动与关闭 ==
+Starting MooseFS cluster
+ 
+The safest way to start MooseFS (avoiding any read or write errors, inaccessible data or similar problems) is to run the following commands in this sequence:
+* start mfsmaster process
+* start all mfschunkserver processes
+* start mfsmetalogger processes (if configured)
+* when all chunkservers get connected to the MooseFS master, the filesystem can be mounted on any number of clients using mfsmount (you can check if all chunkservers are connected by checking master logs or CGI monitor).
+  
+Stopping MooseFS cluster
+   
+To safely stop MooseFS:
+* unmount MooseFS on all clients (using the umount command or an equivalent)
+* stop chunkserver processes with the mfschunkserver stop command
+* stop metalogger processes with the mfsmetalogger stop command
+* stop master process with the mfsmaster stop command.
+
+== Maintenance of MooseFS chunkservers ==
+ 
+ Provided that there are no files with a goal lower than 2 and no under-goal files (what can be checked by mfsgetgoal -r and mfsdirinfo commands), it is possible to stop or restart a single chunkserver at any time. When you need to stop or restart another chunkserver afterwards, be sure that the previous one is connected and there are no under-goal chunks.
+ 
+== 加快恢复的速度 ==
+Speeding up chunk replication and re-balancing.
+
+By default MooseFS yields higher I/O to the file system operations for clients and uses very little I/O for chunk replication and re-balancing. This is mostly preferable in normal operation. However when you replace an existing chunk server, then some of the chunks may be under goal and need a quick attention. If you want to speed up chunk replication process by sacrificing I/O for other file system operations, then tweak the following two parameters in mfsmaster.cfg file on a master server and restart master server process. You may have to experiment little bit to find a correct balance between chunk replication rate and available I/O for other  file system operations.
+
+CHUNKS_WRITE_REP_LIMIT = 5             #default value 1
+CHUNKS_READ_REP_LIMIT = 25             #default value 5
+
+ref:
+[[http://contrib.meharwal.com/home/moosefs]]
+[[http://www.moosefs.org/reference-guide.html]]
+[[http://blog.csdn.net/liuyunfengheda/article/details/5260278]]
+
+----
+= mfs 使用简明手册 =
+mfs是一个分布式存储系统.
+
+主要特点
+* 分布式存储,分布式带来的自由扩展的特性.
+* 多备份特性带来的部分主机当掉依旧可以提供服务,可以恢复服务的特性.
+    `两次容量升级,都是依赖于上面的两个特性`
+* 文件的读取,可以利用多主机的速度优势.
+
+目前发现的问题
+* 突然断电引发的死机,可能会导致存储系统的metalogger损坏,进而引起文件丢失.文件的丢失恢复,没有常规方法.
+
+== mfs结构介绍 ==
+{{{
+              +---------+       +------------+
+              | master  +-------+ metalogger |
+              +----+----+       +------------+
+                   |         
+        +----------+------------+--------+
+  +-----+----+ +---+----+  +----+---+  +-+-+
+  | chunkSvr | |chunkSvr|  |chunkSvr|  |...|
+  +----------+ +--------+  +--------+  +---+
+}}}
+
+对于现有的广行公司的mfs存储系统
+| IP            | 角色            |
+| 192.168.1.137 | mfsmaster       |
+| 192.168.1.132 | mfsmetalogger   |
+| 192.168.1.132 | mfschunkserver1 |
+| 192.168.1.134 | mfschunkserver2 |
+| 192.168.1.135 | mfschunkserver3 |
+== mfs 启动策略 ==
+* mfsmaster启动
+在mfsmaster节点上,运行`mfsmaster start`
+* mfschunkserver依次启动
+在各个chunkSvr节点上,运行`mfschunkserver start`
+* mfsmetalogger启动
+在mfsmetalogger节点上,运行`mfsmetalogger start`
+* 其他client节点进行挂载
+在同一网络的任一节点,首先在/etc/hosts增加一行
+
+`192.168.1.137 mfsmaster`
+
+然后,就可以运行`mfsmount PATH -H mfsmaster`,其中的PATH为你要挂载的目标地址.
+
+PS:
+# 在现有的系统中,master,metalogger,chunkSvr都已经配置了开机自启动,因此默认状态下,是直接开机,就可以恢复的.
+# 在现有的系统中,挂载节点,还无法自动恢复,可能需要手动处理.`已经找到了自动的方法,可以尝试给mfsmount命令增加网络设备参数??`
+
+mfs系统运行环境都是openSuse环境.该环境下开机启动可以放在/etc/rc.d/boot.local.如果有其他自启动任务,也请添加到这个地方.
+
+== mfs使用 ==
+通过mfsmount挂载,就可以完全像访问本机文件那样访问mfs文件系统中的资源.
+
+现有的mfs系统,主要提供两个服务.
+
+ftp服务,用于写入新的转码影片,这个一般在192.168.1.67:/var/pub/data路径下面.
+
+流化服务,用于读取流化视频资源,这个一般的流化服务器的/data目录下面.
+
+== mfs监控与管理 ==
+mfs系统提供了一个web监控页面,可以完全看到后台运行的各种状态.一般需要查看的状态有下列内容:
+
+| 标签                       | 覆盖内容                                                    |
+| Info                       | mfs内部的文件chunk情况,以及备份情况                         |
+| Server/Disk                | 下属的chunkSvr的工作情况(重点是其硬盘的占用情况)            |
+| Server                     | 下属的metalogger的运行情况                                  |
+| Mounts                     | mfs系统向外的client接入的情况                               |
+| Operations                 | 以及client进行的文件操作计数                                |
+| Master chart/ Server Chart | 各种运行时情况的观察,设计CPU,内存占用,磁盘占用等一系列信息. |
+
+== 常见问题解决办法 ==
+
+=== 如果mfsmaster意外停止了,怎么恢复? ===
+常见的恢复办法有两个.
+
+1,在mfsmaster节点上运行`mfsmetarestore -a`,进行恢复.
+
+2,从metalogger节点复制相应的meta文件,然后尝试恢复.
+
+=== 如何诊断整个系统 ===
+一般发现存储系统出现问题,是在不能提供存储服务的时候.
+
+这个时候,请先在确保网络接入没有问题情况下,尝试访问 http://192.168.1.137:9425 网页.
+
+若该页面无法打开,请在master节点上,手动启动 `mfscgiserv start`.手动启动之后,再尝试访问该页面.
+
+通过该页面,检查mfs系统是否存在故障.如果其中的chunkSvr有部分没有开启,则连接到相应的机器,手动开启chunkSvr服务.`mfschunkserver start`
+
+在确保各个chunkSvr都正常的情况下,请检查网页页面的`Mounts`标签.观察节点的挂载情况.如果你需要存储服务器的节点没有挂载,请到相应的client节点上,进行`mfsmount PATH -H mfsmaster`命令.
+
+=== 无法ls文件系统,也就是输入ls就会shell就会卡住.或者对应的挂载路径下不存在文件 ===
+    - 这种问题,一般是挂载点异常.
+        - 请先umount /data或者umount /var/ftp/pub
+        - 之后再重新挂载对应的路径
+    - 如果不可以通过umount这种缓和的方法,释放挂载点.那么可以直接杀死mfsmount进程,强制关闭挂载点.
+        killall -9 mfsmount
+=== 挂载,出现can not connect 192.168.1.137 9421...类似字样 ===
+    - 这是主存储服务器没有启动,请启动主存储服务器
+=== 挂载,出现can not ... data ===
+    - 这是超过一半的文件块存储服务器异常,请重启启动文件块存储服务器
+
+=== mfsmount是否有缓存策略 ===
+有的.
+mfsmount会缓存当前从chunkserver传输的数据,并且缓存到本地.
+
+默认的缓存空间为~~250MB~~ 其实代码里面是128MB.可以设置的范围为16MB~2GB.我们在实践中可以设置到最大值.
+
+同时,在mfs中,还有缓存模式的概念.
+
+AUTO默认模式.
+
+NO,不进行缓存.
+
+YES,总是进行缓存,(不推荐)
+
+mfsmount 每次都会请求相应的元信息(元信息缓存过期为1s时间)
+
+同样的,moosefs,打开文件的个数,是有限制的.默认为100K个文件描述符.
+
+=== 更多的细节 ===
+多个mfsmount进程,是相互不共享缓存的.
+
+即使mfsmount进程从同样的本地IP配置,更不用说不同的IP配置了.
+
+=== mfsmount 遇到--no-cano... 之类的错误是什么意思? ===
+注意mfsmount调用了fuse(对fuse有一定的版本要求)
+
+而fuse依赖于系统的mount.
+
+这个是fuse的2.8.6之后就开始强行采用的参数.但是可能在一些比较低版本2.17的mount(util-linux)模块里面,还没有这个参数.因此就无法辨认这个参数.
+
+这个参数,用于禁止在mount之后,对跨mount的文件路径,进行软连接.
+
+解决办法:
+
+# 升级你的util-linux
+# 降级你的fuse
+# 修改fuse的源码,这个命令参数在fuse/lib/mount_util.c这个文件中,可以直接删除.
+
+=== mfsmount 多网卡 ===
+有了很多的网卡,想扩展自己的带宽,这个并不是那么简单的插上网线,配置ip就可以完成的.
+
+linux下面有本地路由规则,因此必须配置本地的路由规则,才可以使得数据从我们需要的网卡出去,不然默认情况下,数据都是会从第一个默认网卡eth0出去.根本不能有效利用网卡带宽的.
+
+配置本地路由规则的方法:
+
+# 添加网卡,设置IP
+# echo 12 eth1table >> /etc/iproute2/rt_tables
+# 该规则一般如此:
+ip route add default dev eth1 src 192.168.1.2 table eth1table
+
+这句话的意思,就是路由规则为,从192.168.1.2,到任意地址的数据包,都可以通告链路设备eth1发送.
+# 应用规则
+ip rule add from 192.168.1.2/32 table eth1table
+
+从192.168.1.2的数据,查看路由表eth0table.
+
+# 应用生效
+ip route flush cache
+
+== 内部探究 ==
+=== mfsmount ===
+mfsmount,缓存部分,暂存在内存中.数据结构为cblock_s类型.每个block存储1K或者10K的数据.这个的宏在mfscommon/MFSCommunication.h中.这个大小影响到所有的chunkserver以及master,不可以随意改动.(而实际上,对于我们的系统而言,是可以增加block的大小,例如到4M,都是可以的)
+
+这里可以修改使得其获得更大的内存,超过2048.
+
+以及每个单元,可以更大.来更好的适应我们静态文件的需求.
+
+这部分的代码在mfsmount/main.c以及mfsmount/writedata.c中间.
+
+2014-01-03 11:46:25
+只有write缓存,这个不可能的吧!!!测试也确实看到了读缓存的啊!!!
+
+
+== SSDcache 扩展 ==
+使用外部工具DM-cache,EnhanceIO,Bcache等工具.
+
+flashcache工具.
+
+但是好像这些都是用于在chunkserver上面,提高读写速度的.
+
+btier.
+
+一般采用12/16GB的内存.4/6个机械硬盘,60GB/120GB的SSD,然后将SSD划分为4/6个分区(对应于硬盘个数),再加上一个系统分区.
+
+关于这部分的具体内容,参考[[ssd_cache]]
+
+2014-01-15 11:00:10
+mfsmaster 没有成功启动(cgi,以及各个chunkserver都正常)
+
+导致个mfsmount都没有成功启动

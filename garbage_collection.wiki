@@ -1,4 +1,4 @@
-= GC =
+= Garbage Collection =
 
 == ref counter vs. GC ==
 === ref counter ===

@@ -1,0 +1,21 @@
+message queue
+
+rabbitMQ.
+
+zeroMQ.
+
+对于socket的一系列接口.多点到多点的网络协议方式.(屏蔽底层细节)
+
+三种通信模型
+
+== request-reply ==
+屏蔽了谁先启动,这一细节.
+
+服务端收到信息前,阻塞.知道客户端连接.
+
+服务器/客户端,request/rely必须有序进行.
+
+== publisher,subscriber ==
+
+== parallel pipeline. ==
+

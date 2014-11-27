@@ -1,0 +1,60 @@
+
+目的::增强随机读取的性能.
+
+= bcache =
+ref:http://bcache.evilpiepirate.org/
+
+bcahe是一个linux kernel block layer的cache.允许一个或多个快速的硬盘(例如基于flash的SSD),来作为1个或者多个慢速硬盘的缓存.
+
+bcache可以透明的使用二者.
+
+也可以支持回写缓存.而且是文件系统angositc无关的.它设计用于最小努力来进行切换,默认可以没有任何配置.而且默认其并不缓存顺序读写,只有随机读写SSD才用于缓存.因此可以适用于桌面,服务器,存储阵列等设备.
+
+顺序IO,不进行缓存,是避免快速的顺序操作,将会导致很高的缓存不可用问题.也将提高SSD的寿命.
+
+将随机写入最小化,最终变为顺序写入,这样提高效率.同时提高机械硬盘和SSD的使用寿命.也提高了写敏感设备如RAID5的性能.
+
+测试结果::
+随机写入
+bcache可以达到18.5kiops.裸ssd只有12.2kiops.
+
+*随机读取*
+25~30kiops.
+
+= dm-cache =
+linux kernel的一部分.设备映射器,允许创建混合卷.作用是类似的.
+
+涉及到3部分数据:原始,缓存,元信息.
+
+= flashcache =
+facebook 2010年开发,2011年开源的.2013年分支出EnhanceIO.
+
+== 局限 ==
+- 原子性:写入操作非原子性的.
+- TRIM支持:ATA的TRIM命令支持优化flash存储,还不支持.
+- cache污染保护:进程用于标记不可以cache的内容,用于放置falshcache对其进行缓存.然而如果进程标记失败了,那么flashcache将无法清除.
+= 混合驱动 =
+主要有两种混合存储:NAND flash/SSD + HDD.
+双驱动混合系统和固态混合驱动.
+
+== 双驱动会和系统 ==
+bcache,dm-cache都是这一类的.Apple上的Fusion Drive也是类似的技术.
+
+== 固态会和驱动 ==
+SSHD,指的是incorporate合并NAND flash存储到硬盘中,这样作为一个整体的集成设备.SSHD,是更为精确的混合驱动的意义.
+
+SSHD有两种模式:
+自优化模式
+
+这种方式下,SSHD独立工作于操作系统.决定将那部分数据放置到flash中.
+
+主机优化模式
+SSHD支持扩展的SATA命令,根据这个特性,可以由操作系统决定放置位置.
+
+= SRT =
+smart response technology
+
+SRT来源与intel 快速存储计数.
+
+= ReadyDrive/ReadyBootst =
+微软的相关技术.

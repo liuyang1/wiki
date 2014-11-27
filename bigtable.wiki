@@ -1,0 +1,7 @@
+bigtable 建立在 GFS, Scheduler, Lock Service, Map Reduce 之上的.
+
+每个 Table 都是一个多维的稀疏图 sparse map.
+
+为了管理巨大的 Table, 把 Table 根据行分割.
+
+tablets <- GFS.

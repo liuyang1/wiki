@@ -1,0 +1,36 @@
+= TCP =
+
+== 状态 ==
+TCP协议共有11个状态.这个具体可以搜索相应的资料就可以看到图.ref:[[http://www.cnblogs.com/shanks/archive/2009/08/23/1552552.html]]
+
+=== 连接建立过程状态 ===
+| CLOSED     | 起始状态,超时/连接关闭进入此状态                                                |
+| LISTEN      | svr端等待连接时候的状态,一般bind,listen就到了这个状态                           |
+| SYN_SENT    | 客户端发起连接,发送SYN给服务器,进入此状态.若无法连接,则进入CLOSED状态.          |
+| SYN_RCVD    | 服务器端接受到SYN,进入到这个状态.                                               |
+| ESTABLISHED | 服务器与客户端完成三次握手进入此状态,说明可以发送数据了                         |
+
+=== 关闭过程状态变化 ===
+| FIN_WAIT_1 | 主动关闭一方,由ESTABLISHED进入此状态,同时发送FIN到对方.                                                         |
+| FIN_WAIT_2 | 主动关闭一方,接受到对方的FIN ACK,进入此状态.之后不可以接受数据,但还可以发送数据                                 |
+| CLOSE_WAIT | 接受FIN后,被动关闭进入此状态,具体动作为接受FIN,同时发送ACK                                                      |
+| LAST_ACK   | 被动关闭一方,发起关闭请求,从CLOSE_WAIT进入此状态,                                                               |
+| CLOSING    | 两边同时发起关闭请求,则有FIN_WAIT_1进入此状态,具体动作为接收到FIN请求,同时响应ACK                               |
+| TIME_WAIT  | 从FIN_WAIT_2进入,双方不同时发起FIN请求下,主动关闭一方,在自身发起关闭请求偶,接收到被动关闭一方的FIN后,进入此状态 |
+|            | CLOSING:双方同时发起关闭,都发起FIN请求,同时接收到了FIN并回ACK情况下,进入                                        |
+|            | FIN_WAIT_1::同时接收到FIN,ACK(最小概率情况)                                                                     |
+
+存在TIME_WAIT状态,是为了可靠关闭TCP全双工连接.同时保证过期的数据在网络中消失.`通过端口服用,可以避免进入此状态,从而达到快速恢复的目的`
+
+使用setsockopt(REUSER_ADDR)方式,来强行设置TIME_WAIT状态的端口为CLOSED状态.
+
+[[tcp_state.txt]]
+
+== 为什么是三次握手而不是两次? ==
+根据tcp_state,Client->Server发送SYN而服务器回复ACK+SYN.
+
+如果只有两次,那么显然,服务器就无法发送SYN,(因为客户端不会回复ACK,没有第三次握手).
+
+这样只有客户端确认自己向服务器建立了连接.因此这种时候连接是单向的.client->server.
+
+而TCP的设计是双工的.两次握手无法达成双工连接.

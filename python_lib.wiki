@@ -207,7 +207,8 @@ check_call(args)
 
 `可以使用shlex.split()来对命令进行分割.`
 
-
+NOTE:
+os.popen deprecated. NOT use it.
 
 === multiprocessing ===
 

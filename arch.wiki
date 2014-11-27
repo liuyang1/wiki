@@ -1,0 +1,438 @@
+[[GFS_google_file_system]]
+
+[[bigtable]]
+
+[[dynamo]]
+
+[[storm_twitter]]
+
+[[zeromq]]
+
+TODO:
+protocol buffer
+thrift
+= load balance =
+# 循环DNS
+# 负载平衡器
+# 地理DNS
+# anycast,一个IP地址映射到多台物理主机的路由技术,但是与TCP适应性不好.
+
+
+== f5负载均衡器 ==
+F5 BIGIP LTM,本地流量管理器
+
+# 流量均衡分配
+# 当机检查
+# 动态会话保持.
+# HTTP规则过滤
+
+----
+= web集群 =
+=== weblogic ===
+oracle的产品.J2EE的应用服务器软件.
+和Tomcat是类似的东西.属于Servlet/JSP Container.
+----
+= 分布式文件系统 =
+=== hdfs ===
+
+=== fastdfs ===
+开源轻量级分布式文件系统.特别适合中心文件4KB<filesize<500MB.`不适用与我们的业务需求`
+
+例如:图床,在线存储,视频网站等.
+
+* trackserver 跟踪服务器
+调度,负载均衡.内存中记录集群中所有存储组和存储服务器状态信息.不记录索引信息.`不记录索引信息,这个很特别`
+
+trackserver不是单点的`这个很重要`
+* storage server 存储服务器
+文件和文件属性都在存储服务器上,直接利用OS文件系统调用管理文件
+* client    客户端
+专用接口,使用TCP与trackserver或者storage server交互.
+
+特点:
+* 清量(master不再管理meta信息)
+* 对等结构
+* 分组方式
+
+FastDFS协议:
+header:
+* body length 8bytes
+* command    1bytes
+* status    1bytes
+body可以为空.
+
+FID设计:
+文件索引结构
+* 组名
+文件上传后的存储组名称,客户端自行保存`居然客户端自行保存??`
+* 虚拟磁盘路径
+* 数据两级目录
+* 文件名
+根据源存储服务器IP地址,文件创建时间,文件大小,随机数,文件扩展名信息生成
+
+
+
+
+
+=== mfs ===
+[[mfs_usage]]
+----
+= 网络带宽资源 =
+优酷土豆之类带宽在上百G水平.
+----
+= 个案 =
+== zhihu ==
+ref:[[http://www.biaodianfu.com/zhihu-technique.html]]
+
+| python框架     | Tornado                                                      |
+| 数据库         | MySQL,SqlAlchemy作为ORM进行数据库的建模和映射                |
+| cache          | redis,进行缓存,队列,计数或者任务,使用redis-py作为连接客户端. |
+| Javascript框架 | Google的Closure library                                      |
+| 负载处理       | nginx,反向代里,静态文件等大数据IO                            |
+| 图片服务       | Upyun,现在迁移到自建图片服务                                 |
+| 邮件服务       | Amazon SES,现在迁移到Maligun                                 |
+| 消息系统       | comet实现                                                    |
+| 虚拟环境       | virtualenv(python虚拟环境)                                   |
+| 代码部署       | python项目一般使用fabric进习惯部署                           |
+| 搜索实现       | mmseg进行中文粉刺,redis中进行查询                            |
+== 微信 ==
+ref:[[http://www.csdn.net/article/2012-05-15/2805581]]
+
+协议设计,参考网络协议部分资料.
+
+容灾问题:
+* 防止雪崩效应(用户在不可用情形下,反复尝试,结果进一步增加负载)
+* 柔性设计(在某个单元失效情况下,仍然可以继续服务)
+* 保护点前置`这里和在dispatcher限制视频流量是一个思路`,给后端系统更大的处理空间
+
+接入层优化:
+{{{
+    微信通过后台IP逆向的能力,通过后台指挥微信终端联网能力,寻找最优的接入点.
+}}}
+XXX:
+`这一段不是特别明白是怎么回事`
+== Justin.TV ==
+ref:[[http://www.csdn.net/article/2012-11-23/2812183-JustinTV_real-time_architecture]]
+
+* Twice 代理副去系统,缓冲优化应用服务负载.
+* XFS 文件系统
+* HAproxy HTTP/TCP负载均衡
+* LVS stack and Idirectord 高可靠性
+* Ruby on rails 应用服务器系统
+* Nginx web服务器
+* PostgreSQL 数据库,用户和meta数据
+* MongoDB 数据库,内部分析
+* MemcachedDB 数据库,存放经常修改的数据
+* Syslog-ng 日志服务系统
+* RabitMQ job系统
+* Puppet 创建服务
+* Git   源码管理
+* Wowza Flash/H.264视频服务器以及自定义modules
+* Usher 播放视频流的逻辑控制服务器
+* S3    小型镜像
+
+数据量:
+- 30M/月独立访问量
+- 45Gbps网络流量
+
+实时视频,因此对于带宽非常敏感,使用Usher将超标用户的负载导入到CDN中.
+
+Usher是Justin.TV内部自行开发的.
+
+使用RTMP协议,这样每个会话建立Session,成本很高.`和我们的rtsp其实是一样的`
+
+=== 网络拓扑 ===
+一般采用Dell power Edge交换机.
+
+核心路由器为思科6500系列.
+
+== Twiter ==
+ref:http://highscalability.com/blog/2013/7/8/the-architecture-twitter-uses-to-deal-with-150m-active-users.html
+
+twiter 如何处理1.5亿用户在线,30万QPS,22MBps的流水.发送tweet在5s钟以内.
+
+twiter开始与3节点的Ruby on rails网站.
+
+* twitter不再希望是一个web app,而不是想提供一组API来给移动互联网使用.提供最大的实时事务系统.
+* twitter基本为一个消费者机制,而不是生产者.300K QPS,读取请求,而只有 6k 的写请求.
+`这一点在类似的系统都是必然的,包括知乎,甚至SNS之类的等等,都是的`
+* 异常值(具有众多粉丝的用户)将会引起一些问题.这有一个巨大的扇出...
+* 正在进行的timeline,最多有800条,存储在一个redis集群上.
+* twitter知道很多关于你粉了谁,点击了什么链接等问题.很多在互粉的网络内反而不存在的信息.
+* 用户关心tweet,但是tweet的内容和twitter的结构有很大相关性?
+* 复杂的监控和debug系统跟踪系统的性能.
+
+挑战:
+* 150M用户,300K Qps,
+* 原始素材从巨大的资料中获取出来,兴起,消失.
+* 很多时候,tweet发送到目标粉丝是关键问题.写只需要应对4k Qps.
+
+组:
+- timeline服务,tweet服务,用户服务,社交图谱服务
+- 内部客户端和外部客户端使用相同的API接口
+- 1+M 应用注册 采用第三方API.
+- 容量规划,架构可伸缩后台系统,持续性替换架构.
+
+=== 拉取timeline ===
+一个写API,经过负载均衡和一个TFE(twitter front end).
+
+这里采用了很直接的方法,home timeline完全预先计算好,当tweet进入的时候,所有的规则执行.
+
+扇出处理过程立刻开始,tweet到一个巨大的redis集群,每个tweet在3台不同的机器复制3份,在twitter架构下,每天都有很多机器挂掉.
+
+扇出请求到基于flock的社交网络服务器.flock维护粉丝和粉丝列表.
+    
+    flock返回社交网络信息,开始迭代redis集群上所有的时间线.
+
+    redis机器有数T的内存.
+
+    同时流水线4k目的地址.
+
+    使用redis内部的原始列表结构.
+
+    假设,你发送tweet,有20K个粉丝,那么扇出服务将会检查20K用户在redis集群的位置.之后,会插入tweet的ID到所有的列表在redis集群中.这样每次就会多达20K个tweet写入.
+
+    生成的tweet的,存储下来.这里有4个字节表明是tweet转发,tweet回复或者其他.
+
+    redis集群中存储的800条.RAM是有限的资源,决定着当前的tweet集合能够有多长.
+
+    每个活跃用户都存储在内存中,来保持低延迟状态.
+
+    活跃用户是30天之内登录twitter的用户,(这个可能会随着twitter的缓存能力,使用方法等变化)
+
+    如果非活跃用户,则不会进入到缓存中.
+
+    只有你的home timeline写入到硬盘中.
+
+    如果你被redis集群剔除,那么就需要一个重建过程.
+        
+        再次请求社交网络服务,描绘出你粉了谁,记录每一个到硬盘中,推到redis中.
+
+        MySQL处理硬盘存储,通过Gizzard,精简SQL条目,提供全局的备份.
+
+    通过
+    TODO:
+----
+[[disruptor]]
+
+----
+= 网站架构 =
+ref:[[http://www.zhihu.com/question/20657269]]
+
+== 基础框架 ==
+- lamp
+- Windows技术栈
+
+=== 进阶修改 ===
+==== IO瓶颈 数据库读取瓶颈 ====
+Apache替换为Nginx,并在数据库前加cache层.数据库才是最大的瓶颈.这里可以使用memcache.
+`小型访问能力`
+
+==== CGI瓶颈 ====
+CGI无法匹配Nginx的IO吞吐性能,这个时候可以通过扩展的方式(而再是脚本程序),来提升性能.可以使用C扩展,或者更为方便的lua扩展.
+
+==== 写入数据库瓶颈 ====
+写入缓存,可以使用rabbitMQ之类的,就是增加写入的缓存序列.
+`此时并发吞吐可以处理万人在线`
+
+== 中等 ==
+以上都是单机处理,下面是集群
+
+=== 数据库 ===
+sharding?数据库分表?,可以按照用户ID区段分,按照读写区分.参考mysql proxy等资料.
+
+=== 缓存 ===
+构建memcache pool,将缓存分散到多台memcache节点上.一般通过hash的方法进行均匀分散到各节点.缺点是,节点增加或者减少,引起数据迁移问题.
+
+=== web服务器 ===
+软件负载均衡,一般通过两种方式:基于OS的,与基于第三方应用的.
+
+使用lvs(Linux Virtual Server)
+但是存在单点故障.
+
+也可以采用HAproxy方法.HAproxy相比较简单一些.HAproxy可以工作在TCP层,也就是转发流量.也可以工作在HTTP层.
+
+# 免费开源,稳定性好.
+# 性能可以达到10Gbps流量
+# 有可以作为MySQL,邮件与其他非web的负载均衡.
+# 自带监控页面.
+# 支持虚拟主机.
+
+== 高级 ==
+=== 单点故障 ===
+==== keepalived ====
+基于VRRP协议.
+keepalived将多台设备虚拟为一个IP,并自动在故障节点和备用节点实现failover切换.
+`heartbeat也是类似的东西`
+
+这都是所谓的HA工具(高可用性).类似的有还有hrbd.
+
+keepalived相对配置简单一些.
+
+工作方式:
+# Layer3:检测ICMP数据包(就是ping),如果失效,则从群中删除.
+# Layer4:TCP端口状态,检测端口是否开启.
+# Layer5:检查服务器是否运行.
+
+==== memcache扩展 ====
+之前的memcache的数据迁移问题,可以通过一致性hash解决.[[hash]]
+
+
+----
+= Comet技术 =
+用于web的技术,使得服务器可以实时更新数据到客户端(而无须客户端发出请求).
+
+* 长轮询
+* 流
+
+== 长轮询 ==
+打开一个连接后,保持,等待服务器推送数据,之后关闭的方式
+== 流 ==
+页面中插入隐藏iframe,利用其src属性,在服务器和客户端之间建立长连接,服务器向iframe传输数据(通常为HTML,内有负责插入信息的javascript)来实时更新页面.
+
+流的方式,兼容性好.
+Google Talk应用了这种方式.
+
+HTML5中,使用了websocket方式.
+----
+= lvs =
+基于IP和内容请求分发的负载平衡调度解决方法.并在linux内核中实现.
+一个负载调度器,后面局域网带有多个多个真实服务器.
+
+== IP层面 ==
+VS/NAT(通过NAT的VS).
+
+VS/TUN(IP隧道)
+
+VS/DR(直接路由)
+
+IPVS调度算法
+# first alive 使用主备服务器策略,一般流量都通过主服务器.
+# round robin轮叫
+# Weighted Round Robin加权轮叫
+# Least Connections调度到最小连接的服务器上.
+# Weighted Least Connections,若服务器的性能不一,则通过加权最小连接
+TODO:
+# Locality-Based Least Connections,主要对于cache集群系统.也就是选取距离源IP地址物理IP层面较近的机器.
+# Locality-Based Least Connections with Replicaiton带复制的基于局部性最小连接,也是面对cache系统,?带有服务器组的概念.
+# 目标地址散列
+# 源地址散列
+使用客户端IP地址进行hash,这样一个客户端总是通过一台服务器提供服务.
+这种方式,主要对于具有回话信息的访问,例如cookie的方式.
+
+== KTCPVS ==
+IP负载技术,通过TCP的初始SYN报文,就调度选择一台服务器,并将报文转发给他.此后通过检查报文的IP和TCP报文头地址,继续进行转发行为.
+
+在linux内核中实现了Layer-7交换方法,避免用户空间到内核空间的复制过程.这样的方法为Kernel TCP Virtual Server.目前已经可以对HTTP请求,基于内容进行调度.
+----
+= 可用性级别 =
+| 9的个数 | 可用性   | 年当机时间  | 应用实例       |
+| 1       | 90%      | 36d 12h     | 个人客户端     |
+| 2       | 99%      | 87h 36min   | 入门级商务     |
+| 3       | 99.9%    | 8h 46min    | ISP,主流商务   |
+| 4       | 99.99%   | 52min 33sec | 数据中心       |
+| 5       | 99.999%  | 5min 15sec  | 医药,银行,电信 |
+| 6       | 99.9999% | 31.5sec     | 军事防御系统等 |
+
+= 互联网系统架构的演进 =
+ref: http://getpocket.com/a/read/426642521
+
+Java的SSH,python的Django,不是通常意义的架构.而是代码架构的一部分.代码架构是代码的组织形式,规范,设计模式等.框架其实是常用设计模式的软件化.
+
+例如:Structs是MVC模式的实现,Hibernate是ORM模式的实现.
+
+
+== HA ==
+之后,就必须提供网站的可用性问题.`我们现在还停留在这个阶段`
+
+最基本的要求是不可以有单点.前端可以采用LVS,HAProxy,Nginx等负载均衡/反向代理设备.
+
+数据库,这个可以采用知名公司的方案,如IBM+Oracle+EMC.
+
+也可以通过DRDB+heartbeat组合提供在MySQL主库当机实现备机接管.但是时效性一般在30s左右.
+
+=== DDRB ===
+    DRDB,分布式复制块设备
+    基于软件的,无共享,复制的存储解决方案,再服务器之间的对块设备(硬盘/分区/逻辑卷等)进行镜像.
+
+实时性::
+应用对磁盘数据进行修改是,复制立刻发生.
+透明性::
+应用程序的数据存储再镜像设备上,是独立透明的,可存储在不同服务器上.
+同步镜像和异步镜像::
+rt...
+
+本质是linux的一个内核模块实现的.
+
+局限性::
+因为DRBD是建立在层次结构的下端的,因此不可能添加上层不具备的特性.不能自动检测文件系统的损坏,等等.
+
+=== 状态问题 ===
+协议/会话会有一个状态的问题.如果是无状态的,则可以水平扩展.
+
+如果设计无状态协议,一般有两个方法:
+
+# 保存状态在用户,例如cookie.这样需要每次用户将信息再传递到服务器.
+# 保留状态在他处.将会话信息放在分布式缓存中等.
+`这里还是第1种方法好吧`
+
+== 分库 ==
+磁盘的随机IO速度,决定着性能很快就会受限.因此要进行分库操作.一般有两个维度,水平切分与垂直切分.
+
+水平切分::
+按照主键规则,将同类数据切分到不同的单元表中.
+垂直切分::
+大表中的字段拆分到多张表中.一般按照数据访问频率,逻辑关系进行切分.高频访问字段单独剥离存储.
+
+也可以采用分表的方法.
+
+以上的更改,要提前做好程序的中间层访问来屏蔽底层DB的分布,使得业务可以透明处理.
+
+== 同步与异步 ==
+=== SEDA ===
+将请求处理过程分为几个阶段Stage,不同资源消耗的Stage,使用不同数量的线程来处理.Stage之间则采用事件驱动的异步通信方式.
+
+这样可以使得在线程总数固定的条件下,达到充分利用的目的.
+
+SEDA的方式,不等同与多线程处理模型和事件驱动模型,而是将二者综合起来.
+
+但是,对于简单的后端模块,将一个请求划分为多个stage.这会增加处理流程的复杂度,性能上也受损失.
+
+`很多的秒杀之类的系统,应该就是这样的.就是对于处理流程复杂/耗时的,通过这种方式进行.`
+
+ref:http://www.kafka0102.com/2010/02/34.html
+
+== dropbox client user open source components ==
+ref::[[https://www.dropbox.com/help/1965/en]]
+- python27
+- librsync
+- POW python OpenSSL wrapper
+- OpenSSL 0.9.8
+- bzip2/libbzip2
+- PyCtypto 26
+- faulthandler for Python
+- socksipy socks代理库
+- libjpeg
+- bbfreeze Windows exe 生成工具
+- pyPDF
+- Distribute python发布工具
+- pythonfutures
+- six
+- libpng
+- Chromium Embedded Framework
+- ICU
+- unicode
+- Chinese/Japanese Work Break Dictionay Data cjdict.txt
+- libtabe
+- IPADIC
+- pywin32
+- comtypes
+- py2exe
+- NSIS
+- inetc for NSIS
+- pyobjc
+- py2app
+- mach_star
+- growl
+
+

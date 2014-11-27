@@ -1,0 +1,32 @@
+= visualzation =
+[[graphviz]]
+== networkx ==
+networkx is a graph-theory analyze tool.
+
+part use to plot figure.
+
+support for graphviz layout.
+
+seems better than graphviz.
+
+=figure plot=
+===matplotlib===
+    python lib, using for math plot, such as math function.
+=== graphviz ===
+    UML图绘制工具
+=== DrawIt ===
+    vim插件,绘制简单的ascii图表.
+===rrdtool===
+    据说较复杂...
+    plot for watch system.
+=== graphite ===
+    绘图工具,可以用于数据收集之后的自动绘图.
+
+# store numberic time-series data
+# render graphs of this data on demand
+
+=== livegraph ===
+same like graphlite, plot and explore your data in real-time!
+
+=== visage ===
+    一个colltecd的前端,可以作为网页界面,同时收集数据存储未JSON格式.

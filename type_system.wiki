@@ -1,0 +1,63 @@
+= type system =
+
+* safty
+* optimization
+* readablity
+* abstraction/modular
+
+== type dispatch rule ==
+* assume
+Every same symbol have same type.
+* abstract
+If type of A is alpha, type of R is beta, then funtion Lambda(A)-> R type is alpha -> beta.
+* call
+If type of F is alpha -> beta, type of A is aplha, then call on (F A) is beta.
+
+these simple rule, define basic rule under programming language.
+
+ABSTRACT rule, define which is function type.
+CALL rule, define which type when apply a function.
+
+----
+
+but the basic dispatch rule is so simple, cannot representate some complex type,
+such as Polymorphic.
+
+== extend ==
+=== param Polymorphic ===
+for example: C++ function have param Polymorphic.
+
+=== type operator ===
+template under C++
+
+=== subtype ===
+there is partial order between type.
+
+=== dependency type ===
+create a new type
+
+only C++ have the extend feature.
+
+=== recursive type ===
+???
+
+== Curry-Howard Isomorphic ==
+same "struct" between type-system and formular-logic.
+
+== gotcha ==
+=== strong or weak type ===
+???
+
+TODO:
+
+strong type::
+programming language will transfer type.
+
+weak type::
+not.
+
+=== static or dynamic type ===
+dynamic type, type add on value.
+
+static type, type info on symbol, when after compiling, maybe lost this infor-
+mation.

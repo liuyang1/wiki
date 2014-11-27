@@ -1,0 +1,30 @@
+Twitter Storm
+
+处理大规模实时数据流.
+
+用户复杂事件处理CEP.可以用于生成趋势信息,
+
+与hadoop/mapreduce的最大区别,就是其目标数据为 _实时数据流_
+
+----
+
+使用clojure实现.但是在storm中可以使用几乎任何语言编写应用程序.只是需要一个适配器即可.
+
+zeroMQ用于传递消息.序列化与反序列化,自动化且高效. `linux text 特性的终结???`
+
+容错和管理.
+
+spout 超时重放 _需要一些聪明的技巧在拓扑结构中跟踪元素_
+
+这里采用的方法,是自身xor为0的方式.
+
+
+
+== 模型 ==
+spout -> bolt -> bolt ...
+
+----
+ref:
+[[http://www.searchtb.com/2012/09/introduction-to-storm.html]]
+
+这个更为清晰.
