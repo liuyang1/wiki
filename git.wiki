@@ -60,6 +60,68 @@ git merge [repo1branch]
 git push origin localbranch:remotebranch
 
 remote will automatically create remotebranch
+== author ==
+string, such as 'liuyang <liuyang@xxx.com>'
+
+this space between name and mail is necessary.
+== clean ==
+用于清除git的多余的文件
+必须添加-f或者-n参数.
+
+* -n                打印将作出的修改,但不会实际执行
+* -f                执行出来
+== stash ==
+- 无任何参数        将当前改动存储为stash,并且增加到list中.
+- apply             应用list中最新的修改,注意,这个修改并不考虑其原分支情况,也就是可以应用在别的分支上.
+- pop               和apply相似,并且将最新的stash从列表中删除.
+- clear             清除所有的stash
+- drop              清除某个stash
+
+注意:这里stash的id号的格式如下:stash@{1}.
+呵呵,这里stash的id号,是从0开始的哦.
+
+== format-patch ==
+构成一个patch
+
+一般用法:
+- -[n]              这里的n表示从当前向前回溯几个commit进行比较
+
+== apply ==
+- --stat            检查patch的改动stat(并不应用)
+- --check           检查这个patch(并不应用)
+- 无参数            应用patch的改动
+
+== am ==
+应用一系列的改动,并且增加commit _这个更为实用啊_
+
+== blame ==
+查看每行的改动
+git blame [filename]
+
+== cherry-pick ==
+用于将某个commit迁移到其他的分支上.比rebase要有用.
+
+因为不需要经历一点点的commit过程,而是直接将某个commit移动过去.
+
+这是git的分布式设计所决定的.
+
+== date ==
+* default
+show timestamp in the original timezone
+* local
+show timestamp as current user's local timezone
+* short
+only show date
+* relative
+show date relative to current time
+* rfc2822
+show time as RFC2822, which often using in email message
+(look like same with default)
+* iso/iso8601
+as iso format
+(look like same with default)
+* raw
+git raw format (seconds number and timezone)
 == 撤销最后一个commit ==
 git reset HEAD~1
 
@@ -263,66 +325,3 @@ git push --mirror URL
 可以方便的检查变更.具体之后在尝试吧.
 
 ref::[[http://cmonkey.github.io/blog/2012/04/01/tig/]]
-= basic =
-== author ==
-string, such as 'liuyang <liuyang@xxx.com>'
-
-this space between name and mail is necessary.
-== clean ==
-用于清除git的多余的文件
-必须添加-f或者-n参数.
-
-* -n                打印将作出的修改,但不会实际执行
-* -f                执行出来
-== stash ==
-- 无任何参数        将当前改动存储为stash,并且增加到list中.
-- apply             应用list中最新的修改,注意,这个修改并不考虑其原分支情况,也就是可以应用在别的分支上.
-- pop               和apply相似,并且将最新的stash从列表中删除.
-- clear             清除所有的stash
-- drop              清除某个stash
-
-注意:这里stash的id号的格式如下:stash@{1}.
-呵呵,这里stash的id号,是从0开始的哦.
-
-== format-patch ==
-构成一个patch
-
-一般用法:
-- -[n]              这里的n表示从当前向前回溯几个commit进行比较
-
-== apply ==
-- --stat            检查patch的改动stat(并不应用)
-- --check           检查这个patch(并不应用)
-- 无参数            应用patch的改动
-
-== am ==
-应用一系列的改动,并且增加commit _这个更为实用啊_
-
-== blame ==
-查看每行的改动
-git blame [filename]
-
-== cherry-pick ==
-用于将某个commit迁移到其他的分支上.比rebase要有用.
-
-因为不需要经历一点点的commit过程,而是直接将某个commit移动过去.
-
-这是git的分布式设计所决定的.
-
-== date ==
-* default
-show timestamp in the original timezone
-* local
-show timestamp as current user's local timezone
-* short
-only show date
-* relative
-show date relative to current time
-* rfc2822
-show time as RFC2822, which often using in email message
-(look like same with default)
-* iso/iso8601
-as iso format
-(look like same with default)
-* raw
-git raw format (seconds number and timezone)
