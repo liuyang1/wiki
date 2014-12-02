@@ -1,0 +1,25 @@
+= ledger使用 =
+mtime: 2012-10-22 14:25:15
+----
+创建一个文件,按照ledger的格式,书写.
+
+== 基本命令 ==
+显示分类收入和支出
+ledger -f my.dat bal
+
+显示每条信息
+ledger -f my.dat reg
+
+显示每条信息和累计信息
+ledger -f my.dat reg Checking
+
+== 常用词汇 ==
+- Expenses		支出
+- Assets		资产
+- Income		收入
+- Salary		工资
+- Liabilities	负债
+== vim plugin ==
+vim插件,见[[vim_tip]]
+== ref ==
+http://www.ledger-cli.org/3.0/doc/ledger3.html#Fat_002dfree-Accounting

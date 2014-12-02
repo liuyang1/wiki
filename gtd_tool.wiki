@@ -1,0 +1,42 @@
+= GTD 软件 =
+mtime: 2012-11-07 09:18:37
+
+----
+
+交互模式
+
+task shell
+
+添加任务
+
+task add XXX
+
+task add project:abc def
+
+task add pro:abc def
+
+交互模式下: add XXX
+
+列出任务
+
+task list
+
+编辑信息
+
+edit 1 (完全编辑)
+
+1 project:XXX(编辑部分信息)
+
+1 due:10/21/2013(修改截至日期)
+
+1 due:tomorrow
+
+1 due:fri
+
+搁置任务
+
+1 wait:someday
+
+依赖关系
+
+1 depends 2

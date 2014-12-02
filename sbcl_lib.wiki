@@ -1,0 +1,20 @@
+=sbcl list=
+
+==package manager==
+===quickload===
+    ref_:http://www.quicklisp.org/beta/#basic-commands
+===basic cmd===
+{{{
+    find available::
+        (ql:system-apropos *substring* )
+    load software::
+        (ql:quickload *sytem-name* ) 
+    add to init::
+        (ql:add-to-init-file)
+
+    update software::
+        (ql:update-all-dists)
+    
+    update quicklisp::
+        (ql:update-client)
+}}} 

@@ -1,0 +1,185 @@
+=makefile编写=
+
+==高级Makefile==
+{{{
+前言
+自动化编译
+文件依赖性
+ 
+ 编译&链接
+编译需要:语法正确,函数与变量声明的正确
+	链接需要:链接函数和全局变量
+	 
+	 Makefile
+规则:
+	target..:prerequisites..
+	command..
+target:目标文件
+	prerequisites:依赖目标
+command:需要执行的命令
+	也就是target依赖于prerequisites,而由依赖懂到目标的生成规则则是command
+	 
+	 简单示例
+	 略
+	 反斜杠"\",连接换行,和C的规则是一致的.
+	  
+	  使用变量
+定义变量:var=..
+	eg:OBJS=main.o cmd.o ..
+使用变量:$(var)
+	eg:$(OBJS)
+	 
+	 自动推导
+	 make看到XXX.o文件,就会自动将XXX.c加在依赖关系中,而且CC -c XXX.c也会推导出来
+	  
+	  clean规则
+.PHONY:clean
+	clean:
+	-rm edit $(OBJS)
+	.PHONY表示clean是个伪目标.
+	rm前面加-,表示出现问题时,继续执行
+	一般clean放在Makefile文件的最后
+	 
+	 Makefile细节
+显式规则:
+	隐式规则:make的自动推导
+变量定义:
+	文件指示:makefile可以引用其他的makefile
+	可以ifdef决定makefile的有效部分
+	可以执行多行命令
+注释:以#为开始的行为注释
+	makefile的命令,必须以Tab键开始
+	 
+	 Makefile文件名
+	 一般为GNUmakefile,makefile,Makefile,依次寻找在当前目录下.一般使用Makefile.
+	 也可以使用其他文件名,那么必须指明对应的文件make -f filename
+	  
+	  引用其他makefile
+	  include <filename>
+	  若文件没有指明路径,则首先在当前目录寻找,然后在下面两个地方寻找
+	  1,-I/--include-dir参数指明的目录
+	  2,<prefix>;/include目录
+	  若没有则,生成警告信息.若加载完毕,重试寻找对应文件,若没有则致命错误.
+	  若不管这个无法读取的问题,需要强制执行,可以在-include(参考-rm的规则)
+	   
+	   环境变量MAKEFILES
+	    
+		工作方式
+		1,读取所以的Makefile
+		2,读入include的其他Makefile
+		3,初始化文件中的变量
+		4,推导隐式规则,分析所有规则
+		5,为目标文件创建依赖关系链
+		6,根据依赖关系,决定重新生成的目标
+		7,执行生成命令
+		 
+		 书写规则
+		 1,举例,略
+		 2,规则语法,参考前文
+		 3,规则中使用通配符
+		 "*","?","[…]"参考shell规则
+		 ~表示当前用户的$HOME目录
+		 OBJS=*.o
+		 这里变量就是*.o,并没有展开操作.
+		 如果需要通配符在变量中展开,也就是OBJS的值为所有*.o文件名的集合,则
+OBJS:=$(wildcard *.o)
+关键词wildcard,强制展开*.o
+ 
+ 文件搜寻
+Makefile有一个特殊的变量VPATH,其指明搜寻的文件目录,VPATH=src:../headers
+	这里目录之间以:分隔
+	[当前目录始终是搜寻的首要目录]
+	还可以使用vpath关键词来定义文件搜索路径.
+使用有三种方法:
+	1,
+	2,
+	3,
+	 
+	 伪目标
+	 伪目标不是文件而是一个标签,指定相应的内容.
+	 这里使用.PHONY标记,指明伪目标
+	  
+	  多目标
+	  使用自动化变量$@
+bigoutput littleoutput: text.c
+	generate text.c -$(subst output,,$@) >; $@
+	其等价于
+bigoutput: text.c
+	generate text.c -big >; bigoutput
+littleoutput: text.c
+	generate text.c -little >; littleoutput
+	其中-$(subst output,,$@)中的"$"白哦是执行一个makefile函数,函数名位subst,其后为参数.subst是截取字符串的函数.$@表示目标集合.$@依次取目标执行命令
+	 
+	 静态模式
+	 <targets..>;:<target-pattern>;:<prereq-patterns..>;
+	 <commands>;…
+	 targets定义了一系列的目标文件,可以有通配符,是目标的一个集合
+	 target-pattern指明了targets的模式,也就是目标集模式
+	 prereq-patterns目标依赖模式,对target-pattern形成的恶魔是在进行依次依赖目标的定义.
+举例说明:
+	targets为%.o,意为target以.o结尾;prereq-pattern定义为%.c,表示以%.o相对应的%.c文件(如main.o对应main.c).
+eg:
+	OBJS=foo.o bar.o
+all:$(OBJS)
+	$(OBJS): %.o : %.c
+	$(CC) -c $(CFLAGS) $< -o $@
+	其指明了目标从$OBJS获取,%.o表示以.o结尾的目标,%.c则取模式%对应的%内容,形成foo.c,bar.c,
+$<和$@为自动化变量,$<表示所有的依赖目标集,$@表示目标集的轮替.所以上面规则等价于:
+	foo.o : foo.c
+	$(CC) -c $(CFLAGS) foo.c -o foo.o
+bar.o : bar.c
+	$(CC) -c $(CFLAGS) bar.c -o bar.o
+另一个例子:
+	TODOADD
+	 
+	 自动生成依赖
+	 C/C++编译器支持-M选项,自动寻找源文件中包含的头文件,并生成依赖关系.
+!注意:GNU的C/C++编译器-M参数为包含源文件包含的头文件以及标准头文件
+	TODOADD
+	 
+	 显示命令
+	 @符号,表示当前行的命令不被显示
+	 @echo 正在编译XXX模块
+运行效果为:
+	正在编译XXX模块
+	(echo ...不会显示出来)
+	make -n/--just-print,只是显示命令,而不执行命令
+	make -s/--slient则是全面禁止命令的显示
+	 
+	 命令执行
+	 如果make的执行命令,需要应用上一行的运行结果,必须将其书写在同一行上.ru
+	 cd XXX/XXX; pwd
+	 (这里也可以使用\来帮助分行显示)
+	 make一般情况使用SHELL定义的系统命令.默认使用UNIX的/bin/sh执行.
+	 MS-DOS下TODO
+	  
+	  命令出错
+	   
+	   嵌套执行
+	    
+		定义命令包
+
+}}}
+
+==makefile自动工具==
+{{{
+使用GNU Autoconf与Automake两个软件"自动"生成Makefile,并且使得软件可以通过configure进行默认的配置安装.
+预先定义宏,automake处理产生Makefile.in,Autoconf处理后,configure就可以产生标准的Makefile.
+软件支持:
+	GNU Automake
+	GNU Autoconf
+	GNU m4
+	perl
+	GNU Libtool
+	 
+简单示例:
+	1,autoscan产生configure.scan.在此基础上进行修改就可以得到confiugre.in.
+	2,编辑configure.scan
+}}}
+
+== makefile 调试 ==
+make -d
+输出细节
+
+make -n
+输出展开命令,但是不实际运行

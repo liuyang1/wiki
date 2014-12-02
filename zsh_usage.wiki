@@ -1,0 +1,67 @@
+= zsh 使用 =
+----
+
+== 自动补全 ==
+cd 历史记录
+cd -(TAB)
+
+== 加速 ==
+zsh比较复杂,启动速度比较慢.下面是修改配置,加快速度的方法.
+
+测试速度的方法:
+`time zsh -i -c exit`
+
+- 取消每次的启动升级检查
+    DISABLE_AUTO_UPDATE="true"
+- adding skip_global_compinit=1 to my ~/.zshenv
+    取消全局的比较初始化,这个大概可以节约0.4秒的时候,还是很明显的.
+
+另外,很多时候,并不是因为zsh比较慢,可能是外部的terminal的速度.
+
+因此zsh进去的时间已经是0.09秒.而事实上,进去terminal需要大概1~2s中.
+
+可以通过删除历史登录记录.
+
+XXX:这是对mac的优化,因此linux上是无效的.
+`sudo rm -rf /private/var/log/asl/*.asl`
+
+== prompt ==
+
+=== 各类信息格式 ===
+ref:[[http://www.acm.uiuc.edu/workshops/zsh/prompt/escapes.html]]
+
+字符:
+- %%    A%
+- %)    A)
+
+路径
+| %d %/ | 当前路径$(PWD)                            |
+| %~    | $pwd,可以省略到~,则省略                   |
+| %c %. | $PWD的尾部,如果希望n个尾部,则使用n在%之前 |
+| %C    | 和%c,%.,一样,只是~不会被显示到路径名字中  |
+
+主机名
+| %M | 全程                                 |
+| %m | 缩略主机名,%前加n,可以缩略多少个部分 |
+
+当前时间
+| %t %@ | 当前时间12小时制,增加am,pm |
+| %T    | 24小时,当前时间            |
+| %*    | 24小时,带秒                |
+
+当前日期
+| %w         | day-dd 格式        |
+| %W         | mm/dd/yy格式       |
+| %D         | yy-mm-dd格式       |
+| %D{string} | 按照strftime的时间 |
+
+历史信息
+| %h %! | 当前的历史序号                       |
+| %L    | $SHLVL值                             |
+| %n    | $username                            |
+| %l    | tty登录的号                          |
+| %?    | 上一个命令的返回值                   |
+| %_    | 解析器的状态                         |
+| %E    | 清除到行尾                           |
+| %#    | 权限的分割符号,如果是root,则符号不同 |
+| %v    | psvar参数的第一个变量???             |

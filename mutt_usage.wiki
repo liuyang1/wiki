@@ -1,0 +1,9 @@
+== mutt ==
+mtime: 2012-12-15 21:46:45 
+----
+== ref ==
+http://xhc.me/wp-content/uploads/mutt/manual_1.5.19_zh.html#core-concepts
+
+http://www.adamjiang.com/archives/33
+
+http://docs.huihoo.com/homepage/shredderyin/mutt_frame.html

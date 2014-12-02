@@ -1,0 +1,66 @@
+= openflow_switch_specification_1_1 =
+----
+version 1.1
+
+Feb 28,2011
+----
+
+== introduction ==
+首先读whitepaper
+
+== switch comp ==
++-------------------------------------------+
+|                   Controller              |
+|                       ^                   |
+|               OpenFlow| secure            |
+|               protocol| channel           |
+|                       |                   |
+|   OpenFlow        Group Table             |
+|   switch          FlowTable->FlowTable    |
++-------------------------------------------+
+
+controller,using OpenFlow protocol,
+# add
+# update
+# delete
+flow entries,both reactively(in response to packets) and proactively.(被动与主动)
+
+flow entry:
+# match fields
+# priority
+# counter
+# a set of instructions to apply to matching packets
+    # packet forwarding
+    # packet modification
+    # group table processing
+    # pipline processing
+        # allow packets to be sent to subsequent tables for further processing and allow information,in the form of metadata,to be Communicated between tables.
+        # table pipline processing stop when instructions set associated with a matching flow entry does not specify a next table.
+
+just a SWITCH func
+
+- Glossary词汇表
+
+== OpenFlow tables ==
+=== flow table ===
+     +---------------+-----------+-----------------+
+     |  MatchFields  |  Counter  |  Instructions   |
+     +---------------+-----------+-----------------+
+
+# find highest-priority matching flow entry
+# Apply Instructions
+    # modify packet & update match fields(apply actions Instruction)
+    # Update action set(Clear actions and/or write actions Instructions)
+    # Update MetaData
+# send match data and action set to next table
+
+
+=== Group table ===
+ +------------+------------+----------+-----------------+
+ |  Gourp Idc | Group Type |Counters  | Action Buckets  |
+ +------------+------------+----------+-----------------+
+
+# group Idc      : 32bit uint uniquely identifying the group
+# group type     : determine group semantics
+# counters       : update when packets are processed by a group
+# action buckets : ...

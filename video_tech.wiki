@@ -1,0 +1,39 @@
+= 视频技术 =
+mtime: 2012-10-19 14:50:48
+----
+==AV编码格式==
+[[av_format_list|格式列表]]
+- H.264/AVC
+	- [[h264_src_code|H.264开源支持情况]]
+	- [[h264_format|H.264格式]]
+- H.264/SVC
+	- [[svc_mp4_creator|paper@MP4Creator4SVC]]
+	- [[svc_ts_rtp|SVC_TS封装_RTP传输]]
+	- [[svc_streaming|SVC流化]]
+	- [[svc_rtp_rfc6190|RFC6190阅读]]
+==AV封装格式==
+- [[mpegts_format|ts流格式]]
+- [[AAC_format|AAC格式]]
+- [[flv_format|flv文件格式]]
+== 标准分析 ==
+- [[mpeg2_dc_oc]]
+==协议分析==
+- [[rtsp_analysis|RTSP]]
+- [[sdp_analysis|SDP]]
+- [[SIP_analysis|SIP]]
+- [[SPDY_protocol|SDPY协议]]
+- [[MIME_procotol|标识与定位]] mtime: 2012-09-26 14:28:01 
+- [[RTMP_protocol|RTMP协议]] mtime: 2012-10-19 12:35:27
+- [[http_streaming]] mtime: 2012-11-12 13:58:41
+
+----
+[[video_base_knowledge_network|基础知识网络]]
+
+----
+= 视频网络笔记 =
+
+== 音视频的编码 ==
+== 音视频的封装格式 ==
+== 音视频的流化方式 ==
+=== rtp流化 ===
+=== http流化 ===

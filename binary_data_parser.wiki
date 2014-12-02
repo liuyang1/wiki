@@ -1,0 +1,104 @@
+= 二进制数据分析 =
+mtime: 2012-10-25 16:34:03
+----
+ref:
+http://stackoverflow.com/questions/5305802/framework-for-building-structured-binary-data-parsers
+
+# ASN.1 提供抽象方法描述数据,需要配合ECN Encoding Control Notation.
+# New Jersey Machine Toolkit
+	使用ML语言开发,
+
+# common lisp 可能可以,看到一个作业例子
+http://www.gigamonkeys.com/book/practical-parsing-binary-files.html
+
+# DataScript 描述二进制数据的语言
+# binpac	解析二进制数据的yacc
+	[[binpac_yacc_for_writing_application_protocol_parser]]
+	
+----
+数据的序列化过程,也可以利用到这里.
+
+这里相当于是各反序列化的过程.
+
+== 序列化 ==
+tpl:http://coolshell.cn/articles/878.html
+
+boost库里面有序列化的模块
+
+[[http://hi.baidu.com/ewook/item/0260f7f3e9082910d6ff8c7f|MFC,boost,Google_buffer_protocol的介绍文章]]
+
+其中MFC最慢,我又在linux平台下,不可能采用,google_buffer_protocol相比还可以.
+
+[[http://root.cern.ch/drupal/content/discovering-root|ROOT]]
+
+[[http://www.enlightenment.org/p.php?p=about/efl/eet&l=en|Eet]]
+
+这个好像不错,已经作为release版本了,而不仅仅是在开发状态.
+
+[[http://avro.apache.org/docs/current/api/c/index.html#_introduction_to_avro|Avor]]
+
+Appache推出的方案,C实现.
+
+yaml理论上也可以解决这个问题,不过可能比较复杂.
+
+----
+我们需要专注与二进制数据的处理,而不仅仅是一般意义上的数据结构,而且还必须支持自定义的数据结构,这样才可以灵活应对复杂的协议数据.
+
+Eet好像过于简单,否定.
+
+tpl,是小型的,轻量而且快速的.还是比较不错的.而且接口简单,适合使用,就是觉得不够智能化.只能处理固定的数据结构,而不好应对动态数据处理,总之比较基础.
+
+google buffer protocol的介绍https://developers.google.com/protocol-buffers/docs/overview
+----
+python的这方面的库
+
+python的struct库也可以可以做到这点的.
+
+一个应用python解析二进制数据的实例.http://vislab-ccom.unh.edu/~schwehr/rt/python-binary-files.html
+
+pyPEG一个parser,这里由使用介绍,感觉还不错.
+http://www.danplanet.com/blog/2010/11/10/a-better-way-to-process-binary-data-in-python/
+
+
+reconstruct2.03dev还可以,可以按位处理.
+----
+lisp
+
+lisp语言支持动态生成代码,因此解决这个问题,应该由存在方案的.
+
+http://www.gigamonkeys.com/book/practical-parsing-binary-files.html
+
+这是一个实际处理mp3文件的例子.
+
+http://www.cliki.net/Binary-types
+
+这是common lisp的一个库.
+{{{
+这个库只能处理定长二进制数据,不能用于这个项目
+}}}
+
+{{{
+mtime: 2012-10-29 20:50:26 
+auth: liuy
+common lisp 的宏的方式确实强大.根据实用Common lisp这本书的介绍.
+但是对于解决这个问题,他的库的支持并不是特别的好.而且需要从头学起.这个还是比较耗时耗力的.
+暂时放弃
+}}}
+== 持久化 ==
+
+{{{
+	你的这个机制做成了么？我不认为它有实际的用处。
+
+	首先我认为：序列化的应用场景远远不如持久化广泛。
+
+	而持久化和序列化的思维切入点是完全不同的。持久化是超级序列化，从最终实现效果的角度讲，持久化的概念是完整的，而序列化是残缺的。
+
+	比如，对于大规模数据，序列化不能作为解决方案，而持久化加一个储存层数据库就可以成为一个C对象数据库。
+
+	我研究了几乎所有的“持久化”STL库，但其中90%是序列化，还有10%是玩具。
+
+	我最后找到了解决方案，我相信这也能应用到c上。主要是写自己的allocator类，将其提供给容器的指针换掉。也就是说，不允许用户用自己的真正的指针，而只能使用这个allocator类提供的指针类型。所以一个c++实例就变成了一般的二进制字节和“持久化指针”组成的东西。接下来在建立一个根（metadata），加上cache机制，后端链接一个储存层数据库，就大功告成。如果储存层数据库的能力较强，还能够赋予c持久层并发事务的能力。
+
+	我认为这是一个比较灵活的中小级别解决方案。
+	希望以后能多与你交流。
+}}}

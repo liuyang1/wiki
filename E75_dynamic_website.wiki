@@ -1,0 +1,132 @@
+=E75构建动态网站=
+{{{
+E-75
+构建动态网站
+building dynamic website
+
+
+lect0,HTTP & base
+project based
+design
+tbd:to be continue!
+google group
+
+domain name
+cache GOOD,but when IP addr change,this old cached addr would cause problem.
+
+HTTP HTML
+request GET/POST,connection close.
+this is good for performance and scale.but for dynamic website,need a longer connection.
+we need ajax and javascript helping us implement "states"
+
+validator.w3.org
+
+XAMPP,lighttp,nignx,IIS,MAPP..LAMP
+
+Google Apps帮助搭建邮件服务器
+
+A             :map Domain name to IP addr
+CNAME     :map Domain Name to another one
+MX          :
+
+shared env;private env;VPS virtual private server.
+
+200ms:最大延迟时间,用户无法察觉.
+
+SSL,需要唯一的IP地址对应,不可以和其他域名共享同一个IP地址
+
+分离CSS到专门的文件,这样有利于CSS的复用,减少流量.但是将会增加连接数,导致较长的延迟.
+
+从其他网站抓取内容,确实会导致连接更多的延迟.
+
+必须支持各种浏览器,而不是简单的说"必须使用某个浏览器"
+
+YUI
+使用该界面库,可以再不同的浏览器上得到相对一致的体验.
+
+lec1,PHP
+indirection,间接化的方式,使得程序/软件/协议多了一个中间层,增加了整体的复杂度.但是多了一层,提供了中间访问,屏蔽了改变,使之不会扩散,减少了模块之间的联系,增强了整体的健壮性.
+这其实也是一个平衡或者妥协的问题.
+
+ 不要使用根权限运行php程序,防止缺陷.
+但是还是要赋予读权限,读权限如果扩散也会造成问题.
+也就是644或者755权限,这个也是有问题的.静态文件被读取时没有关系的,但是可执行文件/脚本是不行的.
+安装suPHP解决这个问题.
+
+重定向
+indirecttion
+永久重定向(这里的永久是一次开机/或者缓存的内容)与暂时重定向
+重定向引起的延迟在移动设备上特别明显!
+
+表单Froms
+
+instant search
+using ajax tech,grab content dynamic,minimize latency.
+返回的不是字符串,也不是json数据
+
+PHP
+解释语言
+混合HTML和PHP是非常常见的,一般使用<?php ...?>或者<? ... ?>
+
+_GET,浏览器地址表单中的所有键值对,这是一个字典或者map结构.
+post方法传递参数,不会出现在url中,对比get方法
+post,提醒重新提交表单?!也就是在对用户进行提醒的基础上,使用post方法.
+如果使用javascript,可以避免这个问题.
+显然,密码等主要信息的传输使用post方法,其他使用get方法.
+get方法重点是会在本地以及服务器上留下访问痕迹,这个痕迹当中包含了用户名和密码.
+对于大文件,显然get方法也是无法忍受的.
+ 
+错误等级:
+NOTICE,WARNING,ERROR,
+
+Lec2,PHP
+路由器上有缓存DNS记录,cache的思想渗透在网络/计算机的各处.
+
+路径
+0/html(公开内容) htdocs/public_html等                               
+而php源码则放到其他位置0/lib 0/etc等等
+避免潜在的问题
+
+XML
+内容,就和小型的文本数据库类似.
+数据和外观以及逻辑分离.
+
+文本平面文件数据库
+xml,csv,
+xml校验,方便的工具.当数据来源不是自己的话,有必要进行校验.
+层级的概念.其他如csv或者其他按行解析的文件,都有这个弱点.
+xml搜索功能,XPath路径系统.
+对于数据量在MB级别是很好用的.但是数据量更大的时候,使用数据库就很有必要了.
+缺点:
+每次解析,这样性能就无法保证.
+
+XSLT在模板下比较好用.
+
+验证系统Authentication.
+
+重定向
+1,302/301
+2,Location
+3,Javascript客户端代码
+元刷新标签
+
+session会话.
+"保持".
+在无连接的HTTP协议上保持状态.
+$_SESSION
+可以编程存入任何键值对.
+PHPSESSID,不重数
+
+cookie的session id可能导致攻击方法. 
+
+使用SSL的CA的收费情况
+
+超全局变量,这个技巧比较有意思,很多脚本程序实现了这个.
+
+不要相信用户的输入!
+将特殊字符转换,可以避免用户的恶意注入
+
+Lec3,XML
+
+
+}}}

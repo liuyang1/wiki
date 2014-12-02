@@ -1,0 +1,13 @@
+=H.264开源支持情况=
+
+{{{
+源码包 版本 来源 语言 实现部分 代码量 平台
+JM 18 ITU编码组 C++ 全部 8M linux/Win 
+x264 snapshot 20111019 C++ 全部 3M linux
+fevh264 2011-02-11 Pascal baseline 3.5M linux/不详
+h264bitstream 0.1.6 C h264流,SEI部分,基本不可用 164K linux
+
+t264 0.14版本较低 C avc 1.1M linux/Win
+rtsper rtsp协议栈 4M linux
+
+}}}

@@ -2,6 +2,10 @@
 
 addr2line -f [PC pinter] -e [filename]
 
+== objdump ==
+- -S        source
+- -D        disassemble-all
+
 == gcov ==
 coverage test tool
 

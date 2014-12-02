@@ -1,0 +1,66 @@
+= byobu =
+2012-08-20 13:55:26
+
+如果没有必要(如,远程管理桌面,保存会话状态等,倒是没有使用这个工具的必要).
+
+使用根据应该以够用,有用,需要用为先,不要一味追求酷炫,那是没有必要的.
+
+
+这个工具甚至可以保存会话状态到退出并再次login之后.令人非常好奇,是不是可以保存到重启机器之后.
+
+----
+{{{
+快捷键基本:
+   F2:创建
+   F3:回到之前
+   F4:跳到下一个
+   F6:释放会话(退出byobu)
+   F7:复制/回滚模式
+
+To get started enter a title for your note above. When you’re ready to save
+your note just use Vim’s :write or :update commands, a filename will be picked
+automatically based on the title.
+
+                                    * * *
+
+The notes plug-in comes with self hosting documentation. To jump to these notes
+position your cursor on the highlighted name and press ‘gf’ in normal mode:
+
+ • Note taking syntax
+ • Note taking commands
+}}}
+
+F? 的快捷键依赖于term的模式,或者说Esc的方式.要设置为xterm的方式就好了.
+
+== 窗口切换 ==
+Ctrl+A Ctrl+A	切换到下一个窗口
+
+==分割窗口==
+<Ctrl+a>:快捷键开始键
+<Ctrl+a> | : 水平分割窗口
+<Ctrl+a> % : 竖直分割窗口
+{{{
+	这个是不一定的,可以配置
+}}}
+
+=== 其他操作 ===
+注意以下命令都是<Ctrl+a>开始
+
+- t	显示时间
+- q	显示窗口序号
+- PageUP,PageDown	上下翻页
+- ?	*显示绑定的命令快捷键(这个非常有用)*
+- &	强制关闭窗口
+
+== screen ==
+
+# screen    新建一个screen会话.
+# screen -r SESSION 重新attach一个会话.
+# screen -d -r SESSION 重新attach一个会话,即使要先detach它.(用于解决死锁attch的问题)
+# screen -ls    列出会话.
+
+内部快捷键
+# Ctrl+A,c      新建一个window
+# Ctrl+A,d      detach会话.
+# Ctrl+D/exit   退出会话
+# Ctrl+A,Ctrl+A 切换window

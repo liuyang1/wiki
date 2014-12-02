@@ -1,0 +1,35 @@
+= mp4box uage =
+mtime: 2012-10-10 15:12:51 
+----
+http://gpac.wp.mines-telecom.fr/mp4box/
+
+- 内容打包
+	可以重新打包现有内容到兼容ISO media 文件格式(mp4,3gp,3g2,oma dcf).mp4box不进行重新编码.
+{{{
+	经过测试,不能处理flv文件
+}}}
+	# 转换现有文件到mp4文件
+	mp4box -add file.avi new_file.mp4
+	# 添加音频到现有文件
+	mp4box -add audio2.mp3 newfile.mp4
+	# 可以从容器种仅仅添加部分内容,
+	mp4box -info file.avi
+	
+	mp4box -add file.mpg#audio newfile.mp4
+- 发布准备
+	# HTTP下载
+	为了http下载,将文件chunk修改为0.5一个,来确保可以回放.
+	mp4box -inter 500 file.mp4
+	# rtp
+	必须增加hint track.
+
+	mp4box -hint file.mp4
+- 封装对象内容到mp4box.
+	- 这个用处不多,暂时跳过.
+
+== 其他 ==
+* -unhint     去除hint信息
+
+== 具体参数列表 ==
+http://gpac.wp.mines-telecom.fr/mp4box/mp4box-documentation/
+

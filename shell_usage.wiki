@@ -1,0 +1,182 @@
+= shell配置 =
+----
+
+[[zsh_usage]]
+== 配置引导符号 ==
+PS1="\[\e[1;33;1m\][\D{%Y-%m-%d %H:%M:%S}] \[\e[2;32;1m\][\u@\H:\w]\n\[\e[0;31;1m\]\#\[\e[31;1m\]\[\e[31;1m\] >> \[\e[m\]"
+PS2="\[\e[31;1m\]  >> \[\e[m\]"
+PS3="\[\e[31;1m\]??>> \[\e[m\]"
+# \h    host(first until ".")
+# \H    host all
+
+# \d    day
+# \D{format} format day
+# \t    time 24Hour HH:MM:SS
+# \T    time 12Hour HH:MM:SS
+# \@    time 12Hour HH:MM am|pm
+# \A    time 24Hour HH:MM
+
+# \w    path
+# \W    base path(last dir name)
+# \#    number
+# \!    history number
+# \u    user
+
+# \a    bell(0x07)
+# \e    Esc(0x1b)
+
+# \j    shell task number
+# \l    shell terminal name
+# \v    bash version
+
+# \$    '$',for root "#"
+
+# \[    begin non print
+# \]    end non print
+ 
+# black  fg 30
+# red    fg 31
+# green  fg 32
+# yellow fg 33
+# blue   fg 34
+# pink   fg 35
+# cyan   fg 36
+# white  fg 37
+
+# black  bg 40
+# red    bg 41
+# green  bg 42
+# yellow bg 44
+# blue   bg 44
+# pink   bg 45
+# cyan   bg 46
+# white  bg 47
+
+# effect
+# 0 default
+# 1 light
+# 2 darker
+# 4 underline
+# 5 blink
+# 7 revsere
+# 8 hidden
+# 9 delete-line
+# 22 non-bold
+# 24 non-underline
+# 25 non-blink
+
+== 配置输入模式 ==
+set -o vi
+
+bind -m vi-insert "\C-l":clear-screen
+
+== 主题颜色 ==
+monokai 是 textmate 的主题.用着非常好用.
+这里配置一下,让自己在终端内也可以使用.
+
+以下是颜色配置,
+- Black: 0, 0, 0
+- Red: 229, 34, 34		#E52222
+- Green: 166, 227, 45	#A6E32D
+- Yellow: 252, 149, 30	#FD971F
+- Blue: 196, 141, 255	#C488DFF
+- Magenta: 250, 37, 115 #F92672
+- Cyan: 103, 217, 240
+- White: 242, 242, 242
+
+C4BE89	灰色
+E6DB74	浅黄色
+A6E22E	绿色
+FD971F	橙色
+E92672	红色
+66D9EF	天蓝色
+F92672	紫色
+依次颜色配置.
+
+然后在终端内的颜色就替换为这个颜色,很是好用.看让取清新多了.
+{{{
+BLACK=$'\e[30m'
+RED=$'\e[31m'
+GREEN=$'\e[32m'
+ORANGE=$'\e[33m'
+BLUE=$'\e[34m'
+PINK=$'\e[35m'
+WHITE=$'\e[37m'
+DEFAULT=$'\e[m'
+PS1="\n${PINK}[\D{%Y-%m-%d %H:%M:%S}] ${GREEN}[\H:\w] ${ORANGE}[\#]\n${GREEN}\u >> ${DEFAULT}"
+}}}
+
+以上是利用转义序列的方法,也可以使用tput,利用这个可以使得整个过程不会想这样看起来那么混乱.
+
+tput的另一个好处是,修改过程是类似像函数调用,而不是现在这样,通过输出来改变输出流的颜色,这个怎么都没有那么优雅吧.
+
+如果可以找到term的颜色配置的文档就好了,这样这个过程就不需要手动调节额,而且完全便于迁移到其他机器.
+
+[[terminal_tools.wiki]]
+
+配置文件的位置
+
+.config/Terminal/Termainalrc
+
+== shell 快捷键 ==
+- Alt+./Esc+.	一个命令的参数
+- !!	上一条命令
+- sudo !!	以管理员执行上一条命令
+- !XX	上一个以XX开始的命令
+- !XX:p	上一条XX命令的输出(并不运行)
+- !$	上一条命令的最后一个参数
+- !$:p	打印上一条命令的最后一个参数
+- !*	上一条命令的所有参数
+- !*:p	打印上一条命令的所有参数
+- ^XX	删除上一条命令的XX
+- ^XX^YY	替换上一条命令的XX为YY
+- ^XX^YY^	替换上一条命令的所有XX为YY
+- > file1	创建空文件
+- 
+- Ctrl+U	清空当前行
+- Ctrl+L	清空屏幕
+- Ctrl+P	补全命令
+- Ctrl+W	清空当前到开始的单词
+
+== fork bomb ==
+:(){ :|:& };:
+
+具体参考[[http://en.wikipedia.org/wiki/Fork_bomb|wiki]]
+
+== man的8090问题 ==
+这是因为shell中将\r\n换成了<80><90>的缘故,
+
+出现这个问题,估计是bashrc中定义了lesscharset,找到,将其取消即可.
+
+== vi模式 ==
+readline有vi模式和emacs模式,默认为emacs模式,可以通过`set -o vi`设置为vi模式
+
+- B	后退一个单词
+- ^/$	到行首尾
+- cw	替换一个单词
+- v		进入到vim的编辑模式
+- 0		到行首
+- Esc #	将当前命令发送到历史为注释,而且不执行
+- j/k	在历史中上一行下一行命令
+
+可以通过man 3 readline查看具体内容
+
+具体可以看cheatsheet:http://www.catonmat.net/download/bash-vi-editing-mode-cheat-sheet.txt
+
+== 权限更替 ==
+sudo -s
+
+sudo开启一个新的shell(root权限)
+
+sudo sh -c "$CMD"
+
+sudo 开启一个新的shell,切换到root权限,并且执行后面的命令,执行完毕,则退出.
+
+sudo -E 保持环境,这个很关键,特别在运行的应用涉及到一系列的环境变量之类的东西的时候
+
+
+== 特殊问题 ==
+=== 删除带特殊符号的文件 ===
+如果文件名中以-开始,或者以--开始,则删除会出现各种各样的问题.
+
+rm -- [FILENAME]

@@ -1,0 +1,32 @@
+=格式列表=
+
+{{{
+播放协议
+HTTP,RTSP,MMS
+音频格式
+有损
+MP3,WMA,RealAudio,Vorbis,AAC,AC3
+无损
+APE,FLAC,ALAC
+视频格式
+MPEG1,MPEG2,MPEG4,WMV,RealVideo,Theora,Flash
+容器格式
+AVI,ASF,QuickTime,OGM,Matroska,MP4
+光盘格式
+音频
+CD,SACD,音频DVD,HDCD,
+视频
+VCD,SVCD,DVD,HD-DVD,BD
+元数据格式
+ID3v1,ID3v2,APEv2 tag
+字幕格式
+位图
+VobSub(.idx+.sub)
+文本
+Substation Alpha(.ssa)
+SubRip(.srt)
+Sami(.smi)
+RealText(.rt)
+图片格式
+JPEG,GIF,PNG,MNG,SVG
+}}}

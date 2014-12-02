@@ -1,0 +1,6 @@
+= 代码审核思想 =
+mtime: 2013-03-28 19:41:53 
+----
+下面这些文章不错.
+
+http://blog.csdn.net/qinjienj/article/details/7459789

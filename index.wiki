@@ -10,6 +10,12 @@ dummy: [[TODO]]
 * [[software_engineer]]
 * [[visualzation]]
 * [[network_protocol_all|Network Protocol]]
+* [[linux_system|Linux system programming]]
+* [[all_coding|Coding is part of life]]
+* [[all_software|Your tools are part of yourself]]
+* [[internet_protocol|Internet protocol]]
+* [[video_tech|Video]]
+* [[vision|computer vision]]
 
 == shell tool ==
 * [[shell_cmd]]
@@ -45,10 +51,6 @@ dummy: [[TODO]]
 * [[vlc]]
 * [[image_tool|Image Tools]]
 
-=== Window Manager ===
-* [[awesome_linux_WM|Awesome WM]]
-* [[X_window]]
-
 === browser ===
 * [[chrome_usage|Chrome]]
 * [[text_browser|Text-Mode browser]]
@@ -62,3 +64,6 @@ dummy: [[TODO]]
 == theory knowledge ==
 * [[algo]]
 * [[number_theory|number theory]]
+
+== tmp old ==
+- [[network_storage|网络存储]]

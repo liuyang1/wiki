@@ -1,0 +1,36 @@
+= 网络存储技术 =
+
+== nfs集群示意 ==
+
+							 web server
+user -|-> load balancer -|-> nfs server        -|-> mysql
+								|rsync
+							 nfs backup server
+== FUSE ==
+FileSystem in Userspace
+用户空间文件系统
+
+使用示例:
+
+mkdir /tmp/fuse
+./hello /tmp/fuse
+fusermount -u /tmp/fuse(需要root权限)
+
+=== fuse install ===
+依赖 util-linux >= 2.18
+using util-linux 2.22
+
+util-linux是linux的一系列工具套件,涉及加载,卸载,格式化,分区和管理硬盘驱动器,打开tty端口和得到内核消息.
+[[http://oss.org.cn/ossdocs/gnu_linux/lfs/lfs-4.0/appendixa/util-linux.html|ref]]
+
+缺少支持,则不支持mout的--fake和--no-canonicalize选项
+
+
+== moosefs ==
+优点:
+# 实施简单
+# 在线扩容
+# 恢复容易
+ 
+权限问题解决:
+#export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig

@@ -1,0 +1,43 @@
+= term软件 =
+----
+== xfce-terminal ==
+
+gtk程序,在非对应字体的情况下,会导致CPU运行很高.
+
+== terminator ==
+这个软件的特色是独立提供了分屏的功能.
+
+缺点:
+- 不是轻量级的应用
+
+== xterm ==
+界面的渲染不够好看,而且没有找到配置文件的地方.
+
+轻量级.
+
+== guake ==
+特色是托盘后台,缺点是配置不足,不够好看.
+
+Yakuake是它的kde版本.
+
+== tilda ==
+这个使用起来和xfce-terminator感觉很一致啊.
+
+== rxvt ==
+超轻量级.
+
+== gnome-terminal ==
+=== 配置,使得默认菜单栏取消 ===
+
+gconftool --type boolean --set /apps/gnome-terminal/profiles/Default/default_show_menubar false
+
+实质上是在.gconf/apps/gnome-terminal/Default/.../配置文件上增加一项内容.
+
+不过该配置文件为XML格式,最好使用上面的命令进行配置
+
+=== PageUP PageDown ===
+默认情况下,这个是无效的.估计是留给inputrc使用.
+
+可以通过shift+PageUP,Shift+PageDown完成此功能.
+
+赞,这样就不需要每次把scroll打开再关闭了.

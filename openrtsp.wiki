@@ -1,0 +1,14 @@
+= openrtsp =
+mtime: 2013-03-06 21:02:12 
+----
+该工具,来源于livemedia,可以生成,接收rtsp等等协议数据流,支持若干种编码格式.
+
+介绍网页
+
+http://www.live555.com/openRTSP/#no-receive
+
+典型使用方法
+
+# openrtsp url
+# openrtsp -r -p 5000 url
+    不接收数据,数据发送到5000到5001端口

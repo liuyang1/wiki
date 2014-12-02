@@ -1,0 +1,32 @@
+= vlc 使用指南 =
+mtime: 2012-12-31 19:39:22 
+----
+
+
+== vlc capture webcam ==
+2012-09-20 16:05:56 
+
+input:
+`v4l:// :v4l-vdev="/dev/video0" :v4l-adev="/dev/dsp" :v4l-norm=3 :v4l-frequency=-1`
+output:
+`:sout=#transcode{vcodec=mp4v,vb=1024,scale=1,acodec=mpga,ab=192,channels=2}:duplicate{dst=display,dst=std{access=file,mux=mp4,dst="/tmp/test.mpg"}}`
+
+full cmd:
+`vlc --v4l-vdev "/dev/video0" --v4l-norm 3 --sout '#transcode{vcodec=mp4v,vb=1024,scale=1,acodec=mpga,ab=192,channels=2}:duplicate{dst=display,dst=std{access=file,mux=mp4,dst="/tmp/test.mpg"}}`
+ref:http://blog.raphinou.com/2007/08/building-webcam-recorder-with-vlc-ion.html
+
+== 网络串流 ==
+选择串流(Ctrl+S),选择文件.选择串流.进入串流选项页面.
+
+源,选择为文件.
+
+目标,原则为UDP方式,添加.(可以选择本地播放,但几乎没有作用)
+
+添加,仅仅输入IP地址,不要输入协议方式,也不要输入端口号.
+
+激活转码,记得带有ts(这样有mux方式).
+
+然后就可以点击Stream了.
+
+== 收取网络数据 ==
+Ctrl+N,输入地址.

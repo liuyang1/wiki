@@ -1,0 +1,8 @@
+= GUI历史 =
+翻译自wiki
+----
+WIMP范式
+
+指窗口,图标,菜单,指向,设备,Window,Icon,Menu,Pointing,Device.
+
+

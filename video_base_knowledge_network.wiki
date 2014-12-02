@@ -1,0 +1,38 @@
+= 视频技术基础知识网络 =
+mtime: 2013-03-04 15:57:29 
+auth: liuyang1
+----
+
+# 视频的编码格式
+	# mpeg2
+	# h.264/mpeg4
+	# h.264 svc
+	# hevc
+# 视频的封装格式
+	# mp4
+	# flv
+	# mpeg2 ts
+	# rm/rmvb
+	# mkv
+# 视频的流化方式
+	# rtsp/rtcp/rtp
+	# http
+		# http文件下载/http渐近式下载
+		# http live streming
+		# http dynamic streaming
+		# html5方式
+	# rtmp
+	# mms
+# 视频的处理工具
+	# vlc
+		# 播放
+		# 流化
+		# 收取网络视频流
+	# ffmpeg/mencoder
+		# 视频转码,拼接
+	# mp4box
+		# 视频加hint信息,拼接等等
+	# elecard系列工具
+		# mpeg2数据流分析
+	# ffprobe
+		# 视频文件分析

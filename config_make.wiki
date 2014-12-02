@@ -1,0 +1,23 @@
+==config与交叉编译==
+
+{{{
+透过configure与make进行编译[鸟哥的linux私房菜]
+交叉编译某个应用程序时，通常需要 ./configure 来生成对应的 Makefile
+./configure 最关键的三个选项是：
+
+--host=HOST
+指定软件运行的系统平台.如果没有指定,将会运行`config.guess'来检测.
+
+--build=BUILD
+指定软件包安装的系统平台.如果没有指定,默认值将是'--host'选项的值.
+
+--target=GARGET
+指定软件面向(target to)的系统平台.这主要在程序语言工具如编译器和汇编器上下文中起作用.如果没有指定,默认将使用'--host'选项的值. 
+
+一般而言，我们只要指定 --host 就可以了
+记住：--host 指定的是交叉编译工具链的前缀
+
+http://blog.chinaunix.net/space.php?uid=24148050&do=blog&id=2213969
+
+
+}}}

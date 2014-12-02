@@ -5,3 +5,5 @@
 * [[parsing_tech|Parsing Techniques]]
 == functional programming language ==
 * [[6001_SICP|SICP]]
+
+[[reading_note]]

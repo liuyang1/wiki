@@ -1,0 +1,6 @@
+mtime: 2012-12-15 20:23:25 
+----
+
+== 编程语言的"鄙视"层次 ==
+
+{{http://home.ustc.edu.cn/~liuyang1/html/images/program_language_hierarchy.jpg}}

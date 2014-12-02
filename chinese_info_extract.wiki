@@ -1,0 +1,15 @@
+=中文信息抽取=
+{{{
+中文信息抽取原理及应用 笔记
+程显毅编著,科学出版社
+2012-05-30 13:12:12
+
+五个阶段:
+命名实体识别(name entity,NE)
+共指消解(co-reference,CO)
+模版元素构建(template element,TE)
+模板关系关键(template relation,TR)
+情景模板建立(scenario template,ST)
+
+第三章,信息抽取原理
+}}}

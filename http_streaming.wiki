@@ -1,0 +1,243 @@
+= http流化协议 =
+----
+
+vlc hls
+ref:https://wiki.videolan.org/Documentation:Streaming_HowTo/Streaming_for_the_iPhone/
+----
+http流化方式
+
+渐进式下载.
+| 流化方式               | 文件类型   | 服务器      | 客户端          |                    |   |
+| RTSP                   | mp4        | darwin      | rtsp player     |                    |   |
+| http progress download | flv        | http        | flash           | sanjoes/flash http |   |
+| HLS                    | m3u8+ts    | http        | apple set       |                    |   |
+| http dynamic streaming | flv/f4v/.. | FMS         | flash player    |           |   |
+| MMS                    | wmv        | mms server  | WMP/silverlight |           |   |
+| RTMP                   | flv/mp4    | rtmp server | flash           |           |   |
+| http file/HTML5        | mp4/flv    | http        | browser         |                    |   |
+| adaptive bitrate       |            |             |                 | octoshape |   |
+| http pseduostreaming   | mp4/flv    | http        | jwplayer        |                    |   |
+
+rtsp/rmtp/mms协议等好处是,可以支持拖动.
+
+而一般http下载这种方式,只能等到文件下载完毕或者下载到对应位置,才可以拖动.
+== HTTP progress download ==
+HTTP渐进式下载,这个技术的提供者为Adobe公司,普遍用于各个平台.
+== 技术方案 ==
+方案:主要为视频文件通过HTTP部分下载,就可以在客户端的flash环境里面播放.
+
+编码:H.264+aac+flv/mp4/3gp(注意这点不同的浏览器的支持情况也是不同的).
+[[http://help.adobe.com/zh_CN/as3/dev/WS5b3ccc516d4fbf351e63e3d118a9b90204-7d46.html|ref]]
+
+{{{
+H.264         |MPEG4(MP4,m4v,f4v,3gp).
+sorenson spark|flv
+on2 vp6       |flv
+aac           |MPEG4
+mp3           |MPEG4
+Nellymoser    |flv
+Speex         |flv
+}}}
+具体各个浏览器的支持情况如下表:
+[[http://www.5ishare.com/snews/355185.shtml|ref]]
+
+流化:HTTP方式.
+
+服务器:HTTP服务器即可.
+
+客户端:Flash客户端或者air客户端.
+
+实际使用:apache+air(VideoDisplayer)成功.
+
+存在问题:
+目前flash player因为耗电问题,苹果不再支持,暂时不明下一步发展方向.
+== http live streaming ==
+=== 技术背景 ===
+这个流化技术提供者为Apple,主要用于苹果的周边设备.目前在其他平台尚未被广泛使用.至少vlc播放是不支持的.(mtime: 2012-11-18 20:00:25).
+=== 技术方案 ===
+方案:通过segmenter将视频切分为较小的ts文件,该文件使用H.264+aac编码,同时生成m3u8文件.
+
+生成的m3u8文件与ts文件都通过HTTP服务.ts文件根据m3u8文件进行索引.
+----
+
+编码:H.264 + ts + m3u8
+
+m3u8为索引文件,指明ts文件的URL,为列表结构.
+
+流化:HTTP直接传输
+
+服务器:一般HTTP服务器+segmenter视频分割工具ffmpeg与vlc都可以.
+
+客户端:目前苹果设备都支持,其他暂时不明.
+
+实际使用apache与vlc成功.
+
+推荐HTTP服务器为nginx.使用ffmpeg编译一个segmenter工具也比较简单.
+
+存在的问题:
+# 不能够完全实时,因为每个TS小文件,一般延迟大约为30s~1min,因此在非常要求实时的状况下,注意不要使用.
+# 支持的设备不够广泛.
+
+In Action:
+
+ref:http://wiki.videolan.org/Documentation:Streaming_HowTo/Streaming_for_the_iPhone
+
+vod stream:
+{{{
+	vlc -I dummy /var/myvideos/video.mpg vlc://quit --sout='#transcode{width=320,height=240,fps=25,vcodec=h264,vb=256,venc=x264{aud,profile=baseline,level=30,keyint=30,ref=1},acodec=mp3,ab=96}:std{access=livehttp{seglen=10,delsegs=false,numsegs=0,index=/var/www/streaming/mystream.m3u8,index-url=http://mydomain.com/streaming/mystream-########.ts},mux=ts{use-key-frames},dst=/var/www/streaming/mystream-########.ts}' 
+}}}
+
+restream live video
+{{{
+	 vlc -I dummy --mms-caching 0 http://www.nasa.gov/55644main_NASATV_Windows.asx vlc://quit --sout='#transcode{width=320,height=240,fps=25,vcodec=h264,vb=256,venc=x264{aud,profile=baseline,level=30,keyint=30,ref=1},acodec=mp3,ab=96}:std{access=livehttp{seglen=10,delsegs=true,numsegs=5,index=/var/www/streaming/mystream.m3u8,index-url=http://mydomain.com/streaming/mystream-########.ts},mux=ts{use-key-frames},dst=/var/www/streaming/mystream-########.ts}' 
+}}}
+
+
+----
+old
+http://www.roughlydrafted.com/2009/07/08/apple-launches-http-live-streaming-standard-in-iphone-3-0/
+上述链接,清楚的说到,apple虽然推出了rtsp流化方式,但是rtsp的方式,1无法穿透防火墙;2,DSS也没有占据大部分市场
+
+而后期的HLS,也更好.
+
+== HTTP dynamic Streaming ==
+这个是adobe公司推出的在HTTP渐进下载和RTMP技术之后的后续技术.主要是解决了视频的在线播放与快速的快进快退的问题.
+
+这个和HLS有点相似,也是通过文件切割分片,但是使用的是MP4作为容器格式.
+
+编码:MP4一般编码.VP6/mp3编码.
+
+服务器:HTTP服务器,需要用相应的模块.
+
+播放器:OSMF播放器,需要特殊播放器支持(这个播放器应该也不复杂,使用Flex应该可以制作出来).
+
+REOPS Player,Flash media player,strobe media player.
+
+其他工具:分割工具f4fpackager
+
+生成文件:
+- F4m	manifest文件
+- F4F	fragment文件
+- F4x	index文件
+
+
+尚未实践.
+
+存在的问题:
+!!! 暂时未知
+目前似乎尚未大面积使用.
+
+== HTML5 video ==
+简单来说,就是通过HTML5技术,直接嵌入视频即可播放.
+
+{{{
+<video width="320" height="240" controls="controls">
+<source src="movie.mp4" type="video/mp4">
+<source src="movie.ogg" type="video/ogg">
+Your browser does not support the video tag.
+</video>
+}}}
+
+格式:mp4格式是最为广泛的支持格式.
+MP4:MPEG4 files with H.264 ,AAC.
+[[http://www.w3schools.com/html/html5_video.asp|ref]]
+
+流化:HTTP直接传输,
+
+服务器:HTTP服务器即可.
+
+客户端:一般浏览器,一般需要IE9,Firefox4,chrome 6,safari 5,opera10.
+
+缺点:
+# 浏览器必须支持,目前尚未普遍支持.特别是IE的支持版本的问题.
+# 无法实时播放视频.
+
+== RMTP ==
+Adobe公司,
+
+服务器:FMS或者red5
+
+优点:相比于HTTP progress download的好处,是不会存在生成文件,保证了安全性.
+
+走RMTP数据,而不是HTTP数据流.
+
+== http分发 ==
+squid,用于代理访问.apache/nginx负责后端的视频提供.这样就可以很方便的.
+----
+
+== 总论 ==
+多媒体的应用,以时效性区分,大体可以分为3类.
+# 离线式
+# 客户端只需要接收到视频数据,就可以了.而流媒体的意义,仅仅在于其接收部分数据,就可以进行部分视频的播放.
+# 在线式
+# 在线式,的节目时间长度可以认为无限长度的.客户端一样,接收部分数据进行播放.用户不一定必须接收到最新的视频内容,只要不是过于离谱就可以了.
+# 如果用户,需要相对于最新视频内容,较晚的内容,则在线式可能提供时移功能.也就是用户可以选择一个相对于最新视频的偏移量,选择观看.
+# 这种情况,一般意味着用户接收数据与最新数据可以有一个恒定的时间差.
+# 实时式
+# 实时,也就是用户必须接收到最新的视频内容在尽可能小的时间差下.并且时间差越小,说明实时性越好.
+
+显然,如果从时效性这个角度来衡量,以上应用的实现难度是依次递增的.
+
+典型应用:
+# 离线式的典型应用类似于vod点播,现在最为普遍的视频内容点播,就是这样的方式.
+# 在线式的典型应用,例如电视直播节目,新闻发布会,等等.
+# 实时式的典型应用,类似于视频通话,视频会议,视频游戏这样带有交互性的视频应用.
+# 因为人对这种应用的时间差是有明显感知的,并且时间差距稍大,用户体验就会变得非常之差.
+
+视频的协议
+# rtsp/rtp/
+# 从他们的名字,就可以看出来,这是应用与实时视频的协议.对实时应用效果是很好的.
+# 其也可以支持在线式,和离线式的应用.但是这并不意味它对于另外两种应用就没有问题了.
+    # rtsp/rtp协议对于离线式和在线式的应用,需要服务器来进行调节回看的内容.
+    # 比如:用户进行在线式节目的时移操作,那么服务器就不得不为其预留部分视频内容.
+    # 如果离线式应用,用于选择跳转,或者回看,服务器不得不进行复杂的音视频内容的寻址,以及数据的重复发送.
+    # 这要么加大了服务器的复杂程度(或者你也可以说流媒体服务器本身就是要这么复杂才可以).
+    # 要么增大了网络带宽的一定浪费.
+# rmtp
+# 这个是adobe公司推出的实时协议.
+# 缺点是应用并没有那么普遍.
+# http
+# 事实上这个有一族方法.
+# 但是其区分与上面的是.
+# 这个方法建立之初是为了离线式视频服务的.
+# 因为其以传递文件的方式进行所谓的"流化".流化视频需要支持quickstart,也就是meta信息在文件的开始,这样就可以了.
+# 这种方法的好处是明显的,就是视频的流化非常简单,几乎没有任何复杂度.因为就是传递文件而已.
+# 复杂度则平移到了客户端,客户端自己负责视频的暂停/播放/寻址/倍速等等功能.
+# 这种方法最为流行的是flv+flash的方式.
+# 这种方法称为渐近式下载.
+# 而如果http服务器支持range寻址,也就是以文件偏移量获取文件内容,就可以支持vod播放的拖动功能.给于其实际的寻址能力.
+# DASH
+    # 而最新的DASH方式,则使得http方式可以提供在线式的视频流化能力.
+    # DASH方式,一般将视频文件切割成小片,然后根据索引文件进行寻址.
+    # 这种方法最为著名的是hls,与mms两种方式.
+    # 这种方式的缺陷是,其在线式的时间差有最小值的瓶颈,也就是一个GOP的大小.一般为2s(mms),或者一个视频片大小,10s(HLS).
+    # 这种方法的好处,则是顺带提供了dynamic adaptive bitrate,根据网络带宽,自适应的给出不同码率的视频内容.
+
+# tcp(http)/udp
+# 流媒体协议应该建立在tcp/udp协议上,这是一个富有争论性的话题.
+# 流媒体协议最初的研究普遍集中在实时式的应用上,因为在最初,这种才有需求.
+# 毕竟离线式的网络点播,完全可以将整个文件下载下来进行观看,虽然相对可能没有那么快捷, 但是一般可以享受更好的视频质量.
+# 而最初的研究,还没有将在线式与实时式完全区分开来,大家认为两者是相近的.却没有注意到其实存在着本质性的差别.
+# 
+# 对于实时性应用,明显的,它可以放到udp协议上去.应用它关注于实时性,tcp的初始延迟,被认为是无法接受的.
+# tcp的丢包重传,也被认为在流媒体应用下是没有意义,反而添乱的一件事情.
+# 因此rtp协议选择建立在udp协议之上.
+
+# 但是这也带来了问题.
+# 选择在udp之上,这样就会被网络上的众多防火墙屏敝.选择在udp之上,并且设计成服务器主动发送数据到客户端,则决定其必须要穿透nat,这都回带来很大的复杂度.
+# 而且,很多事情,就无法正常工作了.
+# 并且实时式应用,实际上可以对于很多终端提供相同的内容.
+# 因此其天然就适合于多播.
+# 但是在因特网上,多播协议就没有进行实际的部署,一般只能够保证在同一个ISP下,多播是正常的.
+
+那么能够建立一个基于tcp或者http的实时式流媒体协议/方法呢???
+对这部分,是有探讨的.
+有的实现,确实将rtp建立在tcp之上.这样rtp与rtsp复用在同一个tcp信道内.
+有的实现可以将rtsp/rtp协议建立在http隧道之上.
+但是这样的方式,必然不是很自然.
+rtp本身是在udp之上设计的.如果建立在tcp之上,则很多字段,就完全没有意义.比如序列号.因为tcp上,是不会存在丢包和乱序的.
+而tunel的方式,则必然导致很大的overhead.这是一种浪费.无法投入到实际使用.
+
+# 那么就需要建立一个新的基于http的实时式流媒体协议?
+----
+[[dynamic_adaptive_http_streaming]]

@@ -1,0 +1,10 @@
+= 网络编程库与框架 =
+mtime: 2012-10-12 11:39:09
+----
+== ACE ==
+== Ice ==
+== XMLPRC ==
+=== thrift ===
+ref:http://dongxicheng.org/search-engine/thrift-framework-intro/
+
+介绍网址如上,thrift是一个跨语言的RPC程序框架,可以通过IDL(中间语言)进行编写RPC程序,然后导出到各个语言,从而进行不同语言间的RPC呼叫.

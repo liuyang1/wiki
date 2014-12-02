@@ -1,0 +1,13 @@
+=编程检查小工具=
+
+==valgrind==
+{{{
+工具valgrind
+valgrind --tool=memcheck --leak-check=full [./processName]
+}}}
+
+
+splint
+
+==测试类工具==
+引用:[[test_tool_example|测试工具]]

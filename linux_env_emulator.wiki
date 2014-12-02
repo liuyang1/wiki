@@ -1,0 +1,30 @@
+=linux环境模拟=
+
+==cygwin==
+==mingw==
+
+==cygwin,mingw区别==
+{{{
+Unix程序移植到win32下，显然是需要OS提供的API，而OS不同，这些接口自然不同。
+1，修改编译器,使得编译器将API接口函数转换为对应的Win32下的函数.
+2,修改库,使得win提供类似于Unix的库,使得程序接口与Unix一样,这些库是使用Win32的API实现的.
+前者的方法为mingw的方法,后者为cygwin的方法.
+}}}
+
+== cygwin命令行升级 ==
+mtime: 2012-10-08 14:39:01 
+
+显然,对于cygwin的远程环境,如果需要升级,肯定不想要打开命令行来处理这个问题.所以应该找到一个办法进行命令行的升级.
+
+ref:http://superuser.com/questions/40545/upgrading-and-installing-packages-through-the-cygwin-command-line
+
+{{{
+	Install apt-cyg:
+
+	wget http://apt-cyg.googlecode.com/svn/trunk/apt-cyg
+	chmod +x apt-cyg
+	mv apt-cyg /usr/local/bin/
+	After that you'll be able to install say the package "lynx" including dependencies by running:
+
+	apt-cyg install lynx
+[[}}}]]

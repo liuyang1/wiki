@@ -1,0 +1,94 @@
+=SVC流化=
+
+{{{
+SVC streaming Paper reading
+基于网络编码的SVC高效传输系统
+LuJ,西安电子科技大学学报,2009,
+前言
+     SVC在丢包网络中,性能优于H.264.
+     根据网络带宽动态变化调整SVC编码的算法
+     随机线性网络编码RLNC算法在每个网络节点对输入信息进行线性编码,网络端到端信道容量达到最大流最小割定理规定的上限.
+          RLNC增加网络吞吐量,提供数据传输效率和安全性,
+1,基于RLNC的SVC视频流传输
+     skip
+2,SVC视频特性研究
+     2.1打包特性
+          分级FEC结构的分层打包算法是一种适合SVC码流特性的打包方法.
+     2.2传输特性
+          
+基于网络编码的视频传输技术研究
+张楠,西安电子科技大学,2010
+SVC和网络编码[应该和第一篇论文之间存在关系,介绍性的文章,]
+
+Network-adaptive SVC over 3G wireless Network
+QianZhang,MSRA,
+abstract
+无线网络上可伸缩视频流化的QoS是极具挑战性的任务,因为无线信道的时变特性和手持设备的有限电源资源.
+本文提出了3G无线网络上的视频流化的端到端的网络自适应结构.
+提出的结构不仅仅动态估计变化的网络状态,而且同时执行应用程序级别的差错控制和传输层电源控制来保护3G网络中的随机和衰落错误.
+失真或者能量最小率表现了达到最小奥的端到端失真或者最小化总能量消耗,基于用户的需要.
+
+Using H.264AVC-based Scalable Video Coding (SVC) for Real Time Streaming in Wireless IP Networks
+Thomas Schierl,德国
+
+Real-Time System for Adaptive Video Streaming Based on SVC
+Mathias Wien,2007,invited paper
+abstract
+提出了SVC集成到多媒体自适应一般平台中.
+这个平台提供全部的mpeg-21链,包括服务器,自适应节点,客户端,
+一个有效的自适应结构使用SVC和mpeg-21 DIA(数字项自适应)是集成的,他也显示了SVC可以无缝的用到DIA中.
+在易丢包网络中,对于丢包的保护,提供一个不对等的消除保护体制对SVC.
+平台包括实时SVC编码器,编码CIF图像.使用QCIF作为基本层,良好的纹理伸缩质量定义在12.5fps,在常用的高配终端上.
+相比测试序列,因为优化编码算法质量降级0.6dB.
+1,介绍
+MPEG21 DIA已经标准化的.SVC标准完成于2007中.DANAE工程已经实现了从编码到错误保护,自适应,解码的全过程.
+
+A network-adaptive SVC Streaming Architecture
+Peng Chen,ICU,Korea.
+摘要:
+对于网络视频,必须考虑终端和网络的特性.
+SVC可以根据不同的伸缩层复杂适应终端和网络特性,得到视频流.
+SVC允许从SVC比特流中,提取近似部分比特流数据,来满足特定的比特率和视频分辨率.
+而且提取过程很快,因此可能在线提取复制给交付给随时改变带宽的网络.
+1,介绍
+     提取过程必须够快.
+     从低得空间/质量层到高层,将会引起SVC解码器不能完美重建帧.这是因为在GOP的边界出,下一个GOP的第一帧将不能引用之前GOP的内容.
+          因此在线提取,只能使用不同的时间分辨率.
+2,SVC比特流结构
+     SVC比特流->NALU->头部与载荷.
+     NALU头部1个字节...所有的NALU都有4个字节的0x00000001分隔.
+     一般NALU分为两类参数NAL和压缩视频数据NAL.参数NAL有SEI,SPS,PPS等.
+     参数NAL:
+          SEI是有着复杂数据类型的NAL类型,每个都有自定义的数据和信息.定义自定义的SEI单元使用UUID来确认用户自定义数据.
+          SPS
+          PPS
+     压缩视频数据NAL:分为基本层和增强层数据.一般比特流视频编码为AVC基本层数据NALU,和数个SVC伸缩扩展NALU.
+          基本层包含,最小奥的空间层和最差的质量层.另一方面,扩展NAL通常包含不同空间和质量层的残差数据.所有的扩展NALU都基于他们的基层NALU和其他的扩展较低尺度层.
+          时间尺度层信息不像空间和质量层,被包含在扩展NALU中.同一个序列的所有层都进行编码.序列基于依赖等级.时间尺度层就认为有着相同的依赖关系.
+     
+3,在线提取SVC比特流
+     3.1空间和质量层
+     3.2时间层
+4,SVC流化测试环境结构
+5,实现
+5.1SVC比特流提取算法
+5.2实现
+     网络传输
+          参考NCTU的MPEG21测试环境,支持RTSP协议传输视频流.原生支持ASP,FGS视频,添加SVC模块到测试环境,使之支持SVC流化.
+     SVC部分
+          SVC编解码器来自JSVM5.0,集成SVC提取模块到MPEG21测试环境的服务器部分,SVC的解码器到客户端部分.
+     RTSP协议有4个回话过程,SETUP,DESCRIBLE,PLAY,TEARDOWN,在DESCRIBEL部分,客户端发送配置元数据到服务器.
+          服务器配置提取器判决引擎的最好的空间和质量层.这里判决引擎必须分析视频文件,获得所有层比特率信息,来进行判决.
+          然后对于每个GOP,提取判决器都会分析时域的比特率.然后进行指数遗忘公式来估计下一步时刻的带宽.
+     在客户端,SVC解码器输出不包含任何时域层或者帧率的信息.SVC播放器不能播放解码视频,根据解码帧率.需要实现一个机制,来告知播放器帧率信息.这里使用自定义的SEI类型.
+          在提取模块,我们添加SEL NALU到每个GOP单元,在解码器部分,SVC解码器将忽略这部分信息.可以添加额外的解析器在解码器获得这些SEL NALU之前.解析获得帧率信息,然后将其传递给播放器.
+          有了帧率信息就可以播放了.
+[1]Chung-Neng Wang et. al,, "Scalable Multimedia Streaming Test Bed forMedia Coding and Testing in Streaming Environments," ISO/IEC JTC1/SC29/WG1 1 MPEG2004/M11 17, Redmond, July 2004
+
+Scalable Multimedia Streaming Test Bed for Media Coding and Testing in Streaming Environments
+
+ETSI TR 185 013 v0.4.2 (2009-02 Draft)
+tbd
+S. Wenger, Y. K. Wang, T. Schierl, “RTP Payload Format for SVC
+Video”, Internet Draft, Network Working Group, Feb. 25, 2008.
+}}}

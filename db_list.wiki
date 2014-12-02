@@ -1,0 +1,22 @@
+= 数据库软件 =
+
+[[Fundamentals_of_DB_4th|数据库系统基础]]
+
+----
+== 嵌入式数据库 ==
+- SQLite
+- bekerlyDB
+- firebird
+== 通用数据库 ==
+开源:
+- mySQL
+- PostgreSQL
+商业:
+- SQL
+- Oracle
+- DB2
+== NoSQL数据库 ==
+- MongDB?
+
+== 桌面/文件数据库 ==
+- access

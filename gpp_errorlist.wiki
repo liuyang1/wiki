@@ -1,0 +1,23 @@
+=g++错误列表=
+
+
+- undefined reference to '__gxx_personality_v0'
+使用g++(而不是gcc),或者添加链接库stdc++.
+
+- undefined reference to 'XXX'
+	事实上链接库里面存在XXX符号,这是因为gcc是按照 *按需链接* 的效果,也就是输入的参数顺序是有很大的影响的.
+
+	只有前面的obj文件需要,才会将后面的库的符号链接进去.
+
+	如果先链接库,那么就不会链接进去任何符号,这样就回造成undefined reference的问题.
+	
+- new/delete 与 malloc/free的区别
+前者用于C++中,后者用于标准C中.
+
+二者的区别在于,前者会调用类的构造函数与析构函数,但是后者明显不会.
+
+因此,如果申请的对象中如果是/或者包含class的话,就必须使用new/delete,以保证相应的函数被调用.
+
+不然会发生莫名其妙的错误.
+
+[开发TSDex过程中总结,mtime: 2012-12-20 01:44:12]

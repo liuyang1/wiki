@@ -1,0 +1,42 @@
+= IO benchmark 测试工具 =
+mtime: 2012-12-04 15:52:37 
+----
+本来想自己写一个,后来发现,这样还是过于傻逼了,还是找个工具吧.
+
+明确自己要测试的目标是什么,否则只会被误导.IO方面有很多不同的参数,需要考虑去优化.
+
+系统参数:
+# 存储设备,HDD,SSD哪一种,Raid哪一种
+# 文件系统,块大小,日志模式
+# 文件缓存,碎片阈值,内存量
+# IO调度,及可调参数
+# CPU个数
+# 内核版本
+
+测试参数:
+# 读/写性能
+# 随机/顺序
+# 单线程/多线程
+# 请求大小
+# 吞吐量最优/请求延迟最优.
+
+
+== fio ==
+小工具
+{{{
+	./fio examples/disk-zone-profile
+}}}
+
+[[http://stackoverflow.com/questions/1198691/testing-io-performance-in-linux|ref]]
+
+== FFSB ==
+对linux很友好,NFS的测试,有点不健全.
+
+a nine year study of file system and storage benchmarking.
+
+大部分benchmark的测试结果是存疑的.
+
+== iops iotest ==
+[[http://benjamin-schweizer.de/files/iops/|download]]
+
+这个测试的是硬盘的读写性能,不是想要的东西,不过应该也可以测试试下吧.

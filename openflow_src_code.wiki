@@ -1,0 +1,33 @@
+= openflow代码 =
+----
+openflow1.0.0
+
+给多网卡linux PC添加交换功能
+
+open vSwitch
+
+支持openflow交换的,虚拟交换机,使用虚拟技术,如Xen,KVM,Virtualbox
+----
+FlowVisor
+
+特殊的OpenFlow交换控制器,作为OpenFlow交换机和多个OpenFlow控制器之间的透明代理.
+----
+SNAC
+
+Simple Network Access Control
+
+openflow交换控制器
+
+----
+----
+openflow
+
+# ofdatapath		用户空间的流表
+# ofprotocol		交换机安全通道
+# dpctl				交换机的配置工具
+
+# controller		简单的控制器,
+# vlogconf			运行时调节日志等级(对于ofprotocol和controller)
+# ofp-pki			管理公钥
+# patch for tcpdump	解析openflow信息
+# wireshark插件

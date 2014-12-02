@@ -1,0 +1,14 @@
+= 远程桌面软件 =
+mtime: 2012-10-11 09:59:26
+----
+linux 到 windows 的远程桌面软件
+
+rdesktop
+
+使用方法
+{{{
+rdesktop IPaddr
+}}}
+注意!
+
+需要远程主机设置为允许不安全的登录,这样才可以.(可能因为 windows 2008 server 的设置问题)

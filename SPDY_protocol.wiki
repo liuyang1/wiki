@@ -1,0 +1,64 @@
+=SDPY协议=
+== 头部定义 ==
+spdy分为两种帧.
+
+control,data两种类型.
+
+具体见下:
+
+struct SpdyFrameHeader{
+    union {
+        struct {
+            uint16:1    contorlbit;
+            unit16:15    version;
+            unit16 type;
+        }control;
+        struct {
+            uint:1  controlbit;
+            unit:31 streamid;
+        }data;
+    };
+    uint:8   flags;
+    uint:24  length;
+};
+
+
+{{{
+　SPDY 是 Google 开发的基于传输控制协议 (TCP) 的应用层协议 ，开发组正在推动 SPDY 成为正式标准（现为互联网草案）。SPDY 协议旨在通过压缩、多路复用和优先级来缩短网页的加载时间和提高安全性。（SPDY 是 Speedy 的昵音，意思是更快）
+　　SPDY 与 HTTP 的关系　　SPDY 协议只是在性能上对 HTTP 做了很大的优化，其核心思想是尽量减少连接个数，而对于 HTTP 的语义并没有做太大的修改。具体来说是，SPDY 使用了 HTTP 的方法和页眉，但是删除了一些头并重写了 HTTP 中管理连接和数据转移格式的部分，所以基本上是兼容 HTTP 的。
+　　Google 在 SPDY 白皮书里表示要向协议栈下面渗透并替换掉传输层协议（TCP），但是因为这样无论是部署起来还是实现起来暂时相当困难，因此 Google 准备先对应用层协议 HTTP 进行改进，先在 SSL 之上增加一个会话层来实现 SPDY 协议，而 HTTP 的 GET 和 POST 消息格式保持不变，即现有的所有服务端应用均不用做任何修改。
+　　因此在目前，SPDY 的目的是为了加强 HTTP，是对 HTTP 一个更好的实现和支持。至于未来 SPDY 得到广泛应用后会不会演一出狸猫换太子，替换掉 HTTP 并彻底颠覆整个 Internet 就是 Google 的事情了。
+　　为什么要重新建立一个 SPDY ？　　距离万维网之父蒂姆·伯纳斯-李发明并推动 HTTP 成为如今互联网最流行的协议已经过去十几年了（现用 HTTP 1.1 规范也停滞了 13 年了），随着现在 WEB 技术的飞速发展尤其是 HTML5 的不断演进，包括 WebSockets 协议的出现以及当前网络环境的改变、传输内容的变化，当初的 HTTP 规范已经逐渐无法满足人们的需要了，HTTP 需要进一步发展，因此 HTTPbis 工作组已经被组建并被授权考虑 HTTP 2.0 ，希望能解决掉目前 HTTP 所带来的诸多限制。而 SPDY 正是 Google 在 HTTP 即将从 1.1 跨越到 2.0 之际推出的试图成为下一代互联网通信的协议，长期以来一直被认为是 HTTP 2.0 唯一可行选择。
+　　HTTP 协议的不足　　1. 单路连接 请求低效　　HTTP 协议的最大弊端就是每个 TCP 连接只能对应一个 HTTP 请求，即每个 HTTP 连接只请求一个资源，浏览器只能通过建立多个连接来解决。此外在 HTTP 中对请求是严格的先入先出（FIFO）进行的，如果中间某个请求处理时间较长会阻塞后面的请求。
+　　（注：虽然 HTTP pipelining 对连接请求做了改善，但复杂度增加很大，并未普及）
+　　2. HTTP 只允许由客户端主动发起请求　　服务端只能等待客户端发送一个请求，在可以满足预加载的现状是一种桎梏。
+　　3. HTTP 头冗余　　HTTP 头在同一个会话里是反复发送的，中间的冗余信息，比如 User-Agent、Host 等不需要重复发送的信息也在反复发送，浪费带宽和资源。
+　　SPDY 协议的优点　　1. 多路复用 请求优化　　SPDY 规定在一个 SPDY 连接内可以有无限个并行请求，即允许多个并发 HTTP 请求共用一个 TCP会话。这样 SPDY 通过复用在单个 TCP 连接上的多次请求，而非为每个请求单独开放连接，这样只需建立一个 TCP 连接就可以传送网页上所有资源，不仅可以减少消息交互往返的时间还可以避免创建新连接造成的延迟，使得 TCP 的效率更高。
+　　此外，SPDY 的多路复用可以设置优先级，而不像传统 HTTP 那样严格按照先入先出一个一个处理请求，它会选择性的先传输 CSS 这样更重要的资源，然后再传输网站图标之类不太重要的资源，可以避免让非关键资源占用网络通道的问题，提升 TCP 的性能。
+　　2. 支持服务器推送技术　　服务器可以主动向客户端发起通信向客户端推送数据，这种预加载可以使用户一直保持一个快速的网络。
+　　3. SPDY 压缩了 HTTP 头　　舍弃掉了不必要的头信息，经过压缩之后可以节省多余数据传输所带来的等待时间和带宽。
+　　4. 强制使用 SSL 传输协议　　Google 认为 Web 未来的发展方向必定是安全的网络连接，全部请求 SSL 加密后，信息传输更加安全。
+　　SPDY 协议的意义　　按照 Google 的说法，SPDY 被创造出来的唯一目的就是让 Web 更快（strive to make the whole web fast），其名字 SPDY（Speedy） 也似乎在暗示着这一点。那么 SPDY 的意义又在哪里呢？
+　　1. 普通用户：　　对于使用者来说，隐藏在浏览器下面的 SPDY 相比 HTTP 没有任何区别，但是我们可以感觉到 Google 服务在 Chrome 下异常的快，这就是 SPDY 的功劳了。此外网站信息传输加密后不用担心信息被截取等，大大增加了安全性和保密性。
+　　2. 前端人员：　　对于前端工程师们来说，提升页面效率是一件很重要的事情，目前大多采用像 CSS Sprites 等方法来优化网站，对于因为页面加载时每张图片、icon 都请求一个连接甚至采用在不同页面引用不同图片来降低一个页面内图片的请求数量。而现在有了 SPDY 的请求优化可以将请求顺序进行重排，这样可以在很大程度上缓解页面加载时图片请求带来的影响。例如像极客公园的报名页面，如果报名用户过多，例如极客公园2012年创新大会或极客公园第 27 期长城会，可以很明显的感觉出头像的请求会拖累整体页面加载变慢甚至变卡，相信对于这点，经常上淘宝或刷微博的会深有体会，一旦网速稍微慢点就会出现页面加载异常，还有像苹果 App Store（除去服务器因为地区的延迟），豌豆荚这类应用分发平台上应用图标刷新缓慢等，如下面这个视频所示。
+　　3. 运维人员：　　SPDY 在降低连接数目的同时，还使得服务器上每个客户端占用的资源也减少，从而可以释放出更多内存和 CPU 。此外 SPDY 综合起来可以将浏览速度提升一倍，页面加载延迟方面的改进达 64% 。
+　　众家支持的 SPDY 协议　　如果你在使用 Chrome 浏览器，同时使用像 Gmail 等 Google 的网络服务的话，其实你已经不再是通过 HTTP 访问这些服务了。在浏览器打开 chrome://net-internals/#spdy 就会发现你已经在使用 SPDY 协议了。（除了包括 Google 自家的 Gmail、Google Plus 等 Google 系服务外，其他公共站点例如 Twitter 和 Webtide 也已经支持该协议。在国内，基于 WebKit 的豌豆荚 2.0 也曾表示将引进Chrome的SPDY技术来进一步提升速度。
+　　SPDY 的实现需要浏览器客户端和 Web 服务器同时支持。在客户端浏览器这快 Google自家的 Chrome 和Chromium 全系列不用说，都已经支持SPDY； Mozilla 家的 Firefox 自 Firefox 13 也默认开启对 SPDY 的支持。而亚马逊家的 Silk 利用 SPDY 的深度其实不比 Google 自家的 Chrome 和 Firefox 差。
+　　在Web 服务器方面包括最流行和最广泛的 Apache 在内，Netty、Jeety、Varnish、Erlang 和 Hightide 应用服务器以及面向 node.js 的服务器也都已经宣布支持 SPDY。（ Nginx 也表示将支持 SPDY）
+　　如何部署 SPDY？　　近日 Google 正式发布了适用于最流行 Web 服务器 Apache 的插件 mod_spdy，将其下载安装后你的 Apache 服务器就能使用 SPDY 协议与兼容 SPDY 协议的浏览器如 Chrome、FireFox 等进行通信。像之前所说的那样，SPDY 是运行在 HTTPS 上，非 HTTPS 流量并不会受到 mod_spdy 影响。
+　　SPDY 部署要求：　　1. Apache 2.2 (≥2.2.4)
+　　2. mod_ssl 模块开启
+　　SPDY 部署步骤：　　1. 下载 mod_spdy 模块　　到下载页面下载对应系统的安装包
+　　2. 安装 mod_spdy 模块　　在系统终端运行下面命令行
+　　dpkg -i mod-spdy-*.deb
+apt-get -f install
+　　-系统为 Debian/Ubuntu
+　　------------------------------------------------------------
+　　yum install at (if you do not already have 'at' installed)
+rpm -U mod-spdy-*.rpm
+　　-系统为 CentOS/Fedora
+　　3. 重启服务器（Apache）　　sudo /etc/init.d/apache2 restart （Debian/Ubuntu）
+　　4. 确定开启与否　　打开 Chrome 浏览器，输入并前往 chrome://net-internals/#spdy 页面，查看主机名称是否出现在标识栏中。如果出现说明已经部署完毕，如果没有出现去服务器错误日志（error.log）里查询。
+　　未来的web基础？　　在最新的协议文档里 Google 重新将 SPDY 分为了两层，其中一层被描述为 HTTP-like，大有取代 HTTP 的意图（Google 最近的一篇文章已经直呼 SPDY 为“a replacement for HTTP”）。同时 HTTP 2.0 标准制定工作组（HTTPbis）也表示，SPDY 很有希望接替当前的 HTTP 传输实现。
+　　考虑到 Chrome 和安卓的份额以及标准的推动，相信 SPDY 会有一个好前景。因此选择此刻支持 SPDY 也是明智的选择。
+}}}

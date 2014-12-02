@@ -1,0 +1,44 @@
+=压缩解压缩=
+== tar ==
+
+解压到特定文件夹
+tar zxvf XX.gz -C /tmp/
+
+==zip==
+
+解压到特定文件夹
+unzip XX.zip -d /tmp
+
+unzip -fo XX.zip
+
+强制替换文件解压(会自动对比文件修改时间)
+
+=== 乱码问题 ===
+
+解压windows下面的压缩文件名字为乱码的问题
+
+unzip -O CP936 XX.zip
+
+unzip -O GBK XX.zip
+
+
+==jar==
+----
+{{{
+	unzip,7z都不对文件名转码,因此可能造成乱码.
+}}}
+==tar==
+==xz==
+xz
+
+unxz
+
+== dtrx ==
+综合工具.
+
+可以自行选择通过什么方式,进行解压缩操作.
+
+== 7z ==
+a 
+
+e 解压

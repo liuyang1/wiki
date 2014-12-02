@@ -1,0 +1,164 @@
+= ssh wiki =
+2012-09-21 09:41:18 
+----
+== 文件权限问题 ==
+必须设置正确的文件权限,才可以完成ssh公钥登录的问题.
+例如:
+
+- 用户的home目录需要是644
+- 用户的.ssh文件夹(ls -al可以看到),必须为700
+- 私钥必须为600(其他人不可访问)
+- 公钥以及其他文件必须为644
+
+登录错误,可以通过/var/log/secure日志文件观察到.
+
+== cygwin 直接退出的错误 ==
+这个错误折腾了好几天.
+
+适应cygwin无法通过密钥登录.
+
+方法去掉死要内部的begin和end两行
+
+==Bad owner or permission of config file==
+{{{
+	chmod 600 ~/.ssh/config
+}}}
+==直接命令==
+ssh也可以直接输入命令,如果仅仅是简单的单个命令的时候就特别方便.例如
+{{{class="brush:bash"
+ssh xxx 'uname -a'#注意:这里为单引号,不是反引号.
+}}}
+使用fabric可以更方便的处理这个问题.
+具体参考[[python_lib]]
+== public key login ==
+复制公钥到对方主机
+{{{class="brush:bash"
+	ssh-copy-id user@hostname
+}}}
+相当于
+{{{
+	ssh user@host 'mkdir -p .ssh && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+}}}
+ref:http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html
+
+==scp==
+upload
+{{{
+scp -P port localfilepath username@hostname:remotefilepath
+}}}
+download
+{{{
+	scp -P port username@hostaname:remotefilepath localfilepath
+}}}
+如果使用默认ssh端口,不需要-P参数.
+
+==sftp==
+本地命令
+{{{
+lls,lcd,
+}}}
+远端命令
+{{{
+	ls,cd,rm
+}}}
+上传下载命令
+{{{
+	put,get(可带路径)
+}}}
+
+==反向连接==
+{{{
+	ssh -f -N -R 目标端口:映射目的主机:映射目的端口 用户名@目标主机
+}}}
+例如:
+{{{
+	ssh -f -N -R 8888:localhost:22 xxx@xxx.com
+}}}
+从目标主机登录回来
+{{{
+	ssh xxx@localhost -p 8888
+}}}
+
+== ssh做代理 ==
+ssh -D [本地IP/省略]:[本地端口] [服务器用户名@服务器IP地址] -p 服务器端口(默认22)
+
+配置代理,直接选择sock5即可.
+
+== 自动断线重连 ==
+使用autossh工具
+
+autossh -M 5678 -NR 1234:localhost:22 user1@123.123.123.123
+
+也可以自己使用脚本检测ssh进程状态,进而决定是否重连
+
+见test.g/sh/autossh.sh
+
+
+
+== 加速登录过程 ==
+# 对于GSS授权的影响
+在。ssh/config内添加
+{{{
+GSSAPIAuthentication no
+}}}
+
+== 真正的"无密码"登录 ==
+默认的ssh采用密码方式登录,显然,这样需要一遍一遍的输入密码,这样是不好的,毕竟输入越多,越容易泄漏.而且密码的方式,还是存在着破解的可能.
+
+推荐使用密钥登录.但是还是存在类似的问题,密钥如果没有密码的话,那么任何人如果获得了私钥,就立刻获得了访问权限.
+
+(很多机器就是这样被一连串的攻击击败的.
+
+首先,黑客破解了一个机器的登录密码,之后在.ssh目录发现了一串的密钥,这些密钥都是无密码的,那么黑客就可以利用这些密钥去尝试连接到网内的其他机器上.
+
+之后一连串的机器就这样被破解了)
+
+如果设置了密钥的密码,那么又有点麻烦了,回到了每次需要输入密码的过程.
+
+这个时候,可以使用ssh-agent工具,来辅助.当然,密码还是要输的,但是它可以帮助在一个会话期间,仅仅输入一次密钥的密码就可以了.
+
+方法如下:
+
+运行ssh-agent到shell环境中
+
+$>eval `ssh-agent`
+
+$>ssh-add ~/.ssh/identity_private_key_filename
+
+这样就不需要再次输入密钥的密码了.
+
+但是,上面的方法仅仅对于一个会话,一般人都会开多个终端,这对应着不同的会话.
+
+可以使用keychain来辅助,这样就是在一次登录过程中,可以使用相同的缓存密钥.
+
+同样的,添加到.bash_profile
+
+keychain ~/.ssh/identity_private_key_filename
+
+source ~/.keychain/Jade-sh(比较旧的资料,这里说的一般是source ~/.ssh-agent,这个已经没有了,改用这个命令).
+
+这样就可以了.
+
+不过这样的缺陷也是比较明显的,就是每次登录的时候,必须输入这个命令,还是略微麻烦.其实可以这样,在运行过程中,随时使用keychain添加密钥,这样就好了.
+
+最新的问题:
+
+对于在不可信主机上不要使用ssh-agent以及keychain,因为这个工具有可能泄漏私钥,如果其他人拥有root权限的话.
+
+对这样的场景,应该使用端口转发功能.
+
+ref:http://www.ibm.com/developerworks/cn/linux/security/openssh/part2/index.html
+
+== 多台机器管理 ==
+# 可以自己写一个脚本来完成.
+# pssh工具
+    # 并行执行程序,还是比较方便的
+    # 可以使用alias命令更为简化这个命令的使用过程,对于多台机器的管理确实 *非常* 简便.
+# dsh工具
+
+== sshfs ==
+sshfd root@HOST:PATH /LOCALPATH
+
+将远程目录直接mount到本地目录
+
+`这也太方便了吧?`

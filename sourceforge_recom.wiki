@@ -1,0 +1,112 @@
+= sourceforge优秀项目介绍 =
+mtime: 2012-10-12 13:37:14
+----
+PowerFloder文件同步工具
+
+mindtouch ???
+
+ehcache		Java 分布式缓存
+
+Hyperic HQ	系统服务管理(源码,apache,tomcat,lamp,weblogic,虚拟化,虚拟机,web,xen,Jboss等等)
+
+Firebird	关系数据库管理系统
+
+Barcode4J	java,条形码产生
+
+openbravo	ERP,企业管理系统
+
+inkscape	矢量图形编辑软件
+
+scorched 3D	3D游戏
+
+Art of Illusion		三维建模渲染软件
+
+zenoss core			IT管理软件,智能监控软件
+
+FreeCol		策略游戏
+
+ICEcore		团队协作软件
+
+FreeNAS		网路附件存储NAS服务专用操作系统(FreeBSD简化)
+
+Pentaho		报表,多维分析,仪表盘,数据挖掘和工作流功能.
+
+OpenQRM		数据中心系统管理,
+
+Sahana		web集成,灾难管理系统
+
+stellarium	桌面星空软件
+
+Freemind	MindMap软件
+
+NSIS		win32安装,卸载系统
+
+FCKeditor	在线文本编辑器
+
+NHibernate	.NET环境4总,关系型数据库的对象持久化类库
+
+MediaWiki	wiki程序,
+
+MinGW		GNU工具组,用于windows环境
+
+jasperReports	报表生成工具
+
+nagios		监视服务,监视各种协议等等
+
+winSCP		SFTP客户端,支持SCP协议
+
+phpMyAdmin	mysql管理工具
+
+JBoss		运行EJB的J2EE应用服务器
+
+FileZilla	FTP客户端
+
+OGRE		三维图形渲染库
+
+Net-SNMP	SNMP实现
+
+phpBB		MySQL上,PHP后端写的UBB风格BBS
+
+SugarCRM	客户关系管理系统
+
+MegaMek		网游
+
+TUTOS		软件生命周期管理软件
+
+gallery		网络相册
+
+magento		电子商务系统
+
+OpenOffice	办公套件
+
+Audacity	音频编辑录音
+
+TortoiseSVN	SVN客户端
+
+openNMS		分布式网络和系统监控管理平台
+
+concrete5	内容管理系统
+
+OpenSwing	SWING框架
+
+Notepad++	代码编辑器
+
+Shareaza	P2P软件
+
+OrangeHRM	HRM人力资源管理系统
+
+TinyMCE		基于浏览器的所见即所得编辑器
+
+ZK			Ajax Java Web框架
+
+Frets On Fire	键盘吉他音乐游戏
+
+DotProject	项目管理框架
+
+DOSBox		DOS模拟器
+
+silex		开源RIA,建立Flash网站,新型的CMS,
+
+Piwiki		开源网页统计工具
+
+

@@ -1,0 +1,18 @@
+= matlab =
+
+== @linux使用的情况 ==
+=== 启动无画面,只有下面的start显示 ===
+
+这是因为awesome窗口管理器的问题.
+
+在awesome的配置文件rc.lua下面增加下列配置就可以了.
+{{{
+awful.util.spawn_with_shell("wmname LG3D")
+}}}
+
+=== imshow的图像问题 ===
+估计还是绘图之类单位问题,就是显示的图像有问题.
+
+preference->Image Processing->Axes Visible,这个选择上就好了.
+
+`stackoverflow上有人碰到了完全一样的问题.`

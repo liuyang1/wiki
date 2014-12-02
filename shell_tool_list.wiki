@@ -1,0 +1,110 @@
+
+= shell 工具列表 =
+mtime: 2012-11-16 15:36:22 
+----
+
+watch	周期运行任务
+
+ttyload 图形化显示系统负载情况
+
+mtr www.baidu.com 比traceroute好用.
+
+mtr是图形程序,不是CLI的.
+
+at,在特定时间执行命令
+= 命令组合 =
+du -s * | sort -n |tail
+
+列出最大的10个文件
+
+ps aux | sort -nk +4 | tail
+
+最耗内存的10个进程
+
+date -d@123456
+
+时间戳转换
+
+按文件大小排序
+
+ll | sort -k 5 -n
+
+== 字符编码转换 ==
+- luit
+实时将其他字符编码结果的程序,进行转码.
+
+例如使用luit+telnet访问bbs.
+
+luit -encoding gbk telnet bbs.ustc.edu.cn
+
+== xargs + type ==
+
+find -type d | xargs sudo chmod 755 
+
+找到所有文件夹,全部转换为755模式
+
+== 监控 ==
+
+sar -u 2 400
+
+监控CPU,每2秒一次,运行400次
+
+- -b IO,传输速率统计,
+    - tps,物理设备每秒传输数量
+    - rtps,物理设备读请求次数
+    - wtps
+    - bread/s,读取的块数/秒
+    - bwrtn/s,写入的块数/秒
+    - pgpgin/s,从硬盘到内存换页千字节数
+    - pgpgout/s,从内容到硬盘换也千字节数
+    - fault/s,页面错误数
+    - majflt/s,主错误
+    - pgfree/s,空闲页面数
+    - pgscand/s
+    - pgsteal/s
+    - %vmeff
+- -d 汇集块设备活动
+- -n 回报网络状态
+    - 
+
+
+- -f [filename] 提取文件中的报告
+- -o [filename] 写入报告到文件中
+- -e 设定结束汇报的时间
+
+== autojump ==
+autojump工具,用于自动在目录之间跳转,非常好用的工具.
+
+他会统计你在各个路径下的时间,从而根据不同的权重,估计你要去的路径.
+
+这样你只需要j [路径名称中的一部分]就可以了.
+
+_不要从ubuntu官网去安装_ 那个自2009年都没有更新了.
+
+额外提供.
+
+jc  跳转到子目录
+
+不要在awesome下使用jo,这会引起awesome桌面的崩溃.
+
+autojump --purge
+
+从autojump.txt中,清除不存在的目录.
+
+没有自动清理的原因是很多用户希望保留文件夹,从usb或者网络设备上.
+
+同时这个需要检查所有的数据库路径,每次进行cd的时候,如果在慢速的IO设备上,将引起不必要的延迟.
+其他请参考man autojump
+== expect ==
+{{{
+expect是什么,是一个tcl的脚本.一般用户密码登录,以及其他需要实时输入的场景.
+比如ssh密码登录.
+缺点也是非常明显的,需要将用户名和密码存储在脚本中.
+}}}
+
+== time ==
+进行计时的工具,注意,可能和shell提供的略有区别,因此运行时可能需要路径/usr/bin/time
+
+- -a参数,输出到文件的时候,是append模式
+- -o,输出到文件,后面带文件名采菽
+- -p,输出格式为POSIX格式

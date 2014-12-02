@@ -1,0 +1,111 @@
+=H.264格式=
+
+{{{
+每个NALU以0x0000 0001开始
+
+h264里面是没有帧率信息的.
+那么
+可以从PES头得到时间戳
+
+
+看看如果按照time_scale = 1 num_unit_in_tick=0.2填写。
+这个信息在VUI中的可选字段当中
+具体可以参考H.264文档.
+NALU
+	forbidden_zero_bit f(1)
+	nal_ref_idc u2
+	nal_unit_type u5
+	..
+	其中,SPS的nal_unit_type为7
+SPS
+	…定位问题
+	最后,vui_parameters_present_flag
+	if(flag){
+		vui_parameters()
+		rbsp_trailing_bits()
+	}
+rbsp_trailing_bits
+	rbsp_stop_on_bit/*等于1*/
+	while(!byte_aligned){
+		rbsp_aligenment_zero_bit/*等于0*/
+	}
+VUI
+	aspect_ratio_info_present_flag u(1)
+	overscan_info_present_flag u(1)
+	video_signal_type_present_flag u(1)
+	chorma_loc_info_present_flag u(1)
+	time_info_present_flag[下一级内容] u(1)
+	nal_hrd_parameters_present_flag u(1)
+	vcl_hrd_parameters_present_flag u(1)
+	pic_struct_present_flag u(1)
+	bitstream_restriction_flag u(1)
+time_info
+	num_units_in_tick u32
+	time_scale u32
+	fixed_frame_rate_flag u1
+
+原序列
+00 00 00 01 .. .. .. 51 |-> 00 00 00 01
+修改后的序列为
+00 00 00 01 .. .. .. 52 10 00 04 65 00 00 15 F9 00/08 40 |-> 00 00 00 01
+修改VUIflag,添加VUI信息
+添加time_infoflag,设置num_units_it_tick和time_scale
+以及fixed_frame_rate_flag0/1
+
+}}}
+
+以下为MPEG2的部分
+
+== VBV Video Buffering Verifer ==
+VBV是一个MPEG视频缓冲模型.用于确保编码视频流可以被正确的缓冲.和回放在解码设备上.
+
+根据定义,当输入为一个兼容系统(除非为低延时状态),VBV应该既不会下溢,也不会上溢.
+
+在H264与VC1编码中,VBV替换为HRD.(hypothetical reference decoder)假想参考解码器
+
+MPEG传输知名解码器缓存的行为根据这个模型.但是解码器也可以不使用这些量化,而是根据时间戳提供的冗余信息.进一步的解释喜爱缓冲区同步与开始模块.
+
+VBV和两个传输值有关.vbv_buffer_size,vbv_delay.
+
+# vbv_buffer_size,
+    # 缓冲区全满的最大值
+    # 每个序列头都会发送.
+    # 注意:当正转入到一个正在播放的节目时,vbv_buffer_size有可能不可用
+# vbv_delay,
+    # 存储图像起始码在缓冲区到开始解码图像的时间差
+    # 每个图像头都会发送
+
+然而,一般解码缓冲区可以根据系统时钟,以及时间戳,和最大缓冲区的先验信息获得,因此上面两个是冗余的.
+
+== 缓冲区同步与开始 ==
+
+----
+== x264编码建议 ==
+如果你想达到100%CPU利用率,那么注意:
+# YUV输入,很可能受限于IO输入.
+# avisynth脚本,运行是单线程的.一些滤镜可以运行在额外现场,但是较大的提升.
+# ffmpeg,ffms2,只支持单线程解码,使用x264.
+
+flash h.264解码器不支持权重P帧预测.直到10.1版本.不过还没有广泛部署,因此,采用--weightp 0.不使用权重P帧预测.
+
+苹果quicktime播放器,有各种解码问题.特别是和参考帧计数有关的.参考quicktime的兼容性.
+
+=== VBV编码 ===
+VBV在x264中,用于限制输出码率,是的流化在合适的带宽受限的环境中.
+
+h264 VBV模型,基于一个解码器端的VBV缓存.h.264流下载到客户端,存储在vbv缓存中.一个帧必须要完全下载到vbv缓存中,如果要解码的话.
+
+x264有3个相关的参数控制VBVbuffer
+# --vbv-bufsize kbit
+# --vbv-maxrate kbit/sec
+# --vbv-init
+当使用VBV,你总是需要设置前两个参数,而不需要设置最后一个参数
+
+==== 例子 ====
+# 编码视频到本地硬盘,以便于以后播放
+    不用制定任何VBV设置.你的硬盘总是有足够的速度去传输,因此不需要VBV限制.
+# 编码视频,适合服用到蓝光兼容文件
+    蓝光达到40Mb最大码率,30Mb的缓存.因此指定--buleray-compat --vbv-maxrate 40000 --vbv-bufsize 30000
+    注意: x264需要更多的选项来编码充分兼容蓝光的文件,但是以上一所有关于VBV兼容依赖的.
+# 流化视频通过flash,在一个网站上,例如youtube.
+    想要视频快速开始,缓冲不超过0.5sec.需要设置用户需要的最小带宽为512kbit/sec.假设90%带宽可用,96kbit/sec用于音频,则剩余364kbit/sec给x264.指定--vbv-maxrate 364 --vbv-buffer 182

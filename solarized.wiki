@@ -1,0 +1,29 @@
+= solarized配色 =
+
+== gnome-terminal ==
+- 修改dir[配色
+{{{
+346  ls
+347  wget https://raw.github.com/seebi/dircolors-solarized/master/dircolors.ansi-dark
+348  ls
+349  wget https://raw.github.com/seebi/dircolors-solarized/master/dircolors.ansi-light
+350  ls
+351  ls
+352  cp dircolors.ansi-dark .dircolors
+353  dircolors .dircolors 
+354  ls
+355  eval `dircolors .dircolors `
+}}}
+- 修改终端配色
+{{{
+357  git clone https://github.com/sigurdga/gnome-terminal-colors-solarized.git
+358  ls
+359  cd gnome-terminal-colors-solarized/
+360  ls
+361  ./set_dark.sh 
+}}}
+
+== vim ==
+终端下面配色
+
+需要终端也使用solarized配色才可以.

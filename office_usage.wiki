@@ -1,0 +1,10 @@
+= office 软件技巧 =
+mtime: 2012-10-18 10:52:31
+----
+== word ==
+=== 解除安全模式 ===
+为宣总解决的问题
+
+在C:\Users\[username]\Application\Microsoft\Template\Normal.dot
+
+删除此文件即可.

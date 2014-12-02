@@ -1,0 +1,6 @@
+= 系统存储扩展 =
+mtime: 2012-10-26 11:37:47
+----
+参考:http://blog.csdn.net/user_friendly/article/details/7586090
+
+之前使用过iSCSI方式.

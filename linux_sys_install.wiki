@@ -1,0 +1,89 @@
+=linux system install=
+2012-09-21 11:31:20 
+
+==网卡驱动问题==
+interface Realtek 8168 @ redhat 5.4
+
+redhat5.4版本较老.而且这个笔记本电脑是2012广行公司公用notebook,出现驱动问题.
+# 触摸板驱动的问题,导致X server无法启动,结果没有GUI出来.
+# 网卡驱动问题,这个就必须要解决了.
+
+* 查看网卡版本类型
+`kudzu --probe --class=network`
+* 挂载U盘
+`mount -t vfat /dev/sdb /mnt`
+
+== no device driver found ==
+这个时候为硬盘无法识别,可以通过修改BIOS中硬盘驱动的类型.
+
+这次是ATA修改为AHCI类型.
+
+== cygwin install ==
+1,从linux下面下载cygwin的安装程序,放到win下,可能会引起兼容性错误,需要 *直接从win下下载* 才可以.
+
+2,ssh配置
+
+配置ssh通过防火墙,TODO:
+
+配置ssh认证方式
+
+== 系统备份 ==
+http://www.linuxeden.com/html/sysadmin/20100302/70884.html
+
+参考上面的网站
+
+== ati 显卡驱动安装 ==
+下载
+
+sh Amd****.run --buildpkg Ubuntu/precise
+
+sudo dpkg -i *.deb
+
+sudo aticonfig --initial
+
+fglrxinfo
+
+sudo amdcccle
+
+== pxe无人值守安装 ==
+使用ustc校园的pxe服务,这样就省去了自行搭建pxe服务器的麻烦,缺点是必须直接连接在校园网中,而不是在内网,这个要求还是不容易达到的.特别是很多机器在内网中.
+
+http://pxe.ustc.edu.cn/faq.html
+
+上面这个链接太过于古老了,居然说软盘启动...orz...
+
+http://pxe.ustc.edu.cn/install-tutorial.html
+
+这个相对应该好一些.
+
+----
+如果上面都不可以的话,就自行搭建pxe服务器
+
+== deb install ==
+
+dpkg -i package.deb
+
+dpkg -r package.deb
+
+dpkg -l 列出所有已经安装的软件 (开始为ii,表示已经安装的软件)
+
+== rpm install ==
+rpm -ivh ABC.rpm
+
+== netinstall ==
+刻录netinstall的光盘,即可进行网络安装,网络安装需要注意,在引导进入系统之后,将网络地址输入完毕之后,记得将U盘拔下,不然之后的grub就会安装在U盘中,进而使得机器无法启动.
+
+
+== dhcp卡住 ==
+如果系统开始了PXE启动,那么会在BIOS阶段就会尝试获得IP地址,以及尝试通过pxe启动.
+
+如果局域网环境里面,没有dhcp服务器,那么启动过程就会停止在这个阶段.直到ESC手动退出为止.
+
+通过修改OnBoard LAN中,取消PXE启动,那么可以避免这个问题.
+
+(解决mfs2的启动问题时候遇到的)
+
+== bus err/input output error ==
+总线错误,输入输出错误.
+
+这种问题,一般在于系统的硬件连接可能存在问题.

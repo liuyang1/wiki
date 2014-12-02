@@ -1,0 +1,141 @@
+= 奇技淫巧 软件技巧 =
+%toc
+----
+== shell little tool ==
+* [[autojump]]
+* fasd
+
+= programming tool =
+== shell ==
+lint tool::
+shellcheck
+---|X window-
+[[ssh_tip]]
+
+[[sync_tool|文件同步工具]]
+
+- [[ahk_usage]]
+- [[ledger_usage|ledger使用]]
+- [[font_usage|字体研究]]
+- [[gtd_tool]]
+==最爱VI==
+- [[vim_tip]]
+- [[vim_plugin]]
+
+==命令行工具==
+[[shell_tool_list]]
+
+[[term_software_list|各种终端]]
+==CLI增强==
+[[byobu]]
+
+==系统工具==
+- [[crontab|crontab定时运行工具]]
+- [[linux_system_info|linux系统信息]]
+- [[tar|压缩解压缩]]
+- [[linux_bash_tool|bash与小软件]]
+- [[text_tool|文本工具]]
+- [[network_tool|网络工具]]
+- [[net_hacker|网络黑客工具]]
+- [[file_system_seek|FS中寻找]]
+==一堆桌面==
+* [[X_window|X window]]
+===平铺式===
+* [[awesome_linux_WM|Awesome WM]]
+* [[xmonad_linux_WM|xmonad WM]]
+
+Alt,是Mod1键
+
+[[file_manager_tool]]
+
+[[linux_env_emulator|linux环境模拟cygwin,mingw]]
+
+[[remote_desktop_software|远程桌面软件]]
+
+== 神兵利器 软件说明 ==
+- [[sourceforge_recom|sourceforge优秀项目介绍]]
+- [[db_list|数据库软件]]
+- 这里集中的都是非系统装软件的使用.
+- [[tool_and_lib|little tool]]
+- [[security_tool|安全相关软件]]
+- [[linux_system| linux系统]]
+- [[virtual_tool|虚拟化工具]]
+- [[shell_usage]]
+
+- [[chrome_usage]]
+==文本工具==
+- [[vimwiki]]
+- [[rime_input_method|rime输入法]]
+- [[mastering_css|精通CSS入门基础]]
+废弃的:
+- vim note
+- reST
+	* [[reST_format|reST文档格式]]
+	* [[reST_tool|reST工具]]
+
+==服务器软件==
+- [[linux_sys_install]]
+- [[web_server_comp|web服务器对比]]
+- [[tomcat_usage|tomcat使用]]
+- [[tftp_server_usage|tftp服务器配置与用法]]
+- [[system_storage_ext|系统存储扩展方式]]
+- [[io_benchmark_tool]]
+==windows==
+- [[windows_system_hack|windows系统技巧]]
+- [[win_server_tool|windows 服务器工具]]
+- [[office_usage|office 软件技巧]]
+废弃的:
+- [[win_cmd_enhance|cmd增强工具]]
+
+==视频软件==
+- [[vlc_usage|vlc]]
+- [[ffmpeg_usage|ffmpeg]]
+- [[mp4box_usage|mp4box使用]]
+- [[mpeg4ip_usage|mpeg4ip工具]]
+- [[video_tool_ext|视频处理工具延伸]]
+- [[rtptools]]
+- [[openrtsp]]
+
+- [[flash_video|flash对视频的支持]]
+==在线工具==
+[[web_tool]]
+
+== mail ==
+[[mutt_usage]]
+
+== 数学软件 ==
+- [[matlab|MATLAB]]
+- Mathmatica
+- Octave
+- [[SageMath]]
+- 1opt
+
+== 配色 ==
+- [[solarized]]
+- molokai
+- zenburn
+
+== 文本文档 ==
+=== presentation ===
+* tpp
+* landslide
+将markdown语法的文件转换为html的ppt
+
+* s5
+s5,是一个简单的通过HTML的PTT制作工具.
+
+=== pdf ===
+* k2pdfopt
+ref:[[http://note1day.com/2011/12/k2pdfopt/]]
+[[http://www.willus.com/k2pdfopt/help/linux.shtml]]
+
+这是一款将pdf转换为图片,并且自动进行缩放等处理的软件.
+
+非常适合于将在电脑上看的pdf文档,转换为在移动设备上阅读.
+
+推荐的参数:
+
+./k2pdfopt 04813404.pdf -bp -ui- -c -w 900 -h 1440 -dpi 100 -idpi -2 -x
+
+./k2pdfopt 04813404.pdf -bp -ui- -x
+

@@ -1,0 +1,9 @@
+=迅雷地址分析=
+
+{{{
+在终端下用echo url|base64 -d 来解密，并显示地址，如（URL去掉头和尾）：
+echo QUFodHRwOi8vZDUuNTJlYm9vay5jb20vc2hlbGw4MTAvYm9va3MvemV4dWUvMjAwNjAxLzIwMDYxNjkzMTg0OTUucmFyWlo=
+|base64    -d
+ 
+显示结果是：AAhttp://d5.52ebook.com/shell810/books/zexue/200601/2006169318495.rarZZ
+}}}

@@ -1,0 +1,36 @@
+= Designing a Depolyable internet:The Locator/Indentifer Separation Protocol =
+
+----
+
+LISP
+
+Locator 与 Identifier 分离
+
+----
+设计一个可部署的未来网络
+
+# 增量部署
+# 核心网络过境与中间模块穿透
+# 影响的模块有限
+# 非破坏的命名空间
+# 和无锁的映射系统方案
+
+LISP目标
+
+# 分离IP地址空间
+	通过将 IP 地址分为两个部分
+		# RLOC	routing locator
+		# EID	endpoint Identifier
+# 通过封装分离核心-边缘
+# 映射 ID 到地址
+
+
+=== LISP for IPv6 传输 ===
+
+可以将 LISP 的 Locator/Identifier 作为 IPv6 或者 IPv4 的地址.
+
+这样就可以将 LISP 作为隧道协议使用
+
+=== LISP for 虚拟机器移动性 ===
+
+=== LISP for 互联网设备移动性 ===

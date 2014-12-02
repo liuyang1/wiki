@@ -1,0 +1,324 @@
+%nohtml
+7、        转载tex的爸爸Knuth八卦若干（与技术无关）
+
+ 
+
+传说 Knuth 写书写文章的第一稿都是用铅笔写的。 
+很多人不明白他为什么不用键盘。 
+其实原因是这样，Knuth 曾经参加过一个训练小秘的学习班， 
+练习打字每分钟 80 个词以上。 
+
+到了后来，他发现他打字的速度大大高于他思考的速度， 
+所以如果他用键盘，就会出现很多停顿。 
+所以他决定用铅笔，这样可以与读者的思考速度保持一致。 
+
+标 题: 八卦 Knuth (2) 
+
+Knuth 作为一个计算机科学家， 
+为什么放下他所有的工作10年， 
+专心研究排版美学，创造 TeX 系统。 
+这是很奇怪的一件事情。 
+
+其实原因是这样。真正完美的数学排版应该是用金属活字进行的。 
+但是自从70年代以来，真正懂得这项技术的人都死光了。 
+新的排版机器，很不幸的都被计算机操纵了 (想想 Matrix ) 
+
+虽然当时计算机能够排出一些简单的报纸，杂志， 
+但是它们不能很好的处理数学公式。 
+
+Knuth 想写出一个小玩艺儿能够在不同的计算机上制造漂亮的数学公式， 
+于是 TeX (读作 Tech(nology) 的前半部分) 就诞生了。 
+
+标 题: 八卦 Knuth (3) 
+
+很多人都对 TeX 断行的算法感到满意， 
+其实只有 Knuth 觉得担心。 
+
+他设计 TeX 的时候听说有一本书叫做 Aesthetic Measures， 
+作者是美国 No.1 数学家 George David Birkhoff。 
+是说怎样用数学公式来衡量“美”。 
+
+他查阅了7个Harvard图书馆，其中有一个图书馆有一个拷贝， 
+但是却被人借走了。无奈，跑到 MIT 去借。 
+
+还好，借到了。后来他就在 TeX 里加入了一个变量叫做 badness, 
+用来衡量一行文字的美感。badness 越小这行文字就越美。 
+
+但是与 Birkhoff 不同，Knuth 对这个公式没有多少信心。 
+也许是因为谦虚。 
+
+
+
+标 题: 八卦 Knuth (4) 
+
+
+Knuth 的书都是自己用 TeX 排版的，但是却不都是自己设计的。 
+
+传说 Knuth 和 Graham, Patashnik 合作写 Concrete Mathmatics 的时候 
+请了一位有名的图书版面设计家为他们设计好了书的尺寸，字体大小，标题样式， 
+后来 Hermann Zapf 专门设计了一种数学字体叫做 Euler, 
+自此，数学家 Euler 的灵魂浮游于 CM 当中…… 
+
+另外一个图书设计家告诉 Knuth 一种格式数学公式的办法， 
+就是不把数学居中，而是只相对正文缩进一定距离。 
+
+
+标 题: 八卦 Knuth (5) 
+
+大家都知道 1974 年图灵奖授予 Knuth 
+主要是因为他写了一部巨著叫做 
+The Art of Computer Programming 
+
+但是不幸的是，很多人不能理解，甚至不相信 
+他为这部书起了这么一个不“科学”的名字。 
+
+后来很多人的著作里出现这样的文献引用： 
+
+"The Act of Computer Programming, Donald Knuth." 
+
+
+-- 
+You will be a winner today. Pick a fight with a four-year-old. 
+
+标 题: 八卦 Knuth (6) 
+
+Knuth 是个喜欢自夸的人，这是毫无疑问的。 
+在他出版 The Art of Computer Programming 之前就已经有这种苗头了。 
+
+还没有出版的时候，在一次会议上，有个人知道他的这种性格， 
+就说：“我猜你正在写的这本书的书名肯定是 ‘An Introduction to Don Knuth’。” 
+
+
+
+
+
+Knuth 回答说：“正好相反。我要以你的名字来命名它。” 
+
+原来这个人的名字叫 "Art Evans". 
+
+标 题: 八卦 Knuth (7) 
+
+Knuth 是Caltech数学系博士毕业的 
+但是他常常说：“我戴着一顶计算机科学家的帽子，而不是一顶数学家的帽子。” 
+
+这说明他似乎对数学家有某些看法。 
+在他看来数学家只知道“What is it”， 
+而他还知道 "How to do it". 
+这就是他认为的数学与计算机科学的区别。 
+
+标 题: 八卦 Knuth ( 
+
+Knuth 回到 Stanford 时，学校让他自己给自己一个头衔 
+
+他就选了一个 
+Professor Emeritus of The Art of Computer Programming 
+
+他其实觉得“计算机科学”不是科学。 
+虽然大家很希望计算机编程变成科学，这是某ACM刊物提出的忠旨。 
+但是 Knuth 觉得奇怪为什么大家这么喜欢科学， 
+以致于他们瞬间把程序设计变成了科学，方法就是叫它“计算机科学”。 
+
+-- Just call it "Computer Science" 
+
+在他眼里，计算机科学其实仍然是门艺术。 
+
+标 题: 八卦 Knuth (9) 
+
+在 Knuth 的眼里，科学与艺术有什么区别呢？ 
+艺术是人创造的，而科学不是。 
+艺术永远是可以无止境的提高的，而科学不是。 
+艺术需要天赋才能掌握，而科学不需要，按部就班就行。 
+
+所以，The ... ART ... of Computer Programming! 
+
+标 题: 八卦 Knuth (10) 
+
+Knuth 的 The Art ... ft，这么长……以后简称TAOCP吧 
+
+…… 开始写的也不那么好。 
+
+传说有一天 Bob Floyd 给 Knuth 一封信，开门见山就说： 
+“Don, 请不要用那么多感叹号！”信的结尾至少打了五个概叹号。 
+
+看了之后，Knuth 发现 TAOCP 里竟然平均每页有两个感叹号！！ 
+
+
+标 题: 八卦 Knuth (11) 
+
+有人说 Knuth 写完三卷 taocp 就去研究 TeX，其实是因为害怕写第四卷。 
+很多人早就希望他放下 TeX，继续写书。 
+Knuth 说：“一个人要把事情做的完美，只有当他跟上帝的意图保持和谐， 
+现在上帝要我去写第四卷了。” 
+
+标 题: 八卦 Knuth (12) 
+
+Knuth 很推崇随机算法。 
+他批改作业时，一般都是翻到随机一页，仔细看那一页， 
+之后就对学生的作业有了一个概貌，其它的部分就看的不那么仔细了。 
+
+Knuth 看书的时候首先看第316页，如果书很短就看第100页。 
+仔细看那一页。之后他就可以说那本书好不好。 
+据说这样做出判断的正确率很高。 
+
+不知道是否有很多人跟他学，看316和100. 
+以后写书要注意把第316页或者100页写好呀！ 
+
+标 题: 八卦 Knuth (13) 
+
+继续八卦 
+
+你们知道 Knuth 发明了一种程序设计方法叫做 Literate Programming (文学编程) 
+把程序当成文学作品来写。这样可以创造永恒的作品， 
+甚至几十年后还有人用它作为茶余饭后的读物。 
+
+他为什么要发明这个东西。原因有2: 
+
+1. 他想让一个程序员（也许是他自己）在某一天拿到普利策奖。 
+2. 他想让提出“Structured Programming”(结构化程序)的那些家伙 
+在写“非文学程序”的时候，就像他当年写“非结构化程序” 
+的时候一样觉得自己有罪。 
+
+他的“文学编程”思想最早是在英国 Computer Journal 发表的。 
+当人问他为什么不在美国发表。 
+他说，美国人没文化，他们不能理解这个东西。 
+
+标 题: 八卦 Knuth (14) 
+
+今天写点有用的8g 
+
+Knuth 喜欢在他的作品里用 "we" 作为主语， 
+虽然很多时候文章是他一个人写的。 
+
+有人认为使用被动语态好。但是 Knuth 认为不应该大量使用被动语态。 
+“用 We 可以减少被动语态带来的麻烦。‘we’是指你和你的读者。” 
+那么怎么称呼作者？答案是: the authors, the first author, 或者直接用名字。 
+
+但是他确实反对使用 "I"，除非你是身名显赫， 
+人人尊敬的君王式人物，否则最好不要在论文里用 "I"。 
+
+在你描述你的程序时，喜欢说 "we insert the element in the heap" 
+还是 "it inserts the element in the heap" ? 
+Knuth 总是喜欢用 "we"。显然他已经融于算法的动作之中了。 
+
+标 题: 八卦 Knuth (15) 
+
+虽然他不喜欢论文里用 "I", 但是他喜欢让他的程序自称 "I". 
+
+看这里： 
+
+This is TeX, Version 3.14159 (Web2C 7.3.7x) 
+! I can't find file `kkkk.tex'. 
+<*> kkkk.tex 
+
+Please type another input file name: 
+
+
+有很多人跟着他学，把这种称呼顽皮的发挥到极致： 
+
+Welcome to Scheme 48 0.57 (made by wy on 日 11月 24 13:20:27 CST 2002). 
+Copyright (c) 1993-2001 by Richard Kelsey and Jonathan Rees. 
+Please report bugs to [email]scheme-48-bugs@martigny.ai.mit.edu[/email]. 
+Type ,? (comma question-mark) for help. 
+> (define (sq x) (* x 
+x)) 
+
+; no values returned 
+> 
+Exit Scheme 48 (y/n)? <按 Ctrl-D> 
+I'll only ask another 100 times. 
+Exit Scheme 48 (y/n)? 
+I'll only ask another 99 times. 
+Exit Scheme 48 (y/n)? 
+I'll only ask another 98 times. 
+Exit Scheme 48 (y/n)? 
+I'll only ask another 97 times. 
+Exit Scheme 48 (y/n)? 
+I'll only ask another 96 times. 
+Exit Scheme 48 (y/n)? 
+I'll only ask another 95 times. 
+Exit Scheme 48 (y/n)? 
+I'll only ask another 94 times. 
+Exit Scheme 48 (y/n)? 
+...... 
+标 题: 八卦 Knuth (16) 
+
+Knuth 有一次布置了一个作业，要求在两个星期以内做出一个 
+用于控制时代广场那种 8x256 像素的阵列显示屏幕的系统， 
+并且写出一个用户手册。这个用户手册必须让不懂电脑的人也能看懂。 
+
+作业交上来以后 Knuth 把文档拿给他夫人(Jill Knuth)看， 
+结果发现 Jill 对文档里的 "Menu" 和 "Scrolling" 这样的单词都摸不着头脑， 
+更不要说 "left-indented", "exit", ... 
+
+标 题: 八卦 Knuth (17) 
+
+Knuth 曾经在 American Mathematical Monthly 发表过一篇 
+叫做 "The Toilet Paper Problem" 的论文， 
+据说是一个研究怎样合理使用厕纸的算法。 
+
+现在收录于 Selected Papers on Analysis of Algorithms, p.111 
+可惜清华图书馆没有。谁找到copy我一份。呵呵。 
+
+这篇论文投到 Monthly 时，在节标题使用了大量“粪便学”词汇。 
+编辑警告 Knuth 说，笑话在我们这里是危险的，请你三思！ 
+
+不得已啊，Knuth 后来把小节标题里的那种词改掉了。 
+可是他很不想改文章的标题。 
+怎么办呢？ 
+他给编辑一封信说，我已经以这个标题做过两次演讲， 
+这个主题已经被广泛的采用和讨论……云云。 
+
+最后编辑回信说：“你的厕纸被接受了！” 
+
+==================================== 
+P.S. 附录：增加这篇论文的信息： 
+
+Stanford 计算机科学系楼里的厕纸架上可以并排放两筒厕纸。 
+人上厕所时有可能从两个中的一个取纸。 
+
+两个卷筒不一样大的时候，喜欢从大的那筒拿纸的人叫做 big-chooser 
+喜欢从小的那筒拿纸的人叫做 little-chooser。 
+
+如果两筒大小差不多，一般人都会从离自己最近的那筒取纸。 
+
+厕纸用完的时候一般由janitor(门口老大爷？)提供新的纸。 
+如果一边的用完了，那就换掉那一边， 
+如果两边同时用完，那么有人就有麻烦了……（我怀疑Knuth遇到了那么一次 
+
+我没仔细看完。 
+Knuth 似乎在计算那种两筒同时用完的窘境出现的概率…… 
+
+论文原文的一个拷贝在： 
+[url]http://learn.tsinghua.edu.cn/homepage/015450/doc/toiletPaperProblem.pdf[/ 
+
+
+
+url] 
+
+比较复杂的数学…… 有兴趣的可以看看。 
+
+
+另外，Don Norman 在这里有一些新设计的厕纸筒可以避免这种情况发生： 
+
+http://www.jnd.org/dn.mss/ToiletPaperAlgorithms.html 
+
+看来 Knuth 是在白费工夫。应该授予 IgNobel 或者 IgFields 
+
+
+标 题: 八卦 Knuth (1 8） 
+
+Knuth 和 Graham 他们合写的 Concrete Mathematics 本来 
+不会做的那么花哨的。 
+
+结果后来他们专门为那本书设计了字体，页面样式， 
+所有习题都给出了出处。几乎所有页面都至少有一个涂鸦， 
+连《爱利丝漫游奇境记》都被列入参考文献…… 
+
+这是怎么回事呢？原因就是 Knuth 在写书期间去看了一部电影： 
+“白雪公主与七个小矮人”。 
+
+看完之后 Knuth 感叹道： 
+难以置信，这样完美的艺术品竟然可以在1937年完成。 
+我一定要把我的书做成一个艺术品，而且要在三个月之内完成！ 
+
+结果他说到做到了。

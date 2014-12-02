@@ -1,0 +1,45 @@
+=rest_tool=
+
+{{{
+python-docutils
+===============
+for html,openoffice,S5,Text transfer tool
+
+rst2pdf
+=======
+base python-reportlib
+simple, **BUT chinese not good enough**
+
+sphinx
+======
+support html,latex,man
+pretty,better
+
+确实比较好用.我目前只需要生成html,后期可能输出pdf.
+是python的脚本,因此安装
+    ::
+        sudo pip install sphinx
+使用
+    ::
+        mkdir mydoc && cd mydoc
+        sphinx-quickstart
+之后进行简单的配置.
+生成html(适合较多rst源文件时候)
+    ::
+        make html
+生成单个html文件
+    ::
+        make singlehtml
+生成latex文件(可导出pdf)
+    ::
+        make latex
+        cd _build/latex && xelatex *mydoc.tex*
+    使用make latexpdf,没有考虑中文,不推荐.
+    运行两遍xelatex才可以输出pdf.
+    
+rest2html
+=========
+link_:http://code.google.com/p/python-creole/wiki/rest2html
+这个只是简单的生成html,没有提供更多功能.如果喜欢极简风格,这个很有可能适合你.
+对了,这个还需要写python脚本来用才可以.
+}}}

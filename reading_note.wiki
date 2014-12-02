@@ -1,0 +1,81 @@
+= 读书笔记 =
+%toc
+----
+
+== READING: ==
+ * [ ] [[sci_tech_wolrd_leadership|科技世界的领导力]]
+== TODO: ==
+ * [ ] 交互式计算机图形学 基于OpenGL的自定向下方法
+ * [ ] TCP IP详解第一卷
+ * [ ] Unix Network Programming
+ * [ ] Effetive TCP/IP编程
+ * [ ] [[Dive_into_python]]
+ * [o] [[python_for_Unix_System_admin|Python系统管理]]
+ * [ ] history of programming language	http://www.levenez.com/lang/
+ * [ ] the TAO of Programming
+ * [ ] Hackers: Heroes of the Computer Revolution
+ * [ ] [[cowboy|cowboy代码分析]]
+ * [ ] [[HtPT|How to design program]]
+ * [ ] Search Engines Information Retrieval in Pratice
+ * [.] [[flow-base_programming]]
+
+== 永远读不完的书: ==
+ * [ ] [[hacking_exposed_linux_3]]
+ * [ ] [[bug_hunter_diary]]
+ * [ ] [[data_comm_computer_networks_and_open_sys]]
+ * [o] [[expert_shell_scripting|shell专家编程]]
+ * [.] [[data_beauty|数据之美]]
+ * [ ] [[code_quality|code_quality 高质量软件设计]]
+ * [ ] [[parallel_algo|并行计算导论]]
+ * [ ] [[zen_of_css_design|CSS禅意花园]]
+ * [ ] [[Comprehensive_Analysis_of_P2P_Technology]]
+ * [ ] [[grayhat_security|灰帽攻击安全手册]]
+ * [ ] [[E75_dynamic_website|E75构建动态网站]]
+ * [ ] [[chinese_info_extract|中文信息抽取]]
+
+== DONE: ==
+ * [X] C++语言的设计与演化
+ * [X] [[beauty_of_arch|架构之美]]
+ * [X] [[RESTful_web_service]]
+ * [X] python源码剖析
+ * [X] [[hacker_and_painter]]
+ * [X] [[high_perf_web_site_note|高性能网站建设指南]]
+ * [X] [[program_world_of_ruby|松本行弘的程序世界]]
+ * [X] [[middleware_tech|中间件技术原理与应用]]
+ * [X] [[hacker_culture_history|hacker文化简史]]
+ * [X] 7周7语言
+ * [X] [[math_beauty|数学之美]]
+ * [X] [[distributed_file_system_intro|分布式系统,概念与设计,中文第3版]]
+
+==总有理论==
+* [[funny_theory|趣味理论]]
+* [[apply_math|数学应用]]
+* [[lang_design|编程语言设计]]
+== 笔记 ==
+TODO:
+- 朴实的C++设计 
+- [[use_epoll_with_python]]
+- [[multithreading_is_hard|多线程苦难]]
+DONE:
+- [[why_I_choose_erlang|为什么选择erlang]]
+NEVER:
+- [[history_of_GUI]]
+
+
+==一点数学==
+- [[prob_dist|概率分布间的距离]]
+- [[binary_complement|数制与表示]]
+
+
+== 趣味 ==
+- [[8g_program_lang|编程语言的八卦]]
+- [[8g_knuth]]
+- [[python_history]]
+- [[saying_sum|谚语集锦]]
+ 
+== 收藏 ==
+下面这些看着不错,很有意义.
+
+- [[http://blog.sina.com.cn/s/blog_633219970100x9cc.html|淘宝技术发展]]
+- [[http://article.yeeyan.org/view/360562/352117|程序调试简明教程]]
+

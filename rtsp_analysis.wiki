@@ -1,0 +1,16 @@
+
+= RTSP 协议分析 =
+----
+doc 
+- [[rfc2326.txt|en]]
+- [[rfc2326_rtsp_zh.txt|zh]]
+- [[RTSP_2.0_Async_Notify]]
+
+== 心跳 ==
+{{{
+   The GET_PARAMETER request retrieves the value of a parameter of a
+   presentation or stream specified in the URI. The content of the reply
+   and response is left to the implementation. GET_PARAMETER with no
+   entity body may be used to test client or server liveness ("ping").
+}}}
+也就是无实体的GET_PARAMETER,作为心跳使用.

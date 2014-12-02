@@ -1,0 +1,13 @@
+= 网页工具 =
+time:2012-09-21 10:34:01 
+
+==google系==
+[[http://www.google.com | google]]
+
+=====google reader=====
+[[http://www.google.com/reader| google reader]]
+
+- 最爱啊,每天都要打开,剩了打开几十个网页,也省得去看那些网页有没有更新.唯一的缺点是,网页更新过于频繁的时候,可能会引起你的强迫症.
+- 同时支持快捷键操作,非常方便.
+- vim有一个插件可以打开google reader,不过用起来好像不是特别方便.
+网页下就有好啦.

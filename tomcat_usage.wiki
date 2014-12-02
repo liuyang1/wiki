@@ -1,0 +1,15 @@
+=tomcat使用=
+
+==配置支持文件类型==
+打开tomcat/config下的web.xml文件，在其中增加：
+{{{
+<mime-mapping>
+    <extension>JPG</extension>
+    <mime-type>image/jpeg</mime-type>
+</mime-mapping>
+}}}
+此处可用来增加tomcat支持的文件类型
+
+不是这里,应该是其他地方.不支持解析??
+
+_还是不会_

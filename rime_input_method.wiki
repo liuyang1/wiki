@@ -1,0 +1,17 @@
+=rime输入法=
+mtime:2012-09-24 13:27:24 
+----
+宋欧阳修《奉送原甫侍读出守永兴》有诗云：“鼠须管，爲物虽微情不浅，新诗醉墨时一挥，别后寄我无辞远。”唐代何延之《兰亭记》载：“右军（王羲之）写《兰亭序》以鼠须笔。”Mac 上的中文输入法，使用鼠须管这样的名字，第一感觉便是超越了“文艺”，更具内涵。
+----
+主页在这里
+[[http://code.google.com/p/rimeime/|rimeime]]
+
+==手册==
+[[http://code.google.com/p/rimeime/wiki/RimeWithSchemata#%E4%B8%80%E4%BE%8B%E3%80%81%E5%AE%9A%E8%A3%BD%E6%AF%8F%E9%A0%81%E5%80%99%E9%81%B8%E6%95%B8|输入方案设计书]]
+==问题==
+不然不支持,中文状态,英文标点.
+按照这个办法[[http://code.google.com/p/rimeime/issues/detail?id=100|patch]]可以弥补
+----
+==安装==
+依赖cmake,boost库,yaml,*gtest(google测试框架)*
+安装方法最好参考这里,[[http://code.google.com/p/rimeime/wiki/RimeWithIBus|ibus安装]],还挺麻烦的,依赖也挺复杂的.

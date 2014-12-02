@@ -1,0 +1,245 @@
+= flv格式 =
+mtime: 2013-04-10 19:02:59 
+----
+# header
+    # "FLV"三个字节的文件标识
+    # 版本0x01
+    # 0*5bit+1bit(是否存在音频)+0*1bit+1bit(是否存在视频)
+    # header到body的偏移量(4个字节)(一般为0x00000009)
+# body
+    # privious tag size   4byte(第一个tag前的privious tag size为0)
+    # Tag:video/audio/script
+        # TagHeader
+            # 1byte,tag类型(video:0x09,audio:0x08,script:0x12)
+            # 3byte,tagdata大小
+            # 3byte,tag timestamp(单位ms),第一个tag为0
+            # 1byte,时间戳扩展字节,如果前面不够的话
+            # 3byte,stream id,一般总为0
+        # TagData(分类)
+            # audio tag data
+                # 4bit(音频数据格式)+2bit(采样率0=5.5khz,1=11lHz,2=22Hz,3=44kHz)+1bit(采样精度,0=8bits,1=16bits)+1bit(音频类型0=mono,1=stereo)
+            # video tag data
+                # 4bit(视频帧类型)+视频编码ID(1=JPEG,2=sorenson H.264,3=Screen video,4=On2 VP6,5=On2 VP6 with alpha channel,6=Screen video version 2)
+            # script tag data/meta tag data(一般最为第一个tag出现,且只有一个)
+                # AMF(action message format)
+                    # 第一个字符串AMF
+                        # 1byte(类型,0x02=字符串,0x08=数组)
+                        # 2byte(长度)0x000a
+                        # "onMetaData"
+                    # 第二个AMF
+                        # 1byte(类型)
+                        # 4byte(数组个数)
+                        # 数组
+                            # 2byte(元素名长度)
+                            # 元素名字符串
+                            # 1byte(元素值类型)
+                            # 对应的元素值(占用字节数根据类型确定)
+
+== flvdump一个实例 ==
+{{{
+
+Magic: FLV
+Version: 1
+Has audio: yes
+Has video: yes
+Offset: 9
+--- Tag #1 at 0xD (13) ---
+Tag type: Meta
+Body length: 362
+Timestamp: 0
+* Metadata event name: onMetaData
+* Metadata contents: {
+    'duration' => 367.18
+    'width' => 672
+    'height' => 378
+    'videodatarate' => 195.3125
+    'framerate' => 25
+    'videocodecid' => 2
+    'audiodatarate' => 0
+    'audiosamplerate' => 44100
+    'audiosamplesize' => 16
+    'stereo' => true
+    'audiocodecid' => 2
+    'major_brand' => 'isom'
+    'minor_version' => '1'
+    'compatible_brands' => 'isomavc1'
+    'encoder' => 'Lavf54.21.100'
+    'filesize' => 22824130
+}
+Previous tag size: 373
+--- Tag #2 at 0x186 (390) ---
+Tag type: Audio
+Body length: 418
+Timestamp: 0
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 429
+--- Tag #3 at 0x337 (823) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 26
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #4 at 0x4E9 (1257) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 52
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #5 at 0x69B (1691) ---
+Tag type: Video
+Body length: 7608
+Timestamp: 57
+* Video codec: Sorensen H.263
+* Video frame type: keyframe
+Previous tag size: 7619
+--- Tag #6 at 0x2462 (9314) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 78
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #7 at 0x2614 (9748) ---
+Tag type: Video
+Body length: 328
+Timestamp: 97
+* Video codec: Sorensen H.263
+* Video frame type: inter frame
+Previous tag size: 339
+--- Tag #8 at 0x276B (10091) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 104
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #9 at 0x291D (10525) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 130
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #10 at 0x2ACF (10959) ---
+Tag type: Video
+Body length: 185
+Timestamp: 137
+* Video codec: Sorensen H.263
+* Video frame type: inter frame
+Previous tag size: 196
+--- Tag #11 at 0x2B97 (11159) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 157
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #12 at 0x2D49 (11593) ---
+Tag type: Video
+Body length: 146
+Timestamp: 177
+* Video codec: Sorensen H.263
+* Video frame type: inter frame
+Previous tag size: 157
+--- Tag #13 at 0x2DEA (11754) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 183
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #14 at 0x2F9C (12188) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 209
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #15 at 0x314E (12622) ---
+Tag type: Video
+Body length: 139
+Timestamp: 217
+* Video codec: Sorensen H.263
+* Video frame type: inter frame
+Previous tag size: 150
+--- Tag #16 at 0x31E8 (12776) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 235
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #17 at 0x339A (13210) ---
+Tag type: Video
+Body length: 154
+Timestamp: 257
+* Video codec: Sorensen H.263
+* Video frame type: inter frame
+Previous tag size: 165
+--- Tag #18 at 0x3443 (13379) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 261
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #19 at 0x35F5 (13813) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 287
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #20 at 0x37A7 (14247) ---
+Tag type: Video
+Body length: 240
+Timestamp: 297
+* Video codec: Sorensen H.263
+* Video frame type: inter frame
+Previous tag size: 251
+--- Tag #21 at 0x38A6 (14502) ---
+Tag type: Audio
+Body length: 419
+Timestamp: 313
+* Sound type: Stereo
+* Sound size: 16 bits
+* Sound rate: 44 kHz
+* Sound format: MP3
+Previous tag size: 430
+--- Tag #22 at 0x3A58 (14936) ---
+Tag type: Video
+Body length: 2164
+Timestamp: 337
+* Video codec: Sorensen H.263
+* Video frame type: inter frame
+* Sound rate: 44 kHz
+* Sound format: MP3
+
+}}}

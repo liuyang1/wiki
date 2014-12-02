@@ -1,0 +1,53 @@
+= I'm coding=
+%toc
+
+[[arch|架构]]
+[[color_term|终端颜色输出]]
+----
+== 编程语言 ==
+- [[erlang]]
+- [[lisp_learning]]
+- [[clojure_learning]]
+- [[go_learning]]
+- [[processing_learning|processing]]
+
+===编程辅助===
+- [[c_cpp_programming_tool]]
+- [[flex_and_bison]]
+
+- [[progrmming_utils|编程检查小工具]]
+
+- 版本控制
+	- [[code_review_thinking]] 
+	- [[git]]
+	- [[svn_usage|svn]]
+
+[[gpp_errorlist|g++错误列表]]
+
+[[binary_data_parser]]
+
+[[binary_tool]]
+
+[[cloc_usage]]
+====makefile与周边====
+[[makefile_man|makefile编写]]
+
+[[config_make|config与交叉编译]]
+
+
+----
+== 武库大仓 编程库 ==
+- [[network_programming_lib|网络编程库与框架]]
+- [[python_lib]]
+- [[sbcl_lib]]
+- [[c_cpp_lib|c/c++库]]
+- [[data_struct]]
+- [[lisp_lib]]
+----
+== 小问题 ==
+
+- [[shell_coding|shell编程]]
+- [[thunder_url_analysis|迅雷地址分析]]
+- [[little_c]]
+
+== 活动 ==

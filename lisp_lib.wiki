@@ -1,0 +1,6 @@
+= lisp lib =
+mtime: 2012-10-26 10:53:21
+
+----
+http://stackoverflow.com/questions/7224823/where-to-learn-how-to-practically-use-common-lisp
+这个是stackoverflow上关于如何使用common lisp解决实际问题的帖子.

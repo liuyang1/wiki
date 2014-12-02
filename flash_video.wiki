@@ -1,0 +1,18 @@
+=flash对视频的支持=
+
+{{{
+	简单移动视频编码建议for Flash Player& AIR
+	提供回放功能,playback
+	流畅回放,不要有迟钝和波动
+	对开发者,最小化分裂和多编码的要求
+	有效利用硬件加速,减少电池消耗
+	 
+	 H.264 profile H.264 level, up to Bit rate, up to Resolution, up to* FPS, up to Audio Other
+	 2G (e.g., Edge) Baseline 2.1 250 kbps 144p 30fps AAC, mono, 32 kHz, up to 64 kbps Disable weighted prediction and CABAC. Non-interlaced. Square pixel aspect ratio.
+	 3G Baseline 3.1 800 kbps 480p 30fps AAC, stereo, 44.1 kHz, up to 64 kbps Disable weighted prediction and CABAC. Non-interlaced. Square pixel aspect ratio.
+	  
+	  保持帧的长宽被16整除
+	  保持原图的长宽比
+	  编码为特定的帧大小,而不是去适应屏幕的分辨率
+
+}}}

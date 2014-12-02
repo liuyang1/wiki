@@ -1,0 +1,59 @@
+==精通CSS:入门基础==
+
+==tips==
+- border类型
+	可以选用solid(实线),dashed(虚线),double(双线),dotted(点)
+- !important
+	覆盖上层的css定义,使用当层的css定义.注意这个功能在早版本的IE中不支持,其他浏览器一般支持.
+
+==个人总结==
+作为简单的使用,CSS并不复杂(因为其面向的设计人员,就不需要掌握复杂概念的人).而CSS基本语义就像平白的话一样,只要你理解话里面说的是什么就可以了.
+
+# h1,...都是标签.标签相同的对象采用相同的设置方式.
+# 设置的属性
+	# font		字体,可以设置正常/粗体/斜体/粗斜,字号,字体类型.
+	# margin	内边距
+	# padding	外边距
+	# text-align	对齐,可设居中,左对齐或右对齐
+	# color		颜色,一般通过RGB十六进制表示
+	# text-indent	首行缩进
+
+对我而言,知道上面这些最基本的就够了.
+
+ref:
+- [[http://www.w3school.com.cn/css/index.asp|w3c教程]]
+- [[http://www.zhongguosou.com/computer_question_tools/color_standard_web.html|颜色列表]]
+	- 亮青色	lightcyan
+	- 亮蓝色	lightblue
+~~ ref:[[http://www.ludou.org/mastering-css-coding-getting-started.html]] ~~
+==padding margin==
+==floats==
+==align==
+==list==
+==格式化标题==
+一个简单例子
+{{{
+	h1 {
+		font: normal 5.2em Georgia, "Times New Roman", Times, serif;
+		margin: 0 0 20px;
+		padding: 10px 0;
+		font-weight: normal;
+		text-align: center;
+		text-shadow: 1px 1px 1px #ccc; /*--不支持IE--*/
+	}
+	h1 span {
+		color: #cc0000;
+		font-weight: bold;
+	}
+	h1 small {
+		font-size: 0.35em;
+		text-transform: uppercase;
+		color: #999;
+		font-family: Arial, Helvetica, sans-serif;
+		text-shadow: none;
+		display: block; /*--Keeps the small tag on its own line--*/
+	}
+}}}
+==溢出==
+==定位==
+

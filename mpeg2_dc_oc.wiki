@@ -1,0 +1,36 @@
+= mpeg2 的轮播 =
+----
+== 数据轮播 ==
+基于DSM-CC.
+
+在DC中,传输的数据按照"模块"传输,模块由"块"组成.
+
+DC中,除了最后每个模块的最后一个块可能较小外,模块中的所有其他块的都是相同大小.
+
+模块是DC中逻辑无关的数据组的描述.
+
+业务需要时,模块可以组成模块群,群可以组为超群.
+
+采用DSM-CC的4个消息.
+
+# DownloadDataBlock	DDB
+携带消息
+----
+用于控制
+# DownloadInfoIndication
+描述了一个群中的模块
+# DownloadServerInitiate
+描述了超群中的群
+# DownloadCancel
+
+数据轮播可以有一层或者两层控制信息.
+
+最简单模式是,一个DC有一个控制层,该控制层描述了单个群.
+
+SDT/EIT表中,包含了指向DII的data_broadcast_descriptor.
+
+这个消息描述了DC使用的ModuleInfoByte域中的模块.
+
+这个域包含了一个描述符的循环.描述符可能有不同的信息,如指向DDB消息位置的指针.
+
+两层暂时跳过.

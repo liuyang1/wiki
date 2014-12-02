@@ -1,0 +1,45 @@
+= SDN_new_form_for_networks =
+----
+ONF(open networking foudation whit paper)
+
+Apr 13,2012
+----
+summary
+
+== need for New Networking Architecture ==
+# changing traffic patterns
+# "consumerization of IT"
+# the rise of cloud services
+# "Big data" means more bandwidth
+
+Limitations of current Networking Technologies
+
+== Introduction SDN ==
+SDN
+
+Software Defined Networking,an emerging network architecture,where network control is *decoupled* from forwarding and is directly programmable.
+
+Apps Layer   |      business Apps
+             |          ^
+             |          |API
+SDN          |
+Control      |  NETWORK SERVICE
+Software     |
+             |          ^
+             |          |control data 
+             |          |plane interface
+             |          |(eg.OpenFlow)
+infrastructur|      Network device
+layer        |
+
+== Inside OpenFlow ==
+
+== Benefits of OpenFlow-Based SDN ==
+- centralized control of multi-verdor environments
+- reduced complexity through automation
+- higher rate of innovation
+- increased network reliability and security
+- more granular netowrk control
+- better user experience
+
+Conclusion

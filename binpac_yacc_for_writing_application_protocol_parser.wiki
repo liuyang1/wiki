@@ -1,0 +1,10 @@
+= binpac: A yacc for Wring Application Protocol Parsers =
+mtime: 2012-10-26 09:30:35
+----
+== 摘要 ==
+解析网络流的数据是网络流量分析的关键步骤.这个过程是将原始二进制数据结构化的过程,
+
+binpc是一个声明式语言和编译器,用于简化鲁棒高效的语法分析器,在复杂的网络中.binpc是Bro的一部分.
+
+== 介绍 ==
+

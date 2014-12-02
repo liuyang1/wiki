@@ -1,0 +1,76 @@
+= 视频处理工具延伸 =
+mtime: 2012-10-19 11:54:11
+----
+说明:
+
+这里放置的额一般是视频处理工具的前端,或者其他之类的.
+
+
+= 编解码信息 =
+对于一般视频文件
+== mediainfo ==
+显示文件格式信息
+
+输出结果非常详细,而且覆盖格式范围广泛.支持丰富的格式输出.
+
+== ffprobe ==
+可以深入到每个数据流,甚至每个数据包.
+ffmpeg的自带工具,非常强大.
+
+== mp4文件类型 ==
+=== mp4v2-utils ===
+原本来自于mpeg4ip.
+
+用于mp4的工具组,现在专门提取出来了.
+
+提供了例如mp4file,mp4info,mp4chaps,mp4art,mp4extract,mp4track,mp4trackdump等等系列工具
+
+=== GPAC ===
+提供了两个工具MP4Box,MP4Client
+
+mp4box可以用于hint,dump,等等.
+
+MP4Client一个命令行下面的播放器
+
+=== AtomicParsely ===
+检测mp4 atom格式的工具
+
+AtomicParsely filename -T
+
+输出atom树结构
+
+支持设置各种各样的参数,比如作者,时间,版权等等一系列信息
+
+== flv文件类型 ==
+# flvmeta
+一个flv meta信息注入工具
+#
+
+== mpeg2ts ==
+# dvbsnoop
+DVB/MPEG 流解析器
+# project-x
+一个dvb数据流的检查工具,基于java的,GUI工具
+== 其他文件类型 ==
+
+= 服务器 =
+
+ffserver
+
+vlc
+
+live555
+
+# crtmpserver
+一个C++的rtmp/rtsp流化服务器
+
+= 播放器 =
+= 编码器 =
+# mencoder
+# ffmpeg
+编码工具前端.
+支持众多的格式
+# x264
+一个开源的h264编码器
+
+= 解码器 =

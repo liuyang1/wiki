@@ -1,0 +1,132 @@
+=linux系统信息=
+mtime:2012-09-23 22:45:41 
+
+注意:这里仅仅包括系统基本信息,不包含外部工具的使用.
+
+== glances ==
+
+eye on you computer
+
+一个系统监控工具
+
+https://github.com/nicolargo/glances
+==stat信息==
+- iostat	磁盘
+- netstat	网络
+- nfsstat	//非原装
+- vmstat	虚拟内容
+
+==uname==
+- -a	显示所有信息
+== 系统微调 ==
+=== ulimit ===
+- -c	该参数调整系统生成core文件的大小,默认为0.打开debug调整,可以设置为unlimited
+- -n    单进程打开的文件描述符个数
+- -s    堆栈大小(线程)
+略.
+
+=== 永久性改变 ===
+使用ulimit命令,仅仅是对于当前的shell下面改变.
+
+而修改/etc/secruity/limits.conf可以永久改变
+
+例如
+
+`* soft hard core ulimited`
+可以永久性改变core文件的大小为unlimited
+
+=== setrlimit ===
+对于单个进程,修改设置
+
+==网络信息==
+===netstat===
+常用指令
+{{{
+	netstat -aonp
+	列出进程
+	netstat -tlnp
+	列出监听端口号.
+}}}
+查看本机的外网IP
+
+curl ifconfig.me
+
+ifconfig.me是一个提供这个相关服务的网站.
+
+本机网络活动状态
+===其他===
+strace,dtrace,truss,ltrace,tcpdump,ethereal.
+
+==== 继续查看已经运行程序的输出(甚至可以重新重定向) ====
+
+# 使用strace
+sudo strace -ewrite -p $PID
+
+这种方法得到的输出,可能还有其他trace的信息,可以进一步使用shell来去除掉.
+
+# 也可以使用gdb.
+gdb -p $PID
+
+之后,
+call creat("/tmp/stdout",0600)
+call dup2(3,1)
+
+这种方法,利用了unix系统的系统i调用creat,以及dup.
+
+使用dup可以重定向输出.这种方法也非常巧妙.
+
+ref:http://stackoverflow.com/questions/249703/how-can-a-process-intercept-stdout-and-stderr-of-another-process-on-linux
+
+== pstack ==
+打印运行时程序的栈的调用情况
+
+直接支持多线程的输出.可以在运行时调试.
+
+==proc信息==
+- loadavg 平均负载	/proc/loadavg
+	输出内容分别为1分钟,5分钟,15分钟平均负载.一般在单核机器上,低于1,正常.1~5,较重,5以上,很重.
+- cpuinfo
+    输出cpu信息
+== 文件系统信息 ==
+df : disk file sytem info
+
+-h human readble
+
+du : estimate file space usage
+
+du -sh 
+
+-s summury answer,add all file space in dir
+
+-h human readble
+
+== 系统备份 ==
+tar cvpzf backup.tgz / --exclude=/proc --exclude=/lost+found --exclude=/backup.tgz --exclude=/mnt --exclude=/sys --exclude=/home/liuy/.cache --exclude=/home/liuy/down --exclude=/home/liuy/code/open --exclude=/home/liuy/obj
+
+== collectd ==
+系统信息搜集工具
+
+== 查看进程的运行状态 ==
+lsof 查看文件描述符的打开状态.
+
+lsof -p PID 进程打开的文件
+
+lsof -i 4   IPv4下socket打开的情况
+
+== ps ==
+=== ps : STAT ===
+ref:man ps
+
+| D   | 不可中断睡眠(一般为IO)                      |
+| _R_ | 运行中或者可以运行的(在运行队列中)          |
+| _S_ | 可中断的睡眠(等待事件完成)                  |
+| T   | 已经停止的,或者任务控制信号,因为已经被trace |
+| W   | 换页中                                      |
+| X   | 死掉的(应该永远不会被看到)                  |
+| Z   | 僵尸进程                                    |
+
+== 查看发行版版本 ==
+通用的方案
+lsb_release -a
+
+cat /etc/issue(如果仅仅看系统的名字,这个比较合适)

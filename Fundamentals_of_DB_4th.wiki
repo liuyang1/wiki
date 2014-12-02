@@ -1,0 +1,34 @@
+= 数据库系统基础 =
+
+== ch13 磁盘存储,基本文件结构和散列 ==
+
+=== 13.4 placing file records on Disk ===
+
+- record and record types
+Each record consists of a collection of releated `data values or items`, where each value if formed of one or more bytes and corresponds to a pariticular `filed` of the record.
+
+BLOB Binary Large Objects. pointer to the BLOB is inclued in the record.
+
+- files, fixed-length records, and variable-length records
+
+`In SINA's exam, the last problem if sequencly output large set of numbers. Using fixed-length of data record, we can simply read file as a simple Database to reduce memory.`
+
+# fixed-length field
+# variable-length field
+# repeating field or repeating group
+# optional field
+# mixed file, which contains records of different record types.
+
+optional field we could have `every field` included in `every file record`,but store a special null value if no value exists for that field.
+
+For a repeating field, we could allocate as many spaces in each records as the `maximum number of values` that the field can take.
+
+but waste spaces.
+
+`special separator char`
+
+`length`
+
+For optional field, store `<field-name> : <field-value>` to save spaces.
+
+- record blocking and Spanned versus Unspanned records.

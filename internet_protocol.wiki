@@ -1,0 +1,24 @@
+= 面向未来的互联网协议 =
+liuyang
+----
+
+[[network_future_summary]]
+
+# [[depolyable_internet_LISP|Designing a Depolyable internet:The Locator/Indentifer Separation Protocol]]
+# IPv6 Deployment and Spam Changllengs
+# All-Weather Transport Essentials
+
+----
+openflow
+
+[[openflow_and_SDN_pps|openflow_SDN_ppt]]
+
+[[SDN_new_form_for_networks]]
+
+[[openflow_enabling_innovation_in_Campus_Networks]]
+
+[[openflow_switch_specification_1_1]]
+
+[[openflow_src_code]]
+== openflow 商业 ==
+目前IBM,HP都推出自己的OpenFlow交换机,国内品牌盛科也推出了.

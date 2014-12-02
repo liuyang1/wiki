@@ -1,0 +1,23 @@
+= dynamic adaptive http streaming =
+mtime: 2013-04-05 11:16:43 
+----
+# MSS
+	# sliverlight
+	# windows server 2008,IIS with media services 4.0,IIS Transform Manager 1.0
+	# mp4 files+XML based manifest
+# ADS
+	# osmf player
+	# FMS
+# HLS
+	# safari
+	# TS + 
+	# bundle request.request more than one segment with one request which is kind of pipeliling.
+# DASH
+
+== low overhead container format for adaptive streaming ==
+# 
+
+实现视频的任意点观看,需要HTTP服务器支持 ranger-request 才可以.
+
+= DASH std and design principles =
+# 

@@ -1,0 +1,126 @@
+= 文件管理工具 =
+mtime: 2012-11-02 13:30:46
+----
+== vifm ==
+vi风格的文件管理器
+
+简单尝试,只可以用vi打开文件
+== ranger ==
+介绍文章[[http://xhc.me/2011/01/ranger/]]
+
+vi风格文件管理器
+- h	到上层目录
+- l 到下层目录
+- Enter	打开文件(打开方式为系统默认)
+- cw 修改文件名 按键相同vim的修改单词
+
+== 配置 ==
+修改.config/ranger/apps.py来进行修改默认的文件打开方式.
+
+如果没有这个文件,可以从/usr/share/pyshared/ranger/default/apps.py复制到对应的目录
+
+== 复制,粘贴 ==
+dd,剪切
+
+yy,复制
+
+pp粘贴
+
+== 重命名 ==
+使用:rename [new_name]即可
+{{{
+	KEY BINDINGS
+
+	Key bindings are defined in the file ranger/defaults/rc.conf. Check this file for a list of all key bindings. You can copy it to your local configuration directory with the --copy-config=rc option.
+
+	Many key bindings take an additional numeric argument. Type 5j to move down 5 lines, 2l to open a file in mode 2, 10<Space> to mark 10 files.
+
+	This list contains the most useful bindings:
+
+	MAIN BINDINGS
+
+	h, j, k, l
+	Move left, down, up or right
+
+	^D or J, ^U or K
+	Move a half page down, up
+
+	H, L
+	Move back and forward in the history
+
+	gg
+	Move to the top
+
+	G
+	Move to the bottom
+
+	^R
+	Reload everything
+
+	^L
+	Redraw the screen
+
+	S
+	Open a shell in the current directory
+
+	?
+	Opens this man page
+
+	yy
+	Yank the selection to the "copy" buffer and mark them as to be copied
+
+	dd
+	Cut the selection to the "copy" buffer and mark them as to be moved
+
+	pp
+	Paste the files from the "copy" buffer here (by moving or copying, depending on how they are marked.) By default, this will not overwrite existing files. To overwrite them, use po.
+
+	mX
+	Create a bookmark with the name X
+
+	`X
+	Move to the bookmark with the name X
+
+	n, N
+	Find the next file. By default, this gets you to the newest file in the directory, but if you search something using the keys /, cm, ct, ..., it will get you to the next found entry.
+
+	N
+	Find the previous file.
+
+	oX
+	Change the sort method (like in mutt)
+
+	zX
+	Change settings. See the settings section for a list of settings and their hotkey.
+
+	f
+	Quickly navigate by entering a part of the filename.
+
+	Space
+	Mark a file.
+
+	v
+	Toggle the mark-status of all files, unmark all files.
+
+	V, uv
+	Unmark all files
+
+	/
+	Search for files in the current directory.
+
+	:
+	Open the console.
+
+	Alt-N
+	Open a tab. N has to be a number from 0 to 9. If the tab doesn't exist yet, it will be created.
+
+	gn, ^N
+	Create a new tab.
+
+	gt, gT
+	Go to the next or previous tab. You can also use TAB and SHIFT+TAB instead.
+
+	gc, ^W
+	Close the current tab. The last tab cannot be closed this way.
+
+}}}

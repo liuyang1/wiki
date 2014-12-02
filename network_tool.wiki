@@ -1,0 +1,166 @@
+=网络工具=
+mtime:2012-09-23 23:08:37 
+
+== 网络配置 ==
+添加默认的路由规则
+
+route add default gw 192.168.1.1
+
+==tcpdump==
+- 抓包存文件
+{{{
+tcpdump -i eth0 -s 0 -w sm.pkt
+}}}
+- 抓包显示
+{{{
+	tcpdump -i eth0 -s 0 -X -vv -n
+}}}
+
+==网络配置==
+配置文件位置
+/etc/sysconfig/network-script/ifcfg-eth0
+一般格式
+{{{
+DEVICE=eth0
+HWADDR			网卡地址,如果检测到,可以不输入
+BOOTPROTO		可以设为none,static,dhcp
+ONBOOT			开机启动
+TYPE			一般Ethernet,以太网
+NETMASK			掩码
+IPADDR			IP地址
+USERCTL			用户控制,一般为no
+PEERDNS			yes
+GATEWAY			网关地址
+}}}
+网络重置
+{{{
+	service network restart
+}}}
+或者通过ifconfig进行网卡的开启或者关闭
+{{{
+	ifconfig eth0 up
+	ifconfig eth0 down
+}}}
+
+ifconfig 192.168.1.10/24
+
+注意::
+在Ubuntu环境下面,默认使用NetworkManager来进行网络管理.
+这样如果自己直接通过ifconfig自动设置IP,但是在NetworkManager中还默认为DHCP模式,
+那么它会自动检测网络的连通性,如果有问题,会自动将其重置,使得过一段时间后网络设置失败.
+
+这种情况下,应该通过NetworkManager直接设置静态IP才可以.
+==wireshark==
+保存rtp
+
+{{{
+首先把接收到的 udp 数据 decode as RTP
+ 
+然后：
+Telethony  ->  RTP ->  Show All Stream  ->  Analyze  ->   选中 Save  Playload
+ 
+把二进制文件搞到 txt
+xxd -u -l 12048 test.g711 testg711.txt
+xxd -u -l 12048 test  testg.txt
+ 
+比较文件：
+diff -u test.txt testg711.txt
+}}}
+
+
+tshark是类似的工具
+
+工作在命令行下面
+
+=== 配置是的普通用户可以使用 ===
+dpkg-reconfigure wireshark-common
+选择Yes.
+
+然后是的dumpcap文件,增加执行权限即可
+
+== iperf ==
+网速测量
+
+服务器端
+
+iperf -s
+
+客户端
+
+iperf -c ADDR
+
+== dig ==
+网络检测工具
+
+dig +trace HOSTNAME
+
+== arp检测 ==
+arp-scan -I eth0 -l
+
+== windows网络工具使用 ==
+# 查看组播情况
+    netsh interface ip show join
+
+# 自建wifi热点方法
+    - netsh wlan set hostednetwork mode=allow ssid=[SSID] key=[KEY]
+    - netsh wlan start hostednetowrk
+    - netsh wlan stop hostednetowrk
+
+== 读取网络数据信息 ==
+一行流
+
+grep ":" /proc/net/dev | awk '{print $1, $2, $10}'
+
+== 重复路由的配置方法 ==
+ref:鸟哥的私房菜,服务器架设8.1.3
+
+现在的需求为,要在内网中架设两个SS在同一个服务器上,使用不同的IP,网卡.
+
+默认情况下,因为路由表的重复,实际上仅仅经过路由表的第一个规则.
+
+这样就只会经过一个网卡.不能够达到增加带宽出口的目的.
+
+----
+
+这样需要3个部分的协作,才可以配置完成.
+
+ip rule,设置ip规则(从某IP出,应用某条规则表)
+
+route 配置路由规则(设置路由规则)
+
+ip route,(某条规则,经过哪一个网卡,到哪个网关)
+
+ip route flush cache 刷新缓存
+----
+
+路由表配置错误,导致完全都不能去连ssh了,fuck!...
+
+ip route show table [tableID]
+
+查看具体的route规则
+
+----
+2013-12-19 14:57:10
+观测到一个有意思的现象.
+server目前有双网卡,目前已经可以正常工作了.
+但是接受数据的测试点,却莫名其妙的从eth1走数据流量.这个原因是什么???
+
+== ipv6支持 ==
+一般需要从modprobe加载相应的模块,并且配置为开启状态.
+
+/etc/modprobe.conf
+options dipv6 disable=1
+取消掉
+
+/etc/sysconfig/network
+
+NETWORKING_IPV6=yes|no
+
+service network restart或者重启
+
+== 查看网卡信息 ==
+ethtool eth0
+
+lspci | grep Ethe
+
+dmesg | grpe -i eth

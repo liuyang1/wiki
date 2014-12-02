@@ -1,0 +1,27 @@
+=windows下cmd增强工具=
+
+{{{
+注意这里不是shell的增强,而是cmd外部term的增强
+windows的cmd term丑陋,不支持标签,有限的字体,这几乎都是我无法忍受的.
+这里测试了下面的软件,作为其增强工具.
+
+ColorConsole,
+绿色,免费软件
+比较有特色,输出的内容是作为文本考虑的.也就是在shell提示符下,居然还可以向前删除,
+PowerCmd
+付费软件,需要安装
+可以作为一个比较好用的shell,致命问题时使用vi的时候,居然不支持
+Console-2
+绿色,免费软件
+和powercmd比较类似,但是对cmd和cygwin以及vi支持较好.
+界面略微简单了一些,不能最大化,缺陷
+poderosa
+免费软件,需要安装
+cygwin和ssh的连接工具.这里主要用于cygwin的使用,一时还不知道怎么去配置.
+如果cygwin的ssh可以配置的话,那么就直接用secureCRT就是了
+
+最终选择:
+cmd:powercmd
+cygwin:securecrt
+
+}}}

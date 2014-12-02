@@ -1,0 +1,8 @@
+= 服务器工具 =
+mtime: 2012-10-11 10:59:52
+----
+日志查看	eventvwr.msc
+远程桌面	mstsc
+
+== windows上检查端口开放情况 ==
+telnet IP PORT

@@ -1,0 +1,17 @@
+= tftp服务器配置与用法 =
+== 安装 ==
+yum install tftp-server
+== 配置 ==
+/etc/xinetd.d/tftp
+
+disable=no
+== 运行 ==
+service xinetd start/restart
+== 测试 ==
+tftp localhost
+
+get filename
+
+quit
+
+tftp hostname GET testfile

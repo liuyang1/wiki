@@ -1,0 +1,33 @@
+= 字体研究 =
+mtime: 2012-10-22 14:30:27
+----
+== 编程字体 ==
+- Source code pro
+这款字体adobe出品,使用时候感觉字母较为矮小,而字之间的间距过大(对比).而且清晰度似乎不够好.
+- Consolas
+微软出品,一直坚持使用.
+
+也想找到更好的字体,暂时没有看到.
+
+== linux 字体安装 ==
+sudo apt-get install msttcorefonts
+
+sudo apt-get install xfonts-wqy
+
+
+== 字体更新 ==
+sudo fc-cache -f -v
+
+== 等宽字体 ==
+
+Monaco
+
+Menlo
+
+ProgmataPro
+这个字体,之前看到牛皮吹得很厉害,看上去也不错,但是自己实际使用效果一般般..
+
+== 点阵字体 ==
+progy,这个字体12号,显示的还是很不错的,但是比较小,而且混合情况下中文根本没有办法看,估计是我没有配置的缘故.
+
+terminus,这个字体还是不错的,而且系统默认安装.

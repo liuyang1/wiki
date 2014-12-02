@@ -1,0 +1,32 @@
+= OpenFlow and SDN =
+
+== history ==
+for test new ideas in a real network,with real user traffic,at scale.
+
+build a test network with sufficient scale and realism
+
+software router
+
+PC + multi-port NIC
+
+custom hardware
+
+- diffult to develop,always behind industry
+- diffult to program,constrained environment
+- too expensive
+- mofidy existing equipment, *IMPOSSIBLE*
+
+== what ==
+# separate control from datapath
+# Match->Action
+
+== slicing openflow network ==
+# by feature
+# by user
+
+== network OS ==
+# *NOX* TODO:
+
+SDN
+
+industry interst

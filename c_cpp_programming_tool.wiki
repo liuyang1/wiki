@@ -1,0 +1,55 @@
+=C/C++编程工具=
+mtime: 2012-09-27 15:43:44 
+
+== gprof ==
+gprof,profile工具,非常有用.值得学习.
+
+之间测试用过,现在又忘了.
+
+# 编译时候加入-pg参数,以支持profile.
+# 直接运行,运行的结果有gmon.out文件
+# gprof [exename] gmon.out -p
+    - 输出运行时间(注意,没有使用-pg进行编译的,这里不会有输出)
+# gprof [exename] gmon.out -q
+    - c输出,调用逻辑层级
+
+*但是,gprof对于多线程程序的调试,支持比较麻烦,好像不是很好.*
+
+== ltrace ==
+ltrace利用程序和运行库之间的机制,获取库调用信息.好处是,可以直接使用,不需要预编译指令.
+{{{class="brush:bash"
+ltrace paste a.file b.file > /dev/null
+}}}
+
+----
+== 代码静态检查工具 ==
+- clang
+	静态检查工具
+- lint
+- splint
+    C语言静态检查工具(aka,不支持C++)
+- cflow
+	检查程序的流程
+- cppcheck
+    静态检查代码问题的工具
+    cppcheck . 2> err.txt
+    该工具可以非常有效的,检查内存没有释放,文件句柄没有释放,明显的内存越界等问题.很好的一个工具.
+    
+	显然对于略微复杂的问题,这个工具还不够强大啊.
+    
+    
+== debug 工具 ==
+- gdb
+    [[gdb_usage]]
+- [[valgrind|valgrind_usage]]
+    - 也是一个内存检查工具
+- electrice-fence
+    - 一个内存检查工具,需要链接libefence.a这样他就会替代系统的malloc以及free函数,从而帮助检查内存问题
+
+== 代码格式整理工具 ==
+=== astyle ===
+不好用.支持的不够.
+
+=== uncrusity ===
+这个可以,就是需要外部配置文件
+

@@ -1,0 +1,16 @@
+= flex&bison =
+2012-09-20 15:45:39 
+----
+
+== arch/结构 ==
+* lex/flex -- 文法分析
+* yacc/bison -- 语法分析
+* 汇编字节码 -- LLVM
+ref:http://coolshell.cn/articles/1547.html
+
+== 简单使用 ==
+flex样例代码,见test/flex_bison/fb.1.1.l
+使用
+	`flex fb***.l`
+	`gcc lex.yy.c -lfl`
+注:lex.yy.c试上一部flex的默认生成文件

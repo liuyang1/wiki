@@ -1,0 +1,82 @@
+= tool and lib =
+2012-09-20 17:28:31 
+----
+== 性能测试工具 ==
+=== ab ===
+    apache ab
+    性能测试工具
+    apache组建,需要下载apache安装.简单方便
+	{{{
+	ab -n 10 -c 10 http://www.google.com/
+	}}}
+    地址最后要加"/",不然无法正常运行.
+
+=== loadRunner ===
+    性能测试工具.
+    比较强大,复杂得多.lib.ustc有书专门介绍.比较复杂
+
+----
+==manager tool==
+===webmin===
+    web界面的状态管理与配置
+    直接使用系统的用户名密码登录,默认端口10000
+    配置管理,与监控
+----
+==dispatch==
+部署与管理工具
+===func===
+    fedora下面的工具,
+    python有库支持
+===puppet===
+    集中配置管理工具
+===fabric===
+    基于python的工具.有推荐说比puppet好用.留待以后尝试.
+===nagios===
+    企业级标准IT架构监控.
+    看到有公司在实际使用(较多).还不错.
+    有web端,方便使用.
+=== cacti ===
+利用rrdtool进行绘图的网络监控系统,和nagios相比,特点是绘制趋势图像,非常棒.
+
+简易二者结合使用.
+----
+==system monitor==
+===iftop===
+    简单网络监控工具
+    cli输出,没有看到生成日志的选项
+    因此方便作为实时监督观看使用
+===iftraf===
+    网络监控工具
+
+    略微复杂一些
+    - 有很方便的过滤功能,图形化的配置界面使用方便(比tcpdump)
+    - 可以生成日志文件,这样方便用其他工具分析结果
+    - 一样有cli界面
+    link_:http://blog.chinaunix.net/space.php?uid=272339&do=blog&id=28464
+===slurm===
+	特色是提供类似GUI的输出,可以看到实时的流量"高低".
+=== powertop ===
+电源监控软件,可以观察到哪些电量使用方面的比较高,进而做出优化
+
+不过上面的优化选项,好像总是没有效果,也就是看上去可以优化,但是回来还是以前的样子
+----
+==figure plot==
+===matplotlib===
+    ...
+===rrdtool===
+    据说较复杂...
+=== graphviz ===
+	UML图绘制工具
+=== DrawIt ===
+	vim插件,绘制简单的ascii图表.
+=== graphite ===
+绘图工具,可以用于数据收集之后的自动绘图.
+=== visage ===
+一个colltecd的前端,可以作为网页界面,同时收集数据存储未JSON格式.
+==生活软件==
+- ledger	命令行的记账软件,使用有点复杂专业,我还是算了吧.
+
+== rename ==
+重命名
+
+rename jiaden jiadeN jiadeNcifang_*
