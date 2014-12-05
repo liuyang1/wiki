@@ -83,10 +83,6 @@ broadcast message to all user who login and with terminal enabled MESG
 
 talk
 
-== remote connect tool ==
-=== ssh ===
-==== keychain ====
-eval $(keychain --eval --agents ssh -Q --quiet "/path/to/your/private/key")
 = tools =
 watch   周期运行任务
 

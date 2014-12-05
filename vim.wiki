@@ -4,21 +4,8 @@
 * +N    表示到行号
 * +     表示到最后一行
 
-=== 编辑远程主机上的文件 ===
-{{{
-    vim scp://username:password@hostaddr/path/to/file
-}}}
-后台实际上传输为本地临时文件,编辑结束后,会传递回去.
-ref:[[http://vim.wikia.com/wiki/Editing_remote_files_via_scp_in_vim]]
-
-对于使用sshconfig简化的地址可以如下:
-
-vim scp://hd0/.bash_profile
-
 
 ==设置==
-- :set paste/nopaste            设置进入粘贴模式,这样复制粘贴代码的时候,自动缩进就会失效.很有用.
-- :set number                   打开显示行号
 - set keywordprg=man\ -a        设置man(大K)的检索,参数为-a,这样就会显示所有的manual,而不是只有第一条
 
 == 插入模式下 ==
@@ -85,14 +72,21 @@ vim scp://hd0/.bash_profile
 - dW                删除从该位置到下一个空白处
 - dtC               直到符号C的内容删除（t是till的意思），不包含符号C
 - dfC               直到符号C的内容删除（包含符号C本身）
+- dT[Char]          delete backward to char(not include Char)
+- dF[Char]          delete backward to char(include Char)
 - dNfC              直到符号C出现N次的内容都删除
+- d^/d0/db/dB       delete backward
 - dG                delete to end line of file
 - d1G               delete to first line of file
 
-===复制/粘贴===
+===复制/粘贴 copy / paste ===
 
 ==== 内部复制粘贴 ====
 - ]p                    粘贴,并且自动按照新位置进行缩进 _赞_
+- yy,yw,y$,Y
+- p,P
+- "<reg>y[unit]
+- "<reg>p/P
 
 ====系统复制粘贴====
 - <C-insert>            系统复制
@@ -257,6 +251,18 @@ http://yuzifu.net/book/vimdoc/windows.html
 - <C-W>x            交换窗口
 - Ctrl-W T          move this windows to new tab page
                     (but when have only one window, can not do this)
+
+= topic =
+== 编辑远程主机上的文件 ==
+{{{
+    vim scp://username:password@hostaddr/path/to/file
+}}}
+后台实际上传输为本地临时文件,编辑结束后,会传递回去.
+ref:[[http://vim.wikia.com/wiki/Editing_remote_files_via_scp_in_vim]]
+
+对于使用sshconfig简化的地址可以如下:
+
+vim scp://hd0/.bash_profile
 
 == 二进制文件 ==
 编辑二进制文件,要加-b选项,从而避免如自动换行之类的问题.

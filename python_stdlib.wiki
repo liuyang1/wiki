@@ -17,3 +17,23 @@ profile tool
 == HTTPSimpleServer ==
 NOTE:
 NOT supported by python3
+= re =
+= pickle =
+
+cPickle
+= sys =
+
+= os =
+== os.path ==
+
+- expanduser    expand to home directory
+=== filename processing ===
+- dirname   get dirname
+- basename  get basename
+- split     split dirname and basename
+- splitext  split filename to dirname+name and file ext
+
+=== logic ===
+- exists    is exist
+=== broswring file ===
+- walk      triple tuple -> path, dirname, fnames

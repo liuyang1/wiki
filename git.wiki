@@ -16,11 +16,11 @@ git push
 git remote rm UPSTREAM
 
 == clean a file ==
-clean it in history
+* clean it in history
 
 git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch projects/Moon.mp3' --prune-empty --tag-name-filter cat -- --all
 
-prune space
+* prune space
 
 {{{
 rm -rf .git/refs/original

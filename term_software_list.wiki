@@ -1,5 +1,11 @@
 = term软件 =
 ----
+== tmux ==
+=== mouse in tmux ===
+- shift+left select         copy
+- shift+middle key          paste
+
+
 == xfce-terminal ==
 
 gtk程序,在非对应字体的情况下,会导致CPU运行很高.

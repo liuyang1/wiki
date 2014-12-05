@@ -1,3 +1,15 @@
+= batch script =
+== arguments ==
+* %*        everything
+* %0        the command userd to call this bat file
+* %1        first param
+* %2        second param
+
+support to %9, then use SHIFT, to continue after the 9th.
+
+* %~nx0       actual name of batch file
+* %~dp0       drive and path to the batch file
+* %~dpnx0     fully qualified path name of the batch file
 == grammer ==
 comment
 line begin with ::
