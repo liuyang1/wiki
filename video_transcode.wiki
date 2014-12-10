@@ -1,0 +1,50 @@
+= 视频转码问题 =
+mtime: 2012-10-09 14:37:53 
+----
+视频转码一般分为转封装格式,转编码格式两大类.工具主要分为ffmpeg/mencoder,很多衍生工具都是基于这二者.
+----
+== 转封装格式 ==
+关于ffmpeg的使用,参考[[ffmpeg_usage]]
+
+=== 利用mencoder ===
+看到师兄适应mencoder进行了转化,这里最好就继承现有资源,继续适应.
+
+mencoder -ffourcc FLV1 -lavfopts i_certify_that_my_video_stream_does_not_use_b_frames -of lavf -oac mp3lame -lameopts aq=9:cbr:br=64:vol=2 -ovc lavc -lavcopts vcodec=flv:vbitrate=200:acodec=mp3:abitrate=56 -vf scale=320:270,expand=320:270:::1,crop=320:270:0:0 -ofps 18 -srate 22050 2.wmv -o 2.flv
+
+
+目前已经可以了.
+
+还需以对于mp4文件修改qt-faststart.
+
+already add this feature.
+
+usage:
+{{{
+	qt-faststart inputfile outputfile
+}}}
+if inputfile last atom is "moov" atom, this tool will move "moov" atom to the first position.
+
+otherwise,nothing will happen.
+
+ref:http://multimedia.cx/eggs/improving-qt-faststart/
+http://www.stoimen.com/blog/2010/11/12/how-to-make-mp4-progressive-with-qt-faststart/
+
+原始mp4文件,通过mp4box增加hinttrack就可以了.
+
+{{{
+	mp4box -hint inputfile
+}}}
+对inputfile增加hinttrack.
+
+目前为止,这样就可以了.
+
+通过简单的ffmpeg进行转码,然后通过mp4box添加hinttrack,之后就可以进行流化了.
+
+mtime: 2012-10-10 15:10:16 
+
+=== hint问题 ===
+*[ODF] Error reading descriptor (tag 6 size 16): Invalid MPEG-4 Descriptor*
+
+mtime: 2012-10-18 10:22:53
+
+待处理,暂时不知道会由什么影响.

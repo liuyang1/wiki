@@ -1,0 +1,32 @@
+
+= 网页技术 =
+
+[[freemaker]]
+
+= CMS =
+Content Manager system
+
+- drupal
+[[http://zh.wikipedia.org/wiki/Drupal|wiki]]
+
+这个应该还是不错的.
+
+获得过2010,2011,最佳开源程序.
+- mediawiki
+- wordpress
+- plone
+
+== A/B测试 ==
+用于对比不同的网页效果的转化率.
+
+但是这种方法,一般只能用于较大访问量的页面.
+
+对于低访问量页面,意义不大./
+
+== jekyll ==
+静态网页生成器
+
+ruby语言编写,根据模板自动生成静态网页
+
+== webpagetest ==
+网页载入测试页面

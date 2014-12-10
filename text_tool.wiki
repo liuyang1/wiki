@@ -18,95 +18,13 @@ multitail *.log
 multitail *.log -s 2
 
 竖直分割,并且分割为2列
-== awk ==
-关键点整理
-
-BEGIN, END运算
-
-- $0 整行
-- $n 表示第n项.
-- $NF最后一行,  $(NF-2)倒数第2行
-- $NR 正在处理的行号
-
-变量累计,再综合BEGIN,END的用法
 
 ==sed&awk==
+- [[awk]]
+- [[sed]]
 
-{{{
-输出文件的第一列
-awk
-	cat file | awk '{print　$1}'
-bash
-	while read line; do echo ${line%% *}; done < test.txt
-	while read x,y;do echo $x;done
-		 
-awk之父的采访和介绍
-http://news.cnblogs.com/n/118080/
-
-/*===============================================================================*/
-为什么你应该学点awk
-/*===============================================================================*/
-http://heikezhi.com/2011/08/31/why-you-should-know-just-little-awk/
-awk '{print $0}'
-$0表示一整行,这个程序就是输入到输出
-$1,$2风标代表第1,2个分隔字段
-$NF代表最后字段,$(NF-2)表示倒数第二字段
-$NR代表正在处理的行号
-
-$FS指明字段分隔符号
-引入判断
-输出状态为200的那一行内容
-awk '{if ($(NF-2)=="200") {print $0}}' logs.txt
-
-跨行保存状态
-每行的状态都加到a上,然后求a的和
-awk '{a+=$(NF-2); print "Total so far:", a}' logs.txt
- 
- /*===============================================================================*/
- 号码提取
- cat 15156906362-20110901-20110930\ \(4\).csv | awk 'BEGIN{FS=","}{print $3}' > telnum.txt
- 唯一性提取
- cat telnum.txt | sort | uniq > telnum2.txt
- 生成网址
- cat telnum2.txt | awk 'BEGIN{FS="\""}{print $2}' | awk '{print "http://www.ip138.com:8080/search.asp?action=mobile&mobile="$1}' > wgetcmd
- 生成wget命令
- cat wgetcmd | awk '{print "wget ",$0}' > wgetcmd2
- 添加引号
- cat wgetcmd2 | awk '{print $1 " \""$2"\""}' > wgetcmd3
-  
-   
-	
-	/*===============================================================================*/
-	双引号：
-	awk '{print "\""}'
-	使用“”双引号把一个双引号括起来，然后使用转移字符\去对双引号进行转移，就可以输出双引号。
-	输出单引号的方法跟双引号又有些差别，方法如下
-	单引号：
-	awk '{print "'\''"}'
-	首先使用一个双引号“”，然后在双引号里面加入两个单引号‘’，接着在两个单引号里面加入一个转移的单引号\'，就可以输出单引号了
-	 
-	  
-	   
-		
-		 
-		  
-		  网上给的思路
-		  while read line;do grep -E "^$line" telnum ;done < beijing2
-			  grep -f <(sed 's/^/^/' file2) file1
-
-}}}
-
-
-- -i inplace 本地转换
-- -i[SUFFIX]    支持保存原始文件,原文件增加后缀SUFFIX
-
-=== 替换 ===
-"s/abc//g"  替换全文
-"10,12s/abc//"  替换部分
-
-"/abc/d     删除该部分,不会替换保留空行
 == 字符编码转换 ==
-convmv
+=== convmv ===
 
 文件名字符转换
 
@@ -114,7 +32,7 @@ convmv
 convmv -f gbk -t utf8 --notest --nosmart 
 }}}
 
-iconv
+=== iconv ===
 
 文件内容转换
 
@@ -126,6 +44,12 @@ iconv -f gbk -t utf8 address.csv > address.utf8.csv
 
 == 正则匹配 ==
 === grep ===
+- -E                extend RE mode(same with egrep)
+- --color=[WHEN]    when=always/never/auto
+
+=== more grep ===
+==== egrep ====
+==== pgrep ====
 
 === ack-grep ===
 --nocolor 去除颜色输出
@@ -144,3 +68,20 @@ cat 2 > logfile | cat - logfile
 以及tee可以输出到文件以及标准输出的功能.
 
 其中tee 的-a参数,表示的是追加,这样不会覆盖文件之前的内容
+
+== colorful output ==
+- on            always ouput ANSI style colorful text
+- off           never output color
+- auto          output colorful text when detect tty (and PIPE isn't tty)
+
+so how to display colorful content after filter by grep or more/less?
+
+# grep always output colorful
+# less output color, not filter
+
+`cat testfile | egrep '3022|' --color=always | less -R`
+
+== more / less ==
+pager
+
+- -R            raw output (not filter ANSI-char)

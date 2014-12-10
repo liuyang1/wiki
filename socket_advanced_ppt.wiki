@@ -1,0 +1,50 @@
+= socket编程入门与升级 =
+mtime: 2013-03-22 14:41:32 
+----
+
+socket 是 TCP/IP协议栈的unix标准实现.后来影响到unix的衍生系统与Windows系统.
+
+# tcp过程
+	# server: socket,bind,listen,accept,send/recv,close.
+	# client: socket,...........,connect,send/recv,close.
+# udp过程
+	# socket,sendto/recvfrom,close
+# fd
+	# read/write,readn/writen,
+
+== 高级 ==
+# 阻塞IO
+# 非阻塞IO
+	# 立刻返回,EWOULDBLOCK
+	# 这样应用程序对其轮询(polling)
+# IO复用,select,poll
+	# select,系统阻塞与select调用,可以等待多个socket中的任何一个为可读.
+	# 虽然增多的系统调用为2次(与非阻塞IO相比).但是可以处理多个socket,从而可以更为高效
+# 信号驱动IO,SIGIO
+	# 建立SIGIO信号处理程序,系统调用sigaction.
+	# 数据完毕,则递交SIGIO,信号处理程序.调用recvfrom,从而得到数据
+# 异步IO
+	# 
+=== select ===
+=== poll ===
+=== epoll ===
+== 细节 ==
+# socket结构体的数据结构
+
+# 域
+对不同的域(TCP/IP仅仅是其中的两种AF_INET(ipv4),AF_INET6(ipv6)的两种.其他一般还有使用Unix域,用于unix系统内使用.链路层socket,可以认为是一种raw socket.
+# AF地址族,协议族
+
+# 字节序
+
+# setsockopt
+
+# backlog
+
+# inet_aton 字符串到二进制地址
+# inet_pton 类似的,但是可以处理ipv4与ipv6.
+
+# fork,exec
+
+== 推荐图书 ==
+# unix network programming

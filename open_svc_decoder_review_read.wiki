@@ -1,0 +1,16 @@
+= OpenSVC Decoder =
+mtime: 2012-10-10 15:18:44 
+----
+== 论文阅读 ==
+2010年论文
+=== 摘要 ===
+被集成到TCPMP,mplayer.
+=== 介绍 ===
+=== SVC Overview ===
+=== OpenSVC Decoder ===
+# 可以指定解码特定的层,而不仅仅是最高层
+
+# 速度大约是JSVM的25~50倍.
+
+mplayer继承OpenSVC Decoder
+ref:http://sourceforge.net/apps/mediawiki/opensvcdecoder/index.php?title=Mplayer#SVC_Features_in_MPlayer

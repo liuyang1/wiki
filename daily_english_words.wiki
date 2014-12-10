@@ -1,0 +1,40 @@
+= 每日英语词汇 =
+
+2013-08-04
+| luminance | 亮度 |
+| crux      | 症结 |
+2013-08-03
+| truncation  | 舍去      |
+| intensity   | 强度      |
+| erroneous   | 错误      |
+| contextual  | 上下文    |
+| proximity   | 接近      |
+| stimuli     | 刺激      |
+| perception  | 知觉,感觉 |
+| aggregation | 聚合      |
+| inherent    | 固有的    |
+| exploited   | 利用      |
+2013-08-01
+| semi-width | 半宽度 |
+2013-07-31
+| coalescence | 合并 |
+| aggregated  | 汇总 |
+----
+2012-12-11
+| periodic    | 周期性的      |
+| emulation   | 仿真,竞争     |
+| consecutive | 连贯的,连续的 |
+2012-12-10
+| arbitrary	|	任意的,武断的,专制的.|
+2013-03-16
+| innovation   | 创新     |
+| initative    | 主动     |
+| anonymize    | 匿名     |
+| proximity    | 接近     |
+| semantics    | 语义     |
+| demographic  | 人口     |
+| attribute    | 属性     |
+| watermarking | 水印     |
+| negligible   | 微不足道 |
+| alteration   | 改造     |
+| interfere    | 干扰     |

@@ -2,3 +2,65 @@
 
 == builddep ==
 install all depence software
+== config ==
+ 1)  rpm --import http://centos.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-5
+
+如果,没有导入GPG的key的话,将会导致无法检测GPG,进而无法安装软件.
+
+当然也可以通过设置gpgcheck=0的方式,来避免,但是这样会带来安全隐患.
+
+ 2)  vi /etc/yum.repos.d/rhel-debuginfo.repo 
+
+加上
+{{{
+[base]
+name=Red Hat Enterprise Linux $releasever -Base
+baseurl=http://centos.ustc.edu.cn/centos/5/os/$basearch/
+gpgcheck=1
+[update]
+name=Red Hat Enterprise Linux $releasever -Updates
+baseurl=http://centos.ustc.edu.cn/centos/5/updates/$basearch/
+gpgcheck=1
+[extras]
+name=Red Hat Enterprise Linux $releasever -Extras
+baseurl=http://centos.ustc.edu.cn/centos/5/extras/$basearch/
+gpgcheck=1
+[addons]
+name=Red Hat Enterprise Linux $releasever -Addons
+baseurl=http://centos.ustc.edu.cn/centos/5/addons/$basearch/
+gpgcheck=1
+}}}
+
+ 3) yum clean all
+
+ 4) yum makecache
+ 
+== rpmforge ==
+rpmforge是一个公共的rpm软件库,其包含的软件远较redhat/centos系统的软件库丰富.可以使用.
+
+添加方法,类似的.
+
+{{{
+rpm -Uhv http://apt.sw.be/redhat/el5/en/i386/rpmforge/RPMS/rpmforge-release-0.3.6-1.el5.rf.i386.rpm
+}}}
+如果添加rpmforge的其他版本,类似的,从网上搜索.
+
+具体的可以参考:[[https://gist.github.com/eddarmitage/2001099]]
+
+== suse的zypper的使用方法 ==
+- zypper se XXX search
+- zypper in XXX install
+- zypper rm XXX remove
+- zypper up XXX update
+
+opensuse下修改软件源
+
+使用yast
+
+software->Software Repo -> openSUSE-12.1-Non-Oss
+
+修改URL为mirrors.ustc.edu.cn/opensuse
+
+类似的,对于Oss,以及Update做相似的修改.
+
+ref:mirrors.ustc.edu.cn

@@ -1,0 +1,50 @@
+= Python与编程语言 =
+简单介绍编程语言的演变与特性，并不深入介绍Python。大家可以之后自行去学习。
+
+== 编译 vs 解释 ==
+编译型,一般为静态,可以引入静态检查机制等等.
+
+解释,更为迅速(节省编译的时间与步骤).
+
+== 数据结构 ==
+C -> C++ -> Java -> Python
+
+C:: 
+数组,struct,关键是缺少基本的数据结构类型.
+C++::
+STL, map
+Python::
+list,dict,tuple,set
+
+== 控制逻辑 ==
+for循环-> 迭代器 -> python的写法 -> 列表表达式
+
+== 函数式编程特性 ==
+map,sum,filter,reduce
+
+== 清晰 ==
+C语言,one line clock
+
+Java的Hello,world. -> 对比Python
+
+Python清晰而明确.
+# 一个事情只有一个最好写法. C语言的for,while循环,对比Python的for循环的例子
+# 多重返回值,与交换写法
+
+== 缺点 ==
+# 缩进
+# pep8代码规范
+
+== 极其丰富的库 ==
+...
+
+== 可以做什么 ==
+简单的例子::
+# project euler pro 1
+# fib sequence
+
+脚本
+
+网页
+
+...

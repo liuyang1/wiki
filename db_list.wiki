@@ -9,7 +9,7 @@
 - firebird
 == 通用数据库 ==
 开源:
-- mySQL
+- [[mysql]]
 - PostgreSQL
 商业:
 - SQL

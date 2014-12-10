@@ -1,7 +1,0 @@
-= urxvt =
-
-./configure --enable-256color --enable-everything
-
-add letter-space and line-space patch. everything is so good!
-
-line-space compare larger than 3/(50-3) = 6.4%

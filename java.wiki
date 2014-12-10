@@ -1,0 +1,11 @@
+= java =
+
+== tips ==
+# XXX.class 运行的时候,只需要输入java XXX即可.
+
+java的传递类型:
+
+[[lang_design]]
+
+=== depedency manager tool ===
+[[maven]]

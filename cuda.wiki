@@ -1,0 +1,8 @@
+block -> (threadIdx.x, threadIdx.y, threadIdx.z)
+
+Grid -> Block -> Thread
+
+- gridDim::		the dim of the grid
+- blockIdx::	block index within the grid
+- blockDim::	the dim of the block
+- threadIdx::	thread index within the block

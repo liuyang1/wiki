@@ -58,3 +58,17 @@ could accumlate.
 
 = ldd =
 print shared libraries deps
+== 使用ccache加速 ==
+使用ccache gcc或者ccache g++,可以复用缓存的文件,这样加快编译速度.
+
+相比与一般的文件,仅仅保存为.o文件,而这个可以暂存头文件的编译结果,等等.
+
+同时可以使用ccache将缓存文件定位到tmpfs中,这样加快编译速度,而且不消耗硬盘.
+
+== warning ==
+=== strict-aliasing ===
+gcc 从2到3引进的
+
+这一特性,不允许一个内存地址表示为两种指针,如果非要如此做,可以通过union实现.
+
+这样的目的,是为了代码优化.可以使用-Wno-stict-aliasing来去除这个警告(实际仍会采用这个优化)

@@ -1,0 +1,10 @@
+= 全文搜索技术 =
+mtime: 2012-11-22 16:19:58 
+----
+
+[[lug_info_search_engine]]
+== 前期调研选择 ==
+
+[[lucene_Sphinx_select]]
+
+[[text_search_theory]]

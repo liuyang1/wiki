@@ -1,0 +1,16 @@
+= linux 窗口管理器 =
+
+- gnome
+- kde
+ 
+轻量级:
+- xfce
+	主要使用GTK程序
+- Enlightenment
+称之为桌面shell,目的使得工作可以方便快速的开启.
+- LXDE
+	
+
+平铺式:
+- [[xmonad_linux_WM|xmonad]]
+- [[awesome_linux_WM|awesome]]

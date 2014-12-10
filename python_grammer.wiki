@@ -1,0 +1,9 @@
+= python 语法 =
+
+多个异常同时捕捉
+{{{
+    try:
+        [...]
+    except (KeyboardInterrupt, EOFError) [ as e]:
+        pass
+}}}

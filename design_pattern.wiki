@@ -1,0 +1,11 @@
+= 设计模式 =
+== decorator ==
+又称为包装器.
+
+python中有针对与这的专门实现.(@XXX)
+
+[[python]]
+
+== generator ==
+- python中的生成器
+    [[yield_python]]

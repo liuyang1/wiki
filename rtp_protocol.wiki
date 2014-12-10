@@ -1,0 +1,8 @@
+= rtp协议 =
+mtime: 2013-01-22 21:07:37 
+auth: liuyang1
+----
+
+== pt类型 ==
+# 96	video
+# 97	audio

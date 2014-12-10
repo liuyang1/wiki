@@ -1,0 +1,30 @@
+
+# crawling and indexing
+    # 30 trillion individual pages
+    # follow links from page to page
+    # sort the pages by their content and other factors.
+    # keep track of it all in the INDEX
+# algorithms
+    # programs & formulas to delever the best results possible.
+    # get to work looking for clues to better understand what you mean.
+        # search methods
+        # autocomplete
+        # spelling
+        # synonyms
+        # query understanding
+        # google instant
+    # based on these clues,pull relevant doc from the index.
+    # RANK the results
+        # site & page quality
+        # freshness
+        # safesearch
+        # user context
+        # translation
+        # universal serach
+# fighting spam
+    # fight spam to keep your results relevant.
+    # automatic remove spam
+    # manual ACTION
+    # notify the website owners.
+# that's ALL.
+

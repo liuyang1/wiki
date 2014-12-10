@@ -1,5 +1,6 @@
 = visualzation =
 [[graphviz]]
+[[data_visual|数据可视化]]
 == networkx ==
 networkx is a graph-theory analyze tool.
 
@@ -12,6 +13,9 @@ seems better than graphviz.
 =figure plot=
 ===matplotlib===
     python lib, using for math plot, such as math function.
+=== prettyplotlib ===
+based on matplotlib, but better. good color platte
+
 === graphviz ===
     UML图绘制工具
 === DrawIt ===

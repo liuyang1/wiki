@@ -1,0 +1,89 @@
+= lucene_Sphinx_select =
+----
+== Lucene/Ferret(port for ruby)/SOLR ==
+共性(与Sphinx):
+# 快速,设计用于索引与搜索大量数据
+# 都由很多的广泛应用
+# 都有商业支持
+# 都提供了client API绑定,就是利用第三方语言扩展.
+# 分布式,提升速度和容量
+
+不同:
+# 发布协议.
+# Solr易于嵌入到Java
+# lucene有着持久的用户基础.
+# Sphinx对于RDBMS集成更紧密,特别是MySQL
+# Solr可以集成到Hadoop,构建分布式应用
+# Solr可以集成到Nutch建立功能完善的搜索引擎.
+# Solr可以索引Word,PDF等,但是Sphinx不可以.
+# Solr有拼写检查
+# Solr有facet支持,而对于Sphinx比较麻烦.
+# Sphinx不支持部分更新
+# Sphinx,所有的文档都有一个不为0的整数标识ID,而Solr很多操作都需要key.同时key可以是整数也可以是字符串.
+# Solr支持域崩溃(需要额外插件),来避免类似问题,Sphinx没有.
+# Sphinx设计为只获取文档ID,Solr可以直接获取整个文件.
+[[http://stackoverflow.com/questions/1284083/choosing-a-stand-alone-full-text-search-server-sphinx-or-solr|ref]]
+
+Lucene vs database full-text search
+
+unmatched.
+
+对于大批量数据有意义.因为仅仅对于简单的应用场景,Lucene还是太复杂了.
+
+[[http://stackoverflow.com/questions/737275/comparison-of-full-text-search-engine-lucene-sphinx-postgresql-mysql|ref]]
+
+=== Slor ===
+# 支持复制
+# 多核(分离的数据和索引以及配置)
+# 布尔查找
+# 高亮关键词
+# XML或者分割文件更新索引
+# HTTP通信
+# PDF,Word文档索引
+# 动态域
+# Facets
+# 合计域
+# 停词,等等
+# 更多
+# 传统请求,直接发给数据库
+# 自动建议
+# 缓存自动warming
+# 快速索引(对比数据库)
+# 加速
+# 域搜索
+# 文档数据库,NoSQL
+
+== Sphinx ==
+# 结果关联排名,也可以自定义排序,给出特定域较高权值.
+# 建立索引很快,因为直接与数据库交互.缓慢来自于数据库的请求和未索引的外部简直和其他因素.
+# 与ruby和python集成方便
+# 后台程序内存占用小,同时可以设置索引程序的占用内存量.
+# 尺度性:可以复制索引文件到多台机器,并且运行不同的搜索后台程序.高负载下也还可以.
+# 不直接支持同义搜索.可以使用其他工具.
+# 不允许增量更新.但是建立索引的过程比较快.???
+
+=== Coreseek ===
+中文全文搜索软件
+
+GPLv2
+
+应用场景:
+# 社区/论坛
+# SNS
+# 电子商务
+# CMS
+
+== Postgresql built-in ==
+有新的搜索引擎的特性.
+
+比MySQL好.
+
+== MySQL built-in ==
+NOT good
+
+
+== 调研总结 ==
+# 对于简单的应用场景,直接使用数据库的文本搜索
+# 对于较为复杂的场景,才考虑使用搜索引擎
+# 上手可以考虑lucene,因为用户基础.
+# 对于高级使用,可以对比使用lucene和Sphinx.

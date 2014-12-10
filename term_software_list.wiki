@@ -47,3 +47,11 @@ gconftool --type boolean --set /apps/gnome-terminal/profiles/Default/default_sho
 可以通过shift+PageUP,Shift+PageDown完成此功能.
 
 赞,这样就不需要每次把scroll打开再关闭了.
+
+== urxvt ==
+
+./configure --enable-256color --enable-everything
+
+add letter-space and line-space patch. everything is so good!
+
+line-space compare larger than 3/(50-3) = 6.4%

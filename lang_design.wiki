@@ -1,6 +1,5 @@
 = 编程语言设计 =
 
-[[golang_design|GO]]
 
 [[cee_design|设计C语言]]
 

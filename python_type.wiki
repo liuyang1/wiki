@@ -1,0 +1,181 @@
+= python内置类型 =
+ref::[[http://docs.python.org/2/library/stdtypes.html#dict]]
+
+== 真值检测 ==
+下列值都会认为是false::
+- None
+- False
+- 数值类型为0值,类似于0,0L,0.0,0j等
+- 空的序列,'',(),[]
+- 空的映射,{}
+- 未定义的类的实例
+- 定义的类,而且其__nonzero__或者__len__()方法,返回0或者false
+
+其他都是True
+
+== 布尔操作 ==
+and
+
+or
+
+not
+
+== 比较 ==
+支持链式比较例如x<y<=z,是可以这样写的.(y的值只会计算一次,不过x<y不成立的话,z不会进行计算)
+
+也就是还是支持短路计算的特性的.
+
+== 数值类型 ==
+int
+
+float
+
+long
+
+complex
+
+=== 位运算 ===
+
+== 可迭代类型 ==
+
+== 序列类型 ==
+
+=== str ===
+
+方法::
+- center(width [,fillchar])
+返回长度为width的字符串,以原字符串为中心,以fillchar为填充字符
+
+=== xrange类型 ===
+xrange是一个不可变的序列,常用于循环.占据恒定的内存,因此不需要考虑性能问题.
+
+只支持索引,迭代,以及len函数
+
+=== 集合 ===
+并集::
+union(other, ...)
+
+set | other | ...
+
+交集::
+intersection(other, ...)
+
+set & other & ...
+
+=== list ===
+
+=== tuple ===
+
+
+== 映射结构dict ==
+字典方法,用于建立键值对关系.注意这里是单对单的映射关系.
+
+=== 方法 ===
+- get           取得键对应的值,可以带第二个参数作为默认值.
+- iteritems()   返回(key,value)构成的迭代器.使用的时候,不可以删除或者添加元素,否则会有RuntimeError错误,或者没有全部迭代一遍.
+
+== 文件 ==
+
+= 高级数据类型 =
+== datetime ==
+
+时间处理模块
+
+dt = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
+
+dt = datetime.strptime("7:13PM, 2013 Jan 12", "%I:%M%p, %Y %b %d")
+
+=== strftime/strptime 的解释 ===
+- %a    星期的缩写,例如Sun,Mon(en_US)或者(So,Mo..)(de_DE)
+- %A    星期的全程,例如Sunday(en_US)或者(Sonntag,Montag, .. (de_DE))
+- %w    星期的十进制,0是周日,6是周六
+
+- %d    月份中的日期
+
+- %b    月份的缩写,Jan,Feb, ..
+- %B    月份的全称
+- %m    月份的数字
+
+- %y    年份,没有世纪,以零开始
+- %Y    年份,带世纪
+
+- %H    小时,二十四小时
+- %I    小时,12小时
+- %p    上下午标示
+
+- %M    分,从0开始
+
+- %S    秒,从0开始
+- %f    微秒,从0开始,补零,
+
+== calendar ==
+
+== collections ==
+=== Counter ===
+=== deque ===
+
+== heapq ==
+优先队列
+
+- heapq.nsmallest(n, seq [,keyfunc])
+
+== bisect ==
+
+== array ==
+
+== sets ==
+
+== sched ==
+
+== mutex ==
+
+== Queue ==
+同步的队列
+
+方法::
+- Queue     创建一个队列
+- empty     判断是否为空
+- put(item [,block [, timeout]])       加入到队列
+- get([block [, timeout]])              从队列获取元素
+- task_done     指明之前完成的任务
+- join          阻塞,指导队列为空
+
+异常::
+- Empty     队列空
+- Full      队列满
+
+== weakref ==
+
+== UserDict ==
+
+== UserList ==
+
+== UserString ==
+
+== types ==
+
+== new ==
+
+== copy ==
+
+== pprint ==
+
+== repr ==
+
+= string =
+
+== string中的常量 ==
+
+== 字符串中的格式 ==
+
+== 格式字符串的语法 ==
+
+== 模板字符串 ==
+
+== string函数 ==
+
+== 废弃string函数 ==
+
+find(s, sub [,start [,end]])  返回最小位置的字串sub的位置,如果找不到,则返回-1
+
+index(s, sub [,start [,end]]) 和find基本一致,如果子串没有发现,则抛出ValueError异常

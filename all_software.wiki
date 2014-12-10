@@ -18,8 +18,9 @@ shellcheck
 - [[ledger_usage|ledger使用]]
 - [[font_usage|字体研究]]
 - [[gtd_tool]]
+- [[serial_tool]]
 ==最爱VI==
-- [[vim_tip]]
+- [[vim]]
 - [[vim_plugin]]
 
 ==命令行工具==
@@ -38,8 +39,10 @@ shellcheck
 - [[network_tool|网络工具]]
 - [[net_hacker|网络黑客工具]]
 - [[file_system_seek|FS中寻找]]
+- [[iptables_config]]
 ==一堆桌面==
 * [[X_window|X window]]
+* [[linux_window_manager]]
 ===平铺式===
 * [[awesome_linux_WM|Awesome WM]]
 * [[xmonad_linux_WM|xmonad WM]]
@@ -88,7 +91,7 @@ Alt,是Mod1键
 - [[win_cmd_enhance|cmd增强工具]]
 
 ==视频软件==
-- [[vlc_usage|vlc]]
+- [[vlc|vlc]]
 - [[ffmpeg_usage|ffmpeg]]
 - [[mp4box_usage|mp4box使用]]
 - [[mpeg4ip_usage|mpeg4ip工具]]

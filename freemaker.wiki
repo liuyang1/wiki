@@ -1,0 +1,15 @@
+=freemaker=
+mtime:2012-09-26 09:17:37 
+
+ftl是freemaker的模板文件.
+
+freemaker是structs网页技术的一部分.
+
+{{{
+== 模板语言 ==
+freemaker是一种模板语言,顾名思义,就是描述模板的语言.类似的东西,在网页开发过程中,还是有着广泛的用处的.
+}}}
+
+*由Java程序准备要显示的数据,由freemaker生成页面,并通过模板显示准备的数据.*
+
+类似的工具有FreeMarker,Velocity.

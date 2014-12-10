@@ -1,0 +1,58 @@
+= mysql =
+2013-12-30 10:58:14
+
+== 命令参数 ==
+-u,-p 登陆参数.
+
+直接向标准输入导入sql文件,则直接执行相应的文件中的sql语句内容.
+
+use DATABASENAME;
+
+show databases;
+show tables;
+
+describe TABLENAME;
+显示表的结构.
+
+创建数据库
+create database DATABASENAME;
+
+删除数据库
+drop database DATABASENAME;
+
+创建表
+create table TABLENAME (字段定义....);
+
+删除表
+drop table [DATABASENAME.]TABLENAME;
+
+插入数据
+insert into TABLENAME (字段1, 字段2, ...);
+
+查询数据
+select 字段1, 字段2, from TABLENAME wher 条件表达式;
+
+修改数据
+update TABLENAME set 字段1=值1, 字段2=值2;
+
+删除数据
+delete from TABLENAME where 条件表达式
+
+== 管理与维护 ==
+flush privileges
+更改密码,需要如上更新用户的授权信息.
+
+备份
+msqldump -u USER -p PASSWORD [options] 数据库名 表名 > 文件
+
+使用--all-databases,备份全部内容.--opt进行优化,加快备份速度.
+
+恢复
+mysql -u USER -p PASSWORD < 文件
+(如果备份的是单个数据库,而该数据库又不存在,需要先创建该数据库,之后再进行恢复)
+
+=== 权限 ===
+TODO:
+
+
+

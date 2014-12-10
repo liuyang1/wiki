@@ -18,7 +18,7 @@
 - [[progrmming_utils|编程检查小工具]]
 
 - 版本控制
-	- [[code_review_thinking]] 
+	- [[code_review_thinking]]
 	- [[git]]
 	- [[svn_usage|svn]]
 
@@ -49,5 +49,3 @@
 - [[shell_coding|shell编程]]
 - [[thunder_url_analysis|迅雷地址分析]]
 - [[little_c]]
-
-== 活动 ==

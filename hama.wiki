@@ -1,0 +1,175 @@
+
+= BSP 教程 =
+
+== 安装 ==
+编译
+
+mvn clean install -Phadoop2 -Dhadoop.verion=2.2.0
+
+-Dmaven.test.skip=ture
+
+跳过测试部分
+
+== 问题 ==
+获取cloudra,...解析依赖不成功
+
+这是因为网络问题,反复多次运行可能会跳过这个问题.估计和gfw存在一定关系.
+== overview ==
+HAMA提供一个纯粹的BSP 整体同步并行模型,用于消息传递以及集体通信.一个BSP程序由一系列的超级步完成.每个超级步有3个部分组成
+
+- 本地计算
+- 进程通信
+- 屏障同步
+
+BSP编程,可以编写高性能并行计算算法.
+
+== 扩展BSP类,创造自己的BSP程序 ==
+创建一个类,extend/继承自org.apache.hama.bsp.BSP类.这个类必须重载bsp()方法.该方法申明方式如下:
+{{{
+    public abstract void bsp(BSPPeer<K1, V1, K2, V2, M extends Writable> peer)
+        throws IOException, SyncException, InterruptedException;
+}}}
+
+你可以定义BSP程序,在bsp方法中.
+
+!!注意,这个并不意味着这就是一个超级步.!!
+
+如上描述bsp程序由一系列的超级步组成.因此,它只需要调用一次,而不是像mapper或者reducer一样,被调用多次.
+
+注意::
+一般还可以有setup()以及cleanup()程序,用于在计算开始前,或者计算结束的时候.cleanup,则保证在计算结束,或者计算失败的时候,都会进行.一样可以类似地进行重载.
+
+你自己的BSP类创建完成后,需要配置BSPJob.然后提交它到Hama集群来执行任务.BSP任务配置和提交,和mapreduce很相似.
+
+{{{
+    HamaConfiguration conf = new HamaConfiguration();
+    BSPJob job = new BSPJob(conf, MyBSP.class);
+    job.setJobName("My BSP Program");
+    job.setBspClass(MyBSP.class);
+    job.setInputFormat(NullInputFormat.class);
+    job.setOutputKeyClass(Text.class);
+    ...
+    job.waitForCompletion(true);
+}}}
+具体可以参考下面的BSP用户接口.
+
+== 用户接口 ==
+=== 输入输出 ===
+当使用BSPJob时候,你可以提供输入输出格式,以及路径就像下面.
+{{{
+  job.setInputPath(new Path("/tmp/sequence.dat");
+  job.setInputFormat(org.apache.hama.bsp.SequenceFileInputFormat.class);
+或者
+  SequenceFileInputFormat.addInputPath(job, new Path("/tmp/sequence.dat"));
+或者
+  SequenceFileInputFormat.addInputPaths(job, "/tmp/seq1.dat,/tmp/seq2.dat,/tmp/seq3.dat");
+
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(IntWritable.class);
+  job.setOutputFormat(TextOutputFormat.class);
+  FileOutputFormat.setOutputPath(job, new Path("/tmp/result"));
+}}}
+
+这样,你就可以输入或者从BSP类中写入,这样BSPPeer,包含在通信,计数,IO接口作为参数.下面是我们读取一个纯文本文件的例子.
+
+注意
+BSPPeer的模板类型,为K1,V1,K2,V2,也就是输入的K,V以及输出的K,V的类型.M就是通信的消息类型.
+这句话就是BSPPeer的类型关键!!
+
+=== 通信 ===
+Hama BSP提供简单但是非常御用的通信API.在BSP世界中,尽可能按照标准进行.
+
+- send(String peerName, BSPMessage msg) 发送消息到其他节点
+- getCurrentMessage()   返回一个接收到的消息
+- getNumCurrentMessages()   返回接收到的消息个数
+- sync()    同步
+- getPeerName   获得节点的主机名称
+- getAllPeerNames 获得所有节点的名字
+- getSuperstepCount 返回超级步的个数
+
+=== 同步 ===
+当所有的进程进入到屏障,通过sync()方法.hama将会执行下一个超级步.是一个例子里面,BSP任务将会在同步之后结束.
+
+但是注意sync()函数不是BSP任务的结束.就像前面提到的.通信函数是非常复杂的.例如sync()函数,也可以用在循环中.这样你可以用来使得一个迭代算法顺序执行.
+
+== shell命令接口 ==
+- submit job-file   提交一个任务
+- status job-id 打印任务状态
+...
+
+== 计算Pi的例子 ==
+略
+
+----
+= hama 矩阵相乘例子 =
+首先复制矩阵计算的程序到dfs中.
+
+hadoop fs -put c++/target/native/examples/matrixmultiplication /examples/bin/matrix/multiplication
+
+之后,生成输入数据
+
+hama jar dist/target/hama-*/hama-*/hama-examples-*.jar gen vectorwritablematrix 4 4 /examples/input/matrixmultiplication/MatrixA.seq false true 0 10 0
+
+----
+= sequence file 格式 =
+
+这个是hadoop的文件格式,与hama没有关系.hama只是使用它而已.当然,hama提供了一个dump的接口
+
+ref::[[http://wiki.apache.org/hadoop/SequenceFile]]
+
+SequenceFile 是扁平文件格式,用于二进制键值对.它可以扩展用于mapreduce中,作为输入/输出的格式.也可以作为map的临时输出文件.
+
+SequenceFile提供一个写/读/排序接口,分别用于写/读/排序
+
+有3个不同的SequenceFile格式.
+
+# 未压缩的键值记录
+# 仅仅值进行压缩的键值记录
+# 分块压缩的键值记录
+键值都被分别收集在块中,然后进行压缩.块的大小是可以配置的.
+
+推荐方法,是SequenceFile.createWriter方法.来创建较好的实现??
+
+SequenceFile.Reader是一个桥,可以读取上述的任何一种文件.
+
+== SequenceFile文件格式 ==
+下面描述的是版本6的格式.
+
+如上,对于块和压缩性,分为3种.
+
+然后以上的每个都需要头部.
+
+=== 头部信息 ===
+- 版本 SEQ,后面带着数字的版本信息
+- keyClassString    String
+- valueClassName    String
+- 压缩方式 一个二进制数值,用于说明是否压缩
+- 块压缩方式 一个二进制值,说明是否有块压缩
+- 压缩方法  压缩编码器的名字(如果采用了压缩的话)
+- 元数据    这个文件的元数据,采用的一样是键值对方式
+- 同步      同步码,用于说明头部的结束
+
+注意:所有的字符串,都采用了Text.writeStirng接口进行序列化.(也就是一个字节的长度+字符串数据的方式)
+
+=== 未压缩格式 ===
+- 头部
+- 记录
+    - 记录长度
+    - 键长度
+    - 键
+    - 值
+- 同步码
+
+同步码,保持可以随机读取文件,并且可以在记录的边界处重新进行同步.这对于划分大文件的时候,是非常有必要的.
+
+=== block压缩的格式 ===
+略
+
+----
+= 矩阵乘法 =
+== 迭代方法 ==
+== 块方法 ==
+
+在代码matrixmultiplication中使用的是最为简单的方法.这里理论上存在改进的空间的.
+
+例如修改到块方法等等.

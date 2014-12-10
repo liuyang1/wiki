@@ -1,0 +1,697 @@
+= mit 6.828 =
+== lec 1 ==
+== inclass 1 ==
+xv6 sh.c 增加相应的执行,重定向以及管道的支持.
+
+执行需要的是exec命令.
+
+重定向,需要的是打开新的文件描述符,dup2到STDIN_FILENO STDOUT_FILENO STDERR_FILENO
+
+管道,需要pipe得到2个fd,然后利用fork到新进程,然后dup2到STDIN_FILENO STDOUT_FILENO
+
+最后wait,并且退出即可.
+
+`需要对文件描述符有足够的了解,不然空有想法也实现不出来`
+
+== lab1 ==
+
+=== 熟悉 ===
+基本软件需要从git下同步过来`略`
+
+athena环境,估计是mit的实验环境,这里是自定义的`略`
+
+需要安装qemu,gcc,git之类的工具.
+
+athena安装,`省略`
+
+# x86汇编语言
+# qemu x86 模拟器
+# pc的bootstrap过程
+
+==== Exercise 1 ====
+熟悉汇编语言.
+
+- 实模式
+
+内存限制访问在1M区域(2**20 bytes)内存地址空间范围为0x00000,0xfffff.
+显然20bit的区域,无法通过在16bit机器上面进行寻址.因此使用两个16bit决定地址.
+
+16 * selector + offset
+
+047c:0048 -> 04808
+
+selector也就是页面号.注意:这这种情况下,一个实际的地址,会存在多种地址索引方式.
+
+- 16bit 保护模式
+80286引入的16bit保护模式.selector 的解释和实模式完全不同.实模式中, selector 是
+物理地址的页面号.
+在保护模式下,selector 是描述表的索引号.
+
+在两种模式下,程序都是划分段的.
+实模式,段是固定物理内存的,selector 的值决定着段的开始位置的页面号.
+保护模式下,段不是固定地址的,实际上也可能完全不存在.
+
+保护模式使用的是 _虚拟内存_ 的技术.基本思路是,虚拟内存系统仅仅保持数据和代码在内存中,当程序正在使用它们的时候.
+其他数据和代码可以存储到外部的硬盘上,直到它们被再次需要.
+16bit的保护模式,段可以按照需要在内存/硬盘转移.当一个段从硬盘移回内存的时候,一般地址和之前在内存的时候,实际物理地址很可能是不一样的.
+
+`这段主要说明了虚拟页面的作用`
+
+这个对OS是透明的.`不是os完成这个功能,是cpu的内存管理MMU完成的` 在不同的方式下,这个是不同的.目前主流的方式是这样利用硬件完成的,并不是绝对的.
+程序对这点不需要进行特别的处理.
+
+保护模式下,每个段都是描述表中的一项.这项存储了关于段的,系统需要知道的所有信息.
+# 是否正在内存中
+# 如果在内存中,位置.
+# 获取权限(只读,或者其他)
+
+段的表项的索引,就是 selector, 存储在段寄存器中.
+
+这种方式的最大好处,是16bit保护模式的偏移地址还是16bit 量化的.这样就会导致段地址最大为64K.这回导致大数组存在问题.
+
+- 32bit保护模式
+`这一段是基础,但是很重要`
+80386引入了32bit保护模式.和16bit 保护模式差距主要是:
+# offset扩展到32bit,这样offset可以扩展到2**32.这样段可以达到4GB.
+# 段可以细分为更小的4K大小的 _页面_ pages.这样虚拟内存系统工作于页面,而不是段segment.
+这意味着段的一部分可以再内存中.而16bit保护模式下,整个段必须在或者不在内存中.
+实践中,32bit模式不允许更大的段.
+
+windows3.x,标准模式为286 16-bit保护模式,增强模式为32bit.
+Windows9X,Windows后续版本,Linux都工作在32bit 保护模式.
+=== bootloader ===
+PC的物理地址分段
+{{{
+0xFFFFFFFF(32bit/4G地址区域)
+--RAM,内存大小决定
+扩展内存
+0x0010 0000 1MB
+BIOS ROM
+0x000F 0000
+16bit设备,扩展ROM
+0x000C 0000
+VGA 显存(128KB)
+0x000A 0000 640KB
+低内存区域
+0x0000 0000
+}}}
+
+PC基于8088处理器(只能够访问1MB内存空间).
+因此早期的地址空间开始与0x0000 0000,结束于0x000F FFFF.640KB的低内存区域,是早期PC唯一可以使用的ROM区域.
+实际上早期的内存大小,一般只有几十KB.
+
+从0x000A 0000到0x000F FFF的384KB,保留用作特殊的硬件需求.例如显示缓存,非可变的固件.
+最重要的保留区域是BIOS.
+BIOS占用从0x000F 0000 到0x000F FFFF的64KB大小.
+早期PC,BIOS保留在只读存储区域ROM,但是现代的PC,已经可以进行BIOS的更新了在flash存储中.
+BIOS用于执行系统最为基本的初始化的工作,包括激活视频卡,检查已经安装的内存总量.
+初始化完毕后,BIOS载入OS从软驱,硬盘,CD-ROM或者网络中.传递机器的控制权到OS.
+
+当intel在80286,80386芯片中,突破了1MB的界限,支持16MB和4GB的物理内存空间时,PC的架构仍然保留了原始的1MB的物理地址空间用于向后兼容之前的软件.
+现代PC上再物理地址从0x000A 0000,到0x0010 0000,就存在一个"洞".换分RAM为低内存空间或者"常规内存空间",以及扩展内存.
+另外,再PC的32bit物理内存地址之上,所有的物理内存之上,现在也有BIOS保留的用于32bit的PCI设备地址空间.
+
+最近x86处理可以支持超过4GB的RAM.这样RAM就可以进一步扩展超过0xFFFF FFFF.这种情况下,BIOS就留下了系统RAM的32bit可以寻址区域第二个洞.为了使得32bit的设备地址可以映射过去.
+
+这里因为JOS仅仅使用PC物理内存的256MB.因此我们就假装所有的PC只有32bit的物理内存空间.但是处理复杂物理内存空间以及其他硬件设备,是JOS未来开发要处理的问题.
+
+==== ROM BIOS ====
+make qemu-gdb
+
+gdb
+
+[f000:fff0] 0xffff0: ljmp $0xf000,$0xe05b
+
+- 起始执行开始与0x000f fff0,在ROM BIOS的最高的64KB保留区域.
+- PC开始的时候CS = 0xf000 IP = 0xfff0,也就是selector 与 offset
+- 第一个指令为JMP指令,跳转到0xf000:0xe05b地址.
+为什么QEMU这样开始,因为intel设计的8088处理器,(IBM使用作为原始的PC).因此PC的BIOS是写死的,为0x000f 0000 ~ 0x000f ffff.
+这种设计使得BIOS可以总是从机器启动的时候获得控制权,因为在启动的时候,是没有任何软件运行在机器上的.
+QEMU模拟器有自己的BIOS.处理器的模拟地址空间上,就是其BIOS.一个处理器重置,模拟的处理器就会进入实模式,设置CS与IP为上面的值.
+因此CS:IP总是为上面的值.那么分段地址0xf000:fff0,怎样转换到实际的物理地址的呢???
+
+为了回答这个问题,我们需要知道实模式是怎样进行寻址的.`见上`地址转换公式.
+
+显然这个地址是BIOS的最后的16B空间的起始位置,因此一点也不奇怪命令内容为jmp到之前的其他位置上.毕竟后面的16B,完全不能放置什么指令或数据.
+
+==== exercise 2 ====
+使用GDB的si命令,跟踪ROM中的BIOS一些指令.尝试猜测它做了什么.具体可以参考...,
+
+下面的输出,可能不同版本的qemu使用的不同的SeaBIOS版本不同,可能存在不同.
+
+下面这一部分可能修改已经混乱了.
+{{{
+[f000:fff0] 0xffff0:    ljmp   $0xf000,$0xe05b
+无条件跳转到0xfe05b地址
+[f000:e05b] 0xfe05b:    cmpl   $0x0,%cs:0x66d4
+比较$0xf66d4的值是否为0
+[f000:e062] 0xfe062:    jne    0xfd3da
+若不为0,则跳转到0xfc678地址???,若为0,则执行后面的语句
+[f000:e066] 0xfe066:    xor    %ax,%ax
+%ax = 0
+[f000:e068] 0xfe068:    mov    %ax,%ss
+%ss = 0
+[f000:e070] 0xfe06a:    mov    $0x7000,%esp
+%edx = $0xf4b0e
+[f000:e076] 0xfe070:    mov    $0xf443f,%edx
+[f000:c530] 0xfc530:    mov    %eax,%ecx
+%ecx = %eax
+[f000:c533] 0xfc533:    cli 
+禁止中断
+[f000:c534] 0xfc534:    cld
+字符串操作递增???
+[f000:c535] 0xfc535:    mov    $0x8f,%eax
+%eax = $0x8f
+[f000:c53b] 0xfc53b:    out    %al,$0x70
+中断NMI??
+}}}
+
+----
+当BIOS运行时候,它设置中断描述表,初始化各种设备例如VGA显示,这就是怎么样看到Starting SeaBIOS这个消息.
+
+初始化完毕PCI总线,和所有BIOS知道的主要设备,它搜索一个可以启动设备,例如软件,CDROM等,最后当它发现一个可以启动的硬盘,BIOS读取boot loader,把控制权转交给它.
+
+=== bootloader ===
+软盘或者硬盘,划分为512字节的区域为sector.sector是硬盘的最小读写转移单元.每次读写必须是sector的整数倍.并且按照sector的边界进行对齐.
+
+如果硬盘是可启动的,第一个sector,称之为boot sector,因为是boot loader代码所在的地方.当BIOS发现一个可启动的软盘/硬盘时候,它载入512字节的boot sector到内存区域的0x7c00到0x7dff位置.然后使用jmp命令跳转到 0000:7c00 地址.转交控制权给bootloader.就像BIOS的载入地址一样,这个地址是可变的,但是它们固定下来,并且标准化了.
+
+从CD-ROM启动,比PC的革命来的要晚,PC的架构可以更好的思考启动过程.现代BIOS从CD-ROM中启动就略微有些复杂.
+
+CD-ROM采用一个2048B的sector,BIOS可以载入一个更大的boot image从盘到内存中,不仅仅是一个sector,在转交控制权之前.关于这个可以参考CD-ROM的格式与启动方式的参考资料.
+
+对于6.828课程,我们只需要使用基本的硬盘启动机制就可以了.这就意味着我们的bootloader必须限制在512B. 这个bootloader的源文件为boot/boot.S,以及boot/main.c
+
+# 切换处理器从实模式到32bit保护模式,因为只有这样,软件才可以获取1MB之上的内存空间.
+# bootloader读取kernel从硬盘中,通过直接获取IDE硬盘设备,通过x86的特殊IO指令.如果想更好的理解,可以参考IDe 硬盘驱动控制器这一部分.
+
+当你理解了bootloader源码后,可以看obj/boot/boot.asm,这个文件是bootlaoder的反汇编代码.这个比较有帮助.
+
+可以通过设置b *0x7c00, si N,x/N ADDR
+
+==== exercise 3 ====
+查看GDB手册,设置断点在0x7c00.bootsector载入的地方.
+
+跟踪代码,查看对于boot/boot.S与obj/boot/boot.asm,使用x/i命令,来观察.
+
+跟踪到bootmain函数,到达readsect部分,并且返回到bootmain.确定for循环的开始和结束.找到循环终结的地方.在那里设定一个断点,并且继续跟踪.
+
+----
+确保可以回答下面的问题:
+- 从那里开始处理器开始执行32bit模式?什么导致了从实模式转换到32bit模式.
+`boot.S中的ljmp $PROC_MODE_CSEG, $procseg`
+
+- bootloader执行的最后的指令是什么?kernel载入的时候,第一个指令又是什么?
+bootloader的最后一个指令,载入的sector内容为ELF文件,这里为该ELF文件的entry点.
+`call *0x10018`
+*0x10018,其实是0x10 000c的地址.
+这个地址的指令(也就是kernel的第一个指令)是
+`0x10000c:   movw   $0x1234,0x472`
+
+- kernel第一个指令的位置
+见上.
+
+- bootloader如何决定读取多少个sector,是否必须获取整个kernel从硬盘上,从哪里发现的这个信息.
+首先读取了8个sector,也就是1个页面.
+=== inside kernel ===
+qemu无法启动,则尝试命令.如下:
+qemu-system-i386
+
+而不是qemu-i386
+
+ubuntu 13.04 默认的qemu版本过低,不能够正常中断,也就是设置的breakpoint可能是无效的.需要从qemu相应的官网下载对应的版本即可.
+== lec 2 ==
+slide
+
+- EIP incremented after each instruction
+- instructions are different length
+- EIP modified by CALL, RET, JMP, and conditinal JMP
+
+=== registers ===
+- AH AL AX EAX
+- B,C,D...
+- BP, EBP
+- SI, ESI
+- DI, EDI
+- SP, ESP
+
+EFLAGS register
+- ...
+
+memory instructions:
+MOV, PUSH, POP, etc.
+
+=== stack memory ===
+
+- pushl %eax
+    - sub1 $4, %esp
+    - movl %eax, (%esp)
+- pop %eax
+    - mov1 (%esp), %eax
+    - addl $4, %esp
+- call 0x12345
+    - pushl %eip(*)
+    - movl $0x12345, %eip(*)
+- ret
+    - popl %eip(*)
+
+stack grows down
+use to implement procedure calls
+
+=== more memory ===
+8086 16 registers and 20-bit bus addresses
+
+extra 4 bits come `segment registers`
+
+| CS | code segment for EIP                             |
+| SS | stack segment for SP and BP                      |
+| DS | data segment for load/store via other registers  |
+| ES | another data segment, destination for string ops |
+
+=== and more memory ===
+80386 32bit data and bus addresses
+
+backwards compatibility:
+- boots in 16-bit mode, and boot.S switches to proctected mode with 32-bit addresses
+- prefix 0x66 gets your 32-bit XXX:
+- .code32 in boot.S tells assembler to insert 0x66 XXX:
+
+virtual memory addresses
+
+- segment registers are indices into a table
+- page table hardware
+
+ref:[[http://en.wikipedia.org/wiki/Page_table]]
+
+=== gcc calling conventions for JOS ===
+arg2
+
+arg1
+
+ret %eip
+
+saved %ebp
+
+%ebp-->
+
+local variables, etc.
+
+%esp
+
+prologue::
+- pushl %ebp
+- mov1 %esp, %ebp
+
+epilogue::
+- movl %ebp, %esp
+- popl %ebp
+
+saved %ebp form a chain, can walk stack
+
+arguments and locals at fixed offsets from ebp
+
+`lab1 exercise`
+
+=== gcc procedure calling ===
+- %eax contians return value, %ecx %edx may be trashed
+
+- %ebp, %ebx, %esi, %edi must be as before all
+
+DONE.
+
+== inclass 2 ==
+boot xv6
+
+然后跟踪到_start 0x10000c地址,然后解释相应的$esp地址上的内容
+
+{{{
+(gdb) x/24 $esp
+0x7bcc: 0x00007dbf  0x00000000  0x00000000  0x00000000
+0x7bdc: 0x00000000  0x00000000  0x00000000  0x00000000
+0x7bec: 0x00000000  0x00000000  0x00000000  0x00000000
+0x7bfc: 0x00007c4d  0x8ec031fa  0x8ec08ed8  0xa864e4d0
+0x7c0c: 0xb0fa7502  0xe464e6d1  0x7502a864  0xe6dfb0fa
+0x7c1c: 0x16010f60  0x200f7c78  0xc88366c0  0xc0220f01
+(gdb) x/24 $esp
+0x7bcc: mov    $0x7d,%edi       #%edi <= $0x7d??
+0x7bd1: add    %al,(%eax)
+0x7bd3: add    %al,(%eax)
+0x7bd5: add    %al,(%eax)
+0x7bd7: add    %al,(%eax)
+0x7bd9: add    %al,(%eax)
+0x7bdb: add    %al,(%eax)
+0x7bdd: add    %al,(%eax)
+0x7bdf: add    %al,(%eax)
+0x7be1: add    %al,(%eax)
+0x7be3: add    %al,(%eax)
+0x7be5: add    %al,(%eax)
+0x7be7: add    %al,(%eax)
+0x7be9: add    %al,(%eax)
+0x7beb: add    %al,(%eax)
+0x7bed: add    %al,(%eax)
+0x7bef: add    %al,(%eax)
+0x7bf1: add    %al,(%eax)
+0x7bf3: add    %al,(%eax)
+0x7bf5: add    %al,(%eax)
+0x7bf7: add    %al,(%eax)
+0x7bf9: add    %al,(%eax)
+0x7bfb: add    %cl,0x7c(%ebp)
+0x7bfe: add    %al,(%eax)
+}}}
+
+== lec 3 ==
+xv6 processes.
+
+a process is a running program.
+
+it has its own memory, share of CPU, FDs, parent, children...
+
+it use system calls to interact outside itself to get at kernel services
+
+KERNEL
+
+services: process, FS, net
+
+low-level: devices, VM
+
+all of kernel runs full hardware privilege(very convenient)
+
+system calls switch between user and kernel.
+
+GOOD: easy for sub-system to cooperate(e.g. paging and file system)
+
+BAD: interactions => complex, bugs are easy. no isolation within OS called monolithic单片 traditional and successful.
+
+ISOLATION
+
+the process is the unit of isolation.
+
+prevent process X from wrecking or spying on process Y memory, CPU, FDs, resource exhaustion.
+
+prevent a process from wrecking the OS itself i.e. from preventing kernel from enforcing isolation in the face of bus or malice e.g. a bad process may try to trick the h/w or kernel.
+
+WHAT are all the mechanisms that keep processes isolated?
+
+user/kernel mode flag
+
+address spaces.
+
+timeslicing
+
+system call interface
+
+HOW to do a system call? switch CPL
+{{{
+set CPL=0
+jmp sys_open
+}}}
+
+bad. user-specified instruction with CPL = 0
+
+a combined instruction that set CPL = 0, but requires an immediate jump to someplace in the kernel??
+
+bad: user might jump somewhere awkard in the kernel.
+
+the X86 answer:
+
+there are only a few permissible kernel entry points.
+
+INT instruction sets CPL = 0 and jumps to an entry point but user code can't otherwise modify CPL or jump anywhere else in kernel.
+  {{{
+  name: \
+    movl $SYS_ ## name, %eax; \
+    int $T_SYSCALL; \
+    ret
+  }}}
+system call return sets CPL = 3 before returning to user code.
+
+result:
+
+either CPL = 3 and executing user code.
+or CPL = 0 and executing from entry point in kernel code.
+
+not:
+CPL = 0 and executing user
+CPL = 0 and executing anywhere in kernel the user places.
+
+also can isolation WITHOUT h/w-supported kernel/user mode.
+
+Singularity O/S奇异性
+
+HOT to isolate process memory?
+
+idea: address space.
+
+give each process some memory it can access for its code, variables, heap, stack.
+
+privent it from accessing other memory.
+
+HOW to create isolated address space?
+
+xv6 use x86 "paging hardware"
+
+MMU translate or maps every address issued by program.(MMU, memory management unit)
+
+VA->PA
+
+instruction fetch,data load/store for kernel and user.there't no way for any instruction to directly use a PA.
+
+MMU array w/ entry for each 4K range of "virtual" address space refers to phy address for that "page".this is the page table.
+
+OS tells h/w to swtich page table when switching process.
+
+WHY isolated?
+
+each page table entry PTE has a bit saying if user-mode instruction can use.kernel only sets the bit for the memory in current process's address space.
+
+paging h/w used in many ways, not just isolation.
+
+e.g. copy-on-write fork()...
+
+HOW to isolate CPU?
+
+clock interrupt.
+    
+    forcefully suspends current process
+    jump into kernel
+    which can switch to a different process
+
+kernel must save/resotre process state(registers)
+
+totally transparent, even to cooperative processes.
+
+called "pre-emptive context switch"
+
+== inclass 3 ==
+Part One: system call tracing
+
+system call tracing OK
+
+print the system call arguments OK, not so good.
+
+Part Two: Halt system call
+
+halt OK.
+
+dup2 system call TODO:
+
+== lab 2 ==
+# a physical memory allocator for the kernel. operate in units of 4k bytes, called pages.
+# virtual memory.modify JOS to set up the MMU's page tables
+
+=== part 1 Physical Page Management ===
+page granularity页面粒度
+
+==== exercise 1 ====
+- boot_alloc()
+
+== lec 4 ==
+user/kernel
+
+HOW to keept it from wrecking the kernel and from wercking other processes??
+
+ISOLATED address spaces.
+
+- each process has its own memory.
+- it can read and write its own memory.
+- it cannot read or write anything else.
+
+x86's paging hardware to implement this problem.
+{{{
+CPU -> MMU -> RAM
+    VA     PA
+}}}
+
+software can only load/store to virtual address, not physical.
+
+kernel tell sMMU how to map each virtual address to a physical address.
+
+MMU essentially has a table, indexed by VA, yielding PA called a "page table".
+
+MMU can restrict what virtual address user code can use.
+
+
+PTE,page table entry::
+top 20 bits are top 20 bits of physical address.
+MMU replaces top 20 of VA with PPN(physical page number)
+low 12 bits are flags.
+Present Writeable &c
+
+page table stored in RAM
+
+MMU loads and stores PTEs.
+
+OS can read/write PTEs.
+
+2^20B = 4MB for a full page table.
+
+for small programs, waste lots of memory.
+
+two-level page table::
+
+PDE -> PTE
+
+to save space.
+
+how MMU know where the page table is located in RAM?
+- %cr3 holds phys address of PD
+- PD holds phys address of PTE pages.
+- they can be anywhere in RAM
+
+how does x86 paging hardware translate a VA?
+- need to find the right PTE
+- %cr3 points to PA of PD
+- top 10 bits index PD to get PA of PT
+- next 10 bits index PT to get PTE
+
+flags in PTE:
+P, W, U(forbid user from using kernel meory)
+
+"page fault"::
+CPU save registers, forces transfer to kernel.
+kernel can just produce error, kill process
+or kernel can install a PTE, resume the process. e.g. after loading the page of memory from disk
+
+why maping rather than base/bound???
+# indirection allows paging hardware to solve many problems.
+# avoid fragmentation
+# copy-on-write fork
+# lazy allocation
+
+how does XV6 use the x86 paging hardware??
+
+| 0xFE00 0000 : 0xFFFF FFFF | memory-mapped devices          |
+| ???         : 0x8E00 0000 | 224MB of DRAM mapped           |
+| 0x8010 0000 : ???         | kernel instructions/data       |
+| 0x8000 0000 : 0x8010 0000 | map low 1MB devices for kernel |
+| 0x0000 0000 : 0x8000 0000 | user address below KERNBASE    |
+
+内存碎片的问题,其实不仅仅是无法充分利用硬件的DRAM的问题.
+一个很重要的方面,其实也在于内存地址空间的使用问题.
+内部碎片,是没有充分利用硬件DRAM,因为对相应的DRAM进行了映射,但是分配的粒度有限,无法做到精确分配的缘故.
+外部碎片,则主要对内存地址空间的使用问题.使用分页/分段的方式,可以解决外部碎片的问题
+(这里认为外部碎片的产生的典型方式是base/bound方式)
+
+CR control register::
+# CR0 状态
+# CR1 reseverd
+# CR2 用于页面异常时候报告出错信息.出现异常时,处理器将引起异常的逻辑地址存放在CR2中.
+# CR3 PDBR(page directory board of review),high 20bit used.low 12bit must set to zero,(为了更高级处理扩展)
+
+为了减少地址转换所需的总线周期数量,
+最近访问的页目录PD和页表PT被存放在处理器的页高速缓存中TLB,
+只有当TLB中不包含所要求的PTE中,才会使用额外的总线周期从内存中读取PTE.
+
+每个进程有自己的地址空间,自己的页表
+所有进程有同样的kernel(高地址)映射
+当切换进程时候,kernel切换%cr3,切换页表.
+
+- 虚拟地址空间开始于0
+    每个进程,VA 0 映射到不同的PA
+- 2GB用户堆连续增长
+    但是不需要连续的物理内存,没有碎片问题
+- kenel和user都进行映射,方便进行系统调用的切换.所有的进程内核中断在同样的地方.
+- 进程间切换方便
+- kernel读写用户内存很方便,使用用户地址,例如syscall的参数
+- kernel读写物理内存方便,pa x 映射到 va x+0x8000 0000
+
+进程调用sbrk(n)来从堆内存申请n个字节空间.
+
+malloc()使用sbrk().
+
+sbrk()申请物理内存,映射到进程的页表,返回新地址的开始地址.
+
+具体的代码处理,请进一步参考l-4-vm.txt +150
+
+
+=== handout ===
+proctected-mode address translation
+
+segment translation::
+...
+
+== inclass 4 ==
+xv6 lazy page allocation
+
+PT硬件上,系统常用的技巧就是lazy page allocation.
+
+xv6应用使用sbrk(),向内存申请堆内存.
+
+内核中sbrk()申请物理内存,映射到内存的进程的虚拟地址空间.
+有些程序申请内存但是从来没有使用它.例如超大的稀疏数组.
+
+Sophisticated(复杂的)内核就会延迟内存的每个页面的申请,直到程序尝试去使用这些页面(出现一个页面错误信号).
+
+本任务的内容,就是添加lazy page allocation的功能到xv6.
+
+=== part 1 消除sbrk()中的申请内存 ===
+在sys_sbrk()中删除页面申请代码.
+
+sbrk(n)系统调用,增长进程的内存大小n个字节,返回新的开辟内存空间的开始位置.
+
+新的sbrk(n)系统调用,仅仅增长proc->sz,进程的大小,返回旧的大小,并不开辟内存空间.
+(也就是删除growproc()的调用)
+
+这样的话,程序运行就会出现问题.`page fault??`
+
+做出修改,启动xv6,输入echo hi.可以看到类似的.
+
+错误完全是一样的.
+
+这个错误,来自于内核trap.c::trap的错误处理函数.
+捕捉页面错误trap14或者T_PGFLT,目前xv6不知道如何处理这个错误.
+确认你理解这个错误是如何产生的.
+
+虚拟地址0x4004,的访问导致了这个错误.
+
+=== part 2 lazy allocation ===
+修改trap.c中的代码,来响应用户空间的页面错误.
+
+映射新的申请物理内存到错误的地址上.
+然后返回用户空间,让进程继续执行.
+
+添加你的代码,在cprintf上面的错误的上面.
+你的代码不需要覆盖所有的特殊情况,只需要令sh可以执行简单的命令例如echo或者ls.
+
+帮助:
+# 查看cprintf来找打如何得到引起页面错误的地址.rcr2()
+# 使用PRGOUNDOWN(va)来向下取得页面边界.
+# break/return 来避免cprintf以及proc->killed=1
+# 需要调用mappages().这样需要删除vm.c::mappages的static属性.使得可以调用这个函数.
+# 要检查是否是一个页面错误,通过检查tf->trapno是否等于T_PGFLT.
+
+如果上面的都没有问题,那么你的lazy allocation的代码,应该可以让echo hi运行.
+你应该有一个或者两个页面错误(然后你lazy allocation了)
+
+当然,这不是一个完全准确的实现.查看下面的Challenges.
+
+Challenges::
+处理负的sbrk参数.处理sbrk参数过大的情况.
+确认fork()和exit()可以工作,甚至sbrk()的没有新的地址空间可以使用的时候.
+
+正确处理栈上不合法的页面错误.
+
+确保内核使用,还没有来得及申请的用户地址空间.例如程序申请的sbrk()之后,然后用read()去调用它.
+
+提交::
+在trap.c中添加的代码.

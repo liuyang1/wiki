@@ -9,6 +9,9 @@
 
 - $FS指明字段分隔符号
 
+输出文件的第一列
+`cat file | awk '{print　$1}'`
+
 `awk -F "[()]" '{print $2}'`
 extract from bracket, (bead) -> bead
 

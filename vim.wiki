@@ -4,8 +4,21 @@
 * +N    表示到行号
 * +     表示到最后一行
 
+=== 编辑远程主机上的文件 ===
+{{{
+	vim scp://username:password@hostaddr/path/to/file
+}}}
+后台实际上传输为本地临时文件,编辑结束后,会传递回去.
+ref:[[http://vim.wikia.com/wiki/Editing_remote_files_via_scp_in_vim]]
+
+对于使用sshconfig简化的地址可以如下:
+
+vim scp://hd0/.bash_profile
+
 
 ==设置==
+- :set paste/nopaste			设置进入粘贴模式,这样复制粘贴代码的时候,自动缩进就会失效.很有用.
+- :set number					打开显示行号
 - set keywordprg=man\ -a        设置man(大K)的检索,参数为-a,这样就会显示所有的manual,而不是只有第一条
 
 == 插入模式下 ==
@@ -32,10 +45,13 @@
 === 移动 ===
 - <Shift-Left>/<Shift-Right>    移动,按照单词
 - <C-Up>/<C-Down>               上下翻页
+- nnnG          跳转到指定行
+- 024l          跳转到第24列,注意这个其实是组合命令,0移动到行首,然后向右移动24列
 === 退出编辑模式 ===
 - ESC/<C-[>,<C-3>               C-[,这种方式应该挺方便的.
 - <C-c>                         这个也可以,更为方便. should totally alternative
                                 of ESC key
+- *<C-O>*                       临时退出到一般模式,之后会自动返回到插入模式
 
 === temp insert mode ===
 - *<C-o>*                       临时退出到一般模式,之后会自动返回到插入模式

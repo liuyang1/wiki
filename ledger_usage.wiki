@@ -19,7 +19,5 @@ ledger -f my.dat reg Checking
 - Income		收入
 - Salary		工资
 - Liabilities	负债
-== vim plugin ==
-vim插件,见[[vim_tip]]
 == ref ==
 http://www.ledger-cli.org/3.0/doc/ledger3.html#Fat_002dfree-Accounting

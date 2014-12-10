@@ -1,0 +1,103 @@
+= opencl =
+mtime: 2013-07-07 14:15:40 
+-----
+
+== 使用流程 ==
+# 初始化准备流程
+    # 得到可用的平台以及设备的信息.
+    # 选择执行时采用的设备.
+# 准备工作
+    # 创建opencl上下文
+    # 创建命令队列
+    # 数据准备
+        # 创建内存缓冲区对象
+        # 将数据传输到内存缓冲区对象中.
+    # 程序准备
+        # 创建程序对象
+        # 载入核心源码,进行编译
+        # 或者载入预编译核心二进制程序
+        # 创建核心对象
+# 执行
+    # 选择核心参数(为上面准备的数据)
+    # 执行核心程序
+# 读取内存对象,得到结果
+
+
+== 架构 ==
+=== libOpenCL.so ===
+
+ICD loader.这个库分发OpenCL调用到OpenCL实现.将这个动态链接库链接到你的opencl程序中.
+
+ICD: Installable Client Drivers.
+
+=== /etc/OpenCL/Vendors/*.icd ===
+本文件用于告诉ICD loader,机器上安装了那些ICD.这里每个ICD对应有一个文件.每个文件对应有一行内容,包含对应的动态链接库的名字.该动态链接库包含了一个实现.
+
+这里一行可以是全路径,也可以仅仅是一个名字.如果仅仅是一个名字,则通过LD_LIBRARY_PATH寻找.
+
+这里的*.icd的名字,是无所谓的,但是要使用icd扩展名.
+
+=== 多个ICD实现 ===
+.icd指明的动态链接库.可以安装多个.
+
+
+== 硬件支持 ==
+=== intel ===
+intel继续支持linux上的OpenCL.
+SDK 2013 XE,如果要运行OpenCL 1.2,则需要系统支持Intel@ Streaming SIMD ext 4.2(SSE 4.2)指令或者更高(Intel 高级矢量扩展(超标量扩展)).
+这包括Xeon以及基于Core的芯片.
+更多的细节可以看各个版本的release日志.
+
+如果系统不支持SSE4.2,则要继续使用SDK 2012.
+
+ref:http://software.intel.com/en-us/forums/topic/372246
+
+
+=== intel xeon phi ===
+协处理器,具有并行加速的功能,但是相比与GPU来讲,核的数目远小.但是二者运算架构不同.
+
+GPU擅长进行Stream计算,也就是数据为流式的,计算指令是相似或者相同的.GPU不需要保存数据.这种方式类似与SIMD,单指令多数据的方式.
+
+Xeon Phi适用于MIMD运算模式.对于同一数据进行反复迭代运算,占优.
+
+
+-----
+
+
+使用opencl,则可以运行在nvidia,ati,intel,硬件上.甚至FPGA,ARM设备上.
+
+而CUDA限制在nvidia GPU上.不过这会很快改变.更多的程序使用opencl.
+
+----
+== opencl语法格式 ==
+=== 修饰 ===
+- __kernel      opencl kernel前导修饰,表示这个函数是opencl的kernel.
+- __global      全局指针,表示各个核之间共享的数据指针.
+
+=== 特殊函数 ===
+get_global_id(0)   获得全局地址,在X方向
+get_global_id(1)   获得全局地址,在Y方向
+
+size_t get_global_id(uint dimindx)
+
+返回根据dimindex定义的维数,唯一的全部work-item的ID值,
+
+全局work-item ID,指定workitem ID,根据全局global item指定执行内核
+
+这里这个与任务添加到队列时候的参数有关系.clEnqueueTask/clEnqueueNDRangeKernel.
+
+== oepncl binding函数 ==
+clEnqueueNDRangeKernel(cl_command_queue cmd_queue,
+    cl_kernel kernel,
+    cl_unit work_dim,
+    const size_t & global_work_offset,// 现在为NULL
+    const size_t* global_work_size,// 指向一个work_dim数组.描述全局的global work-item的在不同维数上的值.
+    const size_t* local_work_size,//指向work-item组成的work-group的维度值.可以说明一个group的大小.
+    // 为NULL时,由系统决定如何将work-item分割为work-group
+    cl_uint num_events_in_wait_list,
+    const cl_event* event_wait_list,
+    cl_event* event)
+
+将一个命令(执行一个核在一个设备上)加入到队列.
+
+

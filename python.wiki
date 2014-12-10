@@ -1,9 +1,12 @@
 = python =
 
-[[python_stdlib]]
-[[python_lib]]
-[[python_test]]
-[[python_old]]
+* [[python_type|basic type]]
+* [[python_grammer|grammer]]
+* [[python_stdlib|STD lib]]
+* [[python_lib|external lib]]
+* [[python_test|test]]
+* [[python_lec|my Lecture]]
+* [[python_old]]
 == IO ==
 * write
 * str

@@ -1,0 +1,10 @@
+= pascal =
+
+== 编译执行 ==
+使用linux上的free pascal环境.
+
+文件扩展名.pas
+
+编译fpc XXX.pas
+
+运行./XXX即可

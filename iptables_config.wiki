@@ -1,0 +1,13 @@
+= iptables 配置 = 
+mtime: 2012-12-25 11:03:26 
+----
+
+== 查看 ==
+iptables -L
+
+
+在ubuntu机器上,一般为ufw命令
+
+ufw status
+
+默认为inactive,也就是未激活状态

@@ -1,0 +1,13 @@
+= mplayer =
+2014-03-05 20:34:06
+
+== shortcut ==
+* f             全屏
+* T             置于最前
+
+* Left/Right    前进后退10s
+* UP/DOWN       前进后退1min
+* PGUP/PGDWN    前进后退10min
+* / *           减少/增加音量
+* 9 0           减少/增加音量
+* o             OSD切换显示时间

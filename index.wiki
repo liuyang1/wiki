@@ -6,22 +6,42 @@ dummy: [[TODO]]
 * [[Android]]
 * [[server]]
 * [[compiler]]
-* [[lang]]
-* [[software_engineer]]
+* [[lang|programming language]]
+* [[software_engineer|Software Enginerring]]
 * [[visualzation]]
 * [[network_protocol_all|Network Protocol]]
-* [[linux_system|Linux system programming]]
+* [[posix_prog|POSIX programming]]
 * [[all_coding|Coding is part of life]]
 * [[all_software|Your tools are part of yourself]]
 * [[internet_protocol|Internet protocol]]
 * [[video_tech|Video]]
+* [[pic_format]]
+* [[speech_feature]]
 * [[vision|computer vision]]
+* [[web_tech|Web]]
+* [[my_software_design]]
+* [[cloud_computing]]
+* [[os]]
+* [[reverse_enginerring|Reverse Enginerring]]
+* [[kinect]]
+* [[cuda]]
+* [[opencl]]
+* [[course]]
+* [[serializer_data]]
 
+== theory knowledge ==
+* [[algo]]
+* [[number_theory|number theory]]
+* [[knowledge_graph|Knowledge Graph]]
+* [[text_search_tech]]
 == shell tool ==
+* [[linux_base_knowledge_network]]
 * [[shell_cmd]]
 * [[security_tool|Security Tools]]
 * [[zip_cmd|Archive Tools]]
-* [[sync_tool|Sync Tools]]
+* [[linux_monitor|linux_monitor]]
+* [[service_manager]]
+* [[linux_isuse]]
 
 === text tool ===
 * [[ack]]
@@ -39,16 +59,20 @@ dummy: [[TODO]]
 === compiler and others ===
 * [[gcc]]
 * [[gdb]]
-* [[make]]
+* [[makefile_man|Makefile]]
 * [[binutils]]
 * [[git]]
 * [[gerrit]]
 
 === terminal ===
-* [[urxvt]]
+* [[terminal_tools]]
+* [[term_software_list]]
+* [[monospace|Monospace Font]]
+* [[tty_linux]]
 === multimedia ===
 * [[ffmpeg]]
 * [[vlc]]
+* [[mplayer]]
 * [[image_tool|Image Tools]]
 
 === browser ===
@@ -61,9 +85,12 @@ dummy: [[TODO]]
 * [[AAC_format|aac]]
 * [[HEVC]]
 
-== theory knowledge ==
-* [[algo]]
-* [[number_theory|number theory]]
 
 == tmp old ==
 - [[network_storage|网络存储]]
+
+== 缤纷生活 ==
+- [[work_skill|学习技巧]]
+- [[chem]]
+- [[notebook]]
+- [[daily_english_words]]

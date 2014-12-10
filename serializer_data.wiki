@@ -1,0 +1,102 @@
+= 序列化数据 =
+
+ref:[[http://en.wikipedia.org/wiki/Comparison_of_data_serialization_formats|wiki]]
+== pickle ==
+python
+
+== AMF ==
+actionscript
+
+| version number   | 2 byte     |
+| number of header | 2 byte     |
+| targetURI        | UTF string |
+| responseURI      | UTF string |
+| content length   | 4 byte     |
+| content          |            |
+
+UTF string::
+2byte length + string(not contain '\0')
+
+11标示之后的数据类型为AMF3格式,以AMF3格式解析.具体见后.
+
+=== AMF0 ===
+content中的类型标示
+| 00 | number |
+| 02 | string |
+| 0A | array  |
+
+数字格式
+| number | 8 byte |
+
+字符串格式
+| length | 2 byte |
+| string | ...    |
+
+数组格式
+| number of element | 4 byte |
+| elements          | ...    |
+
+=== AMF3 ===
+content中的类型标示
+| 0A | object |
+| 06 | string |
+
+object表示信息
+| XX        | 二进制标示方法,具体见bit标示 | 1byte |
+| trait数据 |                              |       |
+
+object标志信息bit解释,从低位向高位解释
+| 0   | 1,为真正的object,0为refernce                      |
+| 1   | 1标示object的trait数据在之后,0标示trait数据为引用 |
+| 2   | 1标示..是的 0标示这个object不是externalizable实例 |
+| 3   | 1标示为dynamic对象,内部成员为动态的,0反之         |
+| 4~7 | object的静态成员个数                              |
+
+trait数据
+| XX | 二进制标示 | 1 byte |
+
+trait标示
+| 0   | 1,不是引用,0反之 |
+| 1~7 | 长度             |
+trait的长度为0,标示classname为空串,也就是基本类object.
+
+object一般由多组的key:value构成.key为字符串,value类型不定.
+
+key标示
+| 0   | 1,不是引用,0反之 |
+| 1~7 | 长度             |
+之后为key的长度的字符串.
+
+最后,一般以0x01结束.
+标示这里不是一个字符串引用,但是长度为0,不存在新的key了.这里的object读取结束.
+
+== protocolbuf ==
+google 开发
+
+proto格式的信息格式
+
+代码生成器
+
+编码使用
+
+二进制,速度块.(代码生成器这种方式,很是厉害)
+
+不仅仅支持代码生成,还可以支持动态编译. `屌爆了啊`
+
+protobuf二进制消息紧凑,在于采用了巧妙的encoding方法.
+
+varint这种方式方式.
+
+对负数sint32,采用zigzag编码方式?? `神奇`
+
+也就是采用正负数交错,并且编码相邻二者的差值即可. `在通信编码与音视频编码中,这个算是非常常见的手法吧`
+
+== D-bus ==
+linux下面用于进程间通信IPC的序列化协议
+
+== XDR ==
+外部数据表示法
+
+sun提出.IETF维护.
+
+使用在ganglia中.

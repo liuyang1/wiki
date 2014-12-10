@@ -1,5 +1,6 @@
 =makefile编写=
 
+[[makefile_inst]]
 ==高级Makefile==
 {{{
 前言
@@ -183,3 +184,19 @@ make -d
 
 make -n
 输出展开命令,但是不实际运行
+
+== debug param ==
+* -n            --just-print (but shell cmd will run)
+* -p            --print-database
+* --warn-undefined-variables
+
+
+=== --debug ===
+basic, verbose, implicit, jobs, all, makefile
+
+== shell ==
+$$SHELL_VAR_NAME
+
+default using shell is /bin/sh, change this by SHELL var.
+
+cannot run enviroment function from parent shell, but can source and run it in subshell

@@ -1,0 +1,449 @@
+= UT vode 协议分析过程 =
+
+== RTSP协议过程 ==
+STB: 10.0.39.252
+
+Server: 10.88.252.3
+
+- DESCRIBLE
+请求
+
+rtsp://10.88.252.3:554/vod/202324?USER_ID=10000624
+
+User-Agent: UTIDTV RTSP 1.0\r\n
+
+- SETUP
+请求
+
+Transport: MP2T/UDP;destination=10.88.252.3:554;interleaved=0-1;stb_mode=QAM
+
+回复
+
+Session: 10000061
+
+Transport: MP2T/RTP/UDP;unicast;destination=10.63.27.192:554;control_address=10.63.42.16:554;mode=play;PMT_PID=496;QAM_FRQ=522000000\r\n
+
+这里约定了PMT的PID值,以及QAM_FRQ.
+
+其他的destination以及control_address的意义暂时还不明确.
+
+- PLAY
+请求
+
+Scale: 1.0\r\n
+注意这个会重复两次.
+
+回复
+
+RTSP/1.0 302 Moved Temporarily.
+{{{
+Connection: Close\r\n
+Location: rtsp://10.88.252.111/vode/202324?USER_ID=10000624\r\n
+}}}
+也就是上面的过程仅仅是简单的重定向过程,后面才是真正的会话过程.
+
+- TEARDOWN
+请求
+
+没有回复.
+
+----
+- DESCRIBLE
+请求
+
+同上
+
+回复
+{{{
+Server: Server: UTStarcom\r\n
+
+Content-type: application/sdp
+Content-length: 195
+
+...SDP
+}}}
+
+对于SDP的内部内容,这里附上其典型.
+
+{{{
+SDP version: 0
+v=0
+
+Owner/Creator, Session Id (o)
+o=- 2890844526 2890842807 IN IP4 10.88.252.111
+
+s=RTSP Session
+
+时间描述,活动时间
+t=0 0
+
+重复时间
+r=15 0 0 0
+
+会话信息为空
+i=
+
+带宽信息
+b=AS:1600
+
+连接信息
+c=IN IP4 0.0.0.0
+
+媒体描述,名字与地址
+m=video 0 RTP/AVP 33
+
+媒体属性
+a=rtpmap:33 MP2T/90000
+
+媒体属性
+a=range:npt=0.000-5104.000
+}}}
+- SETUP
+请求
+
+Transport: MP2T/UDP;destination=10.88.252.111:554;interleaved=0-1;stb_mode=QAM
+
+回复
+
+Session: 21522244
+
+Transport: MP2T/RTP/UDP;unicast;destination=10.0.39.252:554;control_address=10.88.252.111:554;mode=play;PMT_PID=384;QAM_FRQ=690000000\r\n
+
+- PLAY
+请求
+
+Scale: 1.0(一次)
+
+Range: npt=beginning-\r\n
+
+回复
+
+Range: npt=0.000-5104.000\r\n
+
+- GET_PARAMETER
+每隔30s,一次.
+
+- PAUSE
+请求
+
+回复
+
+(即使是在暂停状态,同样维持GET_PARAMETER的心跳)
+
+- PLAY
+Range: npt=now-\r\n
+
+Scale: 2.0\r\n(如果有倍速播放的话)
+
+回复
+
+Range: npt=1906.000-5104.000\r\n(Play回复一个新的时间,这个很好)
+
+- TEARDOWN
+请求
+
+回复
+
+Connection: close\r\n
+
+== QAM数据分析 ==
+在上面指定的QAM频点上,可以抓取到相应的数据
+
+- 节目0x7e5,PMT_PID=0x180(384)
+- PCR_PID:0x181(385)
+- 13818-2 视频(包含PCR)(PID=0x181(385)
+    720x576 25fps 3Mbps Main-Main级别 4:3 色度格式 4:2:0
+- 11172音频(PID=0x182(386)
+    224kbps 2层 44.1khz 立体声
+
+码率约为4.2Mbps.
+
+MPEG-4 0x7e6
+
+数据内容直接采用MPEG-2 TS.
+
+如果采用QAM方式,则必须和QAM模块进行对接.这部分,必须获取相关和QAM分配调度的接口.
+才可以在RTSP的SETUP阶段,回复相应的Transport的PMT和QAM_FRQ.
+
+如果采用IP方式.则简单很多,直接采用IP方式,就可以.
+
+IP方式,目前只有黄山市机顶盒部署.因此必须
+
+----
+== IP方式分析 ==
+数据为RTP+TS+data
+
+
+{{{
+	DESCRIBE rtsp://10.88.252.3:554/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 1
+	Accept:application/sdp
+	User-Agent: UTIDTV RTSP 1.0
+	
+	RTSP/1.0 200 OK
+	CSeq: 1
+	
+	SETUP rtsp://10.88.252.3:554/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 2
+	Transport:MP2T/UDP;unicast;destination=10.88.252.3:554;interleaved=0-1;stb_mode=QAM
+	User-Agent: UTIDTV RTSP 1.0
+	
+	RTSP/1.0 200 OK
+	CSeq: 2
+	Session: 10000061
+	Transport: MP2T/RTP/UDP;unicast;destination=10.63.27.192:554;control_address=10.63.42.16:554;mode=play;PMT_PID=496;QAM_FRQ=522000000
+	
+	PLAY rtsp://10.88.252.3:554/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 3
+	Session: 10000061
+	Scale: 1.0
+	Scale: 1.0
+	User-Agent: UTIDTV RTSP 1.0
+	
+	RTSP/1.0 302 Moved Temporarily
+	CSeq: 3
+	Connection: Close
+	Location: rtsp://10.88.252.111/vod/202331?USER_ID=10000624
+	
+	TEARDOWN rtsp://10.88.252.3:554/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 4
+	Session: 10000061
+	User-Agent: UTIDTV RTSP 1.0
+}}}
+
+{{{
+	DESCRIBE rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 1
+	Accept:application/sdp
+	User-Agent: UTIDTV RTSP 1.0
+	
+	RTSP/1.0 200 OK
+	CSeq: 1
+	Server: Server: UTStarcom
+	Content-Type: application/sdp
+	Content-Length: 195
+	v=0
+	o=- 2890844526 2890842807 IN IP4 10.88.252.111
+	s=RTSP Session
+	t=0 0
+	r=15 0 0 0
+	i=
+	b=AS:1600
+	c=IN IP4 0.0.0.0
+	m=video 0 RTP/AVP 33
+	a=rtpmap:33 MP2T/90000
+	a=range:npt=0.000-5561.000
+	
+	SETUP rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 2
+	Transport:MP2T/UDP;unicast;destination=10.88.252.111:554;interleaved=0-1;stb_mode=QAM
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 2
+	Session: 21497799
+	Transport: MP2T/RTP/UDP;unicast;destination=10.0.35.252:554;control_address=10.88.252.111:554;mode=play;PMT_PID=384;QAM_FRQ=690000000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 3
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=beginning-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 3
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=0.000-5561.000
+	PAUSE rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 4
+	Session: 21497799
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 4
+	Session: 21497799
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 5
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 5
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=13.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 6
+	Session: 21497799
+	Scale: 2.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 6
+	Session: 21497799
+	Scale: 2.0
+	Range: npt=20.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 7
+	Session: 21497799
+	Scale: 4.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 7
+	Session: 21497799
+	Scale: 4.0
+	Range: npt=21.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 8
+	Session: 21497799
+	Scale: 8.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 8
+	Session: 21497799
+	Scale: 8.0
+	Range: npt=0.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 9
+	Session: 21497799
+	Scale: 16.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 9
+	Session: 21497799
+	Scale: 16.0
+	Range: npt=22.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 10
+	Session: 21497799
+	Scale: 32.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 10
+	Session: 21497799
+	Scale: 32.0
+	Range: npt=0.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 11
+	Session: 21497799
+	Scale: 2.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 11
+	Session: 21497799
+	Scale: 2.0
+	Range: npt=0.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 12
+	Session: 21497799
+	Scale: 4.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 12
+	Session: 21497799
+	Scale: 4.0
+	Range: npt=22.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 13
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 13
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=35.000-5561.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 14
+	Session: 21497799
+	Scale: -2.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 14
+	Session: 21497799
+	Scale: -2.0
+	Range: npt=39.000-0.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 15
+	Session: 21497799
+	Scale: -4.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 15
+	Session: 21497799
+	Scale: -4.0
+	Range: npt=38.000-0.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 16
+	Session: 21497799
+	Scale: -8.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 16
+	Session: 21497799
+	Scale: -8.0
+	Range: npt=0.000-0.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 17
+	Session: 21497799
+	Scale: -16.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 17
+	Session: 21497799
+	Scale: -16.0
+	Range: npt=37.000-0.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 18
+	Session: 21497799
+	Scale: -32.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 18
+	Session: 21497799
+	Scale: -32.0
+	Range: npt=36.000-0.000
+	PLAY rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 19
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=now-
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 19
+	Session: 21497799
+	Scale: 1.0
+	Range: npt=0.000-5561.000
+	TEARDOWN rtsp://10.88.252.111/vod/202331?USER_ID=10000624 RTSP/1.0
+	CSeq: 20
+	Session: 21497799
+	User-Agent: UTIDTV RTSP 1.0
+	RTSP/1.0 200 OK
+	CSeq: 20
+	Session: 21497799
+	Connection: close
+}}}
+
+== 2013-11-13 ==
+仅仅时间发生了变化,前面会申请vodplayer的页面设置,以及其他的资源设置.
+
+js_dynamic_log.php
+->public.css
+->vod_video_info.php
+->public.css
+
+epg_controller.php // XXX
+
+vod_player.php
+

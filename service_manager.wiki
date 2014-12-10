@@ -1,0 +1,18 @@
+= 服务管理 =
+mtime: 2012-12-25 11:08:08 
+----
+
+ref:http://blog.csdn.net/panblack/article/details/7172691
+- 				RedHat/Fedora			Ubuntu						sysvconfig
+- 立即启动/停止	service httpd start		invoke-rc.d apache start	service apache start
+- 启动时加载		chkconfig httpd on		update-rc.d apache defaults	sysv-rc-conf apache on
+- 启动时不加载	chkconfig httpd off		update-rc.d	apache pruge	sysv-rc-conf apache off
+
+redhat新的管理工具
+systemctl
+
+- systemctl	enable httpd.service
+- systemctl	disable httpd.service
+- systemctl	status httpd.service
+- systemctl	list-units --type=service
+- systemctl	start httpd.service

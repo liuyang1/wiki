@@ -14,3 +14,7 @@ func = dlsym(fd, "sin");
 }}}
 
 not complex, but so useful!
+
+[[pthread_learn]]
+
+== ioctl ==

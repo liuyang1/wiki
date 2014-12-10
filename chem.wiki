@@ -1,0 +1,17 @@
+= 化学软件 =
+
+== chemoffice ==
+
+== pyMOL ==
+特别是蛋白质的三维结构效果很好.
+
+== kalzium ==
+元素周期表软件
+
+== AIMAII ==
+
+== ACD ==
+有化学画图软件包
+
+== chemhandbook ==
+化学品电子手册

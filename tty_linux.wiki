@@ -1,0 +1,3 @@
+== 设置字体 ==
+sudo dpkg-reconfigure console-setup
+

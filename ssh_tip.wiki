@@ -1,6 +1,8 @@
 = ssh wiki =
 2012-09-21 09:41:18 
 ----
+== config ==
+* IdentityFile
 == 文件权限问题 ==
 必须设置正确的文件权限,才可以完成ssh公钥登录的问题.
 例如:
@@ -135,6 +137,8 @@ $>ssh-add ~/.ssh/identity_private_key_filename
 
 keychain ~/.ssh/identity_private_key_filename
 
+eval $(keychain --eval --agents ssh -Q --quiet "/path/to/your/private/key")
+
 source ~/.keychain/Jade-sh(比较旧的资料,这里说的一般是source ~/.ssh-agent,这个已经没有了,改用这个命令).
 
 这样就可以了.
@@ -160,5 +164,7 @@ ref:http://www.ibm.com/developerworks/cn/linux/security/openssh/part2/index.html
 sshfd root@HOST:PATH /LOCALPATH
 
 将远程目录直接mount到本地目录
+
+but it's too slow.
 
 `这也太方便了吧?`

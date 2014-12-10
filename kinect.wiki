@@ -1,0 +1,56 @@
+== 邓小园文章 ==
+# 没有将杆,作为骨架的一部分.因此跟踪精度,不够自然.
+# 直接采用的cal3D的外部引擎.(如果加杆作为骨架部分,需要重新对引擎进行训练).
+# 只能进行单平面这种简单方法,进行检验.
+# 文章比较古老,目前已经不需要进行特殊动作,作为起始动作了.
+
+== for windows 更新 ==
+# 近场下,也就是深度传感器对于较近距离40cm范围也进行了支持
+# 色彩和深度数据同步上,也进行了改进
+
+== 调研信息 ==
+测量节点:
+- 头 颈 中心 腰
+- 肩,肘,腕,指尖,
+- 臀,膝盖,踝,足尖
+共计20个节点
+
+测量速度:
+30FPS,图像VGA(640x480).
+
+底座马达可以转动左右28'
+
+数据保存:
+ref:[[http://social.msdn.microsoft.com/Forums/en-US/8df9156e-38b8-45fd-baf7-e01a580986ef/recording-kinect-joint-data-and-then-convert-to-bvh?forum=kinectsdk|bvh save]]
+可以支持bvh的保存方式
+
+BVH最为关键的是,角度的计算.[[http://social.msdn.microsoft.com/Forums/en-US/8516bab7-c28b-4834-82c9-b3ef911cd1f7/using-kinect-to-calculate-angles-between-human-body-joints?forum=kinectsdknuiapi|angle]]
+
+=== bvh ===
+bvh格式,是BioVision等设备,对人体运动进行捕捉后获得文件格式的扩展名.
+该文件格式第一部分为关节树,以及关节点的名称,通道数目,关节间的相对位置(即骨骼长度)
+
+对于每个关节,使用三个旋转参数,来描述运动信息.hips关节点一般作为根节点.hips臀部.
+
+bvh文件第二部分,记录了运动数据,定义运行数据持续的长度(帧数)以及帧率.按照第一部分的定义关节顺序,提供数据.每个节点记录其位置信息和旋转信息.
+
+bvh 的数据结构是层次化的,这个需要注意.
+
+最新的BVH运动捕捉,已经可以捕捉面部表情.!!!
+
+== bvh 软件 ==
+
+qavimator sourceforge,alpha版本.好像还不可以用.
+
+bvhhacker.
+
+motive
+
+bvhviewer
+
+brekel kinect
+大型软件
+
+blender
+
+poser

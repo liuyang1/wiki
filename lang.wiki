@@ -1,8 +1,11 @@
 = programming language =
 
+* [[pascal]]
 == c-family lang ==
 * [[c_lang|C]]
-* [[posix_prog|POSIX programming]]
+* [[cpp_lang]]
+* [[java]]
+* [[golang_design|Go]]
 
 == python-like lang ==
 * [[python]]
@@ -17,8 +20,12 @@
 * [[clojure]]
 * [[scheme]]
 * [[erlang]]
+* [[common_lisp]]
 
 == other ==
 * [[ahk_usage|Auto Hot Key]]
 * [[markup_lang|Markup language]]
 
+
+[[lang_design]]
+[[design_pattern]]

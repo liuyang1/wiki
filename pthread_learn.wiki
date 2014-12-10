@@ -1,0 +1,38 @@
+= pthread库说明 =
+mtime: 2013-03-02 15:41:47 
+----
+
+pthread_cancel(pthread_t thread_id)
+
+可以从外部呼叫令线程取消.具体线程可以根据收到cancel信号,自行决定行为.
+
+pthread_testcancel( NULL)
+
+线程内部检测cancel信号的点,如果这个时侯收到cancel信号,则停止,退出线程
+
+ref:http://blog.chinaunix.net/uid-26548237-id-3197974.html
+
+----
+
+== 线程个数的问题 ==
+线程的个数往往会有很多地方有限制.比如系统中的配置信息等等.
+
+例如:/usr/include/bits/local_lim.h 中,对于linux_thread限制为1024个.
+
+----
+
+在linux平台上可以创建381个线程.之后创建线程返回错误EAGAIN.
+
+因为32位进程用户空间是3G大小,也就是3072M.默认配置线程的栈空间为8M.这样就是384个.代码段和数据段一般还需要占有一定空间.向下为383个.
+
+减去主线程,因此为381个.
+
+但是在linux上,系统还有一个管理线程.这样就是381个.
+----
+突破内存的限制,可以有两种方法:
+
+ulimit -s 1024,减少默认栈的大小(这个只对当前shell进程,以及其子进程作用,其他shell下是没有用的)
+
+pthread_create时候,时候pthread_attr_getstacksize设置一个较小的栈大小.
+
+ref:http://www.cppblog.com/fwxjj/archive/2011/10/12/158108.html

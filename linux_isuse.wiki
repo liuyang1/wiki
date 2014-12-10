@@ -1,0 +1,34 @@
+= matlab运行无界面问题 =
+matlab在awesome环境下,运行没有界面问题.
+
+1,使用Mtoolkit配置解决.
+2,使用awesome的wmname来设置解决
+
+== ubuntu 重置密码时候问题 ==
+无法重置,因为文件系统是只读挂载的,无法进行写入操作.
+
+可以使用`mount -rw remount /`重新进行挂载,即可解决问题.
+
+== 无法运行自动启动文件 ==
+linux的自动其中机制.
+
+/etc/rcX.d级别的配置文件
+
+其中rc2.d/SXXrc.local其实是到/etc/init.d的软连接.
+
+而/etc/init.d其实是调用了/etc/rc.local
+
+如果无法自动启动运行rc.local.请确认这个链条是否正常
+
+== opensuse 的启动文件 ==
+/etc/rc.d/boot.local
+
+== 单用户模式 ==
+启动到grub界面,a进入编辑模式.最后添加single 进入单用户模式.
+
+这样就可以以root权限登录,就可以进行各种修改工作了.
+
+== mount 问题 ==
+mount出现block bitmap group问题.
+
+可以通过e4fsck /dev/sda1之类就可以完成.

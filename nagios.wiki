@@ -1,0 +1,32 @@
+= nagios =
+
+== 配置方法 ==
+
+插件提供原始的命令.
+
+command中定义命令的名字与格式.
+
+service调用command中定义的命令.
+
+== 安装 ==
+=== Ubuntu ===
+使用apt可以直接安装.安装完成后,访问localhost/nagios3即可访问.
+
+需要输入用户名与密码.用户名为nagiosadmin.
+
+=== redhat ===
+配置好yum.(ustc.repo不可以,需要配置rpmforge的repo)
+
+yum install nagios-XXX
+
+== 跨服务器监控 ==
+使用NRPE代理,来完成.
+
+=== 被监控主机上 ===
+/etc/nagios/nrpe.cfg
+
+添加allow_host: IP1,IP2
+
+逗号分割,不能添加空格
+
+如果没有添加,则出现`CHECK_NRPE: Error - Could not complete SSL handshake.`错误.
