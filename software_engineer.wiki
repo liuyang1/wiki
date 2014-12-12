@@ -1,4 +1,11 @@
 = software engineering =
 
+== profile ==
+[[c_profile]]
 == test ==
 [[complexity]]
+
+[[continuation_integretion]]
+== distribute ==
+
+

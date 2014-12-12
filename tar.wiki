@@ -42,3 +42,8 @@ unxz
 a 
 
 e 解压
+
+= lib =
+== gzip ==
+== lzop ==
+much higher compression and decompression speed.

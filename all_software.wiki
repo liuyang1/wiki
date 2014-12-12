@@ -38,7 +38,7 @@ shellcheck
 - [[text_tool|文本工具]]
 - [[network_tool|网络工具]]
 - [[net_hacker|网络黑客工具]]
-- [[file_system_seek|FS中寻找]]
+- [[linux_fs_tool|Linux Filesystem Tool]]
 - [[iptables_config]]
 ==一堆桌面==
 * [[X_window|X window]]

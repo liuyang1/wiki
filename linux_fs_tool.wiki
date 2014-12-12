@@ -1,0 +1,40 @@
+= File System =
+= type =
+== ramdisk/tmpfs ==
+Linux is very efficient in using RAM, so not try to using ramdisk to speed up
+frequent IO.
+
+try using ramdisk/tmpfs to speed up compiling process, finally failed.
+
+* git GIT_DISCOVERY_ACROSS_FILESYSTEM, even though work around this by move
+ramdisk path to orignal code path.
+* ELF binaries not XIP(executable in place), so not executable under ramdisk
+* not so fast, not so efficient
+= tools =
+== mount ==
+
+= seek/find =
+== find ==
+find $HOME -name "*.pdf"
+
+find / -size +1024c
+
+find / -size -1024c
+
+find / -size +1024c -and -size -10240c
+
+寻找大于特定文件大小的文件
+
+find . -type f -size + 100000k
+
+- -mount 不跨越文件的挂载点进行查找,在某些情况下,例如不希望检查挂载路径时非常方便
+
+== tree ==
+
+tree -f | grep ABC
+
+== locate ==
+
+locate ABC
+
+updatedb

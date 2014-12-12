@@ -149,6 +149,11 @@ http://www.cis.upenn.edu/~bcpierce/unison/
 
 停止开发
 == netcat ==
+=== option ===
+- -v        verbose
+- -w        waittime
+- -u        udp protocol
+- -z        zero input/output mode, only for port scan
 必须双向都包含这个软件,这个软件本身是linux自带,
 
 主要是将网络内容写入到socket.
@@ -159,6 +164,11 @@ server$ nc -l -p 5000 > outfile.tgz
 client$ nc -q0 server.example.com 5000 < infile.tgz
 }}}
 
-wiki的页面::[[http://en.wikipedia.org/wiki/Comparison_of_file_synchronization_software]]
+=== test port open or close ===
+nc -v -w [TIME] IP -z PORT
+
+nc -v -w [TIME] IP -z PORT1-PORT2
 
 所有的同步软件
+[[http://en.wikipedia.org/wiki/Comparison_of_file_synchronization_software|wiki]]
+

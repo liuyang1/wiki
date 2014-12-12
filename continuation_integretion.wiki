@@ -1,0 +1,8 @@
+= Continuation Integration =
+
+== Jenkins ==
+
+== Travis CI ==
+
+* local config
+* multi-version, complex environment support
