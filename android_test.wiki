@@ -1,8 +1,0 @@
-== network ==
-- ifconfig [networkname]
-
-such as: tiwlan0, eth0, lo
-
-* netcfg [<interface> {dhcp|up|down}]
-
-- ip addr

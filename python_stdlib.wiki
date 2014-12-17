@@ -37,3 +37,12 @@ cPickle
 - exists    is exist
 === broswring file ===
 - walk      triple tuple -> path, dirname, fnames
+
+= Python Runtime Service =
+== inspect ==
+Inspect live objects
+
+runtime get type
+
+- getargspec(_func_)
+get the names and default values of a Python function's arguments.

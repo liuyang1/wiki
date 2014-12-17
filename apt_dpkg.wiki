@@ -1,4 +1,5 @@
 == apt ==
+- qq        quite command, not output and imples -y
 === auto update for security ===
 
 using unattend-upgrades

@@ -44,26 +44,19 @@ struct init, as . style.
 = gcc =
 == option ==
 * m32,m64                   spec for 32bit or 64bit code
-= ld =
-ld is a linker.
 
-one alias collect or collect2.
-
-normally, DONOT using ld command directly, as gcc will hidden so many param of
-ld.
-
-* --entry main              spec entry is main
-* -T, --scriptfile          add spec file, which overlay system ld script, but
-could accumlate.
-
-= ldd =
-print shared libraries deps
 == 使用ccache加速 ==
 使用ccache gcc或者ccache g++,可以复用缓存的文件,这样加快编译速度.
 
 相比与一般的文件,仅仅保存为.o文件,而这个可以暂存头文件的编译结果,等等.
 
 同时可以使用ccache将缓存文件定位到tmpfs中,这样加快编译速度,而且不消耗硬盘.
+
+== distcc ==
+- run it only need under normal user, not root.
+- on server, run `distccd --daemon --allow 10.0.0.0/8`
+- export *DISTCC_HOST*="_IP_ ..." to ENV, and wrap toolchain with distcc, will
+run it background automatically.
 
 == warning ==
 === strict-aliasing ===

@@ -7,5 +7,13 @@ java的传递类型:
 
 [[lang_design]]
 
-=== depedency manager tool ===
-[[maven]]
+== tools ==
+=== maven ===
+depedency manager tool
+
+java的构建工具,类似与C/C++的make一样.但是更为强大与全面.
+
+=== ant ===
+a Java based make tool
+
+read from build.xml which describes the targets. (such as Makefile to make)

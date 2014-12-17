@@ -15,6 +15,7 @@ better?
 # powerline
 
 == ctags ==
+NOTE:
 当生成的tags文件过大的时候,可能会导致问题.目前测试,在大小为140MB的时候,就会出现问题.
 
 `ctags -R --sort=foldcase`

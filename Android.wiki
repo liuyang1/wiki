@@ -4,6 +4,41 @@
 
 * [[media_framework]]
 
-* [[adb]]
-* [[android_test]]
 * [[arm_hardware]]
+
+== tools ==
+=== adb ===
+
+* select device
+adb -s [DeviceID] ...
+
+=== android ===
+NOTE:
+this is development tool, not other things.
+
+development tool
+- create, delete, view Android Virtual Devices(*AVD* s)
+- create, update Android projects
+- update Android SDK with new platforms, add-ons, and documents.
+
+=== systrace ===
+capturing data
+- check exist of `sys/kernel/debug/tracing`, then
+{{{
+echo 32768 /sys/kernel/debug/tracing/per/cpu/cpu*/buffer_size_kb
+echo 1 > sys/kernel/debug/tracing/tracing_on
+}}}
+to enable tracing mode.
+- Android kernel such as CPU scheduler (from `/proc/cpuinfo`), disk activity
+- application threads
+
+then write log to HTML template, to get result display.
+
+=== netcfg ===
+- ifconfig [networkname]
+
+such as: tiwlan0, eth0, lo
+
+* netcfg [<interface> {dhcp|up|down}]
+
+- ip addr

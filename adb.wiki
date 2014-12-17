@@ -1,4 +1,0 @@
-= adb =
-
-* select device
-adb -s [DeviceID] ...

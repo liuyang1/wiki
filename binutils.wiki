@@ -1,5 +1,66 @@
 == ld ==
 linker
+
+one alias collect or collect2.
+
+normally, DONOT using ld command directly, as gcc will hidden so many param of
+ld.
+
+* --entry main              spec entry is main
+* -T, --scriptfile          add spec file, which overlay system ld script, but
+could accumlate.
+
+=== issue ===
+==== how libraries are used ====
+* starting up an ELF binary executable automatically causes the program loader
+to be loaded and run. on Linux, linker will `/lib/ld-linux.so.X`
+
+- the list of directories stored in the file `/etc/ld.so.conf` will search.
+(using _include_ will include other file, generic is `/etc/ld.so.conf.d/*.conf`)
+
+* if only override a few functions in a library, but keep the rest of the
+library, using `/etc/ld.so.preload`, add override libraries(*.o). these
+`preloading` libraries will tack precedence over the standard sets.
+
+NOTE:
+This feature is typically ONLY used for emergency patches.
+
+* a caching arrangement for these libraries. `ldconfig` by default reads in the
+file /etc/ld.so.conf, set up the symbolic links in the dynamic link directires.
+write a cache to `/etc/ld.so.cache` for other programs.
+
+must run ldconfig, under conditions listed below.
+- add a DDL
+- remove a DDL
+- DDL directories changes
+
+package manager normally run ldconfig after install or uninstall package.
+
+On start-up, dynamic loader actually uses the file /etc/ld.so.cache, and loads
+the libraries it needs.
+
+==== ENV var ====
+- `LD_LIBRARY_PATH` a colon-seperated set of directories search first.
+- `LD_PRELOAD` lists shared libraries with function that override the std set.
+just as ld.so.preload file.
+
+NOTE:
+these are implemented by /lib/ld-linux.so
+| generic UNIX | LD_PRELOAD |
+| HP-UX        | SHLIB_PATH |
+| AIX          | LIBPATH    |
+
+==== preloading ====
+using LD_PRELOAD, for override binary executable logic, or for reverse engineer-
+ing a binary blob.
+
+but only dynamic load symbol could preload, symbols static linked or in itself
+could not 'preload'
+
+`cwrap` is a tool use for debug using preloading.
+=== ldd ===
+print shared libraries deps as `linking order`
+
 == as ==
 assembler
 
@@ -48,7 +109,32 @@ function.
 The C profiling code is derived from gprof, so this library has to be licenced
 GPLv2+.
 
+so for Android Env, need external profiler.
+[[https://github.com/richq/android-ndk-profiler|github]]
+=== ARM profiling impl ===
+compiler insert a call to __gnu_mcount_nc into every function prolugue.
 
+must impl of __gnu_mcount_nc.
+
+* on exit, pop the top value from *stack*, and place it in the *lr* register.
+*sp* should be adjusted accoridingly.
+{{{
+    .globl __gnu_mcount_nc
+    .type __gnu_mcount_nc, %function
+__gnu_mcount_nc:
+    mov ip, lr
+    pop { lr }
+    bx ip
+}}}
+* preserve all other register state except for *r12* and the *CPSR* condition
+code bits. In particular all coprocessor state and register *r0* ~ *r3* must be
+preserved.
+* record and count all occurrrences of the function calls in the program.
+(on entry to __gnu_mcount_nc)
+- caller <- the *lr* value stored on the top of the stack
+- callee <- the current value of *lr* register.
+* arrange for the data to be saved to a file name *gmon.out* when program exit.
+(via atexit)
 == nlmconv ==
 converts object code into an NLM.
 

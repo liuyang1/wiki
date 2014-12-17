@@ -71,6 +71,7 @@ done
 * -e/-o errexit     exit when any command return false
 but now you can judge on $?, will have to use && or || to combine command
 * -o pipefall       fail when one of pipe fall (default as last command)
+* -x                output detail
 reverse operation +v or +u ...
 
 example::
@@ -79,7 +80,13 @@ set -v on
 
 :cmd:
 bash -v
+==== add lineno output in bash script ====
+*NOT* support for dash.
 
+{{{
+PS4=':${LINENO}+'
+set -x
+}}}
 === trap ===
 trap for clean state, when script have some exceptional condition.
 
