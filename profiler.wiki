@@ -1,6 +1,95 @@
 = profiler tools =
+
+normally profiler tools have 3 classes:
+# external tool, capture CPU or MEM state when programm is executing.
+or simply run it, and calculate state-over time.
+or get runtime state of process throuhg OS.
+    # chromium systrace
+# infectting style, add stub or such other things to binary executable file,
+through compiling process, runtime dynamic override symbol, or simply runtime
+debug symbol.
+    # gprof
+    # ohter compiler profiling tool.
+# internal process such as manually adding profiling log in code
+
+Obviously infectting style is best but much more complex style.
 == goog-pref ==
 # link to executable. `-lprofiler`
 #
 
+== ftrace ==
+static stub
 
+ftrace depedence on other kernel feature
+- debugfs
+- ..
+
+`mount -t debugfs nodev [any node: as /debug]`
+
+`echo ftrace > /debug/tracing/current_tracer`
+
+start tracing, stop tracing echo 0
+
+`echo 1 > /debug/tracing/tracing_enable`
+
+{{{
+# tracer: nop\n\
+#\n\
+# entries-in-buffer/entries-written: 61281/61281   #P:2\n\
+#\n\
+#                              _-----=> irqs-off\n\
+#                             / _----=> need-resched\n\
+#                            | / _---=> hardirq/softirq\n\
+#                            || / _--=> preempt-depth\n\
+#                            ||| /     delay\n\
+#           TASK-PID   CPU#  ||||    TIMESTAMP  FUNCTION\n\
+#              | |       |   ||||       |         |\n\
+           <...>-632   [001] ...1  4643.166353: tracing_mark_write: B|632|main\n\
+           <...>-632   [001] ...1  4643.166655: tracing_mark_write: B|632|mutex\n\
+           <...>-632   [001] ...1  4643.166667: tracing_mark_write: B|632|gMemoryDebugMutex\n\
+}}}
+
+NOTE:
+differenet tracer may give different format tracing message.
+
+=== tracer type ===
+| function tracer        | function calling flow                          |
+| schedule switch tracer | process switch or wakeup info                  |
+| irqsoff tracer         | interrupt                                      |
+| function graph tracer  | fucntion calling graph                         |
+| sysprof tracer         | sample of kernel state                         |
+| other tracer           | ----                                           |
+| max stack tracer       | output most full stack to stack_tracer file    |
+| branch tracer          | branch likely or unlikely assert right or fail |
+| workqueue profiling    |                                                |
+| event tracer           | important event logger                         |
+
+=== how to impl it ===
+ftrace img
+
+- framework read control info from user space through debugfs
+- tracer register to framework
+- ftrace framework dynamic modify on kernel
+- kernal dispatch info to tracer
+- tracer dump trace info to ringbuffer
+- user get trace info from ring buffer
+
+ftrace using pg option of GCC add stub code.
+ftrace override this stub code to impl trace feature.
+NOTE:
+kernel space not exist libc, so not exist __gnu_mcount_nc.
+
+# when enable *_CONFIG_DYNAMIC_FTRACE*, compiling process will call a
+recodemcount.pl script to write all function address to a special section:
+*__mcount_loc*.
+
+# when init kernel, ftrace will check __mcount_loc section, add replace mcount
+to nop operator, so ftrace will not affect any perfermance of kernel.
+
+# when enable ftrace, ftrace will replace nop to ftrace_caller, this function
+will call registered trace function.
+
+=== pyTimeChart ===
+based on chaco graphic library, a ftrace visualization tool.
+
+== LTTng ==

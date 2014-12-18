@@ -22,6 +22,7 @@ development tool
 - update Android SDK with new platforms, add-ons, and documents.
 
 === systrace ===
+==== flow ====
 capturing data
 - check exist of `sys/kernel/debug/tracing`, then
 {{{
@@ -29,10 +30,23 @@ echo 32768 /sys/kernel/debug/tracing/per/cpu/cpu*/buffer_size_kb
 echo 1 > sys/kernel/debug/tracing/tracing_on
 }}}
 to enable tracing mode.
-- Android kernel such as CPU scheduler (from `/proc/cpuinfo`), disk activity
+- Android kernel such as CPU scheduler (from `/proc/cpuinfo`), kernal and disk
+activity
 - application threads
 
 then write log to HTML template, to get result display.
+
+==== enable tracing ====
+- connected through USB, and _enable USB for debugging_.
+- linux kernel need support _TRACE_ mode.
+
+Command Line::
+start / stop command
+
+GUI::
+Settings > Developer Options > Monitoring > Enable traces
+
+select categories of processes to be traced and click OK.
 
 === netcfg ===
 - ifconfig [networkname]

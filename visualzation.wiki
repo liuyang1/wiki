@@ -12,7 +12,11 @@ seems better than graphviz.
 
 =figure plot=
 ===matplotlib===
-    python lib, using for math plot, such as math function.
+python lib, using for math plot, such as math function.
+
+=== derivated library ===
+- pylab
+- pylab2
 === prettyplotlib ===
 based on matplotlib, but better. good color platte
 
@@ -34,3 +38,11 @@ same like graphlite, plot and explore your data in real-time!
 
 === visage ===
     一个colltecd的前端,可以作为网页界面,同时收集数据存储未JSON格式.
+= visualzation library =
+== python ==
+
+=== Chaco ===
+Interactive 2-D ploting for applications.
+
+=== Mayavi ===
+Interactive and scriptable 3-D visualazion.
