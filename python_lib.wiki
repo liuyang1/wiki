@@ -147,13 +147,16 @@ ref:http://docs.python.org/release/3.1.2/library/struct.html
 
 
 == HTTP服务 ==
-python -m SimpleHTTPServer
+python -m *SimpleHTTPServer*
 
 开启当前文件目录为HTTP服务器,端口号为8000
+
+under python3, this moudle rename to *http.server*
 
 python -m CGIHTTPServer
 
 开启完整的webserver
+
 
 == pylucene install == 
 1,install java

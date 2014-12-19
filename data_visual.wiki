@@ -27,3 +27,8 @@
 其中衍生的newsmap,还增加了举行的颜色,这一维度,表示其活跃程度等信息.
 
 ref:[[http://www.cs.umd.edu/hcil/treemap-history/index.shtml]]
+
+== calendar view ==
+combine week and month (maybe count on year) display.
+
+show daily event frequently.

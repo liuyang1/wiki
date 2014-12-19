@@ -1,0 +1,4 @@
+= javascript =
+
+- chain-style call
+- callback function/lambda function hell

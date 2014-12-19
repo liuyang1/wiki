@@ -28,7 +28,7 @@ based on matplotlib, but better. good color platte
     据说较复杂...
     plot for watch system.
 === graphite ===
-    绘图工具,可以用于数据收集之后的自动绘图.
+绘图工具,可以用于数据收集之后的自动绘图.
 
 # store numberic time-series data
 # render graphs of this data on demand
