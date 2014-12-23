@@ -75,9 +75,13 @@ su
 
 sudo
 
-passwd
+== passwd ==
 
-wall
+passwd -l [username]
+
+lock to login use password
+
+== wall ==
 
 broadcast message to all user who login and with terminal enabled MESG
 

@@ -42,6 +42,11 @@ testoutput
 # 只能用于非常简单的测试.
 # "重载"了docstring的作用,就不能随便写docstring了.这不是其原本设计时候的目的.
 
+=== isuse ===
+==== raw string ====
+when docstirng contain backslash, your have two choice.
+* prefix with 'r' to declare it's raw string
+* using double backslash to keep your litreate testing.
 
 == nose ==
 nose支持的另外一种方式比较好用.

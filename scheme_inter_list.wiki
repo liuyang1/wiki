@@ -45,3 +45,5 @@ ref:http://docs.racket-lang.org/readline/index.html
 gcc -I /usr/include/chicken -lchicken 03.c
 
 之后./a.out就可以执行了啊!!!
+
+== mit-scheme ==

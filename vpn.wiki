@@ -1,0 +1,57 @@
+= PPTP =
+VPN protocol, but default not support cross route.
+
+== config ==
+- /etc/ppp/pptpd-options
+uncomment
+{{{
+refuse-pap
+refure-chap
+refuse-mschap
+}}}
+add this config
+{{{
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+}}}
+
+not write error.
+
+- /etc/pptpd.conf
+IP range
+
+last add
+{{{
+localip 192.168.0.1
+remoteip 192.168.0.234-238
+}}}
+
+comment on
+{{{
+logwtmp
+}}}
+`this will cause 800 error`
+
+- /etc/ppp/chap-secrets
+
+[username] [service] [password] [allow ip address]
+
+== other ==
+- /etc/sysctl.conf
+network forward
+uncomment on
+`net.ipv4.ip_forward=1`
+
+sysctl -p
+
+- iptables
+`iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source`
+
+== error checking ==
+/var/log/syslog
+
+== chap ==
+- mppe
+microsoft auth mode, default Android use.
+= l2tp + IPSec =
+TODO:

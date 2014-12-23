@@ -3,6 +3,19 @@
 ----
 == config ==
 * IdentityFile
+=== share connection ===
+* ControlMaster auto
+* ControlPath /tmp/ssh_mux_%h_%p_%r
+
+=== long connection ===
+* ControlPersist 4h
+=== Forward X11 ===
+config on sshd::
+ForwardX11 yes
+
+config on client::
+X11Forwarding yes
+= issue =
 == 文件权限问题 ==
 必须设置正确的文件权限,才可以完成ssh公钥登录的问题.
 例如:
@@ -25,6 +38,7 @@
 {{{
 	chmod 600 ~/.ssh/config
 }}}
+= topic =
 ==直接命令==
 ssh也可以直接输入命令,如果仅仅是简单的单个命令的时候就特别方便.例如
 {{{class="brush:bash"
@@ -85,6 +99,10 @@ lls,lcd,
 ssh -D [本地IP/省略]:[本地端口] [服务器用户名@服务器IP地址] -p 服务器端口(默认22)
 
 配置代理,直接选择sock5即可.
+
+`ssh -qTfnN -D 7070 user@host`
+
+then select socks5 proxy mode, 127.0.0.1:7070.
 
 == 自动断线重连 ==
 使用autossh工具
