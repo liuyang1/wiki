@@ -72,39 +72,14 @@ sar -u 2 400
 - -o [filename] 写入报告到文件中
 - -e 设定结束汇报的时间
 
-== autojump ==
-autojump工具,用于自动在目录之间跳转,非常好用的工具.
-
-他会统计你在各个路径下的时间,从而根据不同的权重,估计你要去的路径.
-
-这样你只需要j [路径名称中的一部分]就可以了.
-
-_不要从ubuntu官网去安装_ 那个自2009年都没有更新了.
-
-额外提供.
-
-jc  跳转到子目录
-
-不要在awesome下使用jo,这会引起awesome桌面的崩溃.
-
-autojump --purge
-
-从autojump.txt中,清除不存在的目录.
-
-没有自动清理的原因是很多用户希望保留文件夹,从usb或者网络设备上.
-
-同时这个需要检查所有的数据库路径,每次进行cd的时候,如果在慢速的IO设备上,将引起不必要的延迟.
-其他请参考man autojump
-== expect ==
-{{{
-expect是什么,是一个tcl的脚本.一般用户密码登录,以及其他需要实时输入的场景.
-比如ssh密码登录.
-缺点也是非常明显的,需要将用户名和密码存储在脚本中.
-}}}
-
 == time ==
 进行计时的工具,注意,可能和shell提供的略有区别,因此运行时可能需要路径/usr/bin/time
 
 - -a参数,输出到文件的时候,是append模式
 - -o,输出到文件,后面带文件名采菽
 - -p,输出格式为POSIX格式
+
+== scrot ==
+linux screenshoft util
+
+- default       fullscreen screenshot, save as DATA_TIME_screenshoft.png

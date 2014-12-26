@@ -1,0 +1,11 @@
+= generic =
+| vcs | git |
+= server =
+== service ==
+=== filesystem ===
+| ftp | vsftpd |
+| vpn | pptpd  |
+
+= laptop =
+= PC =
+= Android =

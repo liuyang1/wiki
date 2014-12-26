@@ -268,6 +268,14 @@ http://yuzifu.net/book/vimdoc/windows.html
 - Ctrl-W T          move this windows to new tab page
                     (but when have only one window, can not do this)
 
+== macro ==
+- q{0-9a-zA-Z"}     Record typed characters into register {0-9a-zA-Z"}
+- q                 Stop recording.
+- @{0-9a-z".=*+}    Execute the contents of regster [count] times.
+- @@                Repeat the previous @{...} [count] times.
+
+NOTE:
+record marcro, then reexecute it, will helpling a lot of duplicate jobs.
 = topic =
 == 编辑远程主机上的文件 ==
 {{{

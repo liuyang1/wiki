@@ -10,9 +10,9 @@ body {font-family: Tahoma, Geneva, sans-serif; margin-top: 1em; margin-bottom: 1
     margin-right:auto;
 }
 h1, h2, h3, h4, h5, h6 {font-family: Trebuchet MS, Helvetica, sans-serif; line-height:100%; margin-top: 0.5em; margin-bottom: 0.3em;}
-h1 {font-size: 2.2em; color: #002b36; text-align:center; } 
-h2 {font-size: 1.6em; color: #073642; text-align:center; }
-h3 {font-size: 1.4em; color: #2aa198;}
+h1 {font-size: 2.2em; color: #002b36; text-align:center; }
+h2 {font-size: 1.8em; color: #073642; text-align:center; }
+h3 {font-size: 1.6em; color: #2aa198;}
 h4 {font-size: 1.2em; color: #859900;}
 h5 {font-size: 1.1em; color: #989898;}
 h6 {font-size: 1.0em; color: #9c9c9c;}
@@ -40,7 +40,7 @@ del {text-decoration: line-through; color: #777777;}
 
 a:link    { color: #cb4b16; text-decoration:none;}
 a:visited { color: #268bd2; text-decoration:none;}
-a:hover   { color: #d33682; text-decoration:none; font-size: 105%; font-weight: bold;}
+a:hover   { color: #d33682; text-decoration:none; font-size: 100%; font-weight: bold;}
 
 
 /* classes for items of todo lists */
@@ -94,6 +94,7 @@ code {
     color: #52595d;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
+    text-indent: 0em;
 }
 
 .timestamp{

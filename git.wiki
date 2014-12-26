@@ -48,9 +48,9 @@ git gc --aggressive --prune=now
 merge it as other remote repo
 
 {{{
-git remote add other [../path/to/repo1/]
-git fetch other
-git checkout -b [repo1branch] others/master
+git remote add [OtherRepoName] [../path/to/repo1/]
+git fetch [OtherRepoName]
+git checkout -b [repo1branch] [OtherReopName]/master
 git checkout master
 git merge [repo1branch]
 }}}

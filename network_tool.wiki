@@ -164,3 +164,13 @@ ethtool eth0
 lspci | grep Ethe
 
 dmesg | grpe -i eth
+
+= wireless =
+
+== wicd ==
+
+== NetworkManager ==
+
+== netctl ==
+
+== wpa_supplicant ==

@@ -47,6 +47,7 @@ from:[[expert_shell_scripting|shell专家指南]]
 * -delete,删除多余的文件
 * --exclude=PATH,除去路径(相对路径)
 * -progress,显示进度
+* -L, follow soft link, consider it like real file, not only copy a link
 
 *一个错误*
 

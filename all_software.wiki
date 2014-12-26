@@ -1,9 +1,6 @@
 = 奇技淫巧 软件技巧 =
 %toc
 ----
-== shell little tool ==
-* [[autojump]]
-* fasd
 
 = programming tool =
 == shell ==
@@ -22,6 +19,7 @@ shellcheck
 ==最爱VI==
 - [[vim]]
 - [[vim_plugin]]
+- [[vim_script]]
 
 ==命令行工具==
 [[shell_tool_list]]
@@ -75,6 +73,7 @@ Alt,是Mod1键
 - reST
 	* [[reST_format|reST文档格式]]
 	* [[reST_tool|reST工具]]
+- [[markdown|Markdown]]
 
 ==服务器软件==
 - [[linux_sys_install]]
