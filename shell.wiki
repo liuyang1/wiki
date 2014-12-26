@@ -295,3 +295,17 @@ SHELLSHOCK.
 using shellcheck to detect this warnings to write robust bash script.
 
 * add local,readonly decorator
+=== readonly ===
+- readonly -p display/define readonly var list
+- readonly -f display/define readonly function list
+- readonly -a display/define readonly array
+
+=== declare ===
+- -r        readonly
+- -p        display property of var
+- -a        array
+- -f        function
+- -i        int
+- -F        function name or its property
+- -t        var have trace property
+- -x        setting env var

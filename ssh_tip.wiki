@@ -161,7 +161,7 @@ ref:http://www.ibm.com/developerworks/cn/linux/security/openssh/part2/index.html
 # dsh工具
 
 == sshfs ==
-sshfd root@HOST:PATH /LOCALPATH
+sshfs root@HOST:PATH /LOCALPATH
 
 将远程目录直接mount到本地目录
 

@@ -2,6 +2,21 @@
 
 = topic =
 [[github]]
+
+== combine commits ==
+git rebase -i [not change commit SHA]
+
+enter interactive vim
+
+- pick      use commit
+- *squash*  use commit, but meld into previous commit
+
+- reword    use commit, but edit commit message
+
+normally, first stay as "pick", other change to "squash"
+
+then need to rewrite new commit message
+
 == 上游问题 ==
 git remote add upstream XXX
 

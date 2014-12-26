@@ -13,3 +13,8 @@ xdg-mime default chromium.desktop x-scheme-handler/http
 
 === xdg-open ===
 xdg open http://www.ustc.edu.cn
+
+== xrandr ==
+config it to rotate to left
+
+`xrandr --output VGA1 --rotate left`
