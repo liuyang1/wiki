@@ -1,0 +1,7 @@
+== different ==
+* print move to print function
+* input() replace raw_input()
+* reduce move to functools
+* remove *xrange*, default range to xrange
+* *filter*, *map* return iterator not list
+* / -> //

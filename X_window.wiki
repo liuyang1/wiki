@@ -14,7 +14,18 @@ xdg-mime default chromium.desktop x-scheme-handler/http
 === xdg-open ===
 xdg open http://www.ustc.edu.cn
 
+<<<<<<< Updated upstream
 == xrandr ==
 config it to rotate to left
 
 `xrandr --output VGA1 --rotate left`
+
+== xv ==
+display image
+
+== xclip ==
+using clipboard
+
+`xclip -selection c`
+
+read from stdin, then we could using *C-V* for other application

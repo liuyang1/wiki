@@ -1,11 +1,17 @@
 =文本工具=
-mtime:2012-09-23 23:06:31 
+mtime:2012-09-23 23:06:31
+== head ==
+- -c        as char (default line)
+- -n        line
 
-== head/tail ==
+when using *-* or negtive number, that means display all but exclude last K
+chars or lines
+
+== tail ==
 	显示文件的开始或者结束部分.
-	{{{
-		tail -f filename
-	}}}
+
+`tail -f filename`
+
 	跟踪显示文件内容,特别用于 *日志更新显示* .
 	
 == multitail ==
@@ -28,15 +34,13 @@ multitail *.log -s 2
 
 文件名字符转换
 
-{{{
-convmv -f gbk -t utf8 --notest --nosmart 
-}}}
+`convmv -f gbk -t utf8 --notest --nosmart`
 
 === iconv ===
 
 文件内容转换
 
-iconv -f gbk -t utf8 address.csv > address.utf8.csv
+`iconv -f gbk -t utf8 address.csv > address.utf8.csv`
 
 == echo ==
 * -n,不加回车符号
@@ -59,9 +63,9 @@ iconv -f gbk -t utf8 address.csv > address.utf8.csv
 
 如下:
 
-cat 2>&1 | tee -a [logfile]
+`cat 2>&1 | tee -a [logfile]`
 
-cat 2 > logfile | cat - logfile
+`cat 2 > logfile | cat - logfile`
 
 这是利用了cat可以显示到多个文件
 

@@ -56,3 +56,9 @@ such as: tiwlan0, eth0, lo
 * netcfg [<interface> {dhcp|up|down}]
 
 - ip addr
+
+== studio ==
+=== fetch fail ===
+add this line to idea.properties
+
+`disable.android.first.run=true`

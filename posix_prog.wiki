@@ -18,3 +18,10 @@ not complex, but so useful!
 [[pthread_learn]]
 
 == ioctl ==
+
+== stream buffering operations ==
+=== strvbuf ===
+change opend stream's buffer mode
+* unbuffered
+* line buffered
+* fully buffered (block buffered?)

@@ -178,7 +178,9 @@ this is so useful for moving, deleting, and so on.
 
 - zj                    移动到下一个折叠
 - zk                    移动到上一个折叠
-==命令模式下==
+==命令模式 command mode ==
+- wildmenu
+- <C-D>                 expand it
 === exit ===
 - :x
 使用该命令而不是:wq,这样只有当文件修改的时候,才会进行保存与修改时间的操作.
@@ -349,6 +351,22 @@ set list
 set listchars=tab:\>\-,trail:<,extends:>
 }}}
 
+== ctag ==
+- tag [TAGNAME]         search tag
+- stag [TAGNAME]        open tag in new window
+- tselect [TAGNAME]     list tag
+- stselect [TAGNAME]    list tag, and open it in new window
+- g]                    list current tag on cursor
+
+=== return after a tag jump ===
+- pop                   ex command
+- <C-t>
+
+rejump to tag
+- tag                   directly use tag
+
+list tag stack
+- tags, tagstack
 == 问题 ==
 mouse=a
 

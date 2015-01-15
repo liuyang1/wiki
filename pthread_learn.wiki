@@ -2,6 +2,26 @@
 mtime: 2013-03-02 15:41:47 
 ----
 
+{{{
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void
+        *(*start_route) (void *), void *arg);
+}}}
+start pthread as start_route, with arg.
+
+== uninitialize problem ==
+In    the     current     implementation     of     threads,
+pthread_mutex_lock(),  pthread_mutex_unlock(), mutex_lock(),
+mutex_unlock(), pthread_mutex_trylock(), and mutex_trylock()
+do *NOT* validate the mutex type.  Therefore, an uninitialized
+mutex or a mutex with an invalid type does not return   EIN-
+VAL.  Interfaces  for  mutexes  with  an  invalid  type have
+unspecified behavior.
+
+Uninitialized mutexes that are allocated locally may contain
+junk  data.  Such  mutexes  need  to  be  initialized  using
+pthread_mutex_init() or  mutex_init().
+----
+
 pthread_cancel(pthread_t thread_id)
 
 可以从外部呼叫令线程取消.具体线程可以根据收到cancel信号,自行决定行为.
