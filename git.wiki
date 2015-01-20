@@ -66,8 +66,8 @@ git merge [repo1branch]
 
 这种方式设置支持到行级别.
 == tag ==
-- 添加tag	git tag -a vXXX -m "MMM"
-- 删除tag	git tag -d vXXX
+- tag -a vXXX -m "MMM"      添加tag	git
+- tag -d vXXX               删除tag	git
 - push远程tag	git push --tags
 - 删除远程tag	git push origin :vXXX
 
@@ -340,3 +340,9 @@ git push --mirror URL
 可以方便的检查变更.具体之后在尝试吧.
 
 ref::[[http://cmonkey.github.io/blog/2012/04/01/tig/]]
+
+= git internal =
+git is a *content-addressable* filesystem.
+and build a VCS on it.
+
+== plumbing vs. procelain ==

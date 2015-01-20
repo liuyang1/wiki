@@ -25,3 +25,42 @@ change opend stream's buffer mode
 * unbuffered
 * line buffered
 * fully buffered (block buffered?)
+
+=== termios & ... ===
+==== termios struct ====
+- tcflag_t c_ifflag         input mode
+- tcflag_t c_offlag
+- c_cfflag
+- *c_lfflag*                local mode?
+
+* ISIG      when INTR, QUIT, SUSP, DSUSP received, generate the corrspoding
+signal.
+* *ICANON*      enable canonical mode
+
+==== Cannonical and noncannonical mode ====
+Cannonical mode
+
+input is made available line by line, input line is available when one of the
+line delimiters is typed (NL, EOL, EOL2 or EOF at the start of line)
+
+Except in the case of EOF, the line delimiters is included in the buffer
+returned by *read*.
+
+...
+
+
+Noncannonical mode
+
+input is available immediately (without the user having to type a
+        line-delimiters char), no input processing is performed, and line
+editing is disabled.
+
+=== fn on termios ===
+- tcgetattr
+- tcsetattr
+
+* TCSANOW       change occurs immediately
+* TCSADRAIN     after all output written to fd has been trasmitted.
+* TCSAFLUSH     after all output written to the object referred by fd has been
+transmitted
+
