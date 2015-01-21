@@ -1,7 +1,17 @@
 == different ==
-* print move to print function
+* print_function        print move to print function
+* division              / -> //
 * input() replace raw_input()
 * reduce move to functools
+
+=== widely default generator/iterator ===
 * remove *xrange*, default range to xrange
 * *filter*, *map* return iterator not list
-* / -> //
+
+=== nested_scope ===
+
+=== absolute_import ===
+
+=== with_statement ===
+
+=== unicode_literals ===

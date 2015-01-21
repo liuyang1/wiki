@@ -227,7 +227,9 @@ os.popen deprecated. NOT use it.
 * chain 多个列表序列
 * compress 数据,选择器,其中选择器为一个布尔序列
 * dropwhile,生成序列,从预测函数成功
-* groupby,分组,序列+分组函数 TODO:
+* groupby,分组,序列+分组函数
+NOTE:
+groupby need first *sorted* it.
 * ifilter
 * ifilterfalse,按照谓词函数进行判定序列
 * islice

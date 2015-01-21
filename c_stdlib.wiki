@@ -8,3 +8,10 @@ when running with POSIX, using 't' mode, fopen() will fail with a msg indicate
 a non-valid mode was specified.
 
 * at+       append, and if not exist, will create
+
+=== remove ===
+`int remove(const char *pathname)`
+
+if the name was the last link to a file, but any processes still have the file
+open, the file will remain in existence until the last file descriptor
+referring to it is closed.

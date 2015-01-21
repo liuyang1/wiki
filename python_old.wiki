@@ -212,11 +212,6 @@ PYTHONPATH,设置python的importing模块路径.
 
 除了常规的路径,独立的PYTHONPATH项,也可以指向zip文件,包含纯粹的python模块.扩展模块,不可以从zip文件中导入的.
 
-== 命名tuple ==
-Item = namedtuple("Item", ['index', 'value', 'weight'])
-
-Item(i-1, int(parts[0]), int(parts[1]))
-
 == pip 使用 ==
 可是测试了好像没有效果
 

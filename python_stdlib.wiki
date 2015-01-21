@@ -25,6 +25,7 @@ cPickle
 
 = os =
 == os.path ==
+- isfile        check file existence
 
 - expanduser    expand to home directory
 === filename processing ===

@@ -1,0 +1,27 @@
+= how to send mail from the linux command line =
+
+*mail -s [SUBJECT] [TOaddrlist]*
+
+mail body from _STDIN_ or using _echo_ command
+
+== OPTION ==
+- -s    SUBJECT
+- -c    CC to addr
+- -b    BCC to addr
+- comma delimiter in TOADDR
+- -a    append other header scope
+-aFrom:liuyang\<liuyang@test.com\>
+
+== THEORY ==
+install mailutils
+
+mail command -> /usr/sbin/sendmail -> local MTA(smtp server) -> recipient
+MTA(and InBox)
+
+NOTE: this method, need local server work as MTA.
+
+this is different with python smtp library, which need login to remote server,
+     then send mail.
+
+- the sender is current user at your server's hostname.
+- the TOAddrLst without server, will default to current server's user.
