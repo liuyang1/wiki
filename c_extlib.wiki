@@ -1,0 +1,9 @@
+= C library =
+== CLI ==
+=== linenoise ===
+like *readline*, but much simpler.
+
+for now, only support below feature.
+- lineedit
+- tab completion
+- history

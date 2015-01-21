@@ -2,4 +2,5 @@
 
 * [[c_test|C test framework]]
 * [[c_stdlib|std lib]]
+* [[c_extlib]]
 

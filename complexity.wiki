@@ -18,6 +18,15 @@ throw statements.
 This V(G) means need number of test cases to cover all branches.
 
 Normal conditon, this CC need less than 10 or 15.
+
+圈复杂度
+
+用于衡量代码的逻辑分支复杂度.
+可以衡量代码质量,更好的衡量代码测试覆盖率,提高代码质量水平.
+
+对于C有工具CppNcss, 还有SourceInsight 的插件 SourceMonitor.
+对于Java有工具,JavaNCSS, PMD, CheckStyle等.
+对于Python有Mccabe.
 == complexity checking tool ==
 * PMD
 * CheckStyle

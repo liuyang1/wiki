@@ -1,5 +1,63 @@
 = 虚拟化工具 =
-mtime: 2012-11-01 14:19:45
+mtime: 2015-01-21 20:45:54
 ----
 == Xen ==
 可以在单台设备上虚拟上百个虚拟机.
+
+== hypervisor ==
+VMM:: virtual machine monitor
+
+virtualization, hyper-OS. inter-layer between OS and hardware.
+
+Multi-OS could running based on one hypervisor.
+
+NOTE:
+trustzone, virtual machine based on this.
+
+== TrustZone ==
+trustzone is a security tech to protect sensitive data. extesion of ARM.
+this need a system, from hardware, OS, to CA & TA.
+
+trustzone is an OS, which running on secure world. Linux or Android is other
+OS running on non-secure world, but on same CPU, same *hypervisor*.
+They switch by hypervisor or call SMC, traped in *monitor mode*, and time
+division multiplex access hardware.
+
+trustzone is a fully OS, which have mutex, seamphore, and sandbox for process.
+
+use case: DRM, payment, SIM card.
+
+generally, its need a CA(C?? application) in non-secure world, and a
+corrspoding TA(trused application) in secure world.
+
+App -> CA --(package request)--> OS switch -> TA.
+
+TA will execute itself, or calling other hardware accroding.
+
+=== compare with secure processor ===
+secureity tech.
+
+compare with trustzone:
+* only one processor, could not scalable on multi-core processor.
+    trustzone, need implement, could running on one processor or
+    multi-processor.
+* less interface
+    trustzone will have more applications, different TA will running on it.
+* securety level. secure processor is more secure than trustzone.
+
+== IRQ or FIQ ==
+FIQ is secure interrupt. IRQ is normal interrupt.
+
+For example, when running secure world, and monitor mode will receive a IRQ,
+then save context, then switch back to non-secure world, then execute IRQ
+function.
+
+== cache and DDR ==
+cache, like DDR, distinguish to secure and non-secure(normal) world.
+
+all data from CPU to DDR will scrambling by XOR of key and address. so cannot
+get real data from DDR. and when read from DDR, will decrypt it.
+
+== open source implemention ==
+- 
+- Trusty OS, impled by Google.

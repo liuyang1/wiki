@@ -317,3 +317,17 @@ cli的界面库
 depends on::
 pyzmq jinja2 tornado
 numpy scipy pylab matplotlib
+
+= various file support =
+== excel ==
+=== xlsxwriter ===
+only support *write* excel file.
+
+- workbook, worksheet
+- typesupport:  string, date, url, money, number, even formula
+- format:       bold, url, warp, italic, font, align, valign, rich-format
+- freeze_zone, default worksheet, autofilter
+- chart
+- image
+
+ref:[[https://xlsxwriter.readthedocs.org/]]
