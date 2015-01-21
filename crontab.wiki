@@ -5,3 +5,29 @@
 去除邮件通知的办法
 如果真的不需要通知，在crontab里命令行后面弄一句「> /dev/null 2>&1」也行。
 }}}
+
+== option ==
+- -e        edit crontab config file of current user
+- -l        list
+- -u        user name
+- -r        remove all crontab job
+
+== crontab config ==
+=== format ===
+`m h dom(day of month) mon(month) dow(day of week) command`
+
+- *         every
+- /         interval of job
+- -         range
+- ,         discrete number
+
+=== locatiton ===
+_/etc/crontab_ system crontab config
+
+_/var/spool/cron_
+
+== crontab service ==
+make sure crontab service running
+
+== issuse ==
+every entry in crontab end in a *newline* char.

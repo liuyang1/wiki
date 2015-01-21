@@ -163,3 +163,7 @@ for i in $.jpg; do
     echo $i;
 done
 }}}
+
+
+== get current script fullname ==
+fn="$(readlink --canonicalize "$0")"

@@ -114,6 +114,12 @@ dt = datetime.strptime("7:13PM, 2013 Jan 12", "%I:%M%p, %Y %b %d")
 === Counter ===
 === deque ===
 
+=== namedtuple ===
+Item = namedtuple("Item", ['index', 'value', 'weight'])
+
+Item(i-1, int(parts[0]), int(parts[1]))
+
+
 == heapq ==
 优先队列
 
