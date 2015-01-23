@@ -4,3 +4,20 @@
 "10,12s/abc//"  替换部分
 
 "/abc/d     删除该部分,不会替换保留空行
+
+== raw string ==
+when try to replace some string with backslashes, maybe want to use escape
+char.
+
+actually, use a different symbol after the s command that doesn't appear in
+the text.
+
+for example, use %, then we get.
+
+sed 's%XXX%YYY%g'
+
+just like /.
+
+NOTE:
+when use for replace which contain a lost "/", such like path name, it's so
+useful.

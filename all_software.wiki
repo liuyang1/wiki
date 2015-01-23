@@ -103,7 +103,8 @@ Alt,是Mod1键
 [[web_tool]]
 
 == mail ==
-[[mutt_usage]]
+- [[mail]]
+- [[mutt_usage]]
 
 == 数学软件 ==
 - [[matlab|MATLAB]]

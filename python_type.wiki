@@ -86,18 +86,22 @@ dt = datetime.strptime("21/11/06 16:30", "%d/%m/%y %H:%M")
 dt = datetime.strptime("7:13PM, 2013 Jan 12", "%I:%M%p, %Y %b %d")
 
 === strftime/strptime 的解释 ===
-- %a    星期的缩写,例如Sun,Mon(en_US)或者(So,Mo..)(de_DE)
-- %A    星期的全程,例如Sunday(en_US)或者(Sonntag,Montag, .. (de_DE))
-- %w    星期的十进制,0是周日,6是周六
-
-- %d    月份中的日期
+- %y    年份,没有世纪,以零开始
+- %Y    年份,带世纪
 
 - %b    月份的缩写,Jan,Feb, ..
 - %B    月份的全称
 - %m    月份的数字
 
-- %y    年份,没有世纪,以零开始
-- %Y    年份,带世纪
+- %a    星期的缩写,例如Sun,Mon(en_US)或者(So,Mo..)(de_DE)
+- %A    星期的全程,例如Sunday(en_US)或者(Sonntag,Montag, .. (de_DE))
+- %w    星期的十进制,0是周日,6是周六
+- %U    week number of the year, (sunday is the first day of the week) as zero
+padded decimal number.
+- %W    week number of the year, (monday is the first day of the week)
+
+- %d    月份中的日期
+- %j    day of the year as a zero-padded decimal number
 
 - %H    小时,二十四小时
 - %I    小时,12小时
@@ -107,6 +111,11 @@ dt = datetime.strptime("7:13PM, 2013 Jan 12", "%I:%M%p, %Y %b %d")
 
 - %S    秒,从0开始
 - %f    微秒,从0开始,补零,
+
+- %z    timezone, since python3
+- %Z    timezone name, such as CST, UTC
+
+- %%    literal '%' char
 
 == calendar ==
 

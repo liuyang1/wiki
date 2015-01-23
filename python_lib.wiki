@@ -93,7 +93,7 @@ n=raw_input()
 }}}
 
 ==并发编程==
-    
+
 ==脚本==
 ===pexpect===
 expect脚本的python实现.
@@ -145,19 +145,6 @@ ref:http://docs.python.org/release/3.1.2/library/struct.html
 === lxml ===
 比前者轻量快速.
 
-
-== HTTP服务 ==
-python -m *SimpleHTTPServer*
-
-开启当前文件目录为HTTP服务器,端口号为8000
-
-under python3, this moudle rename to *http.server*
-
-python -m CGIHTTPServer
-
-开启完整的webserver
-
-
 == pylucene install == 
 1,install java
 2,add global var,as JAVA_HOME, CLASS_PATH,etc.
@@ -177,84 +164,8 @@ python -m CGIHTTPServer
 注重安全性
 
 == 多进程方法 ==
-
-推荐使用subprocess方法.它替代了Popen,spawn,system等方法.
-=== subprocess ===
-==== call ====
-call(args)
-
-运行程序,args描述.等待命令完成,返回returncode.
-==== check_call ====
-check_call(args)
-
-运行程序args.运行带程序结束.
-如果返回值,不是0的话,抛出CalledProcessError异常,该异常携带返回值作为属性.
-
-==== check_output ====
-运行程序,并且返回输出作为字符串.
-
-如果返回值不是0,则抛出异常.如上.
-
-==== Popen ====
-开子进程的方法
-
-- p=subprocess.Popen(cmd)
-- p.poll()检查子进程是否结束,设置并返回return值.
-- p.wait()等待子进程结束,设置并返回return值.
-- communicate(),与进程交互,发送数据到标准输入.读取数据从stdout,stderr,直到受到eof.
-- send_signal发送信号.
-- terminate()终止进程,发送SIGTERM或者调用TerminateProcess()
-- kill()kill进程,发送SIGKILL.
-
-在linux上使用的是exevcp,在Windows上使用的是CreateProcess.
-
-`可以使用shlex.split()来对命令进行分割.`
-
-NOTE:
-os.popen deprecated. NOT use it.
-
 === multiprocessing ===
 
-== 数学方面的库 ==
-=== itertools ===
-无穷迭代器
-
-* count,计数迭代器
-* repeat,重复计算器
-* cycle,循环计数器
-
-最短输入序列终止的迭代器
-* chain 多个列表序列
-* compress 数据,选择器,其中选择器为一个布尔序列
-* dropwhile,生成序列,从预测函数成功
-* groupby,分组,序列+分组函数
-NOTE:
-groupby need first *sorted* it.
-* ifilter
-* ifilterfalse,按照谓词函数进行判定序列
-* islice
-* imap
-* starmap
-* tee
-* takewhile,生成序列,直到预测函数失败
-* izip
-
-组合生成器
-提供了组合数学上需要的工具,比如组合,排列等.
-
-* 组合方法
-itertools.combinations()
-
-* 排列方法
-itertools.permutations()
-
-=== math ===
-factorial,阶乘
-
-== random ==
-- randint(from, to) 两个都是闭区间
-- random()    生成(0,1)随机数
-- shuffle(seq)  随机排列
 == esky ==
 用于自动更新
 
@@ -262,19 +173,6 @@ factorial,阶乘
 根目录为其esky提供的启动的程序.
 下属目录,为程序的若干版本.目录中程序,则为py2exe生成的包.
 
-== readline ==
-import readline
-
-提供输入的readline支持.向上则得到上一次输入,左右移动光标,等等
-
-== pickle ==
-pickle 用于python的数据序列化工作
-
-注意,这里是file,而不是文件名,因此必须先打开文件,然后才可以调用
-{{{
-pickle.dump(obj,file)
-pickle.load(file)
-}}}
 
 == numpy ==
 大名鼎鼎,主要用于科学计算领域.
@@ -296,11 +194,6 @@ slice的方法,和C语言的不一样.使用如下方式M[1,2].这里也支持py
 
 == JPype ==
 python-java bridge
-
-== profile ==
-python的标准库profile工具
-
-python -m profile XXX.py
 
 == networkx ==
 图论相关的库

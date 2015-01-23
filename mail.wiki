@@ -25,3 +25,14 @@ this is different with python smtp library, which need login to remote server,
 
 - the sender is current user at your server's hostname.
 - the TOAddrLst without server, will default to current server's user.
+
+= attachment =
+uuencode / uudecode
+
+`uuecode [FILENAME] [name] | mail ...`
+
+`uuencode [-m] [ file ] name`
+
+transmit binary file to a channel which only for ascii pure text.
+
+(cat mailtext; uuencode [filename] [name]) | mail ...

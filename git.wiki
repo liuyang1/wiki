@@ -55,6 +55,9 @@ git checkout master
 git merge [repo1branch]
 }}}
 
+== commit template ==
+`git config commit.template [FILENAME]`
+
 = base =
 == diff ==
 - git diff 查看目前未缓存的修改

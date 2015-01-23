@@ -8,4 +8,39 @@
 [[continuation_integretion]]
 == distribute ==
 
+= agile =
+== continuity ==
+this is a new (for 2014) concept.
 
+issue -> branch -> develop <-> PR -> review -> merge -> depoly -> finish
+
+Pros::
+* light
+* easy to track, logging
+* branch is a core concept in Git.
+
+# github flow
+# 
+
+Pratice myself first!
+
+=== Gotchas for now ===
+- Submit unit is CL, not branch.
+    so we have to merge to one CL. we cannot make a big or full feature, which
+    cannot contain in *ONE* CL.
+
+    There is dependency between different CL for one feature, but we cannot
+    track them, or separate them. All these leads to regressions and bugs.
+
+    this leading to heavily sumbit, it's hard to review.
+
+- issue to CL/branch not clear
+    we have to manualy to follow rules(add link in commit).
+
+    we cannot automatically mark them "finished" or "resolved".
+
+- submit window
+    we have submit window to receive CLs, this make our work isolated.
+
+    The cycle between test/verify back to develop is too long. we need quick
+    feedback.
