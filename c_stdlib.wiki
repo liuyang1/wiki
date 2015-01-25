@@ -15,3 +15,13 @@ a non-valid mode was specified.
 if the name was the last link to a file, but any processes still have the file
 open, the file will remain in existence until the last file descriptor
 referring to it is closed.
+
+== realloc ==
+用于改变指针指向的存储空间的大小。从开始位置到min（new size， old size）之间的内容得以保持不变。
+
+存储区域扩张的画，新增内存空间是未初始化的。
+
+如果参数ptr是NULL，那么等同于malloc的效果。
+
+如果参数size是0，而ptr不是NULL，那么等同于free的效果。
+
