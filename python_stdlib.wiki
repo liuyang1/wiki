@@ -131,6 +131,24 @@ python -m CGIHTTPServer
 == os ==
 == time ==
 == argparse ==
+{{{
+    parser = argparse.ArgumentParser()
+    parser.add_argument('', type=)
+  }}}
+
+=== add_argument ===
+* short opt
+* long opt
+* type
+    - str
+    - int
+* action
+    * store_true
+* default
+* nargs
+    * +: 1 or more
+    * *: any var
+* help
 == logging ==
 
 = optional OS service =
