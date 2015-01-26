@@ -134,7 +134,7 @@ python -m CGIHTTPServer
 {{{
     parser = argparse.ArgumentParser()
     parser.add_argument('', type=)
-  }}}
+}}}
 
 === add_argument ===
 * short opt
@@ -149,7 +149,16 @@ python -m CGIHTTPServer
     * +: 1 or more
     * *: any var
 * help
+
+=== argcomplete ===
+support arg auto completion for argparse interface
+
 == logging ==
+NOTE:
+logging is a shared module, so when using default blank logging NAME, all
+logging of other module, will appear in *SAME* log.
+
+indicate logging NAME, to avoid other module's log.
 
 = optional OS service =
 == threading ==

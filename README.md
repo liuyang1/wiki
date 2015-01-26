@@ -1,4 +1,4 @@
 wiki
 ====
 
-personal knowledge wiki
+Personal Knowledge Wiki

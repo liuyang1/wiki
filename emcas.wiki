@@ -2,7 +2,7 @@
 
 == basic ==
 
-Meta is Alt key, not Win key, or Mod4 key.
+Meta is alt key, not win key, or mod4 key.
 
 * C-x C-c    quit
 * C-x C-s    save file(update write)

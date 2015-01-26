@@ -6,7 +6,6 @@ shell not have type system.
 
 === logic about file ===
 * -d    dir exist?
-* -z    var exist?
 * -f    file exist?
 * -L    link exist?
 * -r    read?
@@ -20,6 +19,7 @@ shell not have type system.
 * ==    equal?
 * !=    not equal?
 * -n    is null? or is not init?
+* -z    var exist?
 
 string with wildcard, using start symbol.
 
@@ -294,17 +294,20 @@ SHELLSHOCK.
 
 using shellcheck to detect this warnings to write robust bash script.
 
-* add local,readonly decorator
+* add local,readonly decorator (local only can use in a function)
 === readonly ===
 - readonly -p display/define readonly var list
 - readonly -f display/define readonly function list
 - readonly -a display/define readonly array
 
+=== type ===
+- -t        function (and output ... is function)
+
 === declare ===
 - -r        readonly
 - -p        display property of var
 - -a        array
-- -f        function
+- -f        function (and output function definition)
 - -i        int
 - -F        function name or its property
 - -t        var have trace property

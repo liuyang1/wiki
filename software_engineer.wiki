@@ -19,8 +19,8 @@ Pros::
 * easy to track, logging
 * branch is a core concept in Git.
 
+inspired by::
 # github flow
-# 
 
 Pratice myself first!
 
@@ -33,6 +33,9 @@ Pratice myself first!
     track them, or separate them. All these leads to regressions and bugs.
 
     this leading to heavily sumbit, it's hard to review.
+
+----
+    we have WIP branch, but it's hard to add a WIP branch.
 
 - issue to CL/branch not clear
     we have to manualy to follow rules(add link in commit).

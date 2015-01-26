@@ -1,0 +1,12 @@
+= bash =
+
+bash is default shell script language, *NOT* shell (which is _dash_).
+
+== auto completion ==
+=== for script ===
+need to create a script a script in */etc/bash_completion.d/*
+
+=== for function ===
+or add a function, and add a auto-completion function for it.
+
+but this must *source* the script.

@@ -1,9 +1,13 @@
 = zsh 使用 =
 ----
 
-== 自动补全 ==
+== auto completion ==
 cd 历史记录
 cd -(TAB)
+
+= zsh vs. bash =
+== auto completion ==
+- support autocompletion for Makefile elements
 
 == 加速 ==
 zsh比较复杂,启动速度比较慢.下面是修改配置,加快速度的方法.
