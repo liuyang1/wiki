@@ -1,9 +1,10 @@
 
 # readline和linenoise
 
-------
-# readline和背景
-相比于GUI，在CLI混战的人也有user-friendly interface的需求。这方面有非常成熟的库**GNU readline**，shell很多都是使用它来支持丰富多彩的输入/交互特性。很多编程语言的解释器都支持使用readline。支持着异常丰富的特性。
+## readline和背景
+相比于GUI，在CLI混战的人也有user-friendly interface的需求。
+这方面有非常成熟的库**GNU readline**，shell很多都是使用它来支持丰富多彩的输入/交互特性。
+很多编程语言的解释器都支持使用readline。支持着异常丰富的特性。
 
 - line edit（移动光标，编辑已经输入的内容）
 - tab completion（自动补全功能）
@@ -29,13 +30,10 @@ C的输入，必须以newline，eof之类结束，才可以输入一个整行。
     
     需要行的缓存，以及虚拟终端的控制。
 - tab completion
-    
     同样需要虚拟终端控制，这些才可以进行立即方式输入，而不是默认的行缓冲模式。
 - history
-    
     这个感觉相对没有那么复杂，需要保存历史文件（就像所有的shell里面一样），然后支持各种历史的接口。
 - vi-mode，emacs-mode
-    
     在tab completion的基础上，可以立即响应各种按键，因此也会是可以支持的。
 
 对于上面的分析，可以看到问题基本集中在一个背景知识，虚拟终端控制，和一个技术实现，行缓存。
@@ -43,11 +41,17 @@ C的输入，必须以newline，eof之类结束，才可以输入一个整行。
 
 ## ANSI escape code
 ### 历史
-回到刚刚的C语言的例子，输出的^[[A之类的到底是什么。这应该就是问题的关键点（之一）。因为shell中这个向上按键，会向上翻命令历史，但是在这里却是^[[A。
+回到刚刚的C语言的例子，输出的^[[A之类的到底是什么。这应该就是问题的关键点（之一）。
+因为shell中这个向上按键，会向上翻命令历史，但是在这里却是^[[A。
 
 这是一种特殊的格式[ANSI escape code](http://en.wikipedia.org/wiki/ANSI_escape_code)。
 
-这种格式是一种带内in-band传输格式的一种方式。所谓的in-band，就是数据信息和控制信息一起传输。对于终端而言，控制信息控制着格式（普通字体，粗体，斜体，颜色，反色，闪烁，下划线）以及光标的位置，终端的刷新等。而数据信息就是纯字符或者说可打印可显示的字符。而终端则起到翻译或者解释的作用，对于这种混合的字节流进行解释，最终输出呈现效果。
+这种格式是一种带内in-band传输格式的一种方式。
+所谓的in-band，就是数据信息和控制信息一起传输。
+对于终端而言，控制信息控制着格式（普通字体，粗体，斜体，颜色，反色，闪烁，下划线）以及光标的位置，
+终端的刷新等。
+而数据信息就是纯字符或者说可打印可显示的字符。
+而终端则起到翻译或者解释的作用，对于这种混合的字节流进行解释，最终输出呈现效果。
 
 如果有喜欢配置炫酷的终端prompt的同学，肯定对此多少有一定了解。
 
@@ -66,12 +70,15 @@ Windows的控制台不是采用这种方式。
 
 ### 标准
 
+请直接参考维基百科吧，复制的东西不想讲了。
 
 ## linenoise
-GNU readline 是 GPL 协议的，因此会存在“污染”的问题。在英文wiki上就记载这样的故事，CLISP因为链接了readline，被要求按照GPL协议重新发布。
+GNU readline 是 GPL 协议的，因此会存在“污染”的问题。
+在英文wiki上就记载这样的故事，CLISP因为链接了readline，被要求按照GPL协议重新发布。
 GNU readline还是一个非常庞大而复杂的库，这不利于实际的工程应用。
 
-最近看到一个开源的库linenoise，这个库比较短小，核心代码仅仅1k+-行，非常的短小精悍，而且支持上述的前三个特性。keybinding的支持目前正在进行中。本身采用BSD协议，可以相对自由的使用它。
+最近看到一个开源的库linenoise，这个库比较短小，核心代码仅仅1k+-行，非常的短小精悍，而且支持上述的前三个特性。
+keybinding的支持目前正在进行中。本身采用BSD协议，可以相对自由的使用它。
 
 目前在redis，MongoDB和Android中用到。
 
@@ -159,7 +166,66 @@ completeLine的过程。
 
 如果有按键内容，那么显示第一个内容 -> 按键Tab，轮替显示 -> Esc 则退出。其他键，认为输入其他键退出。
 
-// copy from src
+    // 不进行退出，条件其实是没有输入escape，或者输入了其他字符。
+    while(!stop) {
+        /* Show completion or original buffer */
+        if (i < lc.len) {
+            // 保持原始的ls
+            struct linenoiseState saved = *ls;
+
+            ls->len = ls->pos = strlen(lc.cvec[i]);
+            ls->buf = lc.cvec[i];
+            // 刷新显示
+            refreshLine(ls);
+            // 这个时候就立刻为下一次显示内容做准备
+            // ls存储的内容又恢复为初始的内容
+            ls->len = saved.len;
+            ls->pos = saved.pos;
+            ls->buf = saved.buf;
+        } else {
+            // i == lc.len 也就是所有的completion的轮换一遍了
+            // 不做任何处理，这个时候显示的就是初始的内容
+            refreshLine(ls);
+            // TODO:
+            // 这里其实可以在最初的saved之后，
+            // 更改为在i==ls。len的时候进行复原的操作。
+            // 可以节约不必要的操作
+        }
+
+        nread = read(ls->ifd,&c,1);
+        if (nread <= 0) {
+            freeCompletions(&lc);
+            return -1;
+        }
+
+        // 读入新的字符
+        switch(c) {
+            case 9: /* tab */
+                i = (i+1) % (lc.len+1);
+                // 这里的一圈长度为lc。len+1
+                // 也就是所有的待匹配内容+原始内容
+                // 轮换, 轮换一圈则beep
+                if (i == lc.len) linenoiseBeep();
+                break;
+            case 27: /* escape */
+                /* Re-show original buffer */
+                if (i < lc.len) refreshLine(ls);
+                // XXX
+                // reshow 为什么呢？
+                stop = 1;
+                break;
+            default:
+                /* Update buffer and return */
+                if (i < lc.len) {
+                    // TODO:
+                    // 这里似乎，没有必要啊，删除
+                    nwritten = snprintf(ls->buf,ls->buflen,"%s",lc.cvec[i]);
+                    ls->len = ls->pos = nwritten;
+                }
+                stop = 1;
+                break;
+        }
+    }
 
 返回最后一个的输入字符，这样可以进行插入处理。
 
@@ -210,9 +276,9 @@ History的部分其实和自动补全有些相似，其实不再由回调函数�
     void linenoiseClearScreen(void);
     void linenoisePrintKeyCodes(void);
 
-### 扩展
+## 扩展
 
-#### 层级命令
+### 层级命令
 对于一个控制/debug根据而言，其实可以想shell的控制终端一样，提供一个层级的方式。
 
 例如：
@@ -223,3 +289,6 @@ History的部分其实和自动补全有些相似，其实不再由回调函数�
 命令，那么就相当于git log HEAD 命令。这样的好处是我在层级之间切换的时候，
 不需要输入冗长的前缀。因此它的菜单可以任意扩展。支持异常丰富的命令，同时
 对于使用者没有那么大的压力。
+
+### 进度条
+怎么画个进度条，在这个基础上，应该是个挺简单的东西了。
