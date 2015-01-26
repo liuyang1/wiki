@@ -36,7 +36,21 @@ updatedb
 === readlink/readpath ===
 get softlink real directory
 
-=== xargs ===
+==== get current script fullname ====
+fn="$(readlink --canonicalize "$0")"
+
+=== ln link ===
+- -f    force, delete original file if exist
+=== basename,dirname ===
+
+获取路径和文件名,从文件的路径全名中.
+
+=== cygpath ===
+
+路径转换,从cygwin路径,到windows路径.
+
+cygpath -w filepath
+== xargs ==
 
 when you combine use FIND and XARGS, will have to using -print0 to
 delimter filenames, not newline or whitespace character.
