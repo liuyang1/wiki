@@ -142,6 +142,13 @@ so if function with { as tail, this method won't detect it, and skip it.
     set keywordprg=man\ -a
     来配置打开所有的man页面
 }}}
+=== switching case ===
+- gUU       entire line upper
+- guu       entire line lower
+- g~~       entire line switch
+- guw       entire word lower
+
+g[uU~][uU~wW/iw/$]
 
 == text object ==
 * w word
@@ -198,6 +205,7 @@ this is so useful for moving, deleting, and so on.
 == mark 书签 ==
 - m[a-z,A-Z]       设置书签
 - '[a-z,A-Z]      书签跳转
+
 === replace 替换===
 ==== replace action ====
 - s_flags
@@ -269,6 +277,9 @@ http://yuzifu.net/book/vimdoc/windows.html
 - <C-W>x            交换窗口
 - Ctrl-W T          move this windows to new tab page
                     (but when have only one window, can not do this)
+
+== replace mode ==
+R                   entre REPLACE mode
 
 == macro ==
 - q{0-9a-zA-Z"}     Record typed characters into register {0-9a-zA-Z"}
@@ -419,7 +430,7 @@ Ctrl-V u 200b,则输入U+200b这个字符
 vim --startuptime a.log
 
 = isuse =
-== GDK Cario ... ==
+== GDK Cario ==
 remove `fcitx-fontend-gtk2`
 
 == ubuntu menu proxy ==

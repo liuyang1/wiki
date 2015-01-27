@@ -161,6 +161,7 @@ this is like case: break in C.
 - $$ 本程序的PID
 - $! 上一个命令的PID
 - $? 上一个命令或者函数的返回值
+- $@ every param
 
 == getops ==
 参数解析
@@ -298,6 +299,14 @@ all sub could be a Regular Expression.
 - ${string//sub/rep}    使用rep替代所有的sub
 - ${string/#sub/rep}    使用string前缀匹配sub,那么就用rep,替代所有的sub
 - ${string/%sub/rep}    使用string后缀匹配sub,那么就有rep,替代所有的sub
+
+=== pratice ===
+midffix libabc_def.ta -> def
+
+{{{
+    suffix="${f#*_}"
+    mid="${suffix%%.*}"
+}}}
 == meta skill ==
 === dynamic var name ===
 {{{
