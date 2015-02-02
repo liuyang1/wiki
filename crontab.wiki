@@ -31,3 +31,11 @@ make sure crontab service running
 
 == issuse ==
 every entry in crontab end in a *newline* char.
+
+crontab working in non-login shell, so not inculude default profile for
+interactive.
+
+Maybe need add _PATH_ in crontab config file.
+
+conrtab working directory is your home dir, so maybe need add "cd [path] &&
+exec", if your EXEC need working directory.

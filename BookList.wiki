@@ -6,5 +6,8 @@
 == functional programming language ==
 * [[6001_SICP|SICP]]
 * [[expert_c_programming]]
+== arch ==
+* [[arch_of_open_source]]
 
+= old =
 [[reading_note]]

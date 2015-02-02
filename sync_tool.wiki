@@ -170,6 +170,19 @@ nc -v -w [TIME] IP -z PORT
 
 nc -v -w [TIME] IP -z PORT1-PORT2
 
-所有的同步软件
-[[http://en.wikipedia.org/wiki/Comparison_of_file_synchronization_software|wiki]]
+- -v        verbose
+- -w []       timeout time
+- -z        close stdin/stdout, (for scan port)
+- -g        gateway
+- -h help
+- -i []     delay time
+- -l        listen mode
+- -n        not DNS
+- -o        output file, add filename
+- -p        port
+- -r        random local and remote port
+- -t        use telnet style interactive
+- -u        UDP mode
 
+=== 所有的同步软件 ===
+[[http://en.wikipedia.org/wiki/Comparison_of_file_synchronization_software|wiki]]

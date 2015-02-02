@@ -1,0 +1,11 @@
+= arch of open source =
+
+== asterisk ==
+telecomm business software.
+
+feature:
+- so complex business
+- many basic business support: audio, video, text, and mux of them.
+- lower layer tech complex: IP, TX??, and others
+
+== BAsh ==

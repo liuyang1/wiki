@@ -59,6 +59,8 @@ git merge [repo1branch]
 `git config commit.template [FILENAME]`
 
 = base =
+== commit ==
+- -F        rewrite commit from filename
 == diff ==
 - git diff 查看目前未缓存的修改
 - git diff --cache 查看已经add的修改内容
@@ -140,6 +142,16 @@ as iso format
 (look like same with default)
 * raw
 git raw format (seconds number and timezone)
+= high =
+== githooks ==
+
+| hooks              | when                                 | abort | param | bypass |
+| pre-commit         | before commit                        | YES   | 0     | YES    |
+| prepare-commit-msg | after default, before edtior started | YES   | 1-3   | YES    |
+| commit-msg         | edit the message file in place       | YES   | 1     | YES    |
+| post-commit        | after a commit is made               | YES   | 0     | NO     |
+
+= topic =
 == 撤销最后一个commit ==
 git reset HEAD~1
 
