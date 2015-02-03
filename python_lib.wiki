@@ -1,5 +1,4 @@
 = python lib =
-
 == fileinput ==
 using for trace file input or from stdin.
 

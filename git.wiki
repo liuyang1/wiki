@@ -356,6 +356,10 @@ git push --mirror URL
 
 ref::[[http://cmonkey.github.io/blog/2012/04/01/tig/]]
 
+= high =
+== init.templatedir ==
+these could init hooks in _global_
+rerun `git init` will not wipe the hooks.
 = git internal =
 git is a *content-addressable* filesystem.
 and build a VCS on it.
