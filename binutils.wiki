@@ -141,6 +141,10 @@ converts object code into an NLM.
 == nm ==
 lists symbols form objects files
 
+- U         *undefined*
+- u         unique global symbol
+
+
 == objcopy ==
 copies and translates object files.
 

@@ -1,0 +1,10 @@
+
+
+== section ==
+
+- data      global/static var
+- text      code/expression?
+- BSS       Block Started by Symbol(not in obj file, only remember SIZE)
+
+var, dynamic create in stack
+

@@ -55,6 +55,13 @@ git checkout master
 git merge [repo1branch]
 }}}
 
+== split part of repo ==
+=== split new repo ===
+- git clone
+- git remote rm origin  (stop track remote)
+
+git filter-branch --subdirectory [dir] -- --all
+
 == commit template ==
 `git config commit.template [FILENAME]`
 
