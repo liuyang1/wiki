@@ -1,0 +1,14 @@
+= hexo =
+== issue ==
+=== tag split ===
+YAML style:
+{{{
+tags:
+- abc
+- def
+}}}
+
+JSON style:
+{{{
+tags: [abc, def]
+}}}
