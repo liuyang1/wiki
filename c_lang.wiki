@@ -4,3 +4,5 @@
 * [[c_stdlib|std lib]]
 * [[c_extlib]]
 
+== standard ==
+there is no generic pointer-to-pointer type in C.

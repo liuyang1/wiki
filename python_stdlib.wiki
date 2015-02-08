@@ -36,6 +36,9 @@ pickle.load(file)
 = numeric and math =
 == functools ==
 * reduce
+
+=== wraps ===
+
 == itertools ==
 无穷迭代器
 

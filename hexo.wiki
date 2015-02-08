@@ -12,3 +12,13 @@ JSON style:
 {{{
 tags: [abc, def]
 }}}
+
+=== del line ===
+<del> </del>要手动使用html标签
+
+=== image ===
+![NAME](URL)
+
+不支持图片大小属性,也必须手动插入html才可以。
+
+<img src="/img/suzui.jpg" alt="Drawing" style="width: 200px;"/>
