@@ -180,3 +180,59 @@ sudo -E 保持环境,这个很关键,特别在运行的应用涉及到一系列�
 如果文件名中以-开始,或者以--开始,则删除会出现各种各样的问题.
 
 rm -- [FILENAME]
+== nohup ==
+- close stdin, (process could NOT read any input, even run in foreground)
+- redirect stdout, stderr to file nohup.out.
+- prevents the process from receving `SIGHUP`
+- BUT, nohuped process, still belong to shell. and not put to background
+= jobs of shell =
+== & ==
+- running CMD.
+- inherits stdin, stdout, stderr from shell. (attached to same terminal)
+- when shell receive SIGHUP, shell sends SIGHUP to process of CMD.
+- Otherwise, shell waits(is blocked) until the process terminates.
+
+&, background run
+- running CMD.
+- inherits stdin, stdout, stderr from shell.
+    - so it still will write to terminal, and wait for input(but halt)
+- put the process to background jobs.
+    - jobs listed it, and could access as `%n` as job number.
+    - trun it to foreground with `fg`
+- when shell receive SIGUP, shell will send SIGHUP to the process.
+
+== jobs ==
+-jobs -l        list jobs
+== fg/bg ==
+== disown ==
+shell built-in command
+
+remove jobs from the tables of active job
+
+- disown [JobID]
+- disown [options]
+    - -a    all
+    - -r    remove only running jobs
+    - -h    disown & no SIGHUP(as nohup)
+
+disown
+
+- running CMD as process.
+- same inherits stdin, stdout, stderr
+    - if it try to read from / write to terminal, but terminal is destroy, it
+    will die.
+
+== summary ==
+# `&`, background run, makes it block on attempting to read input, and makes
+the shell not wait for its completion.
+# `disown` remove the process from shell's job control. but it still connected
+to the terminal, One of the results is that shell won't send it a SIGHUP. It
+only can applied to background jobs.
+# `nohup` disconnect the process from the terminal, redirected its output to
+nohup.ouot and shields it from SIGHUP.
+
+|        | IO     | job        | terminal | background      | SIGHUP |
+| normal |        |            |          |                 |        |
+| &      | Normal |            |          | background      |        |
+| disown |        | No in jobs | same     | must background | NO     |
+| nohup  | NO     |            | NO       |                 | NO     |

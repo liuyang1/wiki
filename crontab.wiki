@@ -16,8 +16,11 @@
 === format ===
 `m h dom(day of month) mon(month) dow(day of week) command`
 
+dow, from Sunday as 0, Mon as 1, ...
+
 - *         every
 - /         interval of job
+*/5, every 5 minutes
 - -         range
 - ,         discrete number
 
@@ -30,6 +33,7 @@ _/var/spool/cron_
 make sure crontab service running
 
 == issuse ==
+=== newline ===
 every entry in crontab end in a *newline* char.
 
 crontab working in non-login shell, so not inculude default profile for
@@ -39,3 +43,8 @@ Maybe need add _PATH_ in crontab config file.
 
 conrtab working directory is your home dir, so maybe need add "cd [path] &&
 exec", if your EXEC need working directory.
+
+=== PATH ===
+crontab use default non-login shell, so maybe PATH not same
+
+add executable program to default PATH, or modification of PATH for crontab
