@@ -1,0 +1,75 @@
+= haskell =
+== basic ==
+- infix expression
+`1 + 2`
+- prefix expression
+`(+) 2 2`
+
+== basic type ==
+- number
+rational number
+`11%29` -> 11/29
+- string        "abc"
+    * string is list of char/int
+    * "" == []
+- bool value
+- list          [1, 2, 3]
+=== list ===
+enumeration notation
+
+`[1..10]`
+`[1.0,1.25..2.0]`
+`[1.0..1.8]` -> [1.0, 2.0]
+
+==== operator on list ====
+- ++            extend
+- :             cons        `1 : [2, 3]` -> [1, 2, 3]
+
+== math ==
+=== operator ===
+- +
+- -
+- /
+- **
+- ^
+- precedence of operators
+`1 + 4 * 4` -> 17
+- () bracket
+=== logic ===
+- True
+- False
+- Not zero value, is not True, not False
+- &&
+- ||
+- not
+- ==
+- <
+- >
+- >=
+- <=
+
+=== constanst ===
+- pi
+=== function ===
+- exp
+- sqrt
+- succ      successor
+- pred      predosser???
+- truncate  truncate number to intger
+- round
+- floor
+- ceiling
+- sin
+
+== IO ==
+=== output ===
+- putStrLn
+
+== syntax ==
+- comment       begin with "--"
+
+= ghc =
+- ghc [filename]    compile
+== ghci ==
+- ghci              interative intreprator
+- :?                get help

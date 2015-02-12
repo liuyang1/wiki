@@ -1,0 +1,27 @@
+= build tool =
+== make ==
+[[makefile_man]]
+== qmake ==
+Qt project
+== cmake ==
+cross platform build tool
+
+CMakefile.txt
+
+OpenCV & others.
+
+== autotools ==
+== gyp ==
+_Generate Your Project_
+
+chromium develop it.
+
+cross platform
+
+python, json
+
+generate Makefile(for linux platform)
+== blade ==
+== najna ==
+
+== Android build system ==

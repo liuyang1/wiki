@@ -62,6 +62,9 @@ cut -s -d '.' -f1-2
 === grep ===
 - -E                extend RE mode(same with egrep)
 - --color=[WHEN]    when=always/never/auto
+- -l, --files-with-mathces
+- -L, --files-without-mathces
+- -R, -r, --recursive       recursive under each directory
 
 === more grep ===
 ==== egrep ====

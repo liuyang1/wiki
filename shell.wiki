@@ -373,7 +373,14 @@ using `noglob`, will prevent zsh to expand asterisk, for example: `noglob echo 2
 but `ls` still fail
 
 ----
-default ubuntu and debian, sh is DASH
+
+= sh vs bash? =
+sh is specification of POSIX, not a implemetion.
+
+- default ubuntu and debian, sh is _dash_
+- busybox use _ash_
+- OSX use _zsh_
+- BSD use _pdksh_
 
 == export source ==
 export to make it work in child-shell

@@ -16,3 +16,20 @@ rdesktop IPaddr
 NOTE:
 
 需要远程主机设置为允许不安全的登录,这样才可以.(可能因为 windows 2008 server 的设置问题)
+
+== synergy ==
+corss system keyboard/mouse share
+
+=== linux dependency ===
+- libXtst-dev
+- qt4-qmake
+- libqt4-dev
+
+need clean build/release content, then re-run `./hm.sh config ...`
+
+=== config ===
+in GUI
+
+add client
+
+*right click* & drag a new "SCREEN" to add a client

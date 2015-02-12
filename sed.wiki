@@ -5,6 +5,11 @@
 
 "/abc/d     删除该部分,不会替换保留空行
 
+== multiple file replace ==
+{{{
+sed -i "s/oldstring/newstring/g" `grep oldstring -rl /path/`
+}}}
+
 == raw string ==
 when try to replace some string with backslashes, maybe want to use escape
 char.

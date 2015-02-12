@@ -48,3 +48,12 @@ cat smallfile* > file
 ls -l | grep "^-" | wc -l
 
 对于中文,使用-m参数.这样才可以正确统计字符个数.默认最后的那个是字节个数
+
+== man ==
+- -a        all
+- -k        keyword, just list the manual page
+- -t        to, reference to the keyword
+- -f        from, reference from the keyword page
+
+=== mandb ===
+update db of manual page

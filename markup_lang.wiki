@@ -24,11 +24,17 @@ ruby
 ruby
 
 == hexo ==
+[[hexo]]
+
 node.js
 
 github flaverd-markdown format.
 
 partly compatialbe with octopress.
+
+== nikola ==
+python
+
 
 = wiki sys =
 this page introduce much more wiki system:
