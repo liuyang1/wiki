@@ -53,3 +53,145 @@ a dict describing the mapping of tag kinds with one-char representation.
 simple regular expr-based parsing, but not support scopes!!
 
 * create a specialized program
+= easydigraph =
+== iw ==
+- Fm ♀
+- Ml ♂
+- Eh ⌂
+- TR ⌕
+- SM ℠
+- TM ™
+- Co ©
+- Rg ®
+- PO ℗
+- oC ℃
+- oF ℉
+- %0 %
+- N0 №
+- Om Ω
+- AO Å
+- co ℅
+- Rx ℞
+- My µ
+
+=== Currency ===
+- Cu ¤
+- Pt ₧
+- W= W
+- Eu €
+- Li ₤
+- Pd £
+- Ct ¢
+- Ye ¥
+
+=== Music ===
+- Md ♩
+- M8 ♪
+- M2 ♫
+- Mb ♭
+- Mx ♮
+- MX ♯
+
+=== Weather ===
+- SU ☼
+
+=== Face ===
+- 0u ☺
+- 0U ☻
+
+=== other ===
+- <H <
+- >H >
+- OK ✓
+- XX ✗
+- cS ♠
+- cH ♡
+- cD ♢
+- cC ♣
+
+== math ==
+- 1R Ⅰ
+- 2R Ⅱ
+- 3R Ⅲ
+
+- 1r ⅰ
+- 4r ⅳ
+- 5r ⅴ
+- 6r ⅵ
+
+- 1c ㈠
+- 2c ㈡
+- 5c ㈤
+
+- 1. 1
+- 2. 2
+- 9. 9
+
+=== Fraction ===
+- 12 ½
+- 34 ¾
+- 35 ⅗
+
+=== arrow ===
+- <= ⇐
+- => ⇒
+- == ⇔
+- -> →
+- <- ←
+- <> ↔
+- -! ↑
+- -v -
+- UD ↕
+
+=== logic ===
+- AN ∧
+- OR ∨
+- NO ¬
+
+=== symbol ===
+- +- ±
+- -+ ∓
+- -2 -
+- *- ∗
+- *X *
+- -: ÷
+- /f /
+- RT √
+- .P P
+- Ob ∘
+- Sb ∙
+- 0. 0
+- 02 ⊚
+- 00 ∞
+- FA ∀
+- dP ∂
+- TE ∃
+- DE ∆
+- NB ∇
+
+=== Set ===
+- (- ∈
+- )- ∋
+
+=== Geometry ===
+- PP ∥
+- DG °
+== error ==
+- -T -
+- (A (
+- -V -
+- -L -
+- (_ (
+- )_ )
+- (U (
+- )U )
+- +Z +
+- *P *
+- /0 /
+- 0( 0
+- u221b ∛
+== iW ==
+
+== greek ==
+- A* Α
+

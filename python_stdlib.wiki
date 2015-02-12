@@ -1,6 +1,10 @@
 = date type =
 [[python_type]]
 = string =
+- title         easily captial string
+- capwords      more right than `title`
+- ljust
+- rjust
 == string ==
 == StringIO ==
 if you want same style output to string, or file, like cin/cout in C++.
