@@ -363,6 +363,10 @@ git push --mirror URL
 
 ref::[[http://cmonkey.github.io/blog/2012/04/01/tig/]]
 
+= issus =
+There was a problem with the editor.
+
+`git config --global core.editor vim`
 = high =
 == init.templatedir ==
 these could init hooks in _global_

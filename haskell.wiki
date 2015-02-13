@@ -5,15 +5,43 @@
 - prefix expression
 `(+) 2 2`
 
-== basic type ==
-- number
+== type ==
+*strong static* type system and can be automatically *inferred*
+
+*abstraction*
+
+A programming lanuage's type system deeply colours the way we think, and write
+code, in that languages.
+
+NOTE:
+so right!
+python is duck-type, not check the type, but check the interface or property.
+but haskell, is use inferred type system. and *typeclasses*
+
+`'a' :: Char`
+type signnature
+
+=== basic ===
+==== number ====
+- Integer
+- IntegerS
+- IntS
+- Double
 rational number
 `11%29` -> 11/29
+
+predication function::
+- odd
+- even
+- compare
+
+
+- Char
+- Bool
+- list          [1, 2, 3]
 - string        "abc"
     * string is list of char/int
     * "" == []
-- bool value
-- list          [1, 2, 3]
 === list ===
 enumeration notation
 
@@ -22,7 +50,7 @@ enumeration notation
 `[1.0..1.8]` -> [1.0, 2.0]
 
 ==== operator on list ====
-- ++            extend
+- ++            extend/concatenate
 - :             cons        `1 : [2, 3]` -> [1, 2, 3]
 
 == math ==
