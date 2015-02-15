@@ -10,7 +10,10 @@ mail body from _STDIN_ or using _echo_ command
 - -b    BCC to addr
 - comma delimiter in TOADDR
 - -a    append other header scope
+
 -aFrom:liuyang\<liuyang@test.com\>
+
+--append "Cc: abc@123.com"
 
 == THEORY ==
 install mailutils

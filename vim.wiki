@@ -369,12 +369,21 @@ set listchars=tab:\>\-,trail:<,extends:>
 - stselect [TAGNAME]    list tag, and open it in new window
 - g]                    list current tag on cursor
 
-=== return after a tag jump ===
+=== result of ctags ===
+start lines with "!" is meta information.
+
+every line is start with a LABEL,
+
+LABEL name, filename, line content contained LABEL, LABEL type, signature
+field.
+
+return after a tag jump
 - pop                   ex command
-- <C-t>
+- <C-t>                 return from tag jump
 
 rejump to tag
 - tag                   directly use tag
+- <C-i>                 re-jump to tag
 
 list tag stack
 - tags, tagstack

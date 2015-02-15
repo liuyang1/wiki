@@ -18,8 +18,14 @@ so right!
 python is duck-type, not check the type, but check the interface or property.
 but haskell, is use inferred type system. and *typeclasses*
 
+type inferring system/static type system, make debuging on type error
+*up front*. (than dynamic type system)
+
 `'a' :: Char`
 type signnature
+
+`:type ???`
+return type of classes
 
 === basic ===
 ==== number ====
@@ -34,16 +40,21 @@ predication function::
 - odd
 - even
 - compare
+    - LT, GT, EQ
 
 
 - Char
 - Bool
-- list          [1, 2, 3]
+- List          [1, 2, 3]
 - string        "abc"
     * string is list of char/int
     * "" == []
 === list ===
 enumeration notation
+
+*polymorphic*
+
+elements of list must have same type
 
 `[1..10]`
 `[1.0,1.25..2.0]`
@@ -52,7 +63,20 @@ enumeration notation
 ==== operator on list ====
 - ++            extend/concatenate
 - :             cons        `1 : [2, 3]` -> [1, 2, 3]
+- head
+- tail
+    - tail []
+    *** Exception: Prelude.tail: empty list
+- last
+- take n list
+- drop n list
 
+=== tuple ===
+`()` work [[as]] *void* in C.
+
+=== pair ===
+- fst
+- snd
 == math ==
 === operator ===
 - +
@@ -60,6 +84,7 @@ enumeration notation
 - /
 - **
 - ^
+- mod
 - precedence of operators
 `1 + 4 * 4` -> 17
 - () bracket
@@ -101,3 +126,6 @@ enumeration notation
 == ghci ==
 - ghci              interative intreprator
 - :?                get help
+- :type
+- :load
+- :cd
