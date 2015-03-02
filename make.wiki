@@ -1,12 +1,61 @@
 =makefile编写=
 
+basic introduce page: [[http://www.ruanyifeng.com/blog/2015/02/make.html]]
 == basic ==
-=== assignment ===
+=== var ===
+assignment::
 - =         normal, when var is *used*, *recursively* expanded
 - :=        when var is *declared*, expanded.
 - ?=        setting only if it *doesn't* have a value
 - +=        *appending* to the existing value, or setting it if the var didn't
             exist
+
+reference::
+
+$(VARNAME)
+
+shell var
+
+$$(SHELLVARNAME)
+
+implicit var
+
+such as CC ...
+
+automatic var
+
+- $@        target
+- $<        first prerequisite
+- $?        newer prerequisites
+- $^        all prerequisites
+- "$*"
+    - matching part, %.txt matching FILE.txt, $* -> FILE
+- $(@D)     dir of target
+- $(@F)     filename of target
+- $(<D)     dir of first prerequisite
+- $(<F)     filename of first prerequisite
+
+
+== condition ==
+
+{{{
+ifeq ($(CC),gcc)
+    ...
+else
+    ...
+endif
+}}}
+
+== loop ==
+
+== function ==
+$(function args)
+
+- shell         execute shell command
+- wildcard      expand asterisk char
+- subst         text replace $(subst from,to,text)
+- patsubst      pattern matching replace $(patsubst pattern,replacement,text)
+- VAR:oldSuffix=newSuffix       suffix replace `min: $(OUTPUT):.js=.min.js`
 == makefile debug param ==
 make -d
 输出细节
@@ -43,13 +92,18 @@ cannot run enviroment function from parent shell, but can source and run it in s
 	command..
 target:目标文件
 	prerequisites:依赖目标
+	}}}
+
 command:需要执行的命令
-	也就是target依赖于prerequisites,而由依赖懂到目标的生成规则则是command
-	 
-	 简单示例
-	 略
-	 反斜杠"\",连接换行,和C的规则是一致的.
-	  
+
+也就是target依赖于prerequisites,而由依赖懂到目标的生成规则则是command
+
+    the shell command is independency of each line.
+
+# concat command, need ";" in one line.
+# 反斜杠"\",连接换行,和C的规则是一致的.
+# .ONESHELL, setting
+{{{
 	  使用变量
 定义变量:var=..
 	eg:OBJS=main.o cmd.o ..
@@ -64,6 +118,8 @@ command:需要执行的命令
 	clean:
 	-rm edit $(OBJS)
 	.PHONY表示clean是个伪目标.
+	phony target declaring will avoid same name file, (such as a file named with
+  clean) problem.
 	rm前面加-,表示出现问题时,继续执行
 	一般clean放在Makefile文件的最后
 	 
@@ -136,7 +192,10 @@ bigoutput: text.c
 littleoutput: text.c
 	generate text.c -little >; littleoutput
 	其中-$(subst output,,$@)中的"$"白哦是执行一个makefile函数,函数名位subst,其后为参数.subst是截取字符串的函数.$@表示目标集合.$@依次取目标执行命令
-	 
+}}}
+
+
+=== pattern-matching ===
 	 静态模式
 	 <targets..>;:<target-pattern>;:<prereq-patterns..>;
 	 <commands>;…
@@ -146,6 +205,7 @@ littleoutput: text.c
 举例说明:
 	targets为%.o,意为target以.o结尾;prereq-pattern定义为%.c,表示以%.o相对应的%.c文件(如main.o对应main.c).
 eg:
+{{{
 	OBJS=foo.o bar.o
 all:$(OBJS)
 	$(OBJS): %.o : %.c
@@ -156,6 +216,10 @@ $<和$@为自动化变量,$<表示所有的依赖目标集,$@表示目标集的�
 	$(CC) -c $(CFLAGS) foo.c -o foo.o
 bar.o : bar.c
 	$(CC) -c $(CFLAGS) bar.c -o bar.o
+}}}
+
+
+{{{
 另一个例子:
 	TODOADD
 	 
@@ -203,3 +267,11 @@ bar.o : bar.c
 	1,autoscan产生configure.scan.在此基础上进行修改就可以得到confiugre.in.
 	2,编辑configure.scan
 }}}
+
+== internal VAR ==
+=== .RECIPEPREFIX ===
+.RECIPEPREFIX=>
+
+.RECIPEPREFIX is prefix of command, default is TAB char.
+
+=== .ONESHELL ===

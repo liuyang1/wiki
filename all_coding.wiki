@@ -30,7 +30,7 @@
 
 [[cloc_usage]]
 ====makefile与周边====
-[[makefile_man|makefile编写]]
+[[make|makefile编写]]
 
 [[config_make|config与交叉编译]]
 

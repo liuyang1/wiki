@@ -62,7 +62,7 @@ dummy: [[TODO]]
 === compiler and others ===
 * [[gcc]]
 * [[gdb]]
-* [[makefile_man|Makefile]]
+* [[make|Make]]
 * [[binutils]]
 * [[git]]
 * [[gerrit]]

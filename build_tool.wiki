@@ -1,6 +1,34 @@
 = build tool =
 == make ==
-[[makefile_man]]
+[[make]]
+== SCons ==
+Software Construct tool
+
+replacment of make
+
+- python
+- auto dependency analysis (and consider the compiling option)
+- better parallel
+- cross platform and port to other system
+- check file based on checksum and mark flag, not just timestamp
+- not recurisive mode, but from root directory iterative
+
+=== compile type support ===
+* Program
+* Object
+* Library
+* StaticLibrary
+* ShareLibrary
+
+Glob function to expand pattern matching statement
+
+other option
+* LIBS
+* LIBPATH
+* CCFLAGS
+
+=== comment ===
+better than *make*, indeed.
 == qmake ==
 Qt project
 == cmake ==
@@ -25,3 +53,28 @@ generate Makefile(for linux platform)
 == najna ==
 
 == Android build system ==
+
+== java system ==
+
+=== ant ===
+a Java based make tool
+
+read from build.xml which describes the targets. (such as Makefile to make)
+=== Mix ===
+elixir/erlang
+
+= dependency manager tool =
+=== pip ===
+python
+
+=== npm ===
+javascript
+=== ivy ===
+java
+=== maven ===
+[[maven]]
+depedency manager tool
+
+java的构建工具,类似与C/C++的make一样.但是更为强大与全面.
+=== gradle ===
+java

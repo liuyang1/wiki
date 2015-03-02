@@ -128,4 +128,9 @@ elements of list must have same type
 - :?                get help
 - :type
 - :load
+    * :load filename
+    * :load filename.hs
+    * :load "filename.hs"
 - :cd
+
+Inside ghci, define a new variable, need using *let*
