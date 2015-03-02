@@ -44,6 +44,19 @@ struct init, as . style.
 = gcc =
 == option ==
 * m32,m64                   spec for 32bit or 64bit code
+* -E                        preprocess only
+* -e/--entry _ENTRY_        self define entry function
+* -o                        output filename
+
+=== warning of option ===
+- -Wall
+- -Werror
+
+=== debug option ===
+- -g
+
+=== link option ===
+- -lLIBNAME
 
 == 使用ccache加速 ==
 使用ccache gcc或者ccache g++,可以复用缓存的文件,这样加快编译速度.
