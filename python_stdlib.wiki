@@ -25,6 +25,14 @@ import readline
 
 == re ==
 
+=== sample ===
+==== spliting strings on any of multiple delimiters ====
+{{{
+>>> line = 'word0 word1; word2, word3'
+>>> re.split(r'[;,\s]\s*', line)
+['word0', 'word1', 'word2', 'word3']
+}}}
+
 = data persistence =
 == pickle ==
 pickle 用于python的数据序列化工作

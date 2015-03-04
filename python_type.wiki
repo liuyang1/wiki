@@ -188,6 +188,10 @@ Item(i-1, int(parts[0]), int(parts[1]))
 == 模板字符串 ==
 
 == string函数 ==
+# captialize
+# center
+# decode/encode
+# endswith/startswith       use tuple as param
 
 == 废弃string函数 ==
 
