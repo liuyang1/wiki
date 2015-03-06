@@ -167,7 +167,7 @@ this is so useful for moving, deleting, and so on.
 - */#                   *查找光标所在字符* *,顺序查找,#逆序查找
 - g*/g#                 查找含当前词作为一部分的词,包括注释内容
 - gd                    类似上面,但是不包括注释
-- gD
+- gD                    search and jump to current word in current file
 - ]I                    查找被调用的函数出现的位置(单个文件中)
 
 === fold 折叠 ===

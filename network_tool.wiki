@@ -42,7 +42,7 @@ GATEWAY			网关地址
 	ifconfig eth0 down
 }}}
 
-ifconfig 192.168.1.10/24
+ifconfig [ETHNAME] 192.168.1.10/24
 
 注意::
 在Ubuntu环境下面,默认使用NetworkManager来进行网络管理.

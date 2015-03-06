@@ -184,5 +184,6 @@ nc -v -w [TIME] IP -z PORT1-PORT2
 - -t        use telnet style interactive
 - -u        UDP mode
 
+`nc -z -v HOST PORT`
 === 所有的同步软件 ===
 [[http://en.wikipedia.org/wiki/Comparison_of_file_synchronization_software|wiki]]
