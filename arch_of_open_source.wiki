@@ -9,3 +9,10 @@ feature:
 - lower layer tech complex: IP, TX??, and others
 
 == BAsh ==
+
+TODO:
+- gdb
+- git
+- nginx
+- Processing.js
+- PyPy

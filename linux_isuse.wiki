@@ -1,7 +1,7 @@
-= No such file or directory when try run a binary =
+== No such file or directory when try run a binary ==
 try to run a 32-bit under 64bit env, however not exist /lib/ld-linux.so.2.
 
-= matlab运行无界面问题 =
+== matlab运行无界面问题 ==
 matlab在awesome环境下,运行没有界面问题.
 
 1,使用Mtoolkit配置解决.
@@ -35,3 +35,7 @@ linux的自动其中机制.
 mount出现block bitmap group问题.
 
 可以通过e4fsck /dev/sda1之类就可以完成.
+
+= audio =
+== alsamixer ==
+master mute
