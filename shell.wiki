@@ -120,6 +120,19 @@ for (( i = 0 ; i < ${#names[@]} ; i++ )) do
 done
 }}}
 
+== map ==
+only support at bash 4.0+, ksh and zsh.
+
+{{{
+declare -A newmap
+# typeset -A newmap
+newmap[name]="liuyang"
+newmap[what]="value"
+echo ${newmap[name]}
+}}}
+
+more details check test code
+
 === more bash options ===
 * -v                verbose
 * -u/-o nounset     unset var, will quit

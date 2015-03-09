@@ -91,12 +91,16 @@ remote will automatically create remotebranch
 string, such as 'liuyang <liuyang@xxx.com>'
 
 this space between name and mail is necessary.
+
+`git commit --amend --author="name <name@xxx.com>"`
 == clean ==
 用于清除git的多余的文件
 必须添加-f或者-n参数.
 
 * -n                打印将作出的修改,但不会实际执行
 * -f                执行出来
+* -d                ignored directory
+* -X                ignored files
 == stash ==
 - 无任何参数        将当前改动存储为stash,并且增加到list中.
 - apply             应用list中最新的修改,注意,这个修改并不考虑其原分支情况,也就是可以应用在别的分支上.
