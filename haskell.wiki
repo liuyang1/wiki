@@ -29,7 +29,8 @@ return type of classes
 
 === basic ===
 ==== number ====
-- Integer
+- Int           INT32 or INT64
+- Integer       unlimited Integer
 - IntegerS
 - IntS
 - Double
@@ -60,6 +61,10 @@ elements of list must have same type
 `[1.0,1.25..2.0]`
 `[1.0..1.8]` -> [1.0, 2.0]
 
+==== implemention ====
+the list is like functional programming language, FP, support `cons`, `car`, `cdr`
+is better.
+
 ==== operator on list ====
 - ++            extend/concatenate
 - :             cons        `1 : [2, 3]` -> [1, 2, 3]
@@ -67,9 +72,19 @@ elements of list must have same type
 - tail
     - tail []
     *** Exception: Prelude.tail: empty list
+- !!            index operation, `lst !! 3`
 - last
 - take n list
 - drop n list
+
+==== list comprehension ====
+`[x * 2 | x <- [1..10], x > 5]`
+
+list generate, and predicate function have multi-number, just split by comma
+
+`[x * y | x <- [1..10], y <- [1..10], x /= 2, odd y]`
+
+also support embed in another one list comprehension
 
 === tuple ===
 `()` work [[as]] *void* in C.
@@ -77,6 +92,7 @@ elements of list must have same type
 === pair ===
 - fst
 - snd
+only support pair or tuple which containing TWO elements.
 == math ==
 === operator ===
 - +
@@ -84,7 +100,8 @@ elements of list must have same type
 - /
 - **
 - ^
-- mod
+- rem
+- mod       not same, mod have defintion on negative number
 - precedence of operators
 `1 + 4 * 4` -> 17
 - () bracket
@@ -96,6 +113,7 @@ elements of list must have same type
 - ||
 - not
 - ==
+- /=        not equal(not "!=" as C style)
 - <
 - >
 - >=
@@ -113,6 +131,67 @@ elements of list must have same type
 - floor
 - ceiling
 - sin
+
+== function ==
+based on function type definition in Haskell, we can see it support "curry" of
+function.
+
+*curry*
+
+given part of parameters of function to build new function.
+or combinition one param function to construct multi-param function.
+
+=== function type ===
+{{{
+    :type elem
+    elem :: Eq a => a -> [a] -> Bool
+}}}
+
+=== char in function name ===
+we could use ' in function name, as use it as "modification" version of
+orignal function.
+
+=== midfix function ===
+{{{
+div 92 10
+92 `div` 10
+}}}
+
+we even could define a function as midfix format.
+== typeclass ==
+- Eq        /= ==
+- Ord       > < >= <=       GT LT EQ
+- Show
+- Read
+- Enum
+- Bounded
+- Num
+- Integral
+- Floating
+
+NOTE:
+Read, Show is *reverse* typeclass.
+== pattern matching ==
+- all@(x:xs)        @ -> as
+
+patter matching could apply in function param parse, *where* statement, *let*
+statement.
+
+=== guard ===
+{{{
+func param
+    | param <= val = "abc"
+    | param < val1 = "def"
+    | otherwise = "other"
+}}}
+== where vs. let in ==
+~~we could define helper function in *where* statement.~~
+
+`let [bindings] in [expressions]`
+
+*where* is syntax struct, but *let* is expression.
+
+bindings in let, could split by ";".
 
 == IO ==
 === output ===
@@ -134,3 +213,17 @@ elements of list must have same type
 - :cd
 
 Inside ghci, define a new variable, need using *let*
+
+= NOTE =
+unlike other language, function only means definition a map or a functor,
+       which from value of one type to value of other type.
+
+but in Haskell, we can definition a functor, which from one type to other
+type.
+
+and we can infered function, and calculate and combine functiont to build new
+/high level functor.
+
+= issues =
+== align ==
+haskell use *align* to parse the program.

@@ -6,14 +6,17 @@ mail body from _STDIN_ or using _echo_ command
 
 == OPTION ==
 - -s    SUBJECT
-- -c    CC to addr
-- -b    BCC to addr
 - comma delimiter in TOADDR
 - -a    append other header scope
+NOTE:
+may have some issues.
+- -c    CC to addr
+- -b    BCC to addr
 
--aFrom:liuyang\<liuyang@test.com\>
-
---append "Cc: abc@123.com"
+=== append option ===
+* -aFrom:liuyang\<liuyang@test.com\>            sender
+* --append "Cc: abc@123.com"                    CC
+* --append "Content-Type: text/html"            send html format mail
 
 == THEORY ==
 install mailutils
@@ -27,9 +30,10 @@ this is different with python smtp library, which need login to remote server,
      then send mail.
 
 - the sender is current user at your server's hostname.
-- the TOAddrLst without server, will default to current server's user.
+- when the TOAddrLst is without host name, it will default to current server's
+user.
 
-= attachment =
+== attachment ==
 uuencode / uudecode
 
 `uuecode [FILENAME] [name] | mail ...`
@@ -38,4 +42,4 @@ uuencode / uudecode
 
 transmit binary file to a channel which only for ascii pure text.
 
-(cat mailtext; uuencode [filename] [name]) | mail ...
+`(cat mailtext; uuencode [filename] [name]) | mail ...`

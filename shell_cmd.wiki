@@ -41,6 +41,15 @@ fn="$(readlink --canonicalize "$0")"
 
 === ln link ===
 - -f    force, delete original file if exist
+NOTE:
+maybe generate another soft link file under original directory.
+This is a bug?
+- -s    soft link, for directory, only allow soft link
+NOTE:
+default to hard link.
+
+and hark link not guarrante file totally sync, as cache or other issue
+
 === basename,dirname ===
 
 获取路径和文件名,从文件的路径全名中.
@@ -177,3 +186,10 @@ sar -u 2 400
 - -a参数,输出到文件的时候,是append模式
 - -o,输出到文件,后面带文件名采菽
 - -p,输出格式为POSIX格式
+
+== echo ==
+- -e        escape code output
+- -E        close escape code output
+
+== printf ==
+- "%-10s"   left justify output string

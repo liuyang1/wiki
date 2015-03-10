@@ -30,4 +30,5 @@ Vector Clock??
 == 故障处理 ==
 Hinted Handoff??
 
-
+== NOTE ==
+Riak is based on this.
