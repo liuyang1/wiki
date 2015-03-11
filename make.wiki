@@ -75,7 +75,15 @@ $$SHELL_VAR_NAME
 default using shell is /bin/sh, change this by SHELL var.
 
 cannot run enviroment function from parent shell, but can source and run it in subshell
+
+== issues ==
+=== ignore on error ===
+start with "-"
+or `make -i`
+or `make -k`, keep-going
+
 [[makefile_inst]]
+
 ==高级Makefile==
 {{{
 前言

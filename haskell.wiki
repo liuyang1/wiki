@@ -83,7 +83,7 @@ list generate, and predicate function have multi-number, just split by comma
 
 `[x * y | x <- [1..10], y <- [1..10], x /= 2, odd y]`
 
-also support embed in another one list comprehension
+also support embed in list comprehension
 
 === tuple ===
 `()` work [[as]] *void* in C.
@@ -139,6 +139,9 @@ function.
 given part of parameters of function to build new function.
 or combinition one param function to construct multi-param function.
 
+*->*
+right-combined
+
 === char in function name ===
 we could use ' in function name, as use it as "modification" version of
 orignal function.
@@ -148,6 +151,43 @@ orignal function.
 div 92 10
 92 `div` 10
 }}}
+=== lambda function ===
+just starts with "\" as *lambda*
+
+=== high order function ===
+==== fold ====
+foldr, foldl, start with the right or left side of list.
+
+use *foldr* is better than *foldl* when apply on List, as left *cons*/*:* is
+faster than *append*/*++* on List.
+
+and *foldr* could apply on unlimited List, but *foldl* NOT.
+
+foldl1, foldr1, without initial value, but must have one value in List.
+
+==== scan ====
+just different than *fold*, is store accumlate state to list.
+
+==== dollar ====
+`map ($ 3) [(4 +), (10 *)]`
+
+==== function composition ====
+{{{
+(.) :: (b -> c) -> (a -> b) -> a -> c
+f . g = \x -> f (g x)
+}}}
+
+== module ==
+{{{
+import
+:m
+:module
+import as
+import qualified Data.Map as M
+}}}
+
+== exception ==
+* error         throw a ERROR (and literal string as param)
 == IO ==
 === output ===
 - putStrLn
@@ -178,3 +218,14 @@ type.
 
 and we can infered function, and calculate and combine functiont to build new
 /high level functor.
+
+== Maybe ==
+in Haskell, Maybe is better than C's return value style, and better than
+Python's _NONE_ style.
+
+In Erlang, we have same style.
+
+but in Haksell, this support infered tyle system. GOOD.
+= Book =
+Learn your haskell for great good, is better for newbie than real world
+haskell.

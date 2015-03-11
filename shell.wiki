@@ -467,3 +467,4 @@ using shellcheck to detect this warnings to write robust bash script.
 - -F        function name or its property
 - -t        var have trace property
 - -x        setting env var
+- -A        assoc array, just map
