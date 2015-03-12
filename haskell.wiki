@@ -91,6 +91,20 @@ also support embed in list comprehension
 === pair ===
 - fst
 - snd
+=== Algebraic Data Types ===
+==== Value Consturctor ====
+
+`data TYPECONS = VALUECONS TYPE0 TYPE1 | VALUECONS TYPE10 deriving (Show)`
+
+Value Consturctor is a function.
+
+==== Type Constructor ====
+`data Maybe a = Nothing | Just a`
+
+=== Record Syntax ===
+{{{
+data Person = Person { firstname :: String, lastname :: String }
+}}}
 == math ==
 === operator ===
 - +
@@ -186,6 +200,8 @@ import as
 import qualified Data.Map as M
 }}}
 
+`Type(..)` to export self defined TYPE function.(But we still could use that
+type)
 == exception ==
 * error         throw a ERROR (and literal string as param)
 == IO ==
