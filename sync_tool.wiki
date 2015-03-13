@@ -19,6 +19,8 @@
 - -L	不进入其他主机
 - -p	下载网页所需所有文件(图片,css之类)
 - -i	下载指定文件内容(文件内容为URL).
+- -m    mirror of site
+- --restrict-file-names=nocontrol   中文乱码解决
 
 == rsync ==
 非常强大的工具,支持部分更新.很多工具软件的后台都是调用它实现的.

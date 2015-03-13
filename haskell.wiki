@@ -29,7 +29,8 @@ return type of classes
 
 === basic ===
 ==== number ====
-- Integer
+- Int           INT32 or INT64
+- Integer       unlimited Integer
 - IntegerS
 - IntS
 - Double
@@ -91,6 +92,7 @@ also support embed in list comprehension
 === pair ===
 - fst
 - snd
+only support pair or tuple which containing TWO elements.
 === Algebraic Data Types ===
 ==== Value Consturctor ====
 
@@ -153,6 +155,11 @@ function.
 given part of parameters of function to build new function.
 or combinition one param function to construct multi-param function.
 
+=== function type ===
+{{{
+    :type elem
+    elem :: Eq a => a -> [a] -> Bool
+}}}
 *->*
 right-combined
 
@@ -165,6 +172,43 @@ orignal function.
 div 92 10
 92 `div` 10
 }}}
+
+we even could define a function as midfix format.
+== typeclass ==
+- Eq        /= ==
+- Ord       > < >= <=       GT LT EQ
+- Show
+- Read
+- Enum
+- Bounded
+- Num
+- Integral
+- Floating
+
+NOTE:
+Read, Show is *reverse* typeclass.
+== pattern matching ==
+- all@(x:xs)        @ -> as
+
+patter matching could apply in function param parse, *where* statement, *let*
+statement.
+
+=== guard ===
+{{{
+func param
+    | param <= val = "abc"
+    | param < val1 = "def"
+    | otherwise = "other"
+}}}
+== where vs. let in ==
+~~we could define helper function in *where* statement.~~
+
+`let [bindings] in [expressions]`
+
+*where* is syntax struct, but *let* is expression.
+
+bindings in let, could split by ";".
+
 === lambda function ===
 just starts with "\" as *lambda*
 
@@ -242,6 +286,9 @@ Python's _NONE_ style.
 In Erlang, we have same style.
 
 but in Haksell, this support infered tyle system. GOOD.
+= issues =
+== align ==
+haskell use *align* to parse the program.
 = Book =
 Learn your haskell for great good, is better for newbie than real world
 haskell.
