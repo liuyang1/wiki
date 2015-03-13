@@ -29,3 +29,8 @@ using clipboard
 `xclip -selection c`
 
 read from stdin, then we could using *C-V* for other application
+
+== xset ==
+`xset r rate 440 33`
+
+setting cursor auto repeat delay, and repeat rate

@@ -1,8 +1,9 @@
 = vim tips =
 
-== 命令参数 ==
+== 命令参数 option ==
 * +N    表示到行号
 * +     表示到最后一行
+* -c    exec command after start vim
 
 === 编辑远程主机上的文件 ===
 {{{

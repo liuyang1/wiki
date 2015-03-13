@@ -107,6 +107,17 @@ Value Consturctor is a function.
 {{{
 data Person = Person { firstname :: String, lastname :: String }
 }}}
+== functor ==
+we have a complex? or a different kind? type, we can define a functor on the
+TYPE, then map to different operation on different kind? type.
+== kind ==
+type of type -> kind.
+
+{{{
+:kind Maybe
+Maybe :: * -> *
+}}}
+this means, Maybe's type is a map, which construct a type to another type.
 == math ==
 === operator ===
 - +
@@ -251,7 +262,14 @@ type)
 == IO ==
 === output ===
 - putStrLn
+=== return ===
+in haskell, return only one expression, which one return a IO action, but not
+return the function.
 
+when we must get an IO action, but not need really do sth, we should use
+`return ()`
+
+but the programming will continue to execute after this expression.
 == syntax ==
 - comment       begin with "--"
 
@@ -269,6 +287,10 @@ type)
 
 Inside ghci, define a new variable, need using *let*
 
+== runghc ==
+directly execute the haskell as script
+
+not generate .o or executable file, not enter to ghci
 = NOTE =
 unlike other language, function only means definition a map or a functor,
        which from value of one type to value of other type.
