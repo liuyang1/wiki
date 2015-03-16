@@ -94,7 +94,7 @@ Alt,是Mod1键
 - [[ffmpeg_usage|ffmpeg]]
 - [[mp4box_usage|mp4box使用]]
 - [[mpeg4ip_usage|mpeg4ip工具]]
-- [[video_tool_ext|视频处理工具延伸]]
+- [[video_tool|视频处理工具延伸]]
 - [[rtptools]]
 - [[openrtsp]]
 

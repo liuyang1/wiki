@@ -279,6 +279,8 @@ but the programming will continue to execute after this expression.
 - ghci              interative intreprator
 - :?                get help
 - :type
+- :info
+- :module
 - :load
     * :load filename
     * :load filename.hs

@@ -83,7 +83,6 @@ dummy: [[TODO]]
 * [[text_browser|Text-Mode browser]]
 
 == filetype ==
-* [[m3u8]]
 * [[mpegts_format|MPEG-TS]]
 * [[AAC_format|aac]]
 * [[HEVC]]

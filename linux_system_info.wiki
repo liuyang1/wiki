@@ -130,3 +130,10 @@ ref:man ps
 lsb_release -a
 
 cat /etc/issue(如果仅仅看系统的名字,这个比较合适)
+
+== ntp ==
+{{{
+sudo service ntp stop
+sudo ntpd -gq
+sudo service ntp start
+}}}

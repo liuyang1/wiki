@@ -29,15 +29,16 @@ vim scp://hd0/.bash_profile
 - *<C-P>*           向前搜索可匹配词,补全.
 - <C-N>         后****
 - *<C-X><C-L>*  向前,句子
-- <C-X><C-F>    向后,句子 
+- ???           向后,句子
+- <C-X><C-F>    auto-complete for pathname
 === 缩进 indent ===
 - <C-D/T>       *插入模式下,缩进/反缩进当前行* 为什么我之前不会用?!
 - 0<C-D>        取消本行的缩进(直接到缩进到行首)
 
 === 删除 delete ===
+- <C-H>         删除,和一般的<BS>效果是完全一样的.
 - <C-W>         *插入模式下,向后删除一个单词*,插入模式的功能异常犀利啊!
 - <C-U>         删除左侧的一整行
-- <C-H>         删除,和一般的<BS>效果是完全一样的.
 
 == 复制部分内容 ==
 - <C-Y>         复制上一行同一列的内容
@@ -77,6 +78,18 @@ vim scp://hd0/.bash_profile
 - ci<           like as above
 - caw           delele whold word(and more space), enter insert mode
 
+- a                 append text after cursor [count] times.
+- A                 append text at end of the line [count] times.
+
+- i                 insert text before the cursor [count] times.
+- I                 insert text at begin of the line [count] times.
+
+- gI                insert text in column 1 [count] times.
+- gi                insert text in the SAME position as where Insert mode was
+stoped last time in the current buffer.
+
+- o
+- O
 === 辅助输入 ===
 - .             自动重复输入内容
 
@@ -151,6 +164,24 @@ so if function with { as tail, this method won't detect it, and skip it.
 
 g[uU~][uU~wW/iw/$]
 
+=== delteing text ===
+- x
+- dd
+- D
+- J                 join lines
+- gJ                join lines, don't insert or remove any spaces.
+
+=== formating text ===
+- :[range]ce[nter] [width]
+                    center lines in [range] between [width] columns(default
+textwidth or 80)
+- :[range]ri[ght] [width]
+                    right-align
+- :[range]le[ft] [indent]
+- gq{motion}
+- gqq               format current line
+- gw{motion}
+- gww
 == text object ==
 * w word
 * p pargraph
@@ -203,6 +234,28 @@ this is so useful for moving, deleting, and so on.
 - :v/[PATTERN]/d    不匹配则删除, delete when not match pattern
 - :s/[PATTERN]//gn  统计个数,不会进行实际的替换
 
+- :r[ead] [++opt] [name] insert the file [name] (default: current file) below
+the cursor.
+- :r !CMD           exec the cmd, and insert the output
+=== commands ===
+- :as/ga            Print the ascii value of current char
+- :=                print last line number
+- :!{cmd}           execute {cmd} with the shell.
+- :addr0,addr1!{cmd}    execute {cmd} for the addresses, and sent back to
+buffer!!
+address with 1,2,... for line number, G for last line. 'a,'b for mark a and
+mark b, % for all line.
+
+== other mode ==
+=== visual mode ===
+v
+
+=== visual block mode ===
+<C-v>
+
+=== visual line mode ===
+<Shift-v>
+
 == mark 书签 ==
 - m[a-z,A-Z]       设置书签
 - '[a-z,A-Z]      书签跳转
@@ -218,6 +271,10 @@ this is so useful for moving, deleting, and so on.
 | I | Don't ignore case                              |
 - ~~:1,$s/表达式1/表达式2/g~~   全文替换表达式1为表达式2
 - :%s/表达式1/表达式2/g     同上,比上面少了2个字符
+
+- <C-R><C-W>            copy & paste word under current cursor
+- empty pattern0        pattern0 default to "@/", which is the search value by
+"\*" or "#"
 
 == 多缓冲区 ==
 - :bd               关闭当前缓冲区(也会保存,但可能没有触发写入的其他插件(vimwiki的自动导出功能)
@@ -251,11 +308,13 @@ vim -p first second 依次打开文件,在不同的tab页面
 http://yuzifu.net/book/vimdoc/windows.html
 
 === open windows ===
-- CTRL-W s          split window
-- CTRL-W v          vertical split windows
-- CTRL-W n          split window and init a blank file
+- CTRL-W s/:sp      split window
+- CTRL-W v/:vsp     vertical split windows
+- CTRL-W n/:new     split window and init a blank file
+- :vnew[w]          vertical split window and init a blank file
 
 - :sp/:vsp          分割窗口/纵向分割窗口(比使用全部命令split与vsplit省事一点点)
+- :vsp | b1         split, and open buffer 1
 
 === close window ===
 - CTRL-W q
@@ -291,6 +350,9 @@ R                   entre REPLACE mode
 NOTE:
 record marcro, then reexecute it, will helpling a lot of duplicate jobs.
 = topic =
+== undo branch ==
+- g-            go to older text state. with a count repeat that many times.
+- g+            go to newer text state. ...
 == 编辑远程主机上的文件 ==
 {{{
     vim scp://username:password@hostaddr/path/to/file
@@ -365,6 +427,9 @@ set listchars=tab:\>\-,trail:<,extends:>
 
 == ctag ==
 - tag [TAGNAME]         search tag
+NOTE:
+we can use <C-d> to list all matched tags.
+
 - stag [TAGNAME]        open tag in new window
 - tselect [TAGNAME]     list tag
 - stselect [TAGNAME]    list tag, and open it in new window

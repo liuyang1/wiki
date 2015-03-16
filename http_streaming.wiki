@@ -93,6 +93,10 @@ restream live video
 }}}
 
 
+=== m3u8 format ===
+==== 多码率适配 ====
+#EXTM3U
+
 ----
 old
 http://www.roughlydrafted.com/2009/07/08/apple-launches-http-live-streaming-standard-in-iphone-3-0/

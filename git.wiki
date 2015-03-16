@@ -153,6 +153,11 @@ as iso format
 (look like same with default)
 * raw
 git raw format (seconds number and timezone)
+== rev-parse ==
+* --show-toplevel       root dir
+* HEAD                  hash of HEAD
+== rev-list ==
+* commit .. commit      list of hash between commits
 = high =
 == githooks ==
 
