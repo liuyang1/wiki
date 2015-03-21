@@ -20,6 +20,11 @@ python
 
 == jekyll ==
 ruby
+
+静态网页生成器
+
+根据模板自动生成静态网页
+
 == octopress ==
 ruby
 

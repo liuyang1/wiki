@@ -1,3 +1,27 @@
+== n-tier arch ==
+as a extesion of C/S arch.
+
+C/S arch is 2-tier arch.
+
+This design pattern is based on the concept of breaking a system into
+different pieces or tiers that can be physically separated.
+
+- Each tier is responsible for providing a specific functionality.
+- A tier only interacts with the tiers adjacent to it through a well-defined
+interface.
+
+web 2.0/3.0 need more user to generate content in presentation side, not only
+one administrator or one maintainer.
+
+# Presentation tier
+# Application (logic) tier
+# Data tier
+
+== MVC ==
+- presentation logic tier
+- business logic tier
+- data acess tier
+
 
 = 网页技术 =
 
@@ -22,11 +46,6 @@ Content Manager system
 但是这种方法,一般只能用于较大访问量的页面.
 
 对于低访问量页面,意义不大./
-
-== jekyll ==
-静态网页生成器
-
-ruby语言编写,根据模板自动生成静态网页
 
 == webpagetest ==
 网页载入测试页面

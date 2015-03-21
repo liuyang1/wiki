@@ -1,5 +1,11 @@
 = hexo =
 == issue ==
+=== 缩进 ===
+首行缩进,显然应该用css定义p的格式.所有说手动插入空格的,都是不好的啦.
+
+=== css update ===
+hexo clean, and re-generate all content.
+
 === tag split ===
 YAML style:
 {{{

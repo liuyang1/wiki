@@ -80,7 +80,7 @@ sar -u 2 400
 - -p,输出格式为POSIX格式
 
 == scrot ==
-linux screenshoft util
+linux screenshot util
 
 - default       fullscreen screenshot, save as DATA_TIME_screenshoft.png
 - -d            delay time

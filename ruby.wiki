@@ -1,3 +1,18 @@
 = ruby =
-:gem:
+
+= tool =
+== gem ==
 package management
+
+a gen is a prepackaged Ruby applicaiton or library.
+
+== rake ==
+like make
+
+== WEBrick ==
+web server for hosting rails web applcations.
+
+other web server, like apache, Thin, Unicorn, also works.
+
+== Rack middleware ==
+std interface for interaction between web server & web app.

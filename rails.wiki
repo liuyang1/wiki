@@ -1,0 +1,53 @@
+= rails =
+== philosophy ==
+- convention over config
+    - pre-wired
+    - one command to generator MVC totally system.
+* create an table named _post_ in database
+* a class _Post_ create for the model
+* a RESTful controller called _posts_\_controller_ & routes set up so that
+specific URLs will be able to preform *CRUD* operations on the _post_ table in
+    - Create, Read, Update, Destroy
+the db.
+* a _posts_ view create, consisting of a set of HTML files that can be used to
+render the result of the CRUB operations.
+* test fixtures, along with unit, functional, integration and preformance test
+suites are automatically generated.
+- DRY
+every piece of information should have a single, unambiguous, authoritative
+representation within a system.
+- agile developmeng
+* a working applicaiton is available immediately.
+* in development mode, there are no recompile, deploy, restart cycles.
+* testing is built into the railds framework.
+* XP Extrame programming, TDD
+* Behavior-driven development BDD
+extends TDD by writing test cases in natural language than non-programmers can
+read.
+BDD focuses on obtaining a clear understanding of desired software behavior
+through discuss with stakeholders.
+* *RSpec* and *Cucumber* are BDD tools for ruby.
+
+== dir ==
+- app           models, views & controllers code
+- bin           help script (bundle, rails, rake)
+- config        app, database, & route config
+- db            database schema & migrations
+- Gemfile       specify the required gems
+- lib
+- log           app logging dir
+- public        webroot of app
+- test
+- tmp
+- vendor
+
+== command ==
+- rails new [AppName]       create a new rails app
+- rails server              start web server @ 3000 port
+- rails generate scaffold post title:string body:text
+- rails generate scaffold comment post_id:integer body:text
+- rake db:migrate
+create datebase tables
+- rake routes
+all URLs currently recognized by your App.
+- rails server

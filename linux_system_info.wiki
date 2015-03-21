@@ -114,6 +114,12 @@ lsof -p PID 进程打开的文件
 lsof -i 4   IPv4下socket打开的情况
 
 == ps ==
+=== option ===
+- -C        count, and if not exist, will exit fail
+
+` ps -C 'ssh' || ssh ...`
+
+we can use this command to avoid re-execute executing task
 === ps : STAT ===
 ref:man ps
 

@@ -1,5 +1,84 @@
+= gerrit =
+
+== command in server ==
+=== set-reviewer ===
+Add or remove reviewers on a change.
+
+`'gerrit set-reviewers' [--project <PROJECT>] [--add <REVIEWER> ..] [--remove <REVIEWER>..] [--] {COMMIT | CHANGE-ID}…`
+
+- --project / -p
+- --add / -a
+- --remove / -r
+add or remove could use multiple-times to add or remove multitiple reviewers.
+
+* username(mail)
+* groupname
+
+* Change-Id
+* CL-number
+* SHA of commit
+
+=== review ===
+Verify, approve and/or submit a patch set from the command line.
+
+- --project / -p
+- --branch / -b
+- --message / -m
+two levels of quoting is required, one for the local shell, and another for
+the argument parser inside the Gerrit server
+- --json / -j
+- --notify / -n
+    * NONE
+    * OWNER
+    * OWNER_REVIEWERS
+    * ALL (+wacher, +starter)
+- --abondan
+- --restore
+- --rebase
+- --submit / -s
+- --publish
+- --delete
+- --code-review
+- --verified
+- --label
+
+=== stream-events ===
+gerrit could use stream-events command to get internal event.
+
+and return a JSON line for every event.
+
+ref:[[https://review.gerrithub.io/Documentation/cmd-stream-events.html|gerrit stream event]]
+
+`ssh -p 29418 review.example.com gerrit stream-events`
+
+=== gerrit plguin ===
+- ls
+- install / add
+- enable
+- reload
+- remove / rm
+- test-submit rule
+== REST-API ==
+NOTE:
+we even could use JSON format, and REST-API to create draft to review.
 == problem ==
 === squash commit first ===
 repush commit to gerrit server again without any changes, will cause this problem.
 
 need do some changes. better update commit message.
+
+== submit rule ==
+=== prolog ===
+before 2.5 version, we can use prolog as embeded language to self-define
+submit rule.
+
+`refs/meta/config:config` branch, edit *rule.pl*.
+
+use `test-submit rule` to verify it.
+
+=== gerrit plugin ===
+after that version, we also could use gerrit plugin for this.
+
+== plugin ==
+=== reviewer ===
+auto add reviewer plugin

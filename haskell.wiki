@@ -257,6 +257,18 @@ import qualified Data.Map as M
 
 `Type(..)` to export self defined TYPE function.(But we still could use that
 type)
+
+module filename must same with module name
+
+=== define a module ===
+{{{
+module MDLNAME
+(EXPORT_FUNC_NAME0
+,EXPORT_FUNC_NAME1
+) where
+
+-- define func
+}}}
 == exception ==
 * error         throw a ERROR (and literal string as param)
 == IO ==
