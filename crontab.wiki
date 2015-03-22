@@ -16,6 +16,8 @@
 === format ===
 `m h dom(day of month) mon(month) dow(day of week) command`
 
+system level crontab will have one more field *user*, before `command` field.
+
 dow, from Sunday as 0, Mon as 1, ...
 
 - *         every
@@ -36,6 +38,7 @@ make sure crontab service running
 === newline ===
 every entry in crontab end in a *newline* char.
 
+=== PATH ===
 crontab working in non-login shell, so not inculude default profile for
 interactive.
 
@@ -44,7 +47,17 @@ Maybe need add _PATH_ in crontab config file.
 conrtab working directory is your home dir, so maybe need add "cd [path] &&
 exec", if your EXEC need working directory.
 
-=== PATH ===
 crontab use default non-login shell, so maybe PATH not same
 
 add executable program to default PATH, or modification of PATH for crontab
+
+=== % ===
+Be VERY careful when using the percent (%) sign in your command. Unless they
+are escaped \% they are converted into newlines and everything after the first
+non-escaped % is passed to your command on stdin.
+
+=== MAILTO ===
+add *MAILTO*, the cron will try send mail with stdout of command
+
+=== run-parts ===
+run all executable file in dir

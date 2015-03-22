@@ -50,4 +50,20 @@ through discuss with stakeholders.
 create datebase tables
 - rake routes
 all URLs currently recognized by your App.
-- rails server
+- rails server -e [env=development]
+
+== environment ==
+- Development
+- Test
+- Production
+
+db:
+db/database.yml
+
+== Active Record ==
+object-relational mapping *ORM*
+
+| OO Language | Relations DB  |
+| Classes     | Tables        |
+| Objects     | Records       |
+| Attributes  | Record Values |

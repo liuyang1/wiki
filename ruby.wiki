@@ -9,6 +9,8 @@ a gen is a prepackaged Ruby applicaiton or library.
 == rake ==
 like make
 
+- create/undo db from db/migrate files.
+
 == WEBrick ==
 web server for hosting rails web applcations.
 

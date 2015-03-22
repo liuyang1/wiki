@@ -1,0 +1,10 @@
+= relation-db =
+== entity-relationship models ==
+
+the structure/organization of the tables in a DB is refered to as a *schema*.
+
+an *entity-releationship model* is a common way of abstractly capturing a DB
+schema.
+
+== join ==
+tbl0 X tbl1 = JOIN_TBL
