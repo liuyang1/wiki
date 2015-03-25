@@ -1,5 +1,6 @@
 == different ==
 * print_function        print move to print function
+    * print(fmtstr, *objs, file=sys.stdout)
 * division              / -> //
 * input() replace raw_input()
 * reduce move to functools

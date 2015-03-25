@@ -43,3 +43,10 @@ uuencode / uudecode
 transmit binary file to a channel which only for ascii pure text.
 
 `(cat mailtext; uuencode [filename] [name]) | mail ...`
+
+== too slow ==
+move this
+`127.0.1.1	HOSTNAME`
+
+to
+`127.0.1.1	HOSTNAME.localdomain HOSTNAME`

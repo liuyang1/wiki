@@ -66,6 +66,16 @@ git filter-branch --subdirectory [dir] -- --all
 `git config commit.template [FILENAME]`
 
 = base =
+== clone ==
+- --depth <depth>       create a *SHALLOW* clone with history truncated to
+   specified number of revision.
+
+NOTE:
+# your CANNOT clone, fetch from, push from a SHALLOW repo
+# only when you only need recent history of a large project with a long
+history.
+
+the diff size is 10%+-, but save 20%+- time.
 == commit ==
 - -F        rewrite commit from filename
 == diff ==
@@ -80,8 +90,10 @@ git filter-branch --subdirectory [dir] -- --all
 == tag ==
 - tag -a vXXX -m "MMM"      添加tag	git
 - tag -d vXXX               删除tag	git
+- tag NEW OLD               add a NET tag as OLD, just different name
 - push远程tag	git push --tags
 - 删除远程tag	git push origin :vXXX
+- -f, --force               replace an existing tag with the given name
 
 == push ==
 git push origin localbranch:remotebranch
@@ -168,6 +180,9 @@ git raw format (seconds number and timezone)
 | post-commit        | after a commit is made               | YES   | 0     | NO     |
 
 = topic =
+== stage -> unstage ==
+reset <file>
+
 == 撤销最后一个commit ==
 git reset HEAD~1
 

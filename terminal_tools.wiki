@@ -5,3 +5,8 @@
 tput得到窗口的大小
 - 得到列数 tput cols
 - 得到行数 tput lines
+
+== issues ==
+<C-S> will freeze the terminal.
+
+<C-Q> will unfreeze it.

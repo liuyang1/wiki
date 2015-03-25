@@ -1,0 +1,8 @@
+= gpu =
+
+- vertex processor
+- rasterizer
+- fragment processor
+
+vertex -> line / triangle --(rasterizer)-> pixel -> texture tile -> sequece
+output

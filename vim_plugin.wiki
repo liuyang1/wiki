@@ -53,6 +53,12 @@ a dict describing the mapping of tag kinds with one-char representation.
 simple regular expr-based parsing, but not support scopes!!
 
 * create a specialized program
+
+= ctrlp =
+- <C-d>         switch search full path or only current path
+- <C-r>         regex mode
+- <C-t>,<C-x>,<C-v>         open in new tab, split, vertical split
+
 = easydigraph =
 == iw ==
 - Fm ♀

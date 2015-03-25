@@ -100,6 +100,11 @@ bash::
 arr=(1 2)
 arr=(1, 2)
 
+arr=("abc def")
+
+will define a array which first element is "abc", next is "def"
+NOTE:
+this works in sh, bash, but maybe incompatible.
 * access
 ${array_name[index]}
 
@@ -422,7 +427,8 @@ using set -u or set -o nounset to defend this BUG.
 * = -eq, different meaning
 = is for string compare, while -eq for number.
 * string compare
-> < for redirect stdin or stdout, \< \> is for string compare.
+> < for redirect stdin or stdout
+\< \> is for string compare.
 -gt -lt is for number.
 * using let for var assign
 let is only for number arithmetic operations on var.

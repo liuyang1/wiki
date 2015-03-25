@@ -18,6 +18,16 @@ add or remove could use multiple-times to add or remove multitiple reviewers.
 * CL-number
 * SHA of commit
 
+=== query ===
+* --current-patch-set
+* --patch-set               all patch sets
+* --format [TEXT|JSON]
+
+=== search operators ===
+* age:AGE
+* change:ID
+* owner:USER
+* ...
 === review ===
 Verify, approve and/or submit a patch set from the command line.
 
@@ -51,6 +61,8 @@ ref:[[https://review.gerrithub.io/Documentation/cmd-stream-events.html|gerrit st
 
 `ssh -p 29418 review.example.com gerrit stream-events`
 
+cannot setting filter this command, must filter yourself.
+
 === gerrit plguin ===
 - ls
 - install / add
@@ -82,3 +94,8 @@ after that version, we also could use gerrit plugin for this.
 == plugin ==
 === reviewer ===
 auto add reviewer plugin
+
+== client tool ==
+=== git-review ===
+- git review        submit it to review
+- git review -d     download CL and switch to corrspoding branch

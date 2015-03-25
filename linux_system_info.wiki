@@ -131,6 +131,9 @@ ref:man ps
 | X   | 死掉的(应该永远不会被看到)                  |
 | Z   | 僵尸进程                                    |
 
+== quota ==
+- -s            human readable
+
 == 查看发行版版本 ==
 通用的方案
 lsb_release -a

@@ -68,7 +68,14 @@ cut -s -d '.' -f1-2
 
 === more grep ===
 ==== egrep ====
-==== pgrep ====
+==== pgrep / pkill ====
+- -f                full command line, not only process name
+- -u                user
+- -v                reverse(negates) the matching
+
+only pgrep (NOT for pkill)
+- -d                delimiter(default to newline)
+- -l                also list process name, (default only process ID)
 
 === ack-grep ===
 --nocolor 去除颜色输出
