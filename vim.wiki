@@ -350,6 +350,9 @@ R                   entre REPLACE mode
 NOTE:
 record marcro, then reexecute it, will helpling a lot of duplicate jobs.
 = topic =
+== trim trailing whitespace ==
+`:%s/\s\+$//`
+
 == undo branch ==
 - g-            go to older text state. with a count repeat that many times.
 - g+            go to newer text state. ...

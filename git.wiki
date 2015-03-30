@@ -170,6 +170,10 @@ git raw format (seconds number and timezone)
 * HEAD                  hash of HEAD
 == rev-list ==
 * commit .. commit      list of hash between commits
+== reflog ==
+TODO:
+
+refine log
 = high =
 == githooks ==
 

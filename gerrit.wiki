@@ -18,6 +18,13 @@ add or remove could use multiple-times to add or remove multitiple reviewers.
 * CL-number
 * SHA of commit
 
+NOTE:
+as set-reviewers will smart match Change-Id, CL-number, SHA of commit.
+
+so maybe match multiple change, even though CL-No is the KEY(only once).
+
+use Change-Id's better
+
 === query ===
 * --current-patch-set
 * --patch-set               all patch sets
