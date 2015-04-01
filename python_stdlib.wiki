@@ -33,6 +33,23 @@ import readline
 ['word0', 'word1', 'word2', 'word3']
 }}}
 
+== difflib ==
+- get_close_matches(word, possibilities[, n][, cutoff])
+we could implement smart tip as fuzzy match
+
+- context_diff(a, b[, fromfile][, tofile][, tofiledate][, n][, lineterm])
+generate diff file between A string list and B. with fromfile name and tofile
+name.
+
+- ndiff(a, b[, linejunk][, charjunk])
+generate diff string, and indicate where different.
+
+- restore(sequence, which)
+which get from original string A or B, from diff class.
+
+- unified_diff(a, b[, fromfile][, tofile]...)
+generate unified diff format
+
 = data persistence =
 == pickle ==
 pickle 用于python的数据序列化工作

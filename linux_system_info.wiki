@@ -133,6 +133,9 @@ ref:man ps
 
 == quota ==
 - -s            human readable
+=== repquota ===
+- -a            all user
+- -s            human readable
 
 == 查看发行版版本 ==
 通用的方案
