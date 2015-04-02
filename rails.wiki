@@ -51,6 +51,8 @@ create datebase tables
 - rake routes
 all URLs currently recognized by your App.
 - rails server -e [env=development]
+- rails console
+start an IRB, then load rails env
 
 == environment ==
 - Development
@@ -67,3 +69,14 @@ object-relational mapping *ORM*
 | Classes     | Tables        |
 | Objects     | Records       |
 | Attributes  | Record Values |
+
+{{{
+class Order < ActiveRecord::Base
+    belongs_to :customer
+end
+}}}
+
+|        | model with NO foreign key | model with foreign key |
+| 1 -> 1 | has_one                   | belongs_to             |
+| 1 -> n | has_many                  | belongs_to             |
+| n -> n | has_and_belongs_to_many   | -                      |

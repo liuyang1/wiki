@@ -27,4 +27,36 @@ a,b = b,a
 == 列表压缩 ==
 ...经常使用,跳过
 
+== for else ==
+{{{
+for i in xx:
+    pass
+else:
+    pass
+}}}
+
+we even could implement this use "GOTO" in C, as this is simpler.
+
+{{{
+for i in XX:
+    if :
+        goto FIND;
+NOTFIND:
+    pass
+FIND:
+    find..
+}}}
+
+== with ==
+self-define with expression
+
+== partial ==
+
+== Fluent Interface ==
+like haskell's *->*
+
+{{{
+ages = [42, 21, 18, 33, 19]
+IterHelper(ages).map(lambda x:x>=18).all()
+}}}
 

@@ -104,5 +104,10 @@ auto add reviewer plugin
 
 == client tool ==
 === git-review ===
-- git review        submit it to review
-- git review -d     download CL and switch to corrspoding branch
+- -s                setup
+- (default)         submit to review
+- -t                topic
+- branch            push to other branch(not default)
+- -D                draft
+- -d [CLNo]         download a CL(add more dependency) and switch to corrsponding branch
+- -x                cherry-pick

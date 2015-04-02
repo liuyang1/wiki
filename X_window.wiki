@@ -28,6 +28,8 @@ using clipboard
 
 `xclip -selection c`
 
+`xclip -sel clip < STDIN`
+
 read from stdin, then we could using *C-V* for other application
 
 == xset ==

@@ -7,6 +7,7 @@
 * [[python_test|test]]
 * [[python_lec|my Lecture]]
 * [[python_old]]
+
 == IO ==
 * write
 * str
