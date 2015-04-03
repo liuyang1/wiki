@@ -61,3 +61,11 @@ add *MAILTO*, the cron will try send mail with stdout of command
 
 === run-parts ===
 run all executable file in dir
+
+= fcron =
+support machine which only work occasionnally but not 7x24.
+
+- time interval
+- depend on system uptime
+- time scope as machine only work in one time between it
+- system load trigger

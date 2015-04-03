@@ -1,0 +1,12 @@
+= postfix =
+
+a suite to receive / deliver email.
+
+ref: [[http://www.postfix.org/OVERVIEW.html|Postfix Overview]]
+
+== command ==
+=== postfix ===
+- reload            reload config
+
+NOTE:
+we can build a system which can trigger action by mail.

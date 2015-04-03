@@ -16,7 +16,13 @@
 - Oracle
 - DB2
 == NoSQL数据库 ==
-- MongDB?
+=== MongoDB ===
+flexible schema tu support hierarchical data struct. like dict and list.
+
+generally, RMDB not support this kind, as they are different kind usage.
+
+==== BSON ====
+
 
 == 桌面/文件数据库 ==
 - access

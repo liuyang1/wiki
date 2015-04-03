@@ -1,0 +1,6 @@
+== a ==
+=== target ===
+- _blank        new page(recommend NOT use this)
+- _self         current window(default)
+- _parent
+- _top
