@@ -174,6 +174,15 @@ git raw format (seconds number and timezone)
 TODO:
 
 refine log
+== filter-branch ==
+- index-filter          rewrite index
+"git rm --cached --ignore-ummatch FILENAME" to delete file in history
+- msg-filter            rewrite commit message
+execute command to rewrite commit message
+- commit-filter         preforming the commit
+- tag-name-filter       rewrite tag name
+- subdirectory-filter   check history which touch the given subdirectory
+
 = high =
 == githooks ==
 

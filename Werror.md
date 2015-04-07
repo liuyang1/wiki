@@ -128,3 +128,11 @@ C语言提供过一个特性,就是自动拼接相邻的字符串.
 我就看到一个还不错的工程师,犯了00前缀的问题.这其实是C语言的一个特性,但是现在却仿佛成了一个bug.
 
 其实还有很多warning,这里就挑出几个可以说说的讲讲吧.
+
+# CONTINUE
+## __builtin__memset_chk will always overflow destination buffer
+void *memset(void *s, int c, size_t n)
+
+that is mean: n > sizeof("*s")
+
+generally, maybe passing a pointer of pointer s, and n greater than 4(x86) or 8(x64)

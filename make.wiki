@@ -283,3 +283,6 @@ bar.o : bar.c
 .RECIPEPREFIX is prefix of command, default is TAB char.
 
 === .ONESHELL ===
+
+=== MAKECMDGOALS ===
+make command goals

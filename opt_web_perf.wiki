@@ -1,0 +1,44 @@
+= Optimizing Performace =
+
+== Critical Rendering Path ==
+
+=== Construct Object Model ===
+
+==== DOM ====
+bytes -> char -> tokens -> nodes -> DOM
+
+==== CSSOM ====
+bytes -> char -> tokens -> nodes -> CSSOM
+
+parse to get CSS.
+
+And browser will seting "User-Agent style", and we will overwrite CSS to
+default style.
+
+=== Render-tree construct, Layout, and Paint ===
+Render-tree is combined DOM and CSSOM.
+
+NOTE:
+- `visibility: hidden`   occur in render-tree, but only display a blank block.
+- `display: none`       NOT occur in render-tree.
+
+*box-model*
+
+=== Rendering block CSS ===
+link to css could have attrbute *media*
+- print                 only need when print it
+- (min-width: 40em)     only need when width greater than 40em
+- landscape / portrait  orientation
+
+other method is: *@media*, *@import*, prefer first TWO method.
+avoid use @import style.
+
+==== Responable Design ====
+NOTE:
+this attribute show how to implement *Responable Design*
+# media, to adapt different size screen.
+# relative size such as 70%
+
+NOTE:
+device-width, or device-XXX will return size of device's screen, not size of
+browser's region.
