@@ -1,5 +1,13 @@
-* lr    link register
-* pc    program counter(R15)
+
+Thumb (16bit) / ARM (32 bit)
+== register ==
+31 * general register
+6 * state register
+
+* general reg R0 ~ R7                   use under all status
+* general reg R8 ~ R12                  use under all status except FAST ISR
 * sp    stack pointer(R13)
-* cpsr  current program status register
-* spsr  saved program status register
+* lr    link register(R14)
+* pc    program counter(R15)
+* CPSR  current program status register
+* SPSR  saved program status register

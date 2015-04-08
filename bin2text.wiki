@@ -1,0 +1,14 @@
+== base64 ==
+== base58 ==
+like base64, but remove some char "0", "O", "L", "I" "+" "/"
+
+this is for easy to read and input
+
+obiviouly, it don't suites for binary file, better for large number, whichi
+need manually input.
+
+applicatioins:
+- bitcoin
+- bit-message address
+
+== uuencode ==
