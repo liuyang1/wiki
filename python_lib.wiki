@@ -225,3 +225,16 @@ only support *write* excel file.
 - image
 
 ref:[[https://xlsxwriter.readthedocs.org/]]
+
+== pymustache ==
+logic-less template
+
+logic-less::
+no if statements, else claues, or for loops. only have tags.
+
+but support sections. start with \{\{#TAG}} end with \{\{/TAG}}
+
+and this support list
+
+NOTE:
+this seems simple and great!

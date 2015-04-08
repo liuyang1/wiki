@@ -4,6 +4,8 @@
 NOTE:
 shell not have type system.
 
+== syntax ==
+in \'\' even ??
 == logic ==
 === topic ===
 *if/then*, construct test whether the *exit status* of commands.

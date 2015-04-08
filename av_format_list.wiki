@@ -30,3 +30,6 @@ RealText(.rt)
 图片格式
 JPEG,GIF,PNG,MNG,SVG
 }}}
+
+== png ==
+- support progressive display

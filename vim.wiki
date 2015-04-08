@@ -503,6 +503,11 @@ Ctrl-V u 200b,则输入U+200b这个字符
 
 == vim 脚本 ==
 函数名称,必须以大写字母开始
+== modeline ==
+{{{
+# vim: set noexpandtab:ts=4:st=4:sw=4
+}}}
+There is a space between comment symbol "#" and "vim:".
 
 = perf analysis =
 vim --startuptime a.log

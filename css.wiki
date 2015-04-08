@@ -1,0 +1,21 @@
+== text-decoration ==
+- overline
+- linethrough
+- underline
+- initial
+- inherit
+- none
+
+== outline ==
+== border ==
+
+== text-shadow ==
+
+= after / before =
+- content
+
+= box =
+# auto
+# padding
+# border
+# margin

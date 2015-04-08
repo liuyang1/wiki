@@ -1,0 +1,28 @@
+= handy comment =
+first see this trick in lua comment system. actually, we can even impl this in
+every comment system, which both support single line comment and block
+comment.
+
+{{{
+-- a signle line comment
+
+{-
+a multine line comment
+-}
+
+{--*}* <- this is trick symbol
+a trick comment
+--}
+}}}
+
+{{{
+// a single line comment
+
+/*
+   a multiline comment
+*/
+
+/* */ <- this is trick symbol
+    a tirck comemnt
+// */
+}}}

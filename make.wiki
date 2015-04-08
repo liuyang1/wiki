@@ -286,3 +286,6 @@ bar.o : bar.c
 
 === MAKECMDGOALS ===
 make command goals
+
+== env var ==
+- MAKEFLAGS         make flag shell env

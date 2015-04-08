@@ -1,0 +1,6 @@
+= elm =
+== syntax ==
+[[http://elm-lang.org/learn/Syntax.elm|syntax]]
+
+=== infix operator ===
+borrow from F#, inspired by UNIX pipes, imporving unpon Haskell's ($)
