@@ -4,3 +4,12 @@
 - _self         current window(default)
 - _parent
 - _top
+
+== Ampersands (&'s) in URLs' ==
+as Ampersands is assumed to begin an entity reference, and browser will
+consider it's special content.
+
+so in html, url encode "&" -> "&amp;"
+
+however, when in browser, we always use "&". so we need decode "&amp;" -> "&"
+in url as query string of request

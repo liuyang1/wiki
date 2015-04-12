@@ -156,6 +156,8 @@ this means, Maybe's type is a map, which construct a type to another type.
 - floor
 - ceiling
 - sin
+- log       base 10
+- logBase
 
 == function ==
 based on function type definition in Haskell, we can see it support "curry" of
