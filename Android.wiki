@@ -62,3 +62,6 @@ such as: tiwlan0, eth0, lo
 add this line to idea.properties
 
 `disable.android.first.run=true`
+
+== AOSP ==
+Andorid Open-Source Project
