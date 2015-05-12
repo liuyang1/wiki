@@ -36,4 +36,4 @@ util-linux是linux的一系列工具套件,涉及加载,卸载,格式化,分区�
 #export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
 
 == nfs ==
-mount [IP]:[PATH/TO] [LOCALDIR]
+`mount [IP]:[PATH/TO] [LOCALDIR]`

@@ -149,6 +149,8 @@ so if function with { as tail, this method won't detect it, and skip it.
 
 ====文件跳转====
 - gf                    跳转到文件
+- <C-W>f                open in new window
+- <C-W>gf               open in new tab
 - gd                    跳转到定义(局部变量)
 - K                     跳转到man手册
 {{{

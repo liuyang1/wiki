@@ -15,3 +15,6 @@ get filename
 quit
 
 tftp hostname GET testfile
+
+= issues =
+don't put soft-link under tftpboot dir, maybe cannot get the file.

@@ -1,0 +1,4 @@
+== BSP ==
+Board Support Package
+
+Software which linux support for specific hardware

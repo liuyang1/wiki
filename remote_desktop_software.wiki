@@ -20,6 +20,8 @@ NOTE:
 == synergy ==
 corss system keyboard/mouse share
 
+even share clipboard between hosts.
+
 === linux dependency ===
 - libXtst-dev
 - qt4-qmake

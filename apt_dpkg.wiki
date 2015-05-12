@@ -7,7 +7,8 @@ using unattend-upgrades
 and `sudo unattend-upgrade`
 
 == dpkg ==
-dpkg --get-selections
+=== how to get installed package ===
+`dpkg --get-selections`
 
 == build-dep ==
 apt-get build-dep XXX
