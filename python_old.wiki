@@ -33,6 +33,8 @@ mtime: 2013-05-01 11:26:58
 
 使用ipython,可以交互式的快速了解一个包的使用方法.
 
+reload, if need update modules in ipython
+
 # ipdb
 交互式的python,debug工具
 === metaclass元编程 ===

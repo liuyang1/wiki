@@ -104,3 +104,8 @@ do
 	fi
 done
 }}}
+
+== C/S ==
+gdbserver run on target machine, gdbclient run on host machine.
+
+They communicate with each other by COM or TCP/IP.

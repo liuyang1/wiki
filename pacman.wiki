@@ -1,0 +1,10 @@
+= pacman =
+
+== search ==
+- Qs        search with string
+
+== sync ==
+- Syu       sync update yes
+
+== downgrade ==
+- U         /var/cache/pacman/XXX.pkg.tar.xz

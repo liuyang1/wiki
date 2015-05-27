@@ -2,3 +2,11 @@
 Board Support Package
 
 Software which linux support for specific hardware
+== JTAG ==
+boundary-scan register cell
+
+CPU under debug state, these cell will split chip with IO, and observe IO
+signal and control.
+
+== GPIO ==
+general-purpose IO ports

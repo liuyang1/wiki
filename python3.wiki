@@ -4,6 +4,8 @@
 * division              / -> //
 * input() replace raw_input()
 * reduce move to functools
+* no more generator.next() but next(generator), later style also works in
+python2
 
 === widely default generator/iterator ===
 * remove *xrange*, default range to xrange

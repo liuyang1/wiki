@@ -30,3 +30,13 @@ ref:http://blog.raphinou.com/2007/08/building-webcam-recorder-with-vlc-ion.html
 
 == 收取网络数据 ==
 Ctrl+N,输入地址.
+
+= shortcut =
+- t         display time OSD
+- [,],=     rate slower, faster, 1.0x
+- F         fullscreen
+- F11       fullscreen mode
+- C-h       hide control
+- C-p       perference
+- e         next frame
+- Shift-S   snapshot
