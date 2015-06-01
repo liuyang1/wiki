@@ -148,16 +148,28 @@ lists symbols form objects files
 == objcopy ==
 copies and translates object files.
 
+- --add-section sectionname=filename
+    add a new section while copying the file.
+
 == objdump ==
 display information from object files.
 - -S        source
 - -D        disassemble-all
+- -s/--full-contents
+    display the full contents of any sections requested.
+    default all non-empty sections are displayed.
+- -j section/--section=section
+    display information only for section name.
 
 == ranlib ==
 generates an index to the contents of an archive.
 
 == readelf ==
 display information from any ELF format object file.
+
+- -a all
+- -n --notes
+    display content of NOTE segments and/or sections, if any
 
 == size ==
 list the section size of an object or an archive file.

@@ -248,6 +248,12 @@ buffer!!
 address with 1,2,... for line number, G for last line. 'a,'b for mark a and
 mark b, % for all line.
 
+=== echo ===
+- echo @%               echo current filename
+- echo expand('%:t')    echo filename(tail)
+- echo expand('%:p')    echo full path
+- echo expand('%:p:h')  echo full directory
+
 == other mode ==
 === visual mode ===
 v

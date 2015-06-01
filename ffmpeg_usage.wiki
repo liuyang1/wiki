@@ -74,7 +74,7 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 - SAR 存储长宽比
 - DAR 显示长宽比
 {{{
--show-frames
+-show_frames
 显示每一帧的信息
  
 -print-format

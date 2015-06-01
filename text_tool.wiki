@@ -8,12 +8,19 @@ when using *-* or negtive number, that means display all but exclude last K
 chars or lines
 
 == tail ==
-	显示文件的开始或者结束部分.
+显示文件的开始或者结束部分.
+
+- -f        follow
+- -c        --bytes
 
 `tail -f filename`
 
-	跟踪显示文件内容,特别用于 *日志更新显示* .
-	
+跟踪显示文件内容,特别用于 *日志更新显示* .
+
+`tail -c+10 filename`
+
+output all binary content but first 10 bytes
+
 == multitail ==
 多日志文件跟踪工具
 
