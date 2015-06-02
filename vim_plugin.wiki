@@ -1,15 +1,112 @@
 = vim plugin =
 
+== plugin manager ==
+vim have plugin manager.
+
+for now, I use "plug"
+=== plug ===
+- parallel upgrade
+- dynamic loading plugin as filetype
+- fast startup time
+
 == extention of edit ==
-# vimwiki
+=== vimwiki ===
+wiki system in vim
+
+wiki format is like markdown, but better for multiple documents support.
+
+- highlight of vimwiki format
+- support jump and link in vimwiki format
+- generate html
+
+=== goyo ===
+edit environment
+
+== rainbow ==
+display (),{},[] with rainbow color.
 
 == marks ==
-# showmarks
+vim have marks function. we can mark one line local(current file) with lower
+char or mark one line global(all file) with upper char.
+
+display marked char in line number line.
+- ~~ShowMarks7~~
+- vim-signature
+
+== theme ==
+=== vim-airline ===
+powerline style of vim
+
+it support plenty of other plugins
+
+=== tabline ===
+display buffer name or tab name in first line in vim.
+
+=== xterm-color-table ===
+display 256 color in vim.
+
+helper for self-defined colorscheme
+
+== colorscheme ==
+- molokai
+- solarized
+
+== serach ==
+=== ack ===
+fast search plugin
+
+=== ctrlsf ===
+find content in directory and display them in one buffer
+
+== tmux integrate ==
+=== vimux ===
+call compile command in tmux pane.
+
+=== vim-tmux-navigator ===
+consistency switch in vim and tmux
+
+== Mark-Karkat ==
+highlight current word
+
+== vim-indent-guides ==
+display line for every "tab"
+
+= tcomment_vim =
+auto and consistency style comemnt/uncomment in different filetype
+
+== version control system integrate ==
+=== vim-fugitive ===
+support git command in vim
+- git blame
+- git diff
+
+=== vim-gitgutter ===
+display add/delete/modify status per line in linenr.
+
+== dynamic checking ==
+Synatastic
+
+is a powerful plugin for support checking source file. and mark it with linenr
+line.
+=== C/CPP ===
+youcompleteme
+
+- supertab
+add this for support tab key for mutiple plugins which use TAB key.
 
 == auto compeletion ==
-# snipMate
+=== youcompleteme ===
+for C,C#,Python
+
+compiler checking
+
+=== snippet ===
+snippet first appear in sublime-text2(??)
+
+vim also have migrate style.
 # ultisnisp
-better?
+# ~~snipMate~~
+# vim-snippets
 
 == status line ==
 # powerline
@@ -22,6 +119,8 @@ NOTE:
 
 though tags file is samesize, but not occur "E431 can not find tag" error
 
+- ~~taglist~~
+use tagbar which is better.
 == tagbar ==
 === tags-file-format ===
 ==== kinds ====
@@ -55,9 +154,45 @@ simple regular expr-based parsing, but not support scopes!!
 * create a specialized program
 
 = ctrlp =
+fuzzy match enigne, supoort file, buffer, tag and more.
+
 - <C-d>         switch search full path or only current path
 - <C-r>         regex mode
 - <C-t>,<C-x>,<C-v>         open in new tab, split, vertical split
+== ctrlp-funky ==
+search function and tag in ctrlp
+== ctrlp-cmatcher ==
+speedy matcher eninge
+
+= filetype =
+vim have plenty plugin for every filetype.
+
+== C/CPP ==
+=== a.vim ===
+jump between header file or C/CPP file
+
+quick and easy.
+
+== lisp ==
+=== slimv ===
+- rainbow
+- paredit
+- repl support
+== log ==
+=== Logcat-syntax-highlighter ===
+my modified version whichi support highlight special content or line with
+keyword: error,warning, buffer.
+
+== python ==
+=== vim-autopep8 ===
+auto formatprgprg
+
+=== vim-cute-python ===
+display special char for python code
+
+== javascript ==
+=== vim-jsbeautify ===
+
 
 = easydigraph =
 == iw ==
