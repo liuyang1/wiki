@@ -10,7 +10,7 @@ linux 到 windows 的远程桌面软件
 * -g        resolution: 1920x1040
 使用方法
 {{{
-rdesktop IPaddr
+rdesktop IPaddr -u USERNAME -p PASSWORD -g WIDTHxHEIGHT
 }}}
 
 NOTE:

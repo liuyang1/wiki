@@ -12,6 +12,7 @@ chars or lines
 
 - -f        follow
 - -c        --bytes
+- -n        lines
 
 `tail -f filename`
 
@@ -20,6 +21,10 @@ chars or lines
 `tail -c+10 filename`
 
 output all binary content but first 10 bytes
+
+`tail -n+10 filename`
+
+output all content from 10 line
 
 == multitail ==
 多日志文件跟踪工具
@@ -118,3 +123,11 @@ so how to display colorful content after filter by grep or more/less?
 pager
 
 - -R            raw output (not filter ANSI-char)
+
+== diff ==
+
+== patch ==
+
+`patch -p[NUM] < PATCHFILE`
+
+NUM is level

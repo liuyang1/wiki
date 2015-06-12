@@ -42,9 +42,11 @@ for i in XX:
     if :
         goto FIND;
 NOTFIND:
-    pass
+    got END:
 FIND:
     find..
+END:
+    pass
 }}}
 
 == with ==

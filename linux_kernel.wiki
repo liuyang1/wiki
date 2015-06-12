@@ -1,0 +1,6 @@
+== module ==
+=== insmod ===
+=== rmmod ===
+=== lsmod ===
+=== modprobe ===
+=== modinfo ===

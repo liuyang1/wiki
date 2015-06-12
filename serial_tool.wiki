@@ -5,3 +5,8 @@ using Ctrl-A E, to enable echo back, so you can input.
 not good, using Putty now.
 
 = putty =
+
+= screen =
+sudo screen /dev/ttyUSB0 115200,cs8
+
+hard to use.

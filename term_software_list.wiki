@@ -1,6 +1,10 @@
 = term软件 =
 ----
 == tmux ==
+=== option ===
+- list-session
+- attatch-session -t [TARGETSESSION]
+
 === mouse in tmux ===
 - shift+left select         copy
 - shift+middle key          paste

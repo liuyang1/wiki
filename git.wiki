@@ -3,6 +3,9 @@
 = topic =
 [[github]]
 
+== check specific file ==
+`git checkout [COMMIT-SHA] [FILENAME]`
+
 == combine commits ==
 git rebase -i [not change commit SHA]
 

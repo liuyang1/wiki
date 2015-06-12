@@ -121,6 +121,8 @@ stoped last time in the current buffer.
 ====系统复制粘贴====
 - <C-insert>            系统复制
 - <Shift-insert>        系统粘贴
+- <C-R>+                better, but vim read system clipboard
+    cannot work in ssh tunnel. but paste ONCE
 - :set paste
 - :set nopaste          设置进入粘贴模式,这样复制粘贴代码的时候,自动缩进就会失效.很有用.
 
@@ -150,6 +152,9 @@ so if function with { as tail, this method won't detect it, and skip it.
 ====文件跳转====
 - gf                    跳转到文件
 - <C-W>f                open in new window
+{{{
+<C-W>L                  move the window to RIGHT as vertical split
+}}}
 - <C-W>gf               open in new tab
 - gd                    跳转到定义(局部变量)
 - K                     跳转到man手册
@@ -280,7 +285,7 @@ v
 - ~~:1,$s/表达式1/表达式2/g~~   全文替换表达式1为表达式2
 - :%s/表达式1/表达式2/g     同上,比上面少了2个字符
 
-- <C-R><C-W>            copy & paste word under current cursor
+- <C-R><C-W>            copy & paste current word under cursor
 - empty pattern0        pattern0 default to "@/", which is the search value by
 "\*" or "#"
 
@@ -302,6 +307,7 @@ v
 - :tabclose INDEX   关闭标签页,默认关闭当前页
 - :tabonly          关闭所有的其他标签页
 - :tabedit          在新的标签页打开
+- :tabedit %        open current buffer in new tab
 - :tabnext/gt          切换到下一个标签页
 - :tabp/gT          切换到上一个标签页
 - :tabs             列出所有的标签页
