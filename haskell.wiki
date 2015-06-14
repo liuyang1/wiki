@@ -87,7 +87,7 @@ list generate, and predicate function have multi-number, just split by comma
 also support embed in list comprehension
 
 === tuple ===
-`()` work [[as]] *void* in C.
+`()` work as *void* in C.
 
 === pair ===
 - fst
@@ -136,7 +136,7 @@ this means, Maybe's type is a map, which construct a type to another type.
 - Not zero value, is not True, not False
 - &&
 - ||
-- not
+- not       (not "!" as C style)
 - ==
 - /=        not equal(not "!=" as C style)
 - <
@@ -225,6 +225,8 @@ bindings in let, could split by ";".
 === lambda function ===
 just starts with "\" as *lambda*
 
+`(\x -> fn x)`
+
 === high order function ===
 ==== fold ====
 foldr, foldl, start with the right or left side of list.
@@ -285,7 +287,8 @@ when we must get an IO action, but not need really do sth, we should use
 
 but the programming will continue to execute after this expression.
 == syntax ==
-- comment       begin with "--"
+- line comment       begin with "--"
+- block comment     `{- comment here -}`
 
 = ghc =
 - ghc [filename]    compile

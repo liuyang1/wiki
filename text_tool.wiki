@@ -131,3 +131,12 @@ pager
 `patch -p[NUM] < PATCHFILE`
 
 NUM is level
+
+== 字符编码转换 ==
+- luit
+实时将其他字符编码结果的程序,进行转码.
+
+例如使用luit+telnet访问bbs.
+
+luit -encoding gbk telnet bbs.ustc.edu.cn
+

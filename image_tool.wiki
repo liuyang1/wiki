@@ -1,3 +1,22 @@
 = Image Tool =
 
 == feh ==
+- -F        fullscreen
+- -Z        zoom mode
+- -x        bordeless window
+
+== convert ==
+ImageMagick
+
+- -resize [width]x[height]
+- -reisze 50%
+
+== scrot ==
+linux screenshot util
+
+- default       fullscreen screenshot, save as DATA_TIME_screenshoft.png
+- -d            delay time
+- -c            count number
+- -s            select retcange or window
+- -q            quality
+- -t            scale, 10 -> 10%

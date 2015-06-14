@@ -16,3 +16,7 @@ java的传递类型:
 [[lang_design]]
 
 == tools ==
+=== jar ===
+list content in jar
+
+`jar tf JARFILE`

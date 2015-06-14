@@ -29,14 +29,6 @@ date -d@123456
 
 ll | sort -k 5 -n
 
-== 字符编码转换 ==
-- luit
-实时将其他字符编码结果的程序,进行转码.
-
-例如使用luit+telnet访问bbs.
-
-luit -encoding gbk telnet bbs.ustc.edu.cn
-
 == xargs + type ==
 
 find -type d | xargs sudo chmod 755 
@@ -78,13 +70,3 @@ sar -u 2 400
 - -a参数,输出到文件的时候,是append模式
 - -o,输出到文件,后面带文件名采菽
 - -p,输出格式为POSIX格式
-
-== scrot ==
-linux screenshot util
-
-- default       fullscreen screenshot, save as DATA_TIME_screenshoft.png
-- -d            delay time
-- -c            count number
-- -s            select retcange or window
-- -q            quality
-- -t            scale, 10 -> 10%

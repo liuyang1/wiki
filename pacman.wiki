@@ -8,3 +8,9 @@
 
 == downgrade ==
 - U         /var/cache/pacman/XXX.pkg.tar.xz
+
+== remove ==
+- R         remove
+- Rc        remove X and package which depend on X
+- Rs        remove X and package which X depend on and no other package
+depend on it.

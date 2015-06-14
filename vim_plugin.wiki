@@ -121,6 +121,10 @@ though tags file is samesize, but not occur "E431 can not find tag" error
 
 - ~~taglist~~
 use tagbar which is better.
+
+=== python ===
+`ctags . -extra=+f`
+
 == tagbar ==
 === tags-file-format ===
 ==== kinds ====
