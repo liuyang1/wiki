@@ -174,9 +174,13 @@ git raw format (seconds number and timezone)
 == rev-list ==
 * commit .. commit      list of hash between commits
 == reflog ==
-TODO:
 
 refine log
+
+- how to reset "reset" process?
+
+`git reset --hard HEAD@{NUM}`
+
 == filter-branch ==
 - index-filter          rewrite index
 "git rm --cached --ignore-ummatch FILENAME" to delete file in history

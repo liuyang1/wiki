@@ -9,12 +9,13 @@ disable=no
 service xinetd start/restart
 == 测试 ==
 tftp localhost
-
-get filename
-
-quit
-
+{{{
+    get filename
+    quit
+}}}
 tftp hostname GET testfile
 
 = issues =
-don't put soft-link under tftpboot dir, maybe cannot get the file.
+# don't put soft-link under tftpboot dir, maybe cannot get the file.
+
+# Don't try tftp-hpa, it may timedout

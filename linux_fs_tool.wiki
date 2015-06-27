@@ -13,6 +13,9 @@ ramdisk path to orignal code path.
 = tools =
 == mount ==
 
+- -l lazy umount
+- -f force umount
+
 = seek/find =
 == find ==
 find $HOME -name "*.pdf"

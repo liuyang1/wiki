@@ -1,5 +1,5 @@
 = github =
-mtime: 2013-01-03 19:31:59 
+mtime: 2013-01-03 19:31:59
 ----
 github是一个非常流行的代码托管网站.
 
@@ -31,3 +31,11 @@ https://help.github.com/articles/generating-ssh-keys
 直接通过push的mirror命令即可
 
 git push --mirror git@github.com:yourname/repo.git
+
+== add upstream ==
+`git remote add up [URL]`
+
+== how to sync up stream ==
+add upstream
+
+then merge or rebase

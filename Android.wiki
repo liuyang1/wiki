@@ -12,6 +12,13 @@
 * select device
 adb -s [DeviceID] ...
 
+==== issue ====
+- device offline
+reconfigure MAC Addr, and re-dhcp, then retry.
+
+If misspell IP addr, or not align version of adb between server and client,
+   may get this problem.
+
 === android ===
 NOTE:
 this is development tool, not other things.

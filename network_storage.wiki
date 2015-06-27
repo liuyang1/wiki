@@ -37,3 +37,16 @@ util-linux是linux的一系列工具套件,涉及加载,卸载,格式化,分区�
 
 == nfs ==
 `mount [IP]:[PATH/TO] [LOCALDIR]`
+
+=== issue ===
+==== df hang ====
+when network slow, `df` command maybe hang, as it try to read state of mount
+nfs directory. `dmesg` will help get this log.
+
+maybe `umount` it, then good.
+
+`df -l` may good.
+
+`umount -lf` could umount it.
+
+must have `lf` option both!

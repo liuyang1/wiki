@@ -56,6 +56,7 @@ Ctrl+A Ctrl+A	切换到下一个窗口
 
 # screen    新建一个screen会话.
 # screen -r SESSION 重新attach一个会话.
+resume session need under same user.
 # screen -d -r SESSION 重新attach一个会话,即使要先detach它.(用于解决死锁attch的问题)
 # screen -ls    列出会话.
 

@@ -68,15 +68,15 @@ vim scp://hd0/.bash_profile
 ==一般模式==
 
 === 进入编辑模式 ===
-- cc            删除本行,并进入写入状态
-- C/c$          delete line form cursor, enter insert mode
+- cc                删除本行,并进入写入状态
+- C/c$              delete line form cursor, enter insert mode
 
-- cw            delete word from cursor,进入写入状态
-- ciw           delete whole word, enter insert mode
-- ci"           delete contain between in "", enter insert mode
-- ci(           like as above
-- ci<           like as above
-- caw           delele whold word(and more space), enter insert mode
+- cw                delete word from cursor,进入写入状态
+- ciw               delete whole word, enter insert mode
+- ci"               delete contain between in "", enter insert mode
+- ci(               like as above
+- ci<               like as above
+- caw               delele whold word(and more space), enter insert mode
 
 - a                 append text after cursor [count] times.
 - A                 append text at end of the line [count] times.
@@ -108,6 +108,10 @@ stoped last time in the current buffer.
 - d^/d0/db/dB       delete backward
 - dG                delete to end line of file
 - d1G               delete to first line of file
+- d/^$              delete till blank line
+- d/[PATTERN]       delete till PATTERN
+- d'[Mark]          delete till marked line and curos postion
+- d`[Mark]          delete till marked line
 
 ===复制/粘贴 copy / paste ===
 
@@ -135,8 +139,8 @@ stoped last time in the current buffer.
 - `                     move to last postion(exactly)
 - L/M/H                 移动到页面的下部,中间,上部
 - f/F[字母]             向前或者向后跳转到该字符
-- nnnG          跳转到指定行
-- 024l          跳转到第24列,注意这个其实是组合命令,0移动到行首,然后向右移动24列
+- nnnG                  跳转到指定行
+- 024l                  跳转到第24列,注意这个其实是组合命令,0移动到行首,然后向右移动24列
 * %                     move to match char, for exmaples: ( aabc )
 
 ====块跳转====
@@ -167,7 +171,8 @@ so if function with { as tail, this method won't detect it, and skip it.
 - gUU       entire line upper
 - guu       entire line lower
 - g~~       entire line switch
-- guw       entire word lower
+- guw       from cursor to entire word lower
+- guiw      entire word lower
 
 g[uU~][uU~wW/iw/$]
 
@@ -233,21 +238,21 @@ this is so useful for moving, deleting, and so on.
 不然,直接退出.
 这样对于源文件的时候,非常有用.避免错误的理解时间,重复进行编译或者更新操作.
 
-- :up               如果更新则保存
-- r![cmd]           *将命令的结果导入到当前的vim编辑的文件中*
-                    这个功能在某些时侯非常有用.如果你想二次处理shell的结果.
+- :up                   如果更新则保存
+- r![cmd]               *将命令的结果导入到当前的vim编辑的文件中*
+                        这个功能在某些时侯非常有用.如果你想二次处理shell的结果.
 ===删除===
-- :g/[PATTERN]/d    删除所有匹配表达式的行(vim才支持的特性)
-- :v/[PATTERN]/d    不匹配则删除, delete when not match pattern
-- :s/[PATTERN]//gn  统计个数,不会进行实际的替换
+- :g/[PATTERN]/d        删除所有匹配表达式的行(vim才支持的特性)
+- :v/[PATTERN]/d        不匹配则删除, delete when not match pattern
+- :s/[PATTERN]//gn      统计个数,不会进行实际的替换
 
 - :r[ead] [++opt] [name] insert the file [name] (default: current file) below
 the cursor.
-- :r !CMD           exec the cmd, and insert the output
+- :r !CMD               exec the cmd, and insert the output
 === commands ===
-- :as/ga            Print the ascii value of current char
-- :=                print last line number
-- :!{cmd}           execute {cmd} with the shell.
+- :as/ga                print the ascii value of current char
+- :=                    print last line number
+- :!{cmd}               execute {cmd} with the shell.
 - :addr0,addr1!{cmd}    execute {cmd} for the addresses, and sent back to
 buffer!!
 address with 1,2,... for line number, G for last line. 'a,'b for mark a and

@@ -4,11 +4,14 @@
 === option ===
 - list-session
 - attatch-session -t [TARGETSESSION]
+- rename-session -t [CURRENT NAME] [NEW NAME]
 
 === mouse in tmux ===
 - shift+left select         copy
 - shift+middle key          paste
 
+=== shortcut ===
+- $         rename session
 
 == xfce-terminal ==
 
