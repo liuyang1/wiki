@@ -1,5 +1,13 @@
 = java =
 
+== class ==
+=== memory ===
+64bit machine
+
+- object overhead 16 bytes
+- one dim array
+    sizeof(elem) * N + 24
+- 8 bytes align
 == tips ==
 # XXX.class 运行的时候,只需要输入java XXX即可.
 

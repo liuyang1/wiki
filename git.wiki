@@ -6,20 +6,6 @@
 == check specific file ==
 `git checkout [COMMIT-SHA] [FILENAME]`
 
-== combine commits ==
-git rebase -i [not change commit SHA]
-
-enter interactive vim
-
-- pick      use commit
-- *squash*  use commit, but meld into previous commit
-
-- reword    use commit, but edit commit message
-
-normally, first stay as "pick", other change to "squash"
-
-then need to rewrite new commit message
-
 == 上游问题 ==
 git remote add upstream XXX
 
@@ -144,12 +130,40 @@ this space between name and mail is necessary.
 查看每行的改动
 git blame [filename]
 
+== rebase ==
+- rebase on different branch
+
+=== rebase -i ===
+git rebase -i [not change commit SHA]
+
+enter interactive vim
+
+- pick          use commit
+- squash        use commit, but meld into previous commit
+    normally, first stay as "pick", other change to "squash"
+    then need to rewrite new commit message
+- reword        use commit, but edit commit message
+- [DELETE commit line]
+    - drop commit
+- [REORDER commit line]
+    - reorder commit message
+
 == cherry-pick ==
 用于将某个commit迁移到其他的分支上.比rebase要有用.
 
 因为不需要经历一点点的commit过程,而是直接将某个commit移动过去.
 
 这是git的分布式设计所决定的.
+
+== revert ==
+Revert the commit, but don't commit the changes
+`git revert -n [CommitSHA]`
+
+{{{
+    git reset HEAD .             # Unstage the changes
+    git add --patch .            # Add whatever changes you want
+    git commit                   # Commit those changes
+}}}
 
 == date ==
 * default
@@ -420,3 +434,9 @@ git is a *content-addressable* filesystem.
 and build a VCS on it.
 
 == plumbing vs. procelain ==
+
+= repo command =
+display path
+- -c
+- -p
+- -v

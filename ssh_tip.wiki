@@ -186,3 +186,7 @@ sshfs root@HOST:PATH /LOCALPATH
 but it's too slow.
 
 `这也太方便了吧?`
+
+= telnet =
+== server ==
+telnetd
