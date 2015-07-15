@@ -1,5 +1,8 @@
 =ffmpeg_usage=
 mtime: 2012-10-30 16:11:15
+
+x264opts    设置x264的参数,设置参数的方法为key=value:key2=vlaue2.
+
 ==SVC==
 [[http://gitorious.org/ffmpeg-kraken/|ffmpeg-kraken]]是ffmpeg的一个扩展,来支持svc的编码与解码.
 
@@ -74,21 +77,22 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 
 - SAR 存储长宽比
 - DAR 显示长宽比
-{{{
--show-frames
-显示每一帧的信息
- 
--print-format
+=== option ===
+- show_frames   显示每一帧的信息
+
+- print-format
 可以选择为default,compact,csv,json,xml等方式
 考虑使用compact格式或者csv格式输出
 这样就可以计算第一个GOP的大小了.
 
--show_streams
+- show_streams
 显示每个stream的信息
 
--show_format
+- show_format
 显示格式信息
-}}}
+
+- -select_streams v
+select_streams video / audio
 ==一般参数解释==
 {{{
 i

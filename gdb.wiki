@@ -21,7 +21,7 @@ mtime: 2013-03-27 18:05:40
 - print expr            输出表达式
 - display               显示表达式
 
-- set var var=expr      设置变量
+- set var [var]=[expr]      设置变量
 - set env var[=val]     设置环境变量
 
 - Disassemble           显示机器码
@@ -49,7 +49,7 @@ mtime: 2013-03-27 18:05:40
 - x arg                 输出内存
 - frame arg             选择栈帧
 - up/down               上下移动栈帧
-- info frame            输出栈帧 
+- info frame            输出栈帧
 - thread [N]            切换到线程N
 
 - until/u LINENUM       直到LINENUM行,可以用于跳出循环,或者直接到第几行
@@ -73,6 +73,16 @@ gdb的脚本,直接为test.cmd.然后在内部就可以添加具体的gdb命令.
 `gdb StreamingServer core.xxx -x test.cmd | tee filename`
 
 这样gdb的输出,就会自动重定向到文件中.
+
+
+=== default script ===
+.gdbinit
+
+{{{
+    set pagination off
+    set logging file gdb.txt
+    set logging on
+}}}
 == bash脚本调试 ==
 对于bash脚本类的程序,无法通过gdb进行调试.但是该脚本最终会运行一个bin程序,这样就需要使用gdb -p的方法,进行debug.
 
@@ -94,7 +104,7 @@ do
 		sleep 1
 		export -n FORCE_REFRESH_ENV
 		echo "waiting"+$GDB_READY
-	else 
+	else
 		if [ "$GDB_READY" = "1" ];then
 			./vlc
 			GDB_READY=2

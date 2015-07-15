@@ -6,3 +6,11 @@
 ----
 
 从A发送信息到C.如果通过随机的中间点B.则可以大大降低线路阻塞的几率?
+
+= random number generator =
+== Box-Muller algo ==
+
+== ziggurat algo ==
+this algorithm is simple, just first generate the spline rectangle region,
+     then sampling on this region, when no in this region, just use Box-Muller
+     algo to check it.

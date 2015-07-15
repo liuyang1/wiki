@@ -11,8 +11,8 @@ print_tainted - return a string to represent the kernel taint state.
 - 'O' - Out-of-tree module has been loaded.
 - 'D' - Kernel has oopsed before
 - 'W' - Taint on warning.
-
 - 'P' - Proprietary module has been loaded.
+
 - 'F' - Module has been forcibly loaded.
 - 'S' - SMP with CPUs not designed for SMP.
 - 'R' - User forced a module unload.
@@ -36,4 +36,29 @@ script to help debug
 
 find "Code :" string from STDIN, then disassmble it.
 
+== dtb ==
+device tree blob
 
+description of hardware.
+
+bootloader load two binaries:
+# kernel image
+# DTB
+
+DTB is compiled from dts file (device tree source).
+
+bootloader pass DTB address through *r2* register.
+
+=== DTS syntax ===
+
+=== compile ===
+- DTS file, board-level definitions
+- DTSI file, SoC-level definitions
+DTS file could merge / overlay the tree of the including file over the tree of the
+included file
+
+DTS go through C preprocessor, use `#include` style.
+
+scripts/dtc (device tree compiler)
+
+DTB, compiled file.

@@ -7,10 +7,38 @@
 * [[arm_hardware]]
 
 == tools ==
-=== adb ===
+=== am ===
+start apk in command line
+- start -n [APK_name]
 
+=== pm ===
+- list
+    - packages      list installed packages
+    - features
+    - users
+    - libraries
+- uninstall
+
+=== adb ===
 * select device
+
+- connect
+- disconnect
+- devices
 adb -s [DeviceID] ...
+
+- install
+    - -r            reinstall
+- uninstall
+    - -k            keep data and cache
+- remount           remount /system, /vendor
+- reboot            reboot
+- shell
+- logcat
+
+- push
+    when push directory, it will push all file under that directory to board
+- pull
 
 ==== issue ====
 - device offline
@@ -18,6 +46,14 @@ reconfigure MAC Addr, and re-dhcp, then retry.
 
 If misspell IP addr, or not align version of adb between server and client,
    may get this problem.
+
+- cannot copy
+adb -s [DevicesID] root
+
+- read-only filesystem
+adb -s [DevicesID] remount
+
+or check `df` or `mount` first
 
 === android ===
 NOTE:

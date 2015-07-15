@@ -37,6 +37,12 @@ width       ::=  integer
 precision   ::=  integer
 type        ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
 ```
+
+==== How to add descriptor of format ====
+{{{
+"{ms:03}ms".format({"ms":50})
+}}}
+
 * repr
 repr is like str, but repr output can be read by interpreter.
 

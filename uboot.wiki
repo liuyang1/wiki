@@ -1,0 +1,7 @@
+= tftp server =
+setenv serverip [SERVERIP]
+
+= img2sd =
+copy file from tftp server
+
+img2sd [PATH_in_TFTP_server] [SD.No]
