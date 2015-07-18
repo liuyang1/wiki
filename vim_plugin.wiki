@@ -318,6 +318,7 @@ display special char for python code
 - (- ∈
 - )- ∋
 
+- CG ∾
 === Geometry ===
 - PP ∥
 - DG °
@@ -340,3 +341,4 @@ display special char for python code
 == greek ==
 - A* Α
 
+a*

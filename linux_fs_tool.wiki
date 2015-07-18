@@ -11,6 +11,9 @@ ramdisk path to orignal code path.
 * ELF binaries not XIP(executable in place), so not executable under ramdisk
 * not so fast, not so efficient
 = tools =
+== ls ==
+- -S        sort by size
+
 == mount ==
 
 - -l lazy umount

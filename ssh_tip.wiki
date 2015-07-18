@@ -190,3 +190,10 @@ but it's too slow.
 = telnet =
 == server ==
 telnetd
+
+= mosh =
+for mobile usage, slow and unstable link
+
+install mosh at both client and server host
+
+it will predict with input stroke, but not waiting for echo back from server.
