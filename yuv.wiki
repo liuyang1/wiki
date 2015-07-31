@@ -1,0 +1,21 @@
+= tool =
+== yuvtoolkit ==
+opensource
+== yuvplayer ==
+
+== mplayer ==
+mplayer [file] -demuxer rawvideo -rawvideo w=320:h=240:fps=30:format=i420
+
+444p16le 444p16be 444p10le 444p10be 444p9le 444p9be 422p16le 422p16be 422p10le 422p10be 422p9le 422p9be 420p16le 420p16be 420p10le 420p10be 420p9le 420p9be 444p16 422p16 422p10 420p16 420p10 420p9 444a 422a 420a 444p 422p 411p 440p yuy2 yvyu uyvy yvu9 if09 yv12 i420 iyuv clpl hm12 y800 y8 nv12 nv21 bgr24 bgr32 bgr16 bgr15 bgr12 bgr8 bgr4 bg4b bgr1 rgb64be rgb64le rgb48be rgb48le rgb48ne rgb24 rgb32 rgb16 rgb15 rgb12 rgb8 rgb4 rg4b rgb1 rgba argb bgra abgr gbr24p mjpeg mjpg
+
+== rawplayer ==
+not so good.
+
+== vooya ==
+raw yuv/rgb video player
+
+close source
+
+== YUV player deluxe ==
+== Elecard yuvviewer ==
+closesource

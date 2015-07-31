@@ -39,3 +39,10 @@ mount出现block bitmap group问题.
 = audio =
 == alsamixer ==
 master mute
+
+== usb ==
+# /sys/block check usb device
+    # if not, load kmodule usb_storage, ehci_hcd, uhci_hcd, ohdci_hdc
+    # if yes, check /dev/[usb device]
+        # if not, check udev rule. copy from other system /etc/udev/rules.d/
+        # if yes, mount it.

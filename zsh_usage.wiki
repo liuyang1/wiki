@@ -69,3 +69,7 @@ ref:[[http://www.acm.uiuc.edu/workshops/zsh/prompt/escapes.html]]
 | %E    | 清除到行尾                           |
 | %#    | 权限的分割符号,如果是root,则符号不同 |
 | %v    | psvar参数的第一个变量???             |
+
+== string ==
+- !!:s/find it/replace it/      replace first matched content
+- !!:gs/find it/replace it/      replace all matched content

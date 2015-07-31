@@ -5,5 +5,7 @@
 # -n 不递归到子目录去，只在当前目录匹配
 
 = ag =
+# multi-pattern
+ag "(header0|header1)tail"
 == issue ==
 match ctags, as --all-text / -t will override --ignore
