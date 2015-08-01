@@ -92,3 +92,4 @@ mapcar 对于列表中的每个元素应用函数
 maplist		对于列表中每部分的cdr,映射到函数
 
 对树的操作,也就是对car,cdr的内容同时做递归操作,因此称之为双重递归.
+; (map [result-type] [function] [seq])

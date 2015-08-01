@@ -1,0 +1,21 @@
+= raid =
+
+= ext4 access time =
+ext4 file system, will update access time (atime) every time.
+
+change fstab will change default type.
+`/dev/md0 /data/         ext4    defaults,noatime    0   2`
+
+= Journaling =
+close barrier of journal of FS will increase speed.
+
+`/dev/md0 /data/         ext4    defaults,noatime,barrier=0    0   2`
+
+== disable journal ==
+{{{
+umount /data
+e2fsck /dev/md0
+tune2fs /dev/md0
+e2fsck /dev/md0
+mount /data
+}}}

@@ -1,0 +1,9 @@
+= lisp in small parts =
+
+ref:[[lisp.plasticki.com/show?14F]]
+
+== intro ==
+=== debuging in lispworks ===
+
+== Getting Started ==
+

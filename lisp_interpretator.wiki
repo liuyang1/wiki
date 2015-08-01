@@ -6,4 +6,8 @@
 - guile
 
 == common lisp ==
-- clisp
+=== clisp ===
+`clisp -q < SCRIPT`
+
+- -q        quiet, won't display information
+- stdin     read from STDIN

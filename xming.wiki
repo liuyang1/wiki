@@ -1,0 +1,28 @@
+= xming =
+xming is X server in Windows.
+
+When run xming, we can run remote X client (eg, X GUI program) in local
+Windows host.
+
+This is need enable X11-forwarding in ssh tunnel.
+
+== display setting ==
+=== Multiple Window ===
+default, and better solution
+=== Fullscreen ===
+Shadown DirectDraw::
+-engine 2
+=== One Window ===
+One Window without titlebar
+
+== issue ==
+=== support multi-monitor in windows ===
+default, cannot move window to next monitor.
+
+{{{
+xming -screen 0 @2 -multiwindow -screen 0 3286x1080 -engine 1
+}}}
+
+use screen size bigger than multi-monitor.
+
+1366x768 + 1920x1080 --horizantal layout -> 3286x1080

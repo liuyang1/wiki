@@ -290,6 +290,26 @@ but the programming will continue to execute after this expression.
 - line comment       begin with "--"
 - block comment     `{- comment here -}`
 
+== Monad ==
+`Monad` is a `class`, which have two basic operators:
+
+{{{ haskell
+infix 1 >>, >>=
+class Monad m where
+    -- >>= and >> is bind operator
+    (>>=)   :: m a -> (a -> m b) -> m b
+    return  :: a -> m a
+    -- other not BASIC
+    (>>)    :: m a -> m b -> m b
+    fail    :: String -> m a
+    m >> k = m >>= \_ -> k
+}}}
+
+For example: `list` is a monad.
+so
+{{{
+(>>=) :: [a] -> (a -> [b]) -> [b]
+}}}
 = ghc =
 - ghc [filename]    compile
 == ghci ==
