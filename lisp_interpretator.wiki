@@ -6,8 +6,15 @@
 - guile
 
 == common lisp ==
+=== lispworkds ===
+==== command line ====
+- :top      escape out
 === clisp ===
 `clisp -q < SCRIPT`
 
 - -q        quiet, won't display information
 - stdin     read from STDIN
+
+==== command line ====
+- :a        abort (escape out)
+- (quit)    quit interpretator

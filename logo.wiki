@@ -1,0 +1,36 @@
+== ctrl ==
+- Ctrl-C    interrupt
+- BYE       exit
+== draw ==
+- FD        forward
+- BK        backward
+- RT        right
+- LT        left
+- CS        clearscreen
+- PU        pen up
+- PD        pen down
+- HT        hide turtle
+- ST        show turtle
+- HOME      go back home position
+- LABEL
+- SETXY
+
+== var ==
+define var start with `"` with `make` command
+
+reference var start with `:`
+
+{{{
+make "first_programmer "Ada_Lovelace
+print :first_programmer
+}}}
+
+== proc ==
+- TO {name} {arg1} {arg2}
+- END
+- REPEAT {NUM} [ {SUB PROC} ]
+{{{
+repeat 3 [fd 60 rt 120]
+}}}
+- SHOW
+- WAIT n

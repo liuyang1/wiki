@@ -1,8 +1,11 @@
 = lisp =
 
-[[lisp_learning]]
+- [[lisp_lib]]
+- [[lisp_learning]]
+- [[lisp_interpretator]]
+== learn ==
+- [[lisp_in_small_parts]]
 
-[[lisp_in_small_parts]]
 
 == dialct ==
 [[common_lisp]]
