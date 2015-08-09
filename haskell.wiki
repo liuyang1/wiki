@@ -337,6 +337,8 @@ This need `main` function at `main` module.
     * :load filename.hs
     * :load "filename.hs"
 - :cd
+- it
+default return value, `ans` in matlab
 
 Inside ghci, define a new variable, need using *let*
 

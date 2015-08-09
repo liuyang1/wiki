@@ -1,6 +1,7 @@
 = Text-mode Browser =
 
 == w3m ==
+- a         save as
 
 == elinks/links ==
 

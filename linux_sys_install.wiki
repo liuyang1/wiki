@@ -13,6 +13,13 @@ redhat5.4版本较老.而且这个笔记本电脑是2012广行公司公用notebo
 * 挂载U盘
 `mount -t vfat /dev/sdb /mnt`
 
+=== lsblk ===
+show block device tree status
+
+Through
+/dev/disk/by-label
+we can get the label
+
 == no device driver found ==
 这个时候为硬盘无法识别,可以通过修改BIOS中硬盘驱动的类型.
 

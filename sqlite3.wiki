@@ -1,0 +1,16 @@
+== command ==
+- .open [FILENAME]
+- .help
+- .exit
+- .schema [table_name]
+- .database
+
+== SQL ==
+=== create ===
+- CREATE TABLE [table_name] ...
+=== drop ===
+`DROP TABLE [table_name]`
+=== insert ===
+=== select ===
+- SELECT
+=== update ===
