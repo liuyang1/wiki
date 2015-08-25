@@ -1,0 +1,25 @@
+= FsmShow =
+a fsm shower, fsm driven by raw text log.
+
+- it's must show by HTML5, Javascript.
+- must support realtime mode and offline mode.
+- even on realtime mode, it must support pause and review.
+
+== related work ==
+a lot of finace chart javscript libraries have similar functionality.
+
+time series data showing also, but cannot review.
+
+== state ==
+- loaded, idle, pause, executing, wait_input, wait_output
+- resources list, obatin or release
+
+{{{
++------+----------------------+
+| idle |    ^--v-- ^ /---\    |
+|      |   /      V V         |
++------+----------------------+
+time---------------------------
+}}}
+
+we choose D3.js, as it's extendable

@@ -5,6 +5,8 @@
 - [[lisp_interpretator]]
 == learn ==
 - [[lisp_in_small_parts]]
+=== external ===
+- [[cs.gmu.edu/~sean/lisp/LispTutorial2.html|Ex Lisp Tutorial]]
 
 
 == dialct ==

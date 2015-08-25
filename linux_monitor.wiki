@@ -34,6 +34,9 @@ CPU使用::
 * IO等待    CPU空闲,线程阻塞等待IO请求完成话费时间比例.
 * 空闲      CPU完全空闲时间比例.
 
+=== check cpu freq ===
+`/sys/devices/system/cpu/cpu[NUM]/cpufreq/cpuinfo_cur_freq`
+
 === vmstat ===
 vmstat命令可以得到进程内存,内存分页,阻塞IO,traps,CPU活动信息.
 

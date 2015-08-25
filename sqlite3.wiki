@@ -14,3 +14,7 @@
 === select ===
 - SELECT
 === update ===
+=== delete ===
+DELETE FROM [table_name]
+
+remeber `conn.commit` after change database

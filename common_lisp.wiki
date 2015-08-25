@@ -8,9 +8,26 @@ defparameter 定义一个全局变量
 defconstant 定义一个全局常量
 
 == IO ==
-princ 输出字符
+=== Input ===
+- print a linefeed followed by obj (newline first)
+- prin1 print obj (no prior linefeed)
+- princ 输出字符 (human readable fashion)
+- print1-to-string
+- printc-to-string
+- terpri 意义为terminate print newline 输出一个空格
+- `(format print-to-where fromat-string obj1 obj2 ...)`
+    print-to-where could be `t`(print to screen) or `nil`(print to string)
 
-terpri 意义为terminate print newline 输出一个空格
+=== format ===
+Formating sequences begin with a tilde(~).
+- ~a        princ an element
+- ~%        print a linefeed
+- ~s        prin1 an element
+
+=== Ouput ===
+- read      read an expression
+- read-from-string
+- y-or-no-p wait input YES or NO
 === 转义字符 ===
 这部分主要是说明common lisp中的format函数的转义字符。
 
@@ -52,10 +69,22 @@ t这里为缺省输出的地方,默认就是stdout
 
 == math ==
 - #C(3.2, 2)        complex number
-== 赋值 ==
-setf
 
-== 多表达式归一 ==
+== 特殊符号 ==
+quote '
+symbol function #
+
+例如 #'+ 表示的就是加法函数
+
+== control struct and var ==
+- progn         take lots of expression
+- let
+- setf          update var's value
+- incf/decf EXPR [val]
+- push/pop      for list, add or remove one element
+- rotaterotateff
+
+=== 多表达式归一 ===
 progn (在scheme中使用的是begin)
 
 这里的多表达式归一的意思，就是直接执行后面的多个表达式，当作一个表达式的效果。
@@ -65,24 +94,6 @@ progn (在scheme中使用的是begin)
 这种需要多个表达式的场合反而比较少见的缘故。
 
 多个表达式依次执行，这个也更符合过程式语言的使用方法
-
-== 特殊符号 ==
-quote '
-symbol function #
-
-例如 #'+ 表示的就是加法函数
-
-== 类型 ==
-typep 判定一个变量的类型
-
-(typep 27 'integer)
-
-atom 检查是否为符号
-
-== control struct and var ==
-- progn         take lots of expression
-- setf          update var's value
-- let
 
 == loop 循环 ==
 # do (VARNAME INITIAL UPDATE)
@@ -102,17 +113,84 @@ atom 检查是否为符号
 == 模块与多文件 ==
 (load FILENAME)
 
-== 列表 ==
+== list ==
 注意是零索引
 
 - nth 获取第n个元素
 - nthcdr 获取第n以及之后的元素
+=== sequence functions ===
+- car/first
+- cdr/reset
+- cons
+- last
+- butlast
+- elt
+- copy-seq
+- concatenate
+- make-sequence
+- count
+- count-if
+- count-if-not
+- remove-if
+- find-if
+- position-if
+- substitute
+- substitute-if
+- search
+- sort
 
+
+== array ==
+=== fix-length ===
+- (make-array _length_)
+intiailized to *nil*
+- (make-array _dimension-list_ :initial-element 0)
+
+- #(a b c)      raw array
+- #2A((1 2 3) (4 5 6))
+
+- aref          multi-dimension ref
+- svref         simple-vector ref
+=== var-length ===
+- (make-array _length_ :fill-pointer t :adjustable t)
+- vector-push-extend val array
+- vector-pop
+
+=== string ===
+- (char _string_ _index_)
+- (setf (svref vec 3) 'hello)       setting 3rd of vec to 'hello
+
+== hash table ==
+- `(make-hash-table :test #'euqalp)`
+- `(gethash key hasktable &optional return-if-empty)`
+- `(setf (gethash key hashtable) value)`
+- `(remhash key hashtable)`
+- `(maphash function hashtable)`
+== type ==
+- typep epxr type
+- type-of expr      return type of expr
+- coerce epxr type  force transfer to another type
+
+=== rounding function ===
+- floor
+- round
+- truncate
+- ceiling
 == logic ==
 - zerop 检查是否为0
 - numberp   is number
 - oddp      is odd
 - evenp
+- listp
+- consp
+=== 类型 ===
+- typep 判定一个变量的类型
+(typep 27 'integer)
+- atom 检查是否为符号
+
+=== logic operator ===
+- not
+
 == function ==
 - (defun FUNCNAME (ARGS...) EXPR)
 optional arg::
@@ -125,9 +203,81 @@ definiton
 
 call
 - startwith :KEYNAME
+
+=== function ===
+return a pointer to a function
+- (function _function-symbol_)
+{{{
+#'print
+(function print)
+}}}
+They are same.
+
+- (funcall _function-pointer_ args..)
+- (apply _function-pinter_ list-arg)
+- (apply _function-pinter_ arg1 arg2 list-arg)
+==== Lisp1 vs Lisp2 ====
+Common Lisp, associate a function with a symbol(by using *defun*) and it can
+*also* associate a value with *same* symbol as a variable (by using *setf*).
+
+A Lisp which acn associate two or more different kinds of things at the same
+time with a symbol is call an *Lisp2*.
+
+Common Lisp, Emacs Lisp is Lisp2.
+
+Scheme is Lisp1.
+
+evaluate first item in the list as variable, looking up its function pointer
+value. Scheme associates only one thing with a symbol: the item stored in its
+variable. Thus scheme is a *Lisp1*.
+
+=== lambda ===
+{{{
+#'(lambda (x) (* x x))
+}}}
+
+=== closures ===
+defun also could work *in* a let epxression.
+
+like private but global var
+
+== loading & compling ==
 == 高阶函数 ==
-mapcar 对于列表中的每个元素应用函数
-maplist		对于列表中每部分的cdr,映射到函数
+- mapcar 对于列表中的每个元素应用函数
+- (mapcr _function-pointer_ list1 list2)
+- maplist		对于列表中每部分的cdr,映射到函数
+- map
+- mapc
+- mapcan
+- mapcon
+- reduce
+    - :fromend t
 
 对树的操作,也就是对car,cdr的内容同时做递归操作,因此称之为双重递归.
 ; (map [result-type] [function] [seq])
+
+- (compile FUNC)
+- (time EXPR)
+- (load FILENAME :print [t/nil])
+- (compile-file FILENAME)
+compile to FAS / FSL / FASL / AFASL file
+
+use GLOBAL var, may causs warning
+
+== style ==
+=== comment ===
+- three semicolon   file level comment
+- two simicolon     function level comment
+- line level comment
+- docstring, first expression in a DEFUN statement is a string
+get it by `documentation` function
+get more detail by `describe` function
+- `#|` and `|#` winged comment block comment
+
+=== code style ===
+- lisp symbol is incasentive, but better use lower-case
+- NOT use underscore in symbols, use hyphens
+- global var by wraping by asterisks
+- `setf` break functionaly programming style
+- `defparameter`
+- `defconstant`

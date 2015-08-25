@@ -1,12 +1,12 @@
 = vim tips =
 
 == 命令参数 option ==
-* +N    表示到行号
+* +n    表示到行号
 * +     表示到最后一行lineno
 * lineno
 * -c    exec command after start vim
-* vim "+call cursor(<LINE>, <COLUMN>)" FILE
-* vi '+normal 15G25|'  FILE
+* vim "+call cursor(<line>, <column>)" file
+* vi '+normal 15g25|'  file
 auto move cursor to specific postion
 
 === 编辑远程主机上的文件 ===
@@ -14,7 +14,7 @@ auto move cursor to specific postion
 	vim scp://username:password@hostaddr/path/to/file
 }}}
 后台实际上传输为本地临时文件,编辑结束后,会传递回去.
-ref:[[http://vim.wikia.com/wiki/Editing_remote_files_via_scp_in_vim]]
+ref:[[http://vim.wikia.com/wiki/editing_remote_files_via_scp_in_vim]]
 
 对于使用sshconfig简化的地址可以如下:
 
@@ -334,6 +334,7 @@ http://yuzifu.net/book/vimdoc/windows.html
 - CTRL-W s/:sp      split window
 - CTRL-W v/:vsp     vertical split windows
 - CTRL-W n/:new     split window and init a blank file
+- Ctrl-W =          evens split panels size
 - :vnew[w]          vertical split window and init a blank file
 
 - :sp/:vsp          分割窗口/纵向分割窗口(比使用全部命令split与vsplit省事一点点)

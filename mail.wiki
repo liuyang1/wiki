@@ -19,7 +19,7 @@ may have some issues.
 * --append "Content-Type: text/html"            send html format mail
 
 == THEORY ==
-install mailutils
+install `mailutils`
 
 mail command -> /usr/sbin/sendmail -> local MTA(smtp server) -> recipient
 MTA(and InBox)

@@ -1,0 +1,10 @@
+=== plugin ===
+- adblock Plus
+- FoxProxy
+- Vimperator
+- Pocket service
+- SmoothWheel
+
+vimum in firefox sucks!
+
+which pop search form by "Ctrl-F", but will mess with "f" command in vimum
