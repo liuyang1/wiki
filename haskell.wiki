@@ -308,7 +308,7 @@ but the programming will continue to execute after this expression.
 {{{ haskell
 infix 1 >>, >>=
 class Monad m where
-    -- >>= and >> is bind operator
+    -- >>= and >> is BIND operator
     (>>=)   :: m a -> (a -> m b) -> m b
     return  :: a -> m a
     -- other not BASIC

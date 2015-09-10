@@ -111,7 +111,7 @@ autossh -M 5678 -NR 1234:localhost:22 user1@123.123.123.123
 
 也可以自己使用脚本检测ssh进程状态,进而决定是否重连
 
-见test.g/sh/autossh.sh
+见test.g/sh/autoSSH.sh
 
 
 

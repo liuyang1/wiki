@@ -88,6 +88,12 @@ the diff size is 10%+-, but save 20%+- time.
 git push origin localbranch:remotebranch
 
 remote will automatically create remotebranch
+== log ==
+- stat              show statistic with cli visual format
+- numstat           show statistic with number
+- shortstat         show statistic with summary
+==== shortlog ====
+summary git log as author
 == author ==
 string, such as 'liuyang <liuyang@xxx.com>'
 
