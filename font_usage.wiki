@@ -3,34 +3,69 @@ mtime: 2012-10-22 14:30:27
 ----
 == 等宽字体Monospace Font ==
 
-- Monaco
 
-- Menlo
+== Consolas ==
+微软出品,质量良好,一直坚持使用.
 
-- ProgmataPro
+缺点是有版权,不过如果你有任何一般版本的正版Windows,你就有权使用它.
+
+也想找到更好的字体,暂时没有看到.
+
+== Monaco ==
+苹果公司出品
+
+特点是,字型略方,也就是高度比宽度较低.如果追求指定宽度下,使用可能有不变.
+
+字体比较圆润.
+
+
+== Menlo ==
+苹果公司出品
+
+== Ubuntu Mono ==
+Ubuntu出品,效果也不错
+
+== monofur ==
+毛球
+
+特点是非常的圆,很多弧线元素.
+
+倾斜角度的e字母,是其最明显的设计特征
+
+== droid sans mono ==
+droid家族字体,来自于安卓.
+
+字体一般,而且存在问题,就是0,这个符号,居然没有中间的斜杠,这样不利于辨识.
+
+== ProgmataPro ==
 这个字体,之前看到牛皮吹得很厉害,看上去也不错,~~但是自己实际使用效果一般般..~~
 
 2015-02, as find all support (regular, italic, bold, ..)
 
 - Source code pro
 这款字体adobe出品,使用时候感觉字母较为矮小,而字之间的间距过大(对比).而且清晰度似乎不够好.
-- Consolas
-微软出品,一直坚持使用.
 
-也想找到更好的字体,暂时没有看到.
+= 衬线等宽字体 =
 
+== Courier ==
+带衬线的等宽字体,非常适合打印使用.但是屏幕看久了,细节点可能比较累啊.
 
+这个有个缺陷,就是波浪线和横杠可能区分性比较低.
+
+= 点阵等宽字体 =
 == 点阵字体Bitmap Font ==
+点阵字体,适合在tty下面使用.虚拟终端下,可能显得比较粗糙.
+
 progy,这个字体12号,显示的还是很不错的,但是比较小,而且混合情况下中文根本没有办法看,估计是我没有配置的缘故.
 
-terminus,这个字体还是不错的,而且系统默认安装.
+Terminus,这个字体还是不错的,而且系统默认安装.
 
 == OCR font ==
 - OCR-A
 - OCR-B
 
 == MICR font ==
-Magnetic Ink Charectoer Recognition
+Magnetic Ink Character Recognition
 
 - E-13B
 
@@ -44,3 +79,42 @@ sudo apt-get install xfonts-wqy
 == 字体更新 ==
 sudo fc-cache -f -v
 
+== fontconfig @ linux ==
+=== dpi ===
+xdpyinfo | grep -B2 res
+
+In general, laptop is 96 dpi.
+
+=== gfx card ===
+# lspic | grep VGA
+
+which your gfx card
+
+install driver
+
+# glxinfo | grep -i opencl
+to check which driver installed
+
+# /etc/fonts/local.conf
+
+NOT edit /etc/fonts/font.conf, which may update when update new version.
+
+config sequence:
+- /etc/fonts/local.conf
+- /etc/fonts/conf.d
+- .fontconfig/fonts.conf
+
+`fc-cache` could rebuild fontconfig, however, changes only work in NEWL
+launched apps.
+
+`fc-cache -fv ~/.fonts`
+
+update when insert new font
+=== app ===
+urxvt ignore fontconfig settings. but have to set in `.Xresources`
+
+=== best ===
+install freetype2-ubuntu, libxft-ubuntu, cairo-ubuntu, then everything is
+clear and sharp, espicially in chromiume.
+
+Great!

@@ -70,7 +70,7 @@ dummy: [[TODO]]
 === terminal ===
 * [[terminal_tools]]
 * [[term_software_list]]
-* [[monospace|Monospace Font]]
+* [[font_usage|Font]]
 * [[tty_linux]]
 === multimedia ===
 * [[ffmpeg]]

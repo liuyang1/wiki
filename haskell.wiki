@@ -10,19 +10,19 @@
 
 *abstraction*
 
-A programming lanuage's type system deeply colours the way we think, and write
+A programming language's type system deeply colours the way we think, and write
 code, in that languages.
 
 NOTE:
 so right!
-python is duck-type, not check the type, but check the interface or property.
-but haskell, is use inferred type system. and *typeclasses*
+Python is duck-type, not check the type, but check the interface or property.
+But haskell, is use inferred type system. and *typeclasses*
 
-type inferring system/static type system, make debuging on type error
+Type inferring system/static type system, make debuging on type error
 *up front*. (than dynamic type system)
 
 `'a' :: Char`
-type signnature
+type signature
 
 `:type ???`
 return type of classes
@@ -37,7 +37,7 @@ return type of classes
 rational number
 `11%29` -> 11/29
 
-predication function::
+Predication function::
 - odd
 - even
 - compare
@@ -55,13 +55,13 @@ enumeration notation
 
 *polymorphic*
 
-elements of list must have same type
+Elements of list must have same type
 
 `[1..10]`
 `[1.0,1.25..2.0]`
 `[1.0..1.8]` -> [1.0, 2.0]
 
-==== implemention ====
+==== implementation ====
 the list is like functional programming language, FP, support `cons`, `car`, `cdr`
 is better.
 
@@ -94,11 +94,11 @@ also support embed in list comprehension
 - snd
 only support pair or tuple which containing TWO elements.
 === Algebraic Data Types ===
-==== Value Consturctor ====
+==== Value Constructor ====
 
 `data TYPECONS = VALUECONS TYPE0 TYPE1 | VALUECONS TYPE10 deriving (Show)`
 
-Value Consturctor is a function.
+Value Constructor is a function.
 
 ==== Type Constructor ====
 `data Maybe a = Nothing | Just a`
@@ -138,7 +138,7 @@ overflow is meaningless.
 - **
 - ^
 - rem
-- mod       not same, mod have defintion on negative number
+- mod       not same, mod have definition on negative number
 - precedence of operators
 `1 + 4 * 4` -> 17
 - () bracket
@@ -156,7 +156,7 @@ overflow is meaningless.
 - >=
 - <=
 
-=== constanst ===
+=== constant ===
 - pi
 === function ===
 - exp
@@ -215,7 +215,7 @@ Read, Show is *reverse* typeclass.
 == pattern matching ==
 - all@(x:xs)        @ -> as
 
-patter matching could apply in function param parse, *where* statement, *let*
+pattern matching could apply in function param parse, *where* statement, *let*
 statement.
 
 === guard ===
@@ -364,10 +364,18 @@ Python's _NONE_ style.
 
 In Erlang, we have same style.
 
-but in Haksell, this support infered tyle system. GOOD.
+but in Haksell, this support inferred style system. GOOD.
 = issues =
 == align ==
 haskell use *align* to parse the program.
 = Book =
 Learn your haskell for great good, is better for newbie than real world
 haskell.
+
+== cabal ==
+- init
+init cabal file
+- depend
+maybe add dpendence, need comma separator
+- build
+- clean
