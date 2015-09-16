@@ -1,6 +1,10 @@
-= ssh wiki =
-2012-09-21 09:41:18 
+= ssh =
+2012-09-21 09:41:18
 ----
+== option ==
+- -L
+- -D
+- -R
 == config ==
 * IdentityFile
 === share connection ===

@@ -6,4 +6,8 @@
 == elinks/links ==
 
 == lynx ==
+- dump translate html to text
 
+== curl ==
+== httpie ==
+== wget ==

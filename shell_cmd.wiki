@@ -94,7 +94,13 @@ this command will
 
 groupadd
 
-chown
+== chown ==
+== chmod ==
+== stat ==
+- -c    format
+    "%A"    drwx format
+    "%a"    777 format
+    "%n"    filename
 
 who
 

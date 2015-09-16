@@ -53,6 +53,9 @@ cut -s -d '.' -f1-2
 
 *可以用于提取文件名的前缀*
 
+== paste ==
+== join ==
+
 == 字符编码转换 ==
 === convmv ===
 
@@ -66,6 +69,16 @@ cut -s -d '.' -f1-2
 
 `iconv -f gbk -t utf8 address.csv > address.utf8.csv`
 
+=== uconv ===
+unicode convert
+
+=== luit ===
+实时将其他字符编码结果的程序,进行转码.
+
+例如使用luit+telnet访问bbs.
+
+luit -encoding gbk telnet bbs.ustc.edu.cn
+
 == echo ==
 * -n,不加回车符号
 * -e,支持内嵌\xXX16进制任意字符
@@ -77,6 +90,10 @@ cut -s -d '.' -f1-2
 - -l, --files-with-mathces
 - -L, --files-without-mathces
 - -R, -r, --recursive       recursive under each directory
+- -i                ignore case
+- -v                reverse
+- -A/-B             after/before context with [NUM] of lines
+- -C                print [NUM] lines of output context
 
 grep -E "WORD|"     match every line, and colorize WORD
 
@@ -90,6 +107,10 @@ grep -E "WORD|"     match every line, and colorize WORD
 only pgrep (NOT for pkill)
 - -d                delimiter(default to newline)
 - -l                also list process name, (default only process ID)
+
+==== pstree ====
+show process status as tree
+- -p                show pid
 
 ==== ack ====
 
@@ -133,6 +154,9 @@ so how to display colorful content after filter by grep or more/less?
 pager
 
 - -R            raw output (not filter ANSI-char)
+- +F
+similar with `tail -f`, but can interrupt trace (by `<Ctrl-C>`) or resume by
+`F`.
 
 == diff ==
 
@@ -141,12 +165,7 @@ pager
 `patch -p[NUM] < PATCHFILE`
 
 NUM is level
+== diffstat ==
 
-== 字符编码转换 ==
-- luit
-实时将其他字符编码结果的程序,进行转码.
-
-例如使用luit+telnet访问bbs.
-
-luit -encoding gbk telnet bbs.ustc.edu.cn
-
+== pv ==
+progress of pipe

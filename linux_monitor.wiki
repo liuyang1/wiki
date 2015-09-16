@@ -144,6 +144,7 @@ CPU平均负载,硬盘活动情况.
 == dstat ==
 
 == lsof ==
+show file descrpitor
 
 == jstat/jmap/jstack/jps ==
 
@@ -151,12 +152,17 @@ CPU平均负载,硬盘活动情况.
 网络流量分析
 
 == wireshark ==
+== tshark ==
+== ngrep ==
 
 == strace ==
 系统调用
 
 == /proc ==
 各种内核信息
+
+== glances ==
+show system status
 
 == Cacti ==
 网络图形化解决方案.
