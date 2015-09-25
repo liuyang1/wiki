@@ -86,7 +86,7 @@ xdpyinfo | grep -B2 res
 In general, laptop is 96 dpi.
 
 === gfx card ===
-# lspic | grep VGA
+# lspci | grep VGA
 
 which your gfx card
 

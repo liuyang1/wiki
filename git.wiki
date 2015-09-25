@@ -67,6 +67,7 @@ history.
 the diff size is 10%+-, but save 20%+- time.
 == commit ==
 - -F        rewrite commit from filename
+- --reset-author    renew author and timestamp
 == diff ==
 - git diff 查看目前未缓存的修改
 - git diff --cache 查看已经add的修改内容

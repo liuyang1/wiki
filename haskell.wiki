@@ -162,7 +162,7 @@ overflow is meaningless.
 - exp
 - sqrt
 - succ      successor
-- pred      predosser???
+- pred      prestatement dosser???
 - truncate  truncate number to intger
 - round
 - floor
@@ -199,6 +199,11 @@ div 92 10
 }}}
 
 we even could define a function as midfix format.
+== thunk ==
+- function takes an arguments, while a thunk does not.
+    so it could directly run / apply / evaluate / force it.
+- a function value is immutable, while a thunk updates itself.
+
 == typeclass ==
 - Eq        /= ==
 - Ord       > < >= <=       GT LT EQ
@@ -285,6 +290,9 @@ module MDLNAME
 
 -- define func
 }}}
+
+export statement used for limit function scope.
+
 == exception ==
 * error         throw a ERROR (and literal string as param)
 == IO ==
@@ -322,14 +330,42 @@ so
 {{{
 (>>=) :: [a] -> (a -> [b]) -> [b]
 }}}
+
+=== do-block ===
+- `<-`
+
+== lazy ==
+contexts values are interchangeable with function pointers (a.k.a. thunks)
+
+- $!        Strictly eval
+- seq       to avoid unneeded laziness.
+`seq:: a -> b -> b`
+
+if `seq` a b is forced, then first `a` is forced, then `b` is forced and
+    returned
+
+== FFI: foregin function interface ==
+{{{
+foreign import ccall unsafe "stdlib.h malloc"
+    c_malloc :: CSize -> IO (Ptr a)
+foreign import ccall unsafe "stdlib.h free"
+    c_free :: Ptr a -> IO ()
+}}}
+
+=== C interface ===
+- hsc2hs
+
 = ghc =
 - ghc [filename]    compile
 - -o [executable filename]
 This need `main` function at `main` module.
+- -make [executable filename]
+
 == ghci ==
-- ghci              interative intreprator
+- ghci              interactive intreprator
 - :?                get help
 - :type
+- :i                show type of operator
 - :info
 - :module
 - :load
@@ -368,14 +404,32 @@ but in Haksell, this support inferred style system. GOOD.
 = issues =
 == align ==
 haskell use *align* to parse the program.
-= Book =
-Learn your haskell for great good, is better for newbie than real world
-haskell.
-
 == cabal ==
 - init
 init cabal file
 - depend
-maybe add dpendence, need comma separator
+maybe add dependence, need comma separator
 - build
 - clean
+
+better add these to your `.cabal/config`
+{{{
+documentation: True
+library-profiling: True
+}}}
+
+= bookmark =
+= Book =
+- Learn your haskell for great good
+It is better for newbie than real world
+haskell.
+- real world haskell
+
+== course ==
+- [[http://www.scs.stanford.edu/11au-cs240h/|CS240h]]
+== tutorial ==
+- [[https://www.haskell.org/tutorial/|haskell 98]]
+- [[https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/index.html|ghc user guide]]
+== exercise ==
+- [[http://codewars.com/|codewars]]
+- H99 [[https://github.com/liuyang1/H99|H99 - github]]

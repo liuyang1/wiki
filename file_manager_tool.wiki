@@ -124,3 +124,6 @@ pp粘贴
 	Close the current tab. The last tab cannot be closed this way.
 
 }}}
+
+== preview plugin ==
+- zip       atool

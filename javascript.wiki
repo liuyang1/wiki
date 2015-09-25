@@ -2,3 +2,8 @@
 
 - chain-style call
 - callback function/lambda function hell
+
+== File API ==
+2015-09-23
+
+fileReader method for now is draft

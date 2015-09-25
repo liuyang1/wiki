@@ -126,6 +126,9 @@ for (( i = 0 ; i < ${#names[@]} ; i++ )) do
     echo ${names[$i]}
 done
 }}}
+* copy
+need extra parens
+`Linux=("${Unix[@]}")`
 
 == map ==
 only support at bash 4.0+, ksh and zsh.

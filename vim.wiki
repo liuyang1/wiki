@@ -155,8 +155,8 @@ so if function with { as tail, this method won't detect it, and skip it.
 - ]}                    跳转到函数结尾
 - ]'/['                 skip to next/previous lower mark line
 - ]`/[`                 skip to next/previous lower mark postion
-- {                     跳转到小块的开头
-- }                     跳转到小块的结尾
+- {                     jump to head of previous paragraph
+- }                     jump to end of next paragraph
 
 ====文件跳转====
 - gf                    跳转到文件

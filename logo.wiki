@@ -1,3 +1,4 @@
+= LOGO =
 == ctrl ==
 - Ctrl-C    interrupt
 - BYE       exit

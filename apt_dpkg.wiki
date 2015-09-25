@@ -16,3 +16,6 @@ apt-get build-dep XXX
 install all build-depence software.
 
 so easy!!
+
+== ppa ==
+=== ppa-purge ===

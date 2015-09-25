@@ -38,6 +38,13 @@ hexdump -C filename
 
 == bview/bvi ==
 二进制文件的编辑器
+== vbindiff ==
+diff on binary data
+== cmp ==
+check they are same or not, only can find first difference place
+
+But `cmp` is fast.
+
 == ascii ==
 ascii码工具
 

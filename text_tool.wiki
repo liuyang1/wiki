@@ -94,6 +94,8 @@ luit -encoding gbk telnet bbs.ustc.edu.cn
 - -v                reverse
 - -A/-B             after/before context with [NUM] of lines
 - -C                print [NUM] lines of output context
+- -q                quiet, output nothing to stdout, but exit with zero status
+   if found match
 
 grep -E "WORD|"     match every line, and colorize WORD
 

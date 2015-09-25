@@ -1,0 +1,10 @@
+= linux =
+== package manager ==
+redhat, centos, fedora
+[[yum]]
+
+debian, ubuntu ...
+[[apt_dpkg|apt]]
+
+arch
+[[pacman]]

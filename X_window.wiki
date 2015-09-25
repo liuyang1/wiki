@@ -14,7 +14,6 @@ xdg-mime default chromium.desktop x-scheme-handler/http
 === xdg-open ===
 xdg open http://www.ustc.edu.cn
 
-<<<<<<< Updated upstream
 == xrandr ==
 config it to rotate to left
 
