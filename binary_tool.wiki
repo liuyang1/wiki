@@ -2,6 +2,8 @@
 mtime: 2012-11-01 10:42:39
 ----
 == nm ==
+用于库文件的分析,显示里面的函数情况
+
 列出对象文件的符号列表
 == od ==
 
@@ -41,6 +43,10 @@ hexdump -C filename
 == vbindiff ==
 diff on binary data
 == cmp ==
+二进制文件比较.
+
+结果为第一个字节不同的地方.
+
 check they are same or not, only can find first difference place
 
 But `cmp` is fast.
@@ -53,15 +59,9 @@ ascii,列出ascii码表
 ascii 16进制数字,列出其各个形式,以及对应的具体信息,比如ascii 0a,回显示其为newline.
 
 == xxd ==
-这个是vim的工具,里面存在一个问题,就是将不可显示的字符,转化为空格,进而转化为16进制,这样回造成解析错误.
-== nm ==
-用于库文件的分析,显示里面的函数情况
+~~这个是vim的工具~~
 
-== cmp ==
-二进制文件比较.
-
-结果为第一个字节不同的地方.
-
+里面存在一个问题,就是将不可显示的字符,转化为空格,进而转化为16进制,这样回造成解析错误.
 == hexdiff ==
 比较二进制文件
 

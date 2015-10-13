@@ -1,0 +1,16 @@
+= IPC =
+inter-process communication
+
+shared between process
+- file
+- memory-mapped file
+- socket
+- shared memory
+
+process interactive with external
+- signal
+- pipe
+- named pipe
+- semaphore
+- message queue
+- message passing

@@ -1,4 +1,19 @@
 = tool =
+== tile ==
+directly layout pixel in memory.
+
+This style have good cache performance when access pixel from left to right,
+then top to bottom.
+
+However, when access pixels from top to bottom, then left to right, will get
+many cache misses.
+
+When switch to tiled mode or wizzle mode, it have balance on cache access.
+
+This style is better for graphics application.
+
+ref:
+[[https://fgiesen.wordpress.com/2011/01/17/texture-tiling-and-swizzling/]]
 == yuvtoolkit ==
 opensource
 == yuvplayer ==
