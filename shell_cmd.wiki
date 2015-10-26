@@ -68,6 +68,15 @@ cygpath -w filepath
 when you combine use FIND and XARGS, will have to using -print0 to
 delimter filenames, not newline or whitespace character.
 
+=== xargs + type ===
+
+find -type d | xargs sudo chmod 755
+
+找到所有文件夹,全部转换为755模式
+
+=== first arg ===
+`\ls *.265 | xargs -I{} adb push {} /data/`
+
 == system and admin ==
 === user and group ===
 ==== useradd ====
@@ -154,12 +163,6 @@ ll | sort -k 5 -n
 例如使用luit+telnet访问bbs.
 
 luit -encoding gbk telnet bbs.ustc.edu.cn
-
-== xargs + type ==
-
-find -type d | xargs sudo chmod 755
-
-找到所有文件夹,全部转换为755模式
 
 == 监控 ==
 

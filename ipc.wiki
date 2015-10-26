@@ -7,10 +7,10 @@ shared between process
 - socket
 - shared memory
 
-process interactive with external
-- signal
-- pipe
-- named pipe
-- semaphore
+Process interactive with external
+- signal (alarm, SIG_KILL)
+- pipe (`|` in shell)
+- named pipe (`mkfifo` in shell)
+- semaphore (sem_init, sem_post, ...)
 - message queue
 - message passing

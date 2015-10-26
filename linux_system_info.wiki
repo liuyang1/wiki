@@ -136,6 +136,8 @@ ref:man ps
 === repquota ===
 - -a            all user
 - -s            human readable
+=== edquota ===
+- -u            user
 
 == 查看发行版版本 ==
 通用的方案

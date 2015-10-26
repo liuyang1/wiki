@@ -2,11 +2,69 @@
 mtime: 2013-03-02 15:41:47 
 ----
 
+== functions ==
+=== create ===
 {{{
 int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void
         *(*start_route) (void *), void *arg);
 }}}
 start pthread as start_route, with arg.
+=== join ===
+join with a terminated thread
+
+- if that thread has already terminated, return immediately.
+- else, blocking wait until pthread stop
+
+=== cancel ===
+call `setcancelstate` first, send cancel state if pthread enable cancel state.
+
+after that, we can `join` it, return with `PTHREAD_CANCELD` retval
+
+pthread_cancel(pthread_t thread_id)
+
+可以从外部呼叫令线程取消.具体线程可以根据收到cancel信号,自行决定行为.
+
+=== test_cancel ===
+pthread_testcancel( NULL)
+
+线程内部检测cancel信号的点,如果这个时侯收到cancel信号,则停止,退出线程
+
+ref:http://blog.chinaunix.net/uid-26548237-id-3197974.html
+
+=== timedjoin_np ===
+join with TIMEOUT value
+
+=== detach ===
+If not need retval, `detach` it.
+Then system will auto clean up it, after it terminated.
+
+=== exit ===
+terminate calling thread
+
+== Pthreads Impl internals ==
+For user, `pthreads` only need a few bytes, `pthread_t` and `retval`, However,
+OS will store massive information for threads.
+
+- thread ID, thread attributes, start routine, argument and return value
+- thread scheduling policy and priority.
+- signal mask, signal stack
+- flag for cancellation, clean up buffers.
+- errno...
+
+All these data, call `Thread Control Block`, `TCB`.
+
+In general, allocate the thread stack and `TCB` in one feel swoop, and place
+`TCB` at the beginning of stack.
+
+{{{
+1. By the way, this is a common skill for storing extra meta information in
+header.
+For example: malloced buffer.
+
+2. We can see `thread` for OS is very hevavy.
+So a lot of light-weight "thread", "chanel", "actor" were implemented by
+developer.
+}}}
 
 == uninitialize problem ==
 In    the     current     implementation     of     threads,
@@ -20,18 +78,6 @@ unspecified behavior.
 Uninitialized mutexes that are allocated locally may contain
 junk  data.  Such  mutexes  need  to  be  initialized  using
 pthread_mutex_init() or  mutex_init().
-----
-
-pthread_cancel(pthread_t thread_id)
-
-可以从外部呼叫令线程取消.具体线程可以根据收到cancel信号,自行决定行为.
-
-pthread_testcancel( NULL)
-
-线程内部检测cancel信号的点,如果这个时侯收到cancel信号,则停止,退出线程
-
-ref:http://blog.chinaunix.net/uid-26548237-id-3197974.html
-
 ----
 
 == 线程个数的问题 ==

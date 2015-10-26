@@ -29,11 +29,6 @@ date -d@123456
 
 ll | sort -k 5 -n
 
-== xargs + type ==
-
-find -type d | xargs sudo chmod 755 
-
-找到所有文件夹,全部转换为755模式
 
 == 监控 ==
 

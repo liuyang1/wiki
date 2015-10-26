@@ -163,7 +163,8 @@ enter interactive vim
 这是git的分布式设计所决定的.
 
 == revert ==
-Revert the commit, but don't commit the changes
+- default   revert commit, and auto add "Revert \"...\"" commit message
+- -n        Revert the commit, but don't commit the changes
 `git revert -n [CommitSHA]`
 
 {{{

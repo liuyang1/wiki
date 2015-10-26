@@ -9,3 +9,12 @@ python中有针对与这的专门实现.(@XXX)
 == generator ==
 - python中的生成器
     [[yield_python]]
+
+== actor ==
+For concurrent system
+
+Message-passing
+
+=== Language ===
+- Erlang
+- Scala

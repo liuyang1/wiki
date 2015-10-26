@@ -424,12 +424,14 @@ library-profiling: True
 It is better for newbie than real world
 haskell.
 - real world haskell
+- [[http://chimera.labs.oreilly.com/books/1230000000929/index.html|Parallel and Concurrent Programming in Haskell]]
 
 == course ==
 - [[http://www.scs.stanford.edu/11au-cs240h/|CS240h]]
 == tutorial ==
 - [[https://www.haskell.org/tutorial/|haskell 98]]
 - [[https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/index.html|ghc user guide]]
+- [[https://www.fpcomplete.com/school|school of haskell]]
 == exercise ==
 - [[http://codewars.com/|codewars]]
 - H99 [[https://github.com/liuyang1/H99|H99 - github]]
