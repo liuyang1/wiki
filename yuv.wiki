@@ -1,3 +1,43 @@
+= yuv =
+YUV is colorspace. RGB is other colorspace.
+
+YUV have 3 compotents:
+* lumia
+* two chrominance
+
+== sample rate ==
+* 4:4:4     every pixel have each component of YUV
+* 4:2:2     every pixel have each component of Y, and every two pixel (in one
+        line, only have one UV component)
+* 4:2:0     every piexl have each component of Y, and every four pixel (two
+        line, two column, only have one UV component)
+
+== layout ==
+* packed, YUV is packed together.
+* planar, YUV component save seperatly.
+    semi-planar, Y and UV component save seperatly
+* tile, group as block (such as 6*6 pixel), then ...
+
+== bit depth ==
+* 8 bit, This is general situation.
+* 10 bit
+* 16 bit
+
+== range ==
+* Y is unsigned, [0,1) or [0,255]
+* UV is singed, [-0.5,0.5) or [-127, 128]
+
+so when UV is 0x80, then color is gray.
+- 0x00 00 00,   green
+- 0xff ff ff,   pink
+
+This is very different with RGB colorspace.
+
+ref:[[http://multimedia.cx/eggs/yuv-and-rgb/|YUV and RGB]]
+
+== alignment ==
+memory may have width alignment, even height alignment
+
 = tool =
 == tile ==
 directly layout pixel in memory.

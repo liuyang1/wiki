@@ -355,6 +355,14 @@ foreign import ccall unsafe "stdlib.h free"
 === C interface ===
 - hsc2hs
 
+== DMR ==
+Dreaded Monomorphism Restriction
+
+That means compiler won't infer type to exactly type, but combined with some
+rules. We can add function type signature to avoid this.
+
+This will leading error message in GHC.
+ref: [[https://wiki.haskell.org/Monomorphism_restriction|Monomorphism restriction]]
 = ghc =
 - ghc [filename]    compile
 - -o [executable filename]

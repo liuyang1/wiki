@@ -11,6 +11,8 @@ mtime: 2013-03-27 18:05:40
 - step          step-into
 - finish        step-out
 
+- break [function]
+- break *[address]
 - break file:lineno
 - watch file:lineno     跟踪点
 - watch expr            观察点
@@ -74,6 +76,8 @@ gdb的脚本,直接为test.cmd.然后在内部就可以添加具体的gdb命令.
 
 这样gdb的输出,就会自动重定向到文件中.
 
+=== init script ===
+`.gdbinit` file
 
 === default script ===
 .gdbinit

@@ -1,0 +1,11 @@
+== execve ==
+`int execve(const char *path, char *const argv[], char *const envp[]);`
+
+`path` should contain path and executable file name.
+
+{{{
+execve("/bin/ls", pointer to {"ls", "-l", NULL}, NULL);
+}}}
+
+=== execvp ===
+search executable under `PATH` env var

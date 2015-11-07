@@ -1,0 +1,25 @@
+= Time =
+== gettimeofday ==
+- wall-time
+== clock_gettime ==
+- MONOTONIC
+
+== time adjust ==
+=== date ===
+admin can directly change time.
+
+=== NTP ===
+When change time, NTP will incremental adjustment time.
+{{{
+sudo service ntp stop
+sudo ntpd -gq
+sudo service ntp start
+}}}
+
+=== NITZ ===
+Network Identity and Time Zone
+
+local time, time zone and DST offset as well as netowork provider Identity
+information, to mobile devices via wireless network.
+
+NITZ is often used to automatically update system clock of mobie phones.
