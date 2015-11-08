@@ -49,6 +49,8 @@ mtime: 2013-03-27 18:05:40
 - wahtais arg           输出类型
 - ptype arg             输出类型描述
 - x arg                 输出内存
+- x                     show next instruction
+- x/Ni addr             show instructions after addr
 - frame arg             选择栈帧
 - up/down               上下移动栈帧
 - info frame            输出栈帧

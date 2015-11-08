@@ -204,7 +204,8 @@ textwidth or 80)
 * p pargraph
 * s string
 * square braket: block of bracket
-* and other symbol or html tag
+* and other symbol
+* t     html tag
 
 for example: va{ will select a block;
 yaw will copy whole word

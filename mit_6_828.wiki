@@ -191,6 +191,95 @@ CD-ROM采用一个2048B的sector,BIOS可以载入一个更大的boot image从盘
 
 跟踪到bootmain函数,到达readsect部分,并且返回到bootmain.确定for循环的开始和结束.找到循环终结的地方.在那里设定一个断点,并且继续跟踪.
 
+{{{
+0x7c00: cli
+0x7c01: cld
+// code just running as boot.S or boot.asm
+
+// jump to 32bit mode
+0x7c2d: ljmp $0x8,$0x7c32
+// (16bit mode instruction same instrcution but have different meaning.)
+0x7c32: move $0xd88e0010,%eax
+// 32bit mode
+0x7c32: move $0x10,%ax
+
+// call bootmain
+0x7c45: call 0x7d0d
+
+
+// bootmain function, save stack
+0x7d0d: push %ebp
+0x7d0e: move %esp,%ebp
+0x7d10: push %esi
+9x7d11: push %ebx
+
+// bootloader load data from disk
+// read first 8 sections to 0x10000 addr, then check is valid ELF file.
+
+// ELF header struct
+struct Elf {
+	uint32_t e_magic;	// must equal ELF_MAGIC "\x7FELF" in little endian
+	uint8_t e_elf[12];
+	uint16_t e_type;
+	uint16_t e_machine;
+	uint32_t e_version;
+	uint32_t e_entry; // entry function, offset 0x18 bytes
+	uint32_t e_phoff; // program header offset, base on ELF header
+	uint32_t e_shoff;
+	uint32_t e_flags;
+	uint16_t e_ehsize;
+	uint16_t e_phentsize;
+	uint16_t e_phnum; // program header number
+	uint16_t e_shentsize;
+	uint16_t e_shnum;
+	uint16_t e_shstrndx;
+}
+
+struct Proghdr {
+	uint32_t p_type;
+	uint32_t p_offset; // program offset, base on Program header
+	uint32_t p_va;
+	uint32_t p_pa; // program address
+	uint32_t p_filesz;
+	uint32_t p_memsz; // memory size
+	uint32_t p_flags;
+	uint32_t p_align;
+};
+
+hex content of KERNEL file.
+00000000: 7f45 4c46 0101 0100 0000 0000 0000 0000  .ELF............
+00000010: 0200 0300 0100 0000 0c00 1000 3400 0000  ............4...
+                              entry point 0x1000c
+                                        phoff=0x34
+00000020: c84e 0100 0000 0000 3400 2000 0300 2800  .N......4. ...(.
+00000030: 0b00 0800 0100 0000 0010 0000 0000 10f0  ................
+                    // first program as phoff
+                              // offset=0x1000
+00000040: 0000 1000 8a80 0000 8a80 0000 0500 0000  ................
+          // pa=0x100000      memsz=0x808a
+00000050: 0010 0000 0100 0000 00a0 0000 0090 10f0  ................
+                    // snd    offset=0xa000
+00000060: 0090 1000 00a3 0000 50a9 0000 0600 0000  ........P.......
+          // pa=0x109000      memsz=0xa950
+00000070: 0010 0000 51e5 7464 0000 0000 0000 0000  ....Q.td........
+                    // third  offset=0x0
+00000080: 0000 0000 0000 0000 0000 0000 0700 0000  ................
+          // pa=0x0           memsz=0
+00000090: 1000 0000 0000 0000 0000 0000 0000 0000  ................
+...
+00001000: 02b0 ad1b 0000 0000 fe4f 52e4 66c7 0572  .........OR.f..r
+                                        // entry point
+00001010: 0400 0034 12b8 0010 1100 0f22 d80f 20c0  ...4.......".. .
+00001020: 0d01 0001 800f 22c0 b82f 0010 f0ff e0bd  ......"../......
+00001030: 0000 0000 bc00 1011 f0e8 0200 0000 ebfe  ................
+
+0x7d6b: call *0x10018
+
+0x10000c: movw $0x1234,0x472
+0x100015: mov $0x111000,%eax
+0x10001a: mov %eax,%cr3
+
+}}}
 ----
 确保可以回答下面的问题:
 - 从那里开始处理器开始执行32bit模式?什么导致了从实模式转换到32bit模式.
@@ -198,8 +287,14 @@ CD-ROM采用一个2048B的sector,BIOS可以载入一个更大的boot image从盘
 
 - bootloader执行的最后的指令是什么?kernel载入的时候,第一个指令又是什么?
 bootloader的最后一个指令,载入的sector内容为ELF文件,这里为该ELF文件的entry点.
-`call *0x10018`
+run entryp function of ELF file:
+`((void (*)(void)) (ELFHDR->e_entry))();`
+`call *0x10018` call to dereference of 0x10018 address == 0x10000c
 *0x10018,其实是0x10 000c的地址.
+
+The file ELF load from 0x10000 address, and the value in 0x10000 + 18(entryp point
+        offset in ELF struct) is 0x1000c.
+
 这个地址的指令(也就是kernel的第一个指令)是
 `0x10000c:   movw   $0x1234,0x472`
 
@@ -208,6 +303,22 @@ bootloader的最后一个指令,载入的sector内容为ELF文件,这里为该EL
 
 - bootloader如何决定读取多少个sector,是否必须获取整个kernel从硬盘上,从哪里发现的这个信息.
 首先读取了8个sector,也就是1个页面.
+
+Then continue read data `program`, This determined by ELF header, and Program
+Header.
+{{{
+ph = (struct Proghdr *) ((uint8_t *) ELFHDR + ELFHDR->e_phoff);
+// 0x10000 + 0x34;
+eph = ph + ELFHDR->e_phnum; // ELFHDR->e_phnum == 0x3
+for (; ph < eph; ph++) {
+// pa=0x100000 memsz=0x88a offset=0x1000
+// load data from 0x1000 file offset, 0x808a size to 0x100000 address
+// so instruction in 0x100C file, will map to 0x10000C address as entry
+// pa=0x109000 memsz=0xa950 offset=0xA000
+// ...
+    readseg(ph->p_pa, ph->p_memsz, ph->p_offset);
+}
+}}}
 === inside kernel ===
 qemu无法启动,则尝试命令.如下:
 qemu-system-i386
