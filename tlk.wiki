@@ -71,3 +71,10 @@ must wait until the process is running again.
 ==== functions ====
 - `void signal(int sig, void (*handler)(int))`
 register a routine/handler for specific signal
+
+== sync ==
+|           | thread/process | func                     | local       |
+| semaphore | all            | post, wait               | any         |
+| mutex     | all            | lock, unlock             | thread self |
+| rwlock    | thread         | wrlock, rdlock, unlock   | self        |
+| cond var  | thread         | broadcast,  signal, wait | 1v1 / 1vall |

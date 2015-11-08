@@ -27,3 +27,34 @@ search executable under `PATH` env var
 - sem_wait
 - sem_trywait
 - sem_timedwait
+
+== cond ==
+- pthread_cond_destroy
+- pthread_cond_init
+
+- pthread_cond_wait
+- pthread_cond_timedwait
+- pthread_cond_signal
+- pthread_cond_broadcast
+
+== mutex ==
+- pthread_mutex_init
+- pthread_mutex_destory
+
+- pthread_mutex_lock
+- pthread_mutex_trylock
+- pthread_mutex_timedlock
+- pthread_mutex_unlock
+
+== rwlock ==
+prefix with `pthread_rwlock_`
+- init
+- destroy
+
+- rdlock
+- tryrdlock
+- timedrdlock
+- wrlock
+- trywrlock
+- timedwrlock
+- unlock
