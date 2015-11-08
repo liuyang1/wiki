@@ -9,3 +9,21 @@ execve("/bin/ls", pointer to {"ls", "-l", NULL}, NULL);
 
 === execvp ===
 search executable under `PATH` env var
+
+= sync =
+== semaphore ==
+=== named semaphore ===
+- sem_open
+- sem_close
+- sem_unlink
+
+=== unmaed semaphore ===
+- sem_init
+- sem_destory
+
+=== operation ===
+- sem_getvalue
+- sem_post
+- sem_wait
+- sem_trywait
+- sem_timedwait

@@ -1,6 +1,8 @@
 = BookList =
 == OS ==
 * [[csapp]]
+* [[tlk|The Linux Kernel]]
+linux kernel development 2, in same wiki.
 == compiler ==
 * [[parsing_tech|Parsing Techniques]]
 == functional programming language ==

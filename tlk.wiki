@@ -1,0 +1,73 @@
+= The Linux Kernel =
+Ref:
+- [[http://www.tldp.org/LDP/tlk/tlk-toc.html|The Linux Kernel]]
+- [[http://www.makelinux.net/books/lkd2/?u=ch03lev1sec1|Linux Kernel Development 2]]
+
+== Process ==
+=== task_struct ===
+The kernel store process info in circluar doubly linked list called the
+`task list`. each element is one `task_struct`, which define in
+`<linux/sched.h>`. It have fd of opening files, process's address space,
+    pending siganl, process's state and more.
+
+== IPC: Interprocess Communication Mechanisms ==
+inter-process communication
+
+shared between process
+- file
+- memory-mapped file
+- socket
+- shared memory
+
+Process interactive with external
+- signal (alarm, SIG_KILL)
+- pipe (`|` in shell)
+- named pipe (`mkfifo` in shell)
+- semaphore (sem_init, sem_post, ...)
+- message queue
+- message passing
+=== signal ===
+| SIGSTOP | make process to halt its execution |
+| SIGKILL | make proces to exit                |
+These two cannot ignore or block.
+
+Other signal can handle by process self, or default handler by kernel.
+
+The number of supported signals is limit to the word size of the processor. In
+32bit processors, it only can have 32 singals. so we only have 30+ singal in
+general.
+
+This info store at `signal` filed of `task_struct` of every process.
+block info store as mask at `blocked` filed. pending siganls are kept in
+`siganl` field. It remains until it is unblocked.
+
+Info about how each process handle every possible signal, this is held in an
+array of `sigaction` struct pointed at by `task_struct`.
+
+- address of a routine that will handle signal
+- a flag which tells linux that ignore the signal or let kernel handle it.
+
+==== Send signal ====
+setting bit in `task_struct`'s `signal` field will gemerated signal.
+
+- Only kernel and super user can send signal to every other pcoess.
+- Normal processes can only send signal to processes with same `uid` and `gid`
+or processes in same group.
+
+if the process has not blocked the signal, and is waiting but interruptible,
+   then it is woken up by changing its state to `running` and makeing sure
+   that it is in the run queue. That way the scheduler will consider it a
+   candicate for running when the system next schedules.
+
+When handle the signal::
+
+signal are not presendted to the process immediately the are generated, they
+must wait until the process is running again.
+
+
+| signal | meaning             | deafult handler    |
+| SIGFPE | float pointer error | core dump and exit |
+
+==== functions ====
+- `void signal(int sig, void (*handler)(int))`
+register a routine/handler for specific signal
