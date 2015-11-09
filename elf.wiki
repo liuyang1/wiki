@@ -1,0 +1,5 @@
+== program section ==
+| .text   | program's executable instructions |
+| .rodata | read-only data                    |
+| .data   | data section with init data       |
+| .bss    | uninit data, only have size       |

@@ -51,6 +51,7 @@ mtime: 2013-03-27 18:05:40
 - x arg                 输出内存
 - x                     show next instruction
 - x/Ni addr             show instructions after addr
+- x/Nx addr             show hex data after addr
 - frame arg             选择栈帧
 - up/down               上下移动栈帧
 - info frame            输出栈帧

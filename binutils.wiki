@@ -160,6 +160,9 @@ display information from object files.
     default all non-empty sections are displayed.
 - -j section/--section=section
     display information only for section name.
+- -h --headers
+- -x --all-headers
+- -f --file-headers
 
 == ranlib ==
 generates an index to the contents of an archive.
