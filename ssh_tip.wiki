@@ -19,6 +19,27 @@ ForwardX11 yes
 
 config on client::
 X11Forwarding yes
+
+Enable compress::
+{{{
+Compression yes
+ForwardX11 yes
+Ciphers arcfour
+}}}
+
+==== encrypted method ====
+easy to hard
+- arcfour
+- blowfish-cbc
+- aes128-cbc
+...
+
+In specific hardware support for AES, it can hardware-accelerated
+
+==== Alternative solution ====
+- NX
+- VNC
+
 = issue =
 == 文件权限问题 ==
 必须设置正确的文件权限,才可以完成ssh公钥登录的问题.

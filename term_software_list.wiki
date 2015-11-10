@@ -1,6 +1,15 @@
 = term软件 =
 ----
 == tmux ==
+- move-window [-rdk]
+    -r: reorder windows
+
+- move window to other session
+`move-window -s [Session]:[Window] -t [OtherSession]`
+- move current window to other session
+`move-window -t [OtherSession]:`
+- move window to current session
+`move-window -d [Session]:[Window]`
 === option ===
 - list-session
 - attatch-session -t [TARGETSESSION]

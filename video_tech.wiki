@@ -41,3 +41,23 @@ mtime: 2012-10-19 14:50:48
 
 [[video_tool]]
 [[encode_decode]]
+
+= naming =
+== FRC: Frame Rate Conversion ==
+convert input fps to display fps for TV.
+
+For example, original content is 24fps, STB will convert it to 60fps by 2:3
+pulldown. That means A B C D frame, output as A A B B B C C D D D. duplicate
+frame 2 times or 3 times.
+
+Then FRC in TV, detech input frame pattern is 2-3-2-3 sequence, it will use
+motion detect in these frame, and add adjacent frame.
+
+== frame rate ==
+| 24p | film      |
+| 25p | PAL 50i   |
+| 30p | from NTSC |
+| 48p | film      |
+| 50i | PAL,SECAM |
+| 60i | NTSC      |
+25p -> 24p, slow down to 24fps, 3:2 pulldown |

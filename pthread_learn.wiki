@@ -38,6 +38,12 @@ join with TIMEOUT value
 If not need retval, `detach` it.
 Then system will auto clean up it, after it terminated.
 
+=== self ===
+return `pthread_t` of current pthread
+
+=== equal ===
+idenity between two `pthread_t`.
+
 === exit ===
 terminate calling thread
 

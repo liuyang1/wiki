@@ -73,10 +73,15 @@ the diff size is 10%+-, but save 20%+- time.
 - git diff --cache 查看已经add的修改内容
 - git diff HEAD 同时查看已经缓存和未缓存的修改内容
 
-== add to stage ==
-使用-p,交互式方式,可以更为细节的控制哪些更改需要加入到stage.最后对其进行commit.
+== add ==
+add to stage
 
+- -p --patch
+使用-p,交互式方式,可以更为细节的控制哪些更改需要加入到stage.最后对其进行commit.
 这种方式设置支持到行级别.
+
+== checkout ==
+- -p --patch
 == tag ==
 - tag -a vXXX -m "MMM"      添加tag	git
 - tag -d vXXX               删除tag	git

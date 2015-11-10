@@ -243,10 +243,10 @@ and compatable with sh style, but XXX: sh not compatable with bash style
 # return expression
 only return number, like other programing language.
 
-using $?, to access last command exit value
+Using $?, to access last command exit value
 
-0, ok, success.
-other value, some error happend
+0, OK, success.
+Other value, some error happend
 
 {{{
 if mytest args; then
