@@ -2,7 +2,12 @@
 == gettimeofday ==
 - wall-time
 == clock_gettime ==
-- MONOTONIC
+- REALTIME      same with gettimeofday
+- MONOTONIC     not jump, but can adjust
+- MONOTONIC_RAW not jump, not adjust
+- BOOTIME       like MONOTONIC, but will continue when system is suspended
+- PROCESS_CPUTIME_ID    cpu time, for process
+- THREAD_CPUTIME_ID     cpu time, for thread
 
 == time adjust ==
 === date ===

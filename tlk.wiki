@@ -72,6 +72,22 @@ must wait until the process is running again.
 - `void signal(int sig, void (*handler)(int))`
 register a routine/handler for specific signal
 
+==== issues ====
+- original, signal is oneshot. when kernel get registered handler, then reset
+it back to DFT handler if signal have ONESHOT flag. This flag is default
+setting.
+
+in glibc, this is removing. That mean, defaut not have this setting.
+
+- original, signal not setting block, when have a running hanler, it was
+interrupted, and call again.
+
+in linux, it will auto block current handling signal, so handler won't be
+interrupted.
+
+- original, signal will interrupt system calling.
+
+in glibc, it won't.
 == sync ==
 |           | thread/process | func                     | local       |
 | semaphore | all            | post, wait               | any         |

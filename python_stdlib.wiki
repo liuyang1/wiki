@@ -131,6 +131,18 @@ NOTE:
 === broswring file ===
 - walk      triple tuple -> path, dirname, fnames
 
+== open file ==
+Just post wrong solution: use readlines() or read(), both they load entire file
+content to memory.
+
+Just use
+{{{
+with open("log.txt") as infile:
+for line in infile:
+    do_something_with(line)
+}}}
+
+is great!
 = Python Runtime Service =
 == inspect ==
 Inspect live objects

@@ -1,0 +1,31 @@
+= single file library =
+[[https://github.com/nothings/stb|nothings/stb]]
+
+This is a group of library which only single file.
+
+== Doc ==
+=== Where to implement functions? ===
+It use `XXX_IMPLEMENTATION` macro to make sure add implementation of functions
+only once.
+
+{{{
+#ifdef XXX_IMPLEMENTATION
+#undef XXX_IMPLEMENTATION
+// implementation here
+#endif
+
+#ifndef XXX_HEADER
+#define XXX_HEADER
+#endif
+}}}
+
+So, when add this header file first time, must begin with
+`#define XXX_IMPLEMENTATION`.
+
+== Introduce ==
+=== leakcheck ===
+It store filename and lineno info at buffer's header. And build a bi-queue to
+trace all buffer info.
+
+=== easyfont ===
+bitmap font
