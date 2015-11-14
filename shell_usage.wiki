@@ -192,6 +192,9 @@ rm -- [FILENAME]
 - when shell receive SIGHUP, shell sends SIGHUP to process of CMD.
 - Otherwise, shell waits(is blocked) until the process terminates.
 
+`2&>1`, stderr redirect to stdout
+`1&>2`, stdout redirect to stderr
+
 &, background run
 - running CMD.
 - inherits stdin, stdout, stderr from shell.

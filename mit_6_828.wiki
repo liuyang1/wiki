@@ -384,6 +384,35 @@ f010002a:	ff e0                	jmp    *%eax
 If enable paging fail, it will continue skip to 0xf010002c addr, then it will
 crash as all zero in that region.
 
+==== exercise 8 ====
+
+1.
+{{{
+printf -> putch -> cputchar(console.c)
+printf -> vprintfmt(printfmt.c)
+}}}
+
+2. if line of printf bigger than column length, then wrap line to next line
+
+3.
+C style, push argument from right to left. then call function.
+
+`fmt` point to C raw string.
+
+`ap` point to ???
+
+4.
+{{{
+unsigned int i = 0x00646c72;
+cprintf("H%x Wo%s", 57616, &i);
+}}}
+will output
+`He110 World`
+
+ascii, little endian, c string.
+
+For big endian, first value same, but second should be 0x726c6400;
+
 === loading kernel ===
 ELF file, check previous chapter.
 === issue ===
@@ -427,10 +456,12 @@ slide
 === registers ===
 - AH AL AX EAX
 - B,C,D...
-- BP, EBP
+- BP, EBP       base pointer
 - SI, ESI
 - DI, EDI
-- SP, ESP
+- SP, ESP       stack pointer
+
+when `push`, esp will DECREMENT, and save to stack.
 
 EFLAGS register
 - ...

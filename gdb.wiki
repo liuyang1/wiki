@@ -8,7 +8,7 @@ mtime: 2013-03-27 18:05:40
 - cont          继续运行
 
 - next          step-over
-- step          step-into
+- step/si          step-into
 - finish        step-out
 
 - break [function]
@@ -22,6 +22,9 @@ mtime: 2013-03-27 18:05:40
 - bt -N                 栈跟踪从0开始N层.
 - print expr            输出表达式
 - display               显示表达式
+continue show it every step, this is helpful to trace.
+
+`display $ebp`
 
 - set var [var]=[expr]      设置变量
 - set env var[=val]     设置环境变量
@@ -35,30 +38,64 @@ mtime: 2013-03-27 18:05:40
 - catch,throw           异常断点
 - break function        函数断点
 - tbreak                临时断点
-- info breakpoints      显示断点
 - delete/d                删除断点
 
 - commands bnum         命令连接到断点
 - printf/p                输出到命令行
 
-- info function expr    查找函数
 - list                  显示代码
 - call expr             调用函数
 - return expr           修改函数返回值
 
 - wahtais arg           输出类型
 - ptype arg             输出类型描述
+== Examining Memory ==
 - x arg                 输出内存
 - x                     show next instruction
-- x/Ni addr             show instructions after addr
-- x/Nx addr             show hex data after addr
+- x/[nfu] addr
+    - n     repeat count
+    - f     could be
+        - default, continue last type
+        - x     default, hex data
+        - d
+        - u
+        - o
+        - t
+        - a     asm
+        - c     char
+        - f     float
+        - s     C string
+        - i     instruction
+
 - frame arg             选择栈帧
 - up/down               上下移动栈帧
+== info ==
+- info breakpoints      显示断点
+- info function expr    查找函数
 - info frame            输出栈帧
+- info regiseters
+- info win              show win size of gdb
 - thread [N]            切换到线程N
 
 - until/u LINENUM       直到LINENUM行,可以用于跳出循环,或者直接到第几行
 
+== TUI ==
+- -tui      show "TUI" Terminal User Interface
+
+In TUI, gdb could show these windows.
+- SRC   source
+- ASM   assembly code
+- command
+- register
+
+=== TUI command ===
+ref: [[ftp://ftp.gnu.org/old-gnu/Manuals/gdb/html_chapter/gdb_19.html]]
+- layout
+- layout next
+- layout regs
+- focus
+- refresh
+-
 
 == 带参数 ==
 r --Ice.Config=tvodconfig
