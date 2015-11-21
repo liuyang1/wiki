@@ -71,3 +71,10 @@ gconftool --type boolean --set /apps/gnome-terminal/profiles/Default/default_sho
 add letter-space and line-space patch. everything is so good!
 
 line-space compare larger than 3/(50-3) = 6.4%
+
+= my terminal requriment =
+- font style support
+    * bold
+    * italic
+    * bold-italic
+- underline

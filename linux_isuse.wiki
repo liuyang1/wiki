@@ -46,3 +46,13 @@ master mute
     # if yes, check /dev/[usb device]
         # if not, check udev rule. copy from other system /etc/udev/rules.d/
         # if yes, mount it.
+
+== RF-KILL ==
+SIOCSIFFLAGS: Operations not possible due to RF-kill
+
+`rfkill list all`
+
+- hard blocked.
+    trigger switch lock
+- soft blocked
+    `rfkill unlock wifi`

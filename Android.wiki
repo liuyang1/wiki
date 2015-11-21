@@ -40,6 +40,14 @@ adb -s [DeviceID] ...
     when push directory, it will push all file under that directory to board
 - pull
 
+=== logcat ===
+- -r                rotate log, default to 16KB
+    This is so helpful when debug long term problem. Unbeliveable nonbody find
+        this before
+- -n                roated log files, default to 4
+- -g                buffer size
+    When logcat to terminal, increase this value to avoid "unexpected error"
+=== DDMS ===
 ==== issue ====
 - device offline
 reconfigure MAC Addr, and re-dhcp, then retry.
