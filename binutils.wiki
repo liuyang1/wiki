@@ -10,6 +10,9 @@ ld.
 * -T, --scriptfile          add spec file, which overlay system ld script, but
 could accumlate.
 
+== gold ==
+Google's new faster linker.
+
 === issue ===
 ==== how libraries are used ====
 * starting up an ELF binary executable automatically causes the program loader

@@ -40,3 +40,8 @@
 在液晶表层添加透镜,在透镜上形成影像.其中,每个透镜以液晶像素成小角度摆放.
 # DFD技术
 # 球面显示器
+
+== 3D video type ==
+- TB:   Top and bottom
+- SBS:  Side by side
+- MVC:  Multiview video coding

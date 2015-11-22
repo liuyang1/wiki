@@ -111,6 +111,22 @@ command:需要执行的命令
 # concat command, need ";" in one line.
 # 反斜杠"\",连接换行,和C的规则是一致的.
 # .ONESHELL, setting
+== include ==
+引用其他makefile
+`include [filename]`
+
+若文件没有指明路径,则首先在当前目录寻找,然后在下面两个地方寻找
+
+# -I/--include-dir参数指明的目录
+# <prefix>;/include目录
+
+若没有,则生成警告信息.若加载完毕,重试寻找对应文件,若没有则致命错误.
+
+若不管这个无法读取的问题,ignore this error, continue executive, add "-".
+`-include [filename]`
+
+just like `-rm`.
+
 {{{
 	  使用变量
 定义变量:var=..
@@ -145,14 +161,6 @@ command:需要执行的命令
 	 一般为GNUmakefile,makefile,Makefile,依次寻找在当前目录下.一般使用Makefile.
 	 也可以使用其他文件名,那么必须指明对应的文件make -f filename
 	  
-	  引用其他makefile
-	  include <filename>
-	  若文件没有指明路径,则首先在当前目录寻找,然后在下面两个地方寻找
-	  1,-I/--include-dir参数指明的目录
-	  2,<prefix>;/include目录
-	  若没有则,生成警告信息.若加载完毕,重试寻找对应文件,若没有则致命错误.
-	  若不管这个无法读取的问题,需要强制执行,可以在-include(参考-rm的规则)
-	   
 	   环境变量MAKEFILES
 	    
 		工作方式

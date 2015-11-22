@@ -106,6 +106,14 @@ string, such as 'liuyang <liuyang@xxx.com>'
 this space between name and mail is necessary.
 
 `git commit --amend --author="name <name@xxx.com>"`
+
+== committer ==
+different with author
+
+The author is the person who originally wrote the work, whereas the committer
+is the person who last applied the work.
+
+same like author date and committer date.
 == clean ==
 用于清除git的多余的文件
 必须添加-f或者-n参数.
@@ -195,6 +203,10 @@ as iso format
 (look like same with default)
 * raw
 git raw format (seconds number and timezone)
+
+* `--since "1 year ago"`
+* `--after "1 year ago"`
+* --after "2015 1 1"
 == rev-parse ==
 * --show-toplevel       root dir
 * HEAD                  hash of HEAD

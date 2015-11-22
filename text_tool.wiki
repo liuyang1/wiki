@@ -160,6 +160,8 @@ pager
 similar with `tail -f`, but can interrupt trace (by `<Ctrl-C>`) or resume by
 `F`.
 
+== most ==
+
 == diff ==
 
 == patch ==
