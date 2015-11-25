@@ -1,0 +1,5 @@
+== send ==
+=== SendInput ===
+send input strings
+> directly use `send` is slower, as have to fake every keystroke.
+> use `clipboard` also works, but will override content in clipboard

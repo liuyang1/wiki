@@ -1,4 +1,17 @@
 = sed =
+== options ==
+- -i[SUFFIX] --in-plane[=SUFFIX]        edit files in places(make backup if
+   SUFFIX supplied)
+- -e script, --expression=script        add script to command to be executed
+
+== sed script ==
+- i \         insert text, which has each embedded newline preceded by a
+backslash.
+
+= Example =
+== add content to header of file ==
+`sed -i -e '1iHere is my new top line\' [filename]`
+
 == 替换 ==
 "s/abc//g"  替换全文
 "10,12s/abc//"  替换部分

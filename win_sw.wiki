@@ -1,0 +1,12 @@
+== outlook ==
+=== 2007 version ===
+==== How to change theme ====
+Tools -> Options -> Mail Format -> Editor Options -> colorscheme
+
+== Screen Capture ==
+=== picpick ===
+BUGGY::
+> scroll window capture, `faststone capture` works good.
+
+=== faststone capture ===
+scroll window capture
