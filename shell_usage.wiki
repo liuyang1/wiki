@@ -203,6 +203,7 @@ rm -- [FILENAME]
 - put the process to background jobs.
     - jobs listed it, and could access as `%n` as job number.
     - trun it to foreground with `fg`
+    - make it continue to run with `bg`
 - when shell receive SIGUP, shell will send SIGHUP to the process.
 
 == jobs ==

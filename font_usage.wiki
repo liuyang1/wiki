@@ -118,3 +118,7 @@ install freetype2-ubuntu, libxft-ubuntu, cairo-ubuntu, then everything is
 clear and sharp, espicially in chromiume.
 
 Great!
+
+= English font =
+== Roboto COndensed ==
+Ref: [[https://www.google.com/fonts/specimen/Roboto+Condensed]]

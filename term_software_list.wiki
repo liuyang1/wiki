@@ -14,6 +14,7 @@
 - list-session
 - attatch-session -t [TARGETSESSION]
 - rename-session -t [CURRENT NAME] [NEW NAME]
+- -2            force 256 colors
 
 === mouse in tmux ===
 - shift+left select         copy
@@ -27,6 +28,9 @@
 gtk程序,在非对应字体的情况下,会导致CPU运行很高.
 
 == terminator ==
+split terminal windwo into several virtual terminals and re-size them as
+needed.
+
 这个软件的特色是独立提供了分屏的功能.
 
 缺点:
@@ -64,6 +68,9 @@ gconftool --type boolean --set /apps/gnome-terminal/profiles/Default/default_sho
 
 赞,这样就不需要每次把scroll打开再关闭了.
 
+== ROXTerm ==
+like gnome-terminal, but not depend on Gnome libraries.
+
 == urxvt ==
 
 ./configure --enable-256color --enable-everything
@@ -72,9 +79,38 @@ add letter-space and line-space patch. everything is so good!
 
 line-space compare larger than 3/(50-3) = 6.4%
 
+== konsole ==
+- multiple tabbed
+- split-view mode
+
+== TermKit ==
+using webkit rendering engine
+
+> seems wonderful, but not longer maintain, Pitty!
+
+== final term ==
+
+> not longer maintain
+
+== terminology ==
+preview thumbnails of images, videos and documents, it also allows you to see
+those files directly from Terminology.
+
+> it look cool, but need more work
+
 = my terminal requriment =
 - font style support
     * bold
     * italic
     * bold-italic
 - underline
+- patched font support
+
+|                | font style | font patch | tmux    |
+| urxvt          | OK         | OK         | OK      |
+| konsole        | OK         | OK         | tmux -2 |
+| gnome-terminal | OK         | bad        | ok      |
+
+== NOT need ==
+- quake-style
+- split screen

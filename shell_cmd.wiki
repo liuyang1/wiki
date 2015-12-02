@@ -206,3 +206,11 @@ sar -u 2 400
 
 == printf ==
 - "%-10s"   left justify output string
+
+== timeout ==
+run a command with a time limit
+
+If timeout, and not set --preserver-status, it exit with status 124.
+Otherwise, exit with status of COMMAND
+
+If no signal is specified, send TERM signal upon signal.
