@@ -8,3 +8,13 @@ mtime: 2012-10-18 10:52:31
 在C:\Users\[username]\Application\Microsoft\Template\Normal.dot
 
 删除此文件即可.
+
+== powerpoint ==
+=== 2007 version ===
+==== How to cancel capitalize first letter of sentences ====
+File -> Options -> Proofing -> Auto Corrent Options -> "cacel as your need"
+
+== outlook ==
+=== 2007 version ===
+==== How to change theme ====
+Tools -> Options -> Mail Format -> Editor Options -> colorscheme

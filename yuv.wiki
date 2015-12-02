@@ -38,7 +38,6 @@ ref:[[http://multimedia.cx/eggs/yuv-and-rgb/|YUV and RGB]]
 == alignment ==
 memory may have width alignment, even height alignment
 
-= tool =
 == tile ==
 directly layout pixel in memory.
 
@@ -54,6 +53,9 @@ This style is better for graphics application.
 
 ref:
 [[https://fgiesen.wordpress.com/2011/01/17/texture-tiling-and-swizzling/]]
+= tool =
+== netpbm ==
+- yuvtoppm      trans yuv file to ppm file
 == yuvtoolkit ==
 opensource
 == yuvplayer ==
