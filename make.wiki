@@ -9,6 +9,8 @@ assignment::
 - ?=        setting only if it *doesn't* have a value
 - +=        *appending* to the existing value, or setting it if the var didn't
             exist
+- !=        expand value and pass it to shell for execution, and assign result
+            to var. (newline will replaced with whitespace)
 
 reference::
 

@@ -56,3 +56,17 @@ SIOCSIFFLAGS: Operations not possible due to RF-kill
     trigger switch lock
 - soft blocked
     `rfkill unlock wifi`
+
+== TMP ==
+when system will clean up `/tmp` dir?
+
+There is config in `/etc/default/rcS` file.
+
+`TMPTIME`
+
+default to 0, means never delete it until next boot.
+
+When setting, file which older than `TMPTIME` days, it will be deleted.
+
+== ADT - libstdc++.so.6: cannot open shared object file ==
+`sudo apt-get install lib32stdc++6 lib32z1 lib32z1-dev`

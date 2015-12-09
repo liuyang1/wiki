@@ -31,5 +31,9 @@ expect是什么,是一个tcl的脚本.一般用户密码登录,以及其他需�
 缺点也是非常明显的,需要将用户名和密码存储在脚本中.
 }}}
 
+may `expect` won't wait so long when do something really slow.
+
+use `set timeout 60` or with `-l` option to wait forever.
+
 == percol ==
 manaully grep tool

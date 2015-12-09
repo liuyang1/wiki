@@ -201,6 +201,15 @@ textwidth or 80)
 - gww
 == text object ==
 * w word
+    * w     move forward one word
+    * e     move forward to end of one word
+    * b     move backwrad one word
+    * ge    move backward to end of one word
+* W WORD
+    * W     move forward one WORD
+    * E     move forward of end of one WORD
+    * B     movw forward one WORD
+    * gE    movw backgward to end of one WORD
 * p pargraph
 * s string
 * square braket: block of bracket
