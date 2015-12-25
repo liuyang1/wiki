@@ -91,8 +91,21 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 - show_format
 显示格式信息
 
+- show_data
+must use with show_straems, print payload data with dumped hex data format
+
+- show_packet
+
 - -select_streams v
 select_streams video / audio
+=== writer ===
+output dumped format
+- default       tag, and key=value format with newline
+- compact       tag, other info print in oneline, seperated with '|'
+- csv
+- flat
+- json
+- xml
 ==一般参数解释==
 {{{
 i

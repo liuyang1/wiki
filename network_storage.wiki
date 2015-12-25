@@ -50,3 +50,15 @@ maybe `umount` it, then good.
 `umount -lf` could umount it.
 
 must have `lf` option both!
+
+== samba ==
+cannot delete file
+
+{{{
+    security = user
+    ;forces user to "nobody"
+    map to guest = Bad User
+}}}
+
+=== add user ===
+`sudo smbpasswd -a [User Name]`

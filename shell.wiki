@@ -182,12 +182,18 @@ this is like case: break in C.
 - $1,$2表示第一个,第2个参数.
 - $#,表示参数的个数
 - $$ 本程序的PID
+- $* all args in one string
 - $! 上一个命令的PID
 - $? 上一个命令或者函数的返回值
-- $@ every param
+- $@ every param in array
+- $- option for current shell
 
-== getops ==
+== getopts ==
 参数解析
+bash internal
+
+== getopt ==
+executable program
 
 == judge and branch ==
 

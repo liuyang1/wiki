@@ -1,0 +1,41 @@
+= disassembly functions and stack frames =
+
+Ref: [[https://en.wikibooks.org/wiki/X86_Disassembly/Functions_and_Stack_Frames|wikibook - X86 disassembly functions and stack frames]]
+
+== stack frame ==
+Use `stack frame` to access to function params, function var.
+
+- ESP       stack pointer
+- EBP       stack base pointer
+- EIP       instruction pointer
+
+`push` inst, equal to
+{{{
+sub esp, 4          ; move forward ESP
+mov [esp], X        ; save X to ESP address
+}}}
+== Entry seq / calling function ==
+
+before calling function, push function params to stack
+{{{
+push [Last param]
+...
+push [First param]
+call [routine name]
+}}}
+
+call function instruction equal to this
+{{{
+push eip + 2        ; push return EIP to stack
+jmp [routine name]
+}}}
+
+enter calling function, save EBP, move ESP
+{{{
+push ebp            ; push ebp to stack
+mov ebp, esp        ; ebp <= esp, update new EBP
+sub esp, [X]        ; move esp forward, reserved stack space for function var
+                    ; if NO local var, omit this line
+}}}
+
+

@@ -6,3 +6,11 @@ mtime: 2012-10-11 10:59:52
 
 == windows上检查端口开放情况 ==
 telnet IP PORT
+
+== net ==
+
+`net use * /delete`
+
+Then remap it using net use again:
+
+`net use Z: \\server\share /user:username password`
