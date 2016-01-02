@@ -1,0 +1,59 @@
+== queue for producer-consumer ==
+- dequeue
+- enqueue
+- acquire
+- release
+`I love these terms, vast and of equal length.`
+
+== queue / stack ==
+- put
+- get
+
+- append
+- pop
+
+- peek
+
+- full
+- empty
+- push
+- pop
+
+- bound
+- thresh
+
+- start
+- stop
+
+- begin
+- end
+
+- upper
+- lower
+- middle
+
+- range
+- interval
+
+- size
+- length
+
+- init
+- deinit
+- create
+- destroy
+- open
+- close
+
+- find
+- index
+
+- reverse
+
+- map
+- filter
+- fold
+- reduce
+
+- emptyThisBuffer
+- fillThisBuffer
