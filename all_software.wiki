@@ -142,3 +142,7 @@ ref:[[http://note1day.com/2011/12/k2pdfopt/]]
 
 ./k2pdfopt 04813404.pdf -bp -ui- -x
 
+=== ps ===
+- ghostscript
+> it works!
+- gimp

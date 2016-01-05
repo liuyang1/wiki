@@ -38,17 +38,23 @@
 - size
 - length
 
+- find
+- index
+
+- reverse
+
+== object ==
 - init
-- deinit
+- deinit / finit
 - create
 - destroy
 - open
 - close
 
-- find
-- index
-
-- reverse
+- die
+- exit
+- quit
+- bye
 
 - map
 - filter
@@ -57,3 +63,47 @@
 
 - emptyThisBuffer
 - fillThisBuffer
+
+== set ==
+- issubset
+- issuperset
+- union
+- intersection
+- difference
+- symmetric_difference
+
+== memory ==
+- alloc / allocate
+- malloc
+- realloc
+- calloc
+- free
+
+- release
+- discard
+
+- import
+- export
+
+== producer / consumer / message ==
+- send / snd
+- receive / rcv
+- acknowledge / ack
+- write
+- read
+- publish
+- subscribe
+- broadcast
+
+== hearbeat / timer ==
+- tic
+- toc
+- beat
+
+== callback ==
+- register
+- unregister
+- notify
+== struct ==
+- head / header / hdr
+- body

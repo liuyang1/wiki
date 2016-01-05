@@ -1,0 +1,60 @@
+- even or odd
+`x & 1 == 0`
+
+- check if n-th bit is set
+`x & (1 << n)`
+
+- set n-th bit
+`x = x | (1 << n)`
+
+- unset n-th bit
+`x = x & ~(1 << n)`
+
+- toggle n-th bit
+`x = x ^ (1 << n)`
+
+- turn off rightmost 1-bit
+`x = x & (x - 1)`
+
+so determining if an integer is a power of 2
+`x & (x - 1) == 0`
+
+if consider 0 as 2's power
+`v && !(v & (v - 1))`
+
+couting bits set
+
+{{{
+unsigned int v, c;
+for (c = 0; v; c++) {
+    v &= v - 1; // clear least significant bit set(rightmost bit)
+}
+}}}
+
+> KEY skill v && !(v  v && !(v & (v - 1));& (v - 1));
+
+- isolate rightmost 1-bit
+`x = x & (-x)`
+
+- right propagate rightmost 1-bit
+`x = x | (x - 1)`
+
+- isolate right most 0-bit
+`x = ~x & (x + 1)`
+
+- turn on rightmost 0-bit
+`x = x | (x + 1)`
+
+== swap ==
+- sub and add
+{{{
+#define SWAP(a, b) ((&(a) == &(b)) || \
+    (((a) -= (b)), ((b) += (a)), ((a) = (b) - (a))))
+}}}
+
+- xor
+`#define SWAP(a, b) ((a) ^= (b)), ((b) ^= (a)), ((a) ^= (b)))`
+
+== sign ==
+=== -1, 0, +1 ===
+`sign = (v > 0) - (v < 0)`
