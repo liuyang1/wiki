@@ -55,6 +55,7 @@
 - exit
 - quit
 - bye
+- terminate
 
 - map
 - filter
@@ -63,6 +64,13 @@
 
 - emptyThisBuffer
 - fillThisBuffer
+
+== status ==
+- loaded
+- idle
+- run / executing
+- pause
+- stop
 
 == set ==
 - issubset
@@ -87,7 +95,7 @@
 
 == producer / consumer / message ==
 - send / snd
-- receive / rcv
+- receive / recv / rcv
 - acknowledge / ack
 - write
 - read
@@ -100,6 +108,13 @@
 - toc
 - beat
 
+== mutex / seamphore / cond ==
+- lock
+
+== file operation ==
+- seek
+- tell
+- rewind
 == callback ==
 - register
 - unregister
@@ -107,3 +122,20 @@
 == struct ==
 - head / header / hdr
 - body
+- section
+- tag
+- attribute / attr
+
+- probe
+- query
+- inquiry
+- get
+
+== data type ==
+- atom / atomic
+- interval / range
+- enumeration / enum
+- itemization(racket) / Maybe(haskell)
+- compound (consist of two or more itema that naturally belong together)
+- composed (naturally composed of diferent parts)
+- self-reference

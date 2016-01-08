@@ -11,3 +11,11 @@ Thumb (16bit) / ARM (32 bit)
 * pc    program counter(R15)
 * CPSR  current program status register
 * SPSR  saved program status register
+
+== instructions ==
+=== Miscellaneous instructions ===
+* DMB, DSB, and ISB
+
+Data Memory Barrier, Data Synchronization Barrier, and Instruction Synchronization Barrier.
+
+> This affect stability problem.

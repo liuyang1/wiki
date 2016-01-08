@@ -35,6 +35,13 @@ use Change-Id's better
 * change:ID
 * owner:USER
 * ...
+
+==== predicator ====
+* is:open
+* is:closed
+
+Ref: [[https://review.openstack.org/Documentation/user-search.html]]
+
 === review ===
 Verify, approve and/or submit a patch set from the command line.
 

@@ -21,6 +21,7 @@ so determining if an integer is a power of 2
 
 if consider 0 as 2's power
 `v && !(v & (v - 1))`
+`#define IS_POWER_OF_TWO(x) (((x) != 0) && (((x) & (~(x) + 1)) == (x)))`
 
 couting bits set
 
@@ -58,3 +59,16 @@ for (c = 0; v; c++) {
 == sign ==
 === -1, 0, +1 ===
 `sign = (v > 0) - (v < 0)`
+
+== roundup / rounddown==
+{{{
+/* Round up the even multiple of size, size has to be a multiple of 2 */
+#ifndef ROUNDUP
+#define ROUNDUP(v, size) (((v) + ((size) - 1)) & ~((size) - 1))
+#endif
+
+/* Round down the even multiple of size, size has to be a multiple of 2 */
+#ifndef ROUNDDOWN
+#define ROUNDDOWN(v, size) ((v) & ~((size) - 1))
+#endif
+}}}
