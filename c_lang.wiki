@@ -7,5 +7,19 @@
 == standard ==
 there is no generic pointer-to-pointer type in C.
 
+=== alias ===
+In gcc
+{{{
+#ifndef WEAK_ALIAS
+# define WEAK_ALIAS(name, aliasname) \
+	extern typeof(name) aliasname __attribute__ ((weak, alias (#name)));
+#endif
+
+#ifndef STRONG_ALIAS
+# define STRONG_ALIAS(name, aliasname) \
+	extern typeof(name) aliasname __attribute__ ((alias (#name)));
+#endif
+}}}
+
 == issue ==
 0x表示十六进制,0开头表示八进制,非零开头表示十进制.

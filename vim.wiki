@@ -364,8 +364,6 @@ http://yuzifu.net/book/vimdoc/windows.html
 === switch of windows ===
 - <Ctrl-W><Ctrl-W>  切换窗口
 - <Ctrl-W>f         打开光标所在的文件
-- <Ctrl-W>_         使得当前缓冲区窗口最大化
-- <Ctrl-W>+/-       增大/减少当前缓冲区窗口
 - <Ctrl-W>h/j/k/l   切换到上下左右窗口
 
 === move windows ===
@@ -373,6 +371,14 @@ http://yuzifu.net/book/vimdoc/windows.html
 - Ctrl-W T          move this windows to new tab page
                     (but when have only one window, can not do this)
 
+=== resize window ===
+- <Ctrl-W>+/-       增大/减少当前缓冲区窗口
+- <Ctrl-W> ">" / "<"       增大/减少当前缓冲区窗口
+- <Ctrl-W> =        resize all windows to same size
+- <Ctrl-W>_         使得当前缓冲区窗口最大化
+- resize [width]
+- resize [+/- width]
+- vertical resize ...
 == replace mode ==
 R                   entre REPLACE mode
 

@@ -1,0 +1,3 @@
+= Regular Expression =
+- "[]"          one of
+`[ _]c_`    match `_c_` or ` c_`

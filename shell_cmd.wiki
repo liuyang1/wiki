@@ -26,6 +26,10 @@ find . -type f -size + 100000k
 find duplicate files
 
 based on size first, then md5sum
+
+- -r --recurse
+- -s --symlinks     follow symlinked dir
+- -d --delete       prompt user for files to preserver, deleting all others
 === tree ===
 
 tree -f | grep ABC

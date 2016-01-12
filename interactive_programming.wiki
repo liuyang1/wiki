@@ -1,0 +1,11 @@
+This style first seen in `mathmatica`.
+`matlab` also have similar mode, but both have to work at their IDE
+environment.
+
+`Ipython Notebook`, this is also this style.
+
+I think, this first come in lisp, then smalltalk, then dephi or other
+languages.
+
+It's powerful, and very intution.
+

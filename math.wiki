@@ -1,3 +1,10 @@
 = math =
 == Algebra ==
 [[abstract_algebra|Abstract Algebra]]
+
+== Discrete Math ==
+=== Catalan ===
+# C(n) = C(2n, n) / (n + 1)
+# C(n) = Sum{C(i) * C(n - 1 - i)}  i ∈ [0, n)
+# C(n) = 2 * (2n - 1) / (n - 1) * C(n - 1)
+  C(0) = 1
