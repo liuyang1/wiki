@@ -1,3 +1,10 @@
 = Regular Expression =
-- "[]"          one of
+- "[]"          one of, matches any char of a set of chars
 `[ _]c_`    match `_c_` or ` c_`
+
+- ^             matches the begining of a string
+- $             matches the end of a string
+- .             matches any single char
+- *             matches any count (0-n) of the previous char
+- +             matches any count, but at least 1 of the previous char
+- (...)         groups a set of chars into a subSpec

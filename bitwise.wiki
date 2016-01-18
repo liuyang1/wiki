@@ -43,7 +43,7 @@ for (c = 0; v; c++) {
 - isolate right most 0-bit
 `x = ~x & (x + 1)`
 
-- turn on rightmost 0-bit
+- turn on right most 0-bit
 `x = x | (x + 1)`
 
 == swap ==

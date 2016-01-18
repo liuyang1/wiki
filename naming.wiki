@@ -37,6 +37,7 @@
 
 - size
 - length
+- capcity
 
 - find
 - index
