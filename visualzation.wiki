@@ -46,3 +46,20 @@ Interactive 2-D ploting for applications.
 
 === Mayavi ===
 Interactive and scriptable 3-D visualazion.
+
+== UML ==
+=== plantUML ===
+==== Class ====
+ref:[[http://plantuml.com/classes.html|classes]]
+===== Relations between classes =====
+- Extensiton <|--
+- Composition *--
+- Aggregation o--
+
+use `..` instead of `--` to get dotted line
+
+===== visibility =====
+- private           -
+- protected         #
+- package private   ~
+- public            +

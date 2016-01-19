@@ -11,6 +11,7 @@
 
 - append
 - pop
+- top
 
 - peek
 
@@ -140,3 +141,32 @@
 - compound (consist of two or more itema that naturally belong together)
 - composed (naturally composed of diferent parts)
 - self-reference
+
+== server name ==
+- app
+- sql
+- ftp
+- mta       mail server
+- dns
+- cfg
+- mon       monitoring server
+- prx       proxy
+- ssh
+- sto       storage server
+- vcs       version control software
+- vmm       virtual machine manager
+- web
+- con       console/terminal server
+- fwl       firewall
+- lbl       load balance
+- rtr       L3 rounter
+- swt       L2 switch
+- vpn
+- pdu       power distribution unit
+- ups       uninterruptible power supply
+
+== abbr ==
+- function
+func, fcn, fn, f
+- index
+idx, i

@@ -8,6 +8,9 @@
 [[continuation_integretion]]
 == distribute ==
 
+== cycle time ==
+time from request to develop to distribute or deliver.
+
 = agile =
 == continuity ==
 this is a new (for 2014) concept.
@@ -24,7 +27,7 @@ inspired by::
 
 Pratice myself first!
 
-=== Gotchas for now ===
+=== Gotchas for gerrit ===
 - Submit unit is CL, not branch.
     so we have to merge to one CL. we cannot make a big or full feature, which
     cannot contain in *ONE* CL.
@@ -41,6 +44,7 @@ Pratice myself first!
     we have to manualy to follow rules(add link in commit).
 
     we cannot automatically mark them "finished" or "resolved".
+> This is not a big problem. We can extend it self.
 
 - submit window
     we have submit window to receive CLs, this make our work isolated.

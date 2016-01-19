@@ -1,0 +1,20 @@
+= OOP =
+== relations between classes ==
+Extenstion, Compostion, Aggregation
+
+=== Aggregation vs Composition ===
+- Aggregation
+A "use" B, B exist independently (conceptually) from A
+
+weak association
+
+- Compsition
+A "own" B, B has no meaning or purpose in the system without A
+
+strong association
+
+== visibility ==
+- private
+- protected
+- package private
+- public

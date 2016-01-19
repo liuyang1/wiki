@@ -64,3 +64,58 @@ C++的模板方法,表达能力不强.
 这里有一个很有意思的编程语言的谱系图.
 
 [[http://exploringdata.github.io/vis/programming-languages-influence-network/]]
+
+= 编程语言的发展趋势及未来 =
+
+ref:[[http://blog.zhaojie.me/2010/04/trends-and-future-directions-in-programming-languages-by-anders-1-history-and-trends.html]]
+
+- framework and tool is more and more important.
+
+- Assembler -> Procedural -> Object Oriented -> Managed
+> This is important, That means what should learn.
+
+== Trends ==
+- Declarative
+- Dynamic
+- Concurrent
+
+=== Declarative ===
+converse: Imperative
+
+Lose higher level information, so hard to optimization further.
+
+==== DSL ====
+converse: GPPL (General Purpose Programming Language)
+
+- External DSL
+Every configure comes to an programming language finally.
+
+- Internal DSL
+Special API and Using paradigm
+
+==== Functional Programming ====
+mutable STATUS is powerful.
+
+=== Dynamic ===
+VM, JIT compiler
+
+- inline caching
+- type specialization
+- hidden classes
+- tracing
+
+DLR dynamic language runtime
+
+=== Concurrent ===
+Moore's Law is end.
+
+- Purity
+- Isolation
+- Immutablity
+
+== Meta-programming ==
+
+= TODO =
+- async work stream?
+- metric unit?
+- struct for functional language

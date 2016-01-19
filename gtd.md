@@ -69,6 +69,9 @@ atlassian公司出品，它公司的JIRA是最出名的．
 
 Confluence是一个团队交流工具，因此我就直接不看了．
 
+### Trac
+like Confluence, but open source
+
 ### Slack
 同样的团队交流工具
 
