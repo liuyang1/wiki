@@ -36,6 +36,7 @@ complex
 
 === 位运算 ===
 
+- bin       show vaule as binary
 == 可迭代类型 ==
 
 == 序列类型 ==

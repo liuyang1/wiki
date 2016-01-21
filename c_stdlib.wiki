@@ -45,6 +45,8 @@ if realloc size is not alignment, it may return error when `free`.
 
 error message: invalid next size
 
+=== alloca ===
+allocate buffer in stack, so not need `free`, but may overflow in `stack`.
 == ctype.h ==
 - isalnum
 - isalpha
@@ -90,3 +92,13 @@ strip newline and other content after newline.
 - `strtok(s, "\n");`
 split S with "\n" delimiter, so it will strip newline and other content after
 newline.
+
+== stdbool ==
+bool exists in the current C - C99, but not in C89/90.
+
+In C99 the native type is actually called _Bool, while bool is a standard library macro defined in stdbool.h (which expectedly resolves to _Bool).
+Objects of type _Bool hold either 0 or 1, while true and false are also macros from stdbool.h.
+
+== string ==
+- strdup, strdupn, strdupa, strndupa
+copy a string, must free or nothing(if use `alloca`)

@@ -35,14 +35,14 @@ else:
     pass
 }}}
 
-we even could implement this use "GOTO" in C, as this is simpler.
+We even could implement this use "GOTO" in C, as this is simpler.
 
 {{{
 for i in XX:
     if :
         goto FIND;
-NOTFIND:
-    got END:
+NOTFIND: // This is redutant, for explicity.
+    goto END;
 FIND:
     find..
 END:
@@ -55,10 +55,12 @@ self-define with expression
 == partial ==
 
 == Fluent Interface ==
-like haskell's *->*
+like Haskell's *->*
 
 {{{
 ages = [42, 21, 18, 33, 19]
 IterHelper(ages).map(lambda x:x>=18).all()
 }}}
 
+== [[https://github.com/amontalenti/elements-of-python-style|elements of python style]] ==
+More than PEP8

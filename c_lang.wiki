@@ -1,8 +1,13 @@
 = C =
 
-* [[c_test|C test framework]]
+== Library ==
+* [[c_io]]
 * [[c_stdlib|std lib]]
 * [[c_extlib]]
+* [[c_cpp_lib]]
+== Tool ==
+* [[c_test|C test framework]]
+* [[c_cpp_programming_tool]]
 
 == standard ==
 there is no generic pointer-to-pointer type in C.
@@ -23,3 +28,4 @@ In gcc
 
 == issue ==
 0x表示十六进制,0开头表示八进制,非零开头表示十进制.
+

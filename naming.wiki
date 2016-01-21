@@ -1,3 +1,6 @@
+= naming =
+This page for non-native English speaker as me showing how to naming in
+programming.
 == queue for producer-consumer ==
 - dequeue
 - enqueue
@@ -64,6 +67,7 @@
 - fold
 - reduce
 
+== decoder ==
 - emptyThisBuffer
 - fillThisBuffer
 
@@ -113,6 +117,14 @@
 == mutex / seamphore / cond ==
 - lock
 
+== IO ==
+- print
+- scan
+- get
+- put
+- show
+- stringify
+
 == file operation ==
 - seek
 - tell
@@ -141,6 +153,21 @@
 - compound (consist of two or more itema that naturally belong together)
 - composed (naturally composed of diferent parts)
 - self-reference
+
+== search ==
+- haystack
+- needle
+
+== namesapce ==
+- module
+- package
+- static
+- public
+- private
+- protected
+- extern
+- external
+- internal
 
 == server name ==
 - app
