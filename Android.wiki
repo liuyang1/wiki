@@ -47,6 +47,15 @@ adb -s [DeviceID] ...
 - -n                roated log files, default to 4
 - -g                buffer size
     When logcat to terminal, increase this value to avoid "unexpected error"
+=== selinux ===
+- How to disable it
+`setenfoce 0`
+- How to disable it permanently
+
+`$(ANDORID)/system/core/init.c` find `selinux_is_disabled` function.
+
+directly `return true;` in header of this function.
+
 === DDMS ===
 ==== issue ====
 - device offline

@@ -170,3 +170,5 @@
 func, fcn, fn, f
 - index
 idx, i
+- return
+rtn, ret, rt, r

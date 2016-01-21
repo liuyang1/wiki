@@ -5,3 +5,11 @@ setenv serverip [SERVERIP]
 copy file from tftp server
 
 img2sd [PATH_in_TFTP_server] [SD.No]
+
+== tftp2emmc ==
+
+= env =
+- setenv [name] [value]
+- env print [name]
+- saveenv
+

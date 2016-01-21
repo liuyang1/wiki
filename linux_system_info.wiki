@@ -131,6 +131,10 @@ ref:man ps
 | X   | 死掉的(应该永远不会被看到)                  |
 | Z   | 僵尸进程                                    |
 
+| PID  | Process ID         |
+| PPID | Partent Process ID |
+| PGID | Process Group ID   |
+| SID  | Session ID         |
 == quota ==
 - -s            human readable
 === repquota ===

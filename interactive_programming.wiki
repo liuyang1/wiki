@@ -9,3 +9,5 @@ languages.
 
 It's powerful, and very intution.
 
+== Jupyter ==
+support haskell, python and R
