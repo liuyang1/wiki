@@ -1,0 +1,6 @@
+= algorithm compexity =
+log(T(N)) = B * log(N) + C
+
+Don't miss this Constant item C.
+
+linear fit to get B and C. then T(N) = 2 ** C * N ** B

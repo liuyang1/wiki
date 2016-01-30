@@ -59,6 +59,20 @@ sar -u 2 400
 - -o [filename] 写入报告到文件中
 - -e 设定结束汇报的时间
 
+== date ==
+=== example ===
+- `date +%F` show date with full-date format
+=== option ===
+- -d, --date=STRING
+- -s, --set=STRING
+- +FORMAT
+
+=== format ===
+- %% a literal %
+- %C century
+- %d day of month
+- %D date, same as %m/%d/%y
+- %F full date, same as %Y-%m-%d
 == time ==
 进行计时的工具,注意,可能和shell提供的略有区别,因此运行时可能需要路径/usr/bin/time
 

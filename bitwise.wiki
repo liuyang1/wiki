@@ -23,7 +23,7 @@ if consider 0 as 2's power
 `v && !(v & (v - 1))`
 `#define IS_POWER_OF_TWO(x) (((x) != 0) && (((x) & (~(x) + 1)) == (x)))`
 
-couting bits set
+counting bits set
 
 {{{
 unsigned int v, c;
@@ -45,6 +45,9 @@ for (c = 0; v; c++) {
 
 - turn on right most 0-bit
 `x = x | (x + 1)`
+
+- isolate leftmost 1-bit
+`x ^= x >> 1`
 
 == swap ==
 - sub and add
@@ -71,4 +74,18 @@ for (c = 0; v; c++) {
 #ifndef ROUNDDOWN
 #define ROUNDDOWN(v, size) ((v) & ~((size) - 1))
 #endif
+}}}
+
+== round up to next highest power of 2 ==
+{{{
+int roundup(int v) {
+    v--;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v++;
+    return v;
+}
 }}}

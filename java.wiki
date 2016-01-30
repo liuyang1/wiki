@@ -1,13 +1,30 @@
 = java =
 
+== memory ==
+NOTICE: 64bit-model
+
+| type     | bytes   |
+| boolean  | 1       |
+| char     | 2       |
+| int      | 4       |
+| float    | 4       |
+| long     | 8       |
+| double   | 8       |
+| char[]   | 2N + 24 |
+| int[]    | 4N + 24 |
+| double[] | 8N + 24 |
+| char[][] | ~2MN    |
+
 == class ==
 === memory ===
 64bit machine
 
 - object overhead 16 bytes
+- reference 8 bytes
 - one dim array
     sizeof(elem) * N + 24
-- 8 bytes align
+- 8 bytes alignment or padding
+- inner class + EXTRA 8 bytes
 == tips ==
 # XXX.class 运行的时候,只需要输入java XXX即可.
 

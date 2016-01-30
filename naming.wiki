@@ -9,6 +9,7 @@ programming.
 `I love these terms, vast and of equal length.`
 
 == queue / stack ==
+- dequeue / deque (pronounced "deck")
 - put
 - get
 
@@ -38,6 +39,9 @@ programming.
 
 - range
 - interval
+- step
+
+- rank
 
 - size
 - length
@@ -199,3 +203,23 @@ func, fcn, fn, f
 idx, i
 - return
 rtn, ret, rt, r
+
+- config
+- setting
+- option
+
+== VCS ==
+- feature/feat
+- fix
+- docs
+- style
+- refactor/refine
+- test
+- chore
+
+== order ==
+- non-descending order
+
+- alignment
+- padding
+- margin
