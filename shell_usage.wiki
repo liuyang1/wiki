@@ -209,6 +209,12 @@ rm -- [FILENAME]
 == jobs ==
 -jobs -l        list jobs
 == fg/bg ==
+after ctrl-z suspend it, then `bg` command let it run background
+
+== wait ==
+After run command in background, then `wait` command will wait until last
+background command finished.
+
 == disown ==
 shell built-in command
 

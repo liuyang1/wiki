@@ -373,6 +373,8 @@ gitstats /path/to/git/repos /stat/result/path
 
 之后可以到统计结果的地方,打开index.html查看
 
+=== pepper ===
+ugly, like github's graph
 == gitlab ==
 一个自托管git管理软件
 

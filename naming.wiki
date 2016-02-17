@@ -13,6 +13,7 @@ programming.
 - put
 - get
 
+- pushback
 - append
 - pop
 - top
@@ -32,6 +33,11 @@ programming.
 
 - begin
 - end
+
+- head
+- tail
+- front
+- rear
 
 - upper
 - lower
@@ -81,6 +87,8 @@ programming.
 - run / executing
 - pause
 - stop
+
+- state: submit/apply change
 
 == set ==
 - issubset
@@ -223,3 +231,13 @@ rtn, ret, rt, r
 - alignment
 - padding
 - margin
+
+- swap
+- exchange/exch
+
+== char ==
+- slash
+- backslash
+
+- magnify
+- zoom in/zoom out

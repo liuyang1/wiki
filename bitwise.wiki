@@ -59,6 +59,15 @@ for (c = 0; v; c++) {
 - xor
 `#define SWAP(a, b) ((a) ^= (b)), ((b) ^= (a)), ((a) ^= (b)))`
 
+xor more simple version
+
+{{{
+void swap(int *a, int *b) {
+    if (a != b) {
+        *a ^= *b ^= *a ^= *b;
+    }
+}}}
+
 == sign ==
 === -1, 0, +1 ===
 `sign = (v > 0) - (v < 0)`

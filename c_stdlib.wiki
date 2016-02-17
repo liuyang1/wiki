@@ -66,6 +66,10 @@ allocate buffer in stack, so not need `free`, but may overflow in `stack`.
 - toupper
 
 == string.h ==
+- strchr
+- strrchr
+- strchrnul
+
 - strspn
 - strcspn
 search a string for a set of bytes

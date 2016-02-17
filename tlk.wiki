@@ -27,8 +27,8 @@ Process interactive with external
 - message queue
 - message passing
 === signal ===
-| SIGSTOP | make process to halt its execution |
-| SIGKILL | make proces to exit                |
+| SIGSTOP | make process to halt its execution | kill -STOP pid |
+| SIGKILL | make proces to exit                | kill pid       |
 These two cannot ignore or block.
 
 Other signal can handle by process self, or default handler by kernel.
@@ -47,6 +47,7 @@ array of `sigaction` struct pointed at by `task_struct`.
 - address of a routine that will handle signal
 - a flag which tells linux that ignore the signal or let kernel handle it.
 
+| SIGTSTP | suspend process | user's 'Ctrl-Z' | may ignore |
 ==== Send signal ====
 setting bit in `task_struct`'s `signal` field will gemerated signal.
 
