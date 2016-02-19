@@ -1,10 +1,16 @@
-=压缩解压缩=
+=压缩解压缩 Archieve Tools =
+== rar ==
+unrar
 == tar ==
 
 解压到特定文件夹
 tar zxvf XX.gz -C /tmp/
 
 ==zip==
+problem::
+Problem unzipping file on Linux - need PK compat. 4.5
+
+alternative use 7zip
 
 解压到特定文件夹
 unzip XX.zip -d /tmp

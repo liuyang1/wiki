@@ -25,7 +25,17 @@ a,b = b,a
 `这里其实直接就是tuple的赋值过程吧?`
 
 == 列表压缩 ==
-...经常使用,跳过
+
+{{{
+    x = "w 0x8 r 9"
+    y = x.split()
+    y = y[1::2]
+    y = [int(i, 0) for i in y]
+}}}
+
+Ref:
+List Slice http://stackoverflow.com/questions/509211/explain-pythons-slice-notation
+List comprehensions http://www.secnetix.de/olli/Python/list_comprehensions.hawk
 
 == for else ==
 {{{
