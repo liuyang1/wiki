@@ -122,6 +122,10 @@ su
 
 sudo
 
+== drwx format and others ==
+- sticky bit        drwxrwxrwt last "t"
+This means one user only can delete or rename the file owned by himself
+
 == passwd ==
 
 passwd -l [username]

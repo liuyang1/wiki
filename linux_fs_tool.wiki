@@ -35,6 +35,8 @@ find . -type f -size + 100000k
 
 - -mount 不跨越文件的挂载点进行查找,在某些情况下,例如不希望检查挂载路径时非常方便
 
+find /tmp -ctime +10 -exec rm -rf {} +
+
 == tree ==
 - -f    full path
 tree -f | grep ABC

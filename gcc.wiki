@@ -78,3 +78,7 @@ gcc 从2到3引进的
 这一特性,不允许一个内存地址表示为两种指针,如果非要如此做,可以通过union实现.
 
 这样的目的,是为了代码优化.可以使用-Wno-stict-aliasing来去除这个警告(实际仍会采用这个优化)
+
+== cicular dependency ==
+- --start-group
+- --end-group

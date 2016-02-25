@@ -309,6 +309,11 @@ v
 - empty pattern0        pattern0 default to "@/", which is the search value by
 "\*" or "#"
 
+{{{
+:%s/\<foo\>.*//
+    On each line, delete the whole word "foo" and all following text (to end of line).
+}}}
+ref:[[http://vim.wikia.com/wiki/Search_and_replace]]
 == 多缓冲区 ==
 - :bd               关闭当前缓冲区(也会保存,但可能没有触发写入的其他插件(vimwiki的自动导出功能)
 - :b[n]             选择第几个缓冲区

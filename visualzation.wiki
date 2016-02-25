@@ -14,6 +14,8 @@ seems better than graphviz.
 ===matplotlib===
 python lib, using for math plot, such as math function.
 
+=== vincent ===
+[[http://github.com/wrobstory/vincent|vincent]]
 === derivated library ===
 - pylab
 - pylab2

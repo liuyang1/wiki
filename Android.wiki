@@ -47,6 +47,11 @@ adb -s [DeviceID] ...
 - -n                roated log files, default to 4
 - -g                buffer size
     When logcat to terminal, increase this value to avoid "unexpected error"
+=== screencap ===
+capture screen(GFX plane)
+
+- -p        png
+- -d        dispaly id to capture, default 0
 === selinux ===
 - How to disable it
 `setenfoce 0`

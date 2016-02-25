@@ -90,6 +90,9 @@ add to stage
 - 删除远程tag	git push origin :vXXX
 - -f, --force               replace an existing tag with the given name
 
+sync tags with upstream
+`git fetch upstream --tags`
+
 == push ==
 git push origin localbranch:remotebranch
 
@@ -181,9 +184,9 @@ enter interactive vim
 == revert ==
 - default   revert commit, and auto add "Revert \"...\"" commit message
 - -n        Revert the commit, but don't commit the changes
-`git revert -n [CommitSHA]`
 
 {{{
+    git revert -n [CommitSHA]    # revert commit, but don't commit the changes
     git reset HEAD .             # Unstage the changes
     git add --patch .            # Add whatever changes you want
     git commit                   # Commit those changes

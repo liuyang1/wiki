@@ -241,3 +241,26 @@ rtn, ret, rt, r
 
 - magnify
 - zoom in/zoom out
+
+== static program analysis ==
+- dead store
+
+- horizonal
+- vertical
+- diagonal
+- slash
+- backslash
+- orthogonal
+
+- width
+- height
+- stride
+
+== shapre ==
+- point
+- segment
+- line
+- triangle
+- rectangle
+- circle
+- eclipse
