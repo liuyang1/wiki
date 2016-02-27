@@ -12,7 +12,8 @@ chars or lines
 
 - -f        follow
 - -c        --bytes
-- -n        lines
+- -n        LineNo, outoput last LineNo line
+            +LineNo, start from LineNo
 
 `tail -f filename`
 

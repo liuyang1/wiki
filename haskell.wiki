@@ -1,4 +1,6 @@
 = haskell =
+
+- [[https://wiki.haskell.org/Reference_card|refer card]]
 == basic ==
 - infix expression
 `1 + 2`
@@ -310,6 +312,8 @@ but the programming will continue to execute after this expression.
 - line comment       begin with "--"
 - block comment     `{- comment here -}`
 
+- [[https://www.haskell.org/haddock/doc/html/index.html|haddock]]
+
 == Monad ==
 `Monad` is a `class`, which have two basic operators:
 
@@ -386,7 +390,7 @@ default return value, `ans` in matlab
 
 Inside ghci, define a new variable, need using *let*
 
-== runghc ==
+== runghc / runhaskell ==
 directly execute the haskell as script
 
 not generate .o or executable file, not enter to ghci
@@ -433,6 +437,8 @@ It is better for newbie than real world
 haskell.
 - real world haskell
 - [[http://chimera.labs.oreilly.com/books/1230000000929/index.html|Parallel and Concurrent Programming in Haskell]]
+
+[[learnyouhaskell|Funtors, Applicative Functors and Monoids]]
 
 == course ==
 - [[http://www.scs.stanford.edu/11au-cs240h/|CS240h]]

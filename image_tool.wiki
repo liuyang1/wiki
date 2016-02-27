@@ -17,6 +17,6 @@ linux screenshot util
 - default       fullscreen screenshot, save as DATA_TIME_screenshoft.png
 - -d            delay time
 - -c            count number
-- -s            select retcange or window
+- -s            select rectangle or window
 - -q            quality
 - -t            scale, 10 -> 10%

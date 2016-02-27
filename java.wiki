@@ -33,6 +33,8 @@ java的传递类型:
 [[lang_design]]
 
 == tools ==
+=== java ===
+- -cp --classpath
 === jar ===
 list content in jar
 

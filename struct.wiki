@@ -2,6 +2,10 @@
 %toc
 TODO:
 - red-black tree
+== stack/queue ==
+- aviod shrink
+double size when full, halve size when one-quarter full
+
 == map ==
 map,又可以成为字典.
 

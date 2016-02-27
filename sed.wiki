@@ -18,6 +18,8 @@ backslash.
 
 "/abc/d     删除该部分,不会替换保留空行
 
+== output tenth line ==
+`sed -n 10p [FileName]`
 == multiple file replace ==
 {{{
 sed -i "s/oldstring/newstring/g" `grep oldstring -rl /path/`
@@ -27,7 +29,7 @@ sed -i "s/oldstring/newstring/g" `grep oldstring -rl /path/`
 when try to replace some string with backslashes, maybe want to use escape
 char.
 
-actually, use a different symbol after the s command that doesn't appear in
+Actually, use a different symbol after the s command that doesn't appear in
 the text.
 
 for example, use %, then we get.

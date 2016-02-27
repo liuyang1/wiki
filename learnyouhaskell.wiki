@@ -1,0 +1,13 @@
+= ch11. Functors, Applicative Functors and Monoids =
+== Functor ==
+Funtors are things that can mapped over, like lists, Maybes, trees, and such.
+
+=== funtor law ===
+- `fmap id = id`
+
+F把恒等态射变为恒等态射
+
+- `fmap (f . g) = fmap f . fmap g`
+`fmap (f . g) F = fmap f (fmap g F)`
+
+F保持态射的复合

@@ -51,13 +51,21 @@ programming.
 
 - size
 - length
-- capcity
+- capacity
 
 - find
 - index
 
+- trim
+- strip
+
 - reverse
 
+== array ==
+
+=== 2D-array ===
+- grid
+- lattice
 == object ==
 - init
 - deinit / finit
@@ -125,6 +133,7 @@ programming.
 - tic
 - toc
 - beat
+- elapse
 
 == mutex / seamphore / cond ==
 - lock
@@ -245,7 +254,7 @@ rtn, ret, rt, r
 == static program analysis ==
 - dead store
 
-- horizonal
+- horizontal
 - vertical
 - diagonal
 - slash
@@ -256,7 +265,7 @@ rtn, ret, rt, r
 - height
 - stride
 
-== shapre ==
+== shape ==
 - point
 - segment
 - line
@@ -264,3 +273,7 @@ rtn, ret, rt, r
 - rectangle
 - circle
 - eclipse
+
+== pointer ==
+- loitering
+- guard/sentinel/sentry
