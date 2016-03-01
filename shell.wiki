@@ -389,6 +389,13 @@ shell&perl中对于""中等内容,进行变量替换.
 ((  )), and *let*, constructs return an *exit status*, 
 
 `z=$((z+3))`
+
+also support hexadecmal with 0x prefix
+
+{{{
+    printf "%#x\n" $((0xa + 0xb))
+    21
+}}}
 = shell comparation =
 
 * zsh and bash handle `complete` different. zsh could not support this directly.

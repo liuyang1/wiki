@@ -89,6 +89,7 @@ add to stage
 - push远程tag	git push --tags
 - 删除远程tag	git push origin :vXXX
 - -f, --force               replace an existing tag with the given name
+- -l, --list
 
 sync tags with upstream
 `git fetch upstream --tags`

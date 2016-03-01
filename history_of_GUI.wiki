@@ -5,4 +5,46 @@ WIMP范式
 
 指窗口,图标,菜单,指向,设备,Window,Icon,Menu,Pointing,Device.
 
+ref:[[http://zh.wikipedia.org/wiki/FLTK]]
+= GUI tookit =
+== Base ==
+- Windows API
+- Xlib
+== Advanced ==
+=== Windows ===
+- MFC
+- WPF
+=== Cross-platform ===
+==== Based-on flash ====
+- Adobe Flex
+==== Based-on XML, Ajax, or SVG ====
+- jQuery
+- Dojo tookit
+- Google Web Tookit
+- YUI Yahoo! UI Library
+- Ext
+==== Based-on Java ====
+- AWT (Abstarct Windowing Tookit)
+- Swing
+- SWT (Standard Widget Tookit)
+    wrap Windows API or GTK+
+==== Based-on C/C++ ====
+Tk::
+{{{
+tcl script -> Tk -> Perl
+                 -> Tkinter (Python)
+                 -> LTK (Common Lisp)
+                 -> ~~fltk (NeXT, OpenGL)~~
+}}}
 
+FLTK::
+
+Qt::
+
+GTK+::
+
+OpenGL UI Library::
+
+wxWidget::
+
+- wxPython (Python bindings)
