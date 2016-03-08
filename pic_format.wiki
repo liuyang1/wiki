@@ -19,4 +19,7 @@ pbm单色,pgm灰度图,ppm使用RGB颜色
 
 == jpeg ==
 
+== TGA ==
+ref:[[https://en.wikipedia.org/wiki/Truevision_TGA]]
 
+raster graphics file format

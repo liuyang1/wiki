@@ -47,6 +47,21 @@ adb -s [DeviceID] ...
 - -n                roated log files, default to 4
 - -g                buffer size
     When logcat to terminal, increase this value to avoid "unexpected error"
+=== mksh ===
+MirBSD Korn Shell
+
+In mksh, arithematic default have signed bit, so it works like this style.
+
+```
+printf "%#X" $((0xffff0000 + 0x4))
+0xFFFFFFFFFFFF0004
+```
+
+we have to use `dc` in `busybox` to get normal result:
+```
+printf "%#X" `busybox dc 0xffff000 0x4 add p`
+0xFFFF0004
+```
 === screencap ===
 capture screen(GFX plane)
 

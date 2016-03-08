@@ -216,6 +216,18 @@ sar -u 2 400
 == printf ==
 - "%-10s"   left justify output string
 
+== dc ==
+reverse-polish desk calculator which support unlimited precision arithmetic
+
+=== print commands ===
+- p print value on the top of the stack with newline
+- n print value on the top of the stack, pop it off, and without newline
+
+```
+printf "%#X" `busybox dc 0xffff000 0x4 add p`
+0xFFFF0004
+```
+
 == timeout ==
 run a command with a time limit
 

@@ -33,3 +33,11 @@ http://gpac.wp.mines-telecom.fr/mp4box/
 == 具体参数列表 ==
 http://gpac.wp.mines-telecom.fr/mp4box/mp4box-documentation/
 
+= option =
+== dump ==
+show track info
+
+`MP4Box -info [filename]`
+== extract ==
+
+`MP4Box -raw [trackID] [filename]`

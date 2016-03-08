@@ -54,8 +54,11 @@ av_interleaved_write_frame的错误.
 
 这里需要加入 -vbsf h264_mp4toannexb
 
-ffmpeg -i inputfile.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb outfile.ts
+`ffmpeg -i inputfile.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb outfile.264`
 
+`ffmpeg -i inputfile.mp4 -vcodec copy -acodec copy -bsf hevc_mp4toannexb outfile.265`
+
+`hevc_mp4toannexb` this need ffmpeg 3.0 version support.
 == vlc ==
 
 将输入mp4文件转换为ts文件

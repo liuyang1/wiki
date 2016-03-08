@@ -394,8 +394,9 @@ also support hexadecmal with 0x prefix
 
 {{{
     printf "%#x\n" $((0xa + 0xb))
-    21
+    0x15
 }}}
+
 = shell comparation =
 
 * zsh and bash handle `complete` different. zsh could not support this directly.

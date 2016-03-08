@@ -1,0 +1,20 @@
+= AI =
+2016-03-07
+
+== A* ==
+`f(n) = g(n) + h(n)`
+
+- g(n) is the cost of the path from the start node to `n`.
+- h(n) is heuristic that estimates the cost of the cheapest path from n to
+the goal.
+
+heuristic function must be `admissible`.
+it never overestimates the actual cost to get to the nearest goal node.
+
+If h(n) is monotone, A* is more efficiently.
+
+Typical implement of A* use a `priority queue` (ref:[[struct]]) to perform the
+repeated selection of minimum (estimated) cost nodes to expand.
+
+Practice:
+8puzzle problem in algs4 asignment 4

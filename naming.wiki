@@ -18,7 +18,8 @@ programming.
 - pop
 - top
 
-- peek
+- peek (retrieve head of list)
+- pool (retrieve and remove head of list)
 
 - full
 - empty
@@ -267,13 +268,18 @@ rtn, ret, rt, r
 
 == shape ==
 - point
-- segment
-- line
+- segment / line / interval
 - triangle
 - rectangle
 - circle
 - eclipse
 
+- origin
+- vector
+
 == pointer ==
 - loitering
 - guard/sentinel/sentry
+
+- heuristic
+- monotone

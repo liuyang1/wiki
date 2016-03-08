@@ -45,9 +45,10 @@ unxz
 可以自行选择通过什么方式,进行解压缩操作.
 
 == 7z ==
-a 
-
-e 解压
+- a add
+- e 解压 extract
+- l list
+- x eXtract with full paths
 
 = lib =
 == gzip ==
