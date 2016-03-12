@@ -1,0 +1,19 @@
+
+== diagram ==
+ref:: [[https://matroska.org/technical/diagram/index.html]]
+level::
+- segment (top level, only 1 segment in a mkv file)
+- cluster
+- blockgroup
+    - block
+
+- track
+== EBML ==
+
+== WebM ==
+webm is based on a profile of MKV.
+
+webm have optional `flagInterlaced` to mark this stream is interlaced or not.
+
+This is containter level's flag instead of stream level. This make big
+difference.

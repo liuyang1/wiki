@@ -171,6 +171,7 @@ enter interactive vim
     - drop commit
 - [REORDER commit line]
     - reorder commit message
+- edit          do sth after this CL. then continue
 
 == cherry-pick ==
 用于将某个commit迁移到其他的分支上.比rebase要有用.

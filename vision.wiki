@@ -7,3 +7,5 @@
 [[stereo_vision|立体视觉]]
 
 [[realtimeHD]]
+
+* [[kinect]]

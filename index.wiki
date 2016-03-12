@@ -4,8 +4,10 @@ dummy: [[TODO]]
 == TODO ==
 * [[arch_of_open_source]]
 
-== topic ==
+== Topic / Index ==
 * [[BookList]]
+* [[course]]
+* [[video_tech|Video]]
 * [[Android]]
 * [[server]]
 * [[compiler]]
@@ -13,11 +15,10 @@ dummy: [[TODO]]
 * [[software_engineer|Software Enginerring]]
 * [[visualzation]]
 * [[network_protocol_all|Network Protocol]]
+* [[internet_protocol|Internet protocol]]
 * [[posix_prog|POSIX programming]]
 * [[all_coding|Coding is part of life]]
 * [[all_software|Your tools are part of yourself]]
-* [[internet_protocol|Internet protocol]]
-* [[video_tech|Video]]
 * [[pic_format]]
 * [[speech_feature]]
 * [[vision|computer vision]]
@@ -26,10 +27,8 @@ dummy: [[TODO]]
 * [[cloud_computing]]
 * [[os]]
 * [[reverse_enginerring|Reverse Enginerring]]
-* [[kinect]]
 * [[cuda]]
 * [[opencl]]
-* [[course]]
 * [[serializer_data]]
 
 == theory knowledge ==
@@ -81,12 +80,6 @@ dummy: [[TODO]]
 === browser ===
 * [[chrome_usage|Chrome]]
 * [[text_browser|Text-Mode browser]]
-
-== filetype ==
-* [[mpegts_format|MPEG-TS]]
-* [[AAC_format|aac]]
-* [[HEVC]]
-
 
 == tmp old ==
 - [[network_storage|网络存储]]

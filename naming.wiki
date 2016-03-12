@@ -282,4 +282,13 @@ rtn, ret, rt, r
 - guard/sentinel/sentry
 
 - heuristic
-- monotone
+- monotone / monotonically increasing
+
+== binary ==
+- byte / octet
+- bit
+
+== effect ==
+- mosaic
+- blink
+- judder

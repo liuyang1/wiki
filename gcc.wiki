@@ -82,3 +82,6 @@ gcc 从2到3引进的
 == cicular dependency ==
 - --start-group
 - --end-group
+
+== extension ==
+ref: [[https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html]]

@@ -1,3 +1,27 @@
-[[mit_6_828]]
-[[deep_learning_with_COTS_HPC_sys]]
-[[open_svc_decoder_review_read]]
+
+== 2016 ==
+=== Algorithm, Part 1 ===
+[[http://class.coursera.org/algs4partI-010|coursera]]
+
+Assignment::
+code check [[https://github.com/liuyang1/test/tree/master/course/algs4|algs4]]
+
+| Percolation                  | 101.25  |
+| Randomized Queues and Deques | 100.19  |
+| Collinear Points             | _98.78_ |
+| 8 Puzzle                     | 100     |
+| Kd-Trees                     | 100     |
+
+Quizzes::
+
+| Union Find             | 3 / 3 |
+| Analysis of Algorithms | 3 / 3 |
+| Stack and Queue        | 3 / 3 |
+
+=== Algorithm, Part II ===
+TODO:
+
+== before ==
+- [[mit_6_828]]
+- [[deep_learning_with_COTS_HPC_sys]]
+- [[open_svc_decoder_review_read]]
