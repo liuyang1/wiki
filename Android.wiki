@@ -1,10 +1,9 @@
 = Android =
 
 * [[bionic]]
-
 * [[media_framework]]
-
 * [[arm_hardware]]
+* [[Binder]]
 
 == tools ==
 === am ===
@@ -74,7 +73,7 @@ capture screen(GFX plane)
 
 `$(ANDORID)/system/core/init.c` find `selinux_is_disabled` function.
 
-directly `return true;` in header of this function.
+Directly `return true;` in header of this function.
 
 === DDMS ===
 ==== issue ====

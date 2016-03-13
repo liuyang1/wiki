@@ -1,0 +1,79 @@
+= Java =
+Ref:[[http://zhuanlan.zhihu.com/bittiger/20545626]]
+- difference between C++
+- Abstract class vs Interface
+- shallow copy / deep copy
+- pass by reference / pass by value
+- hashcode() / equals()
+
+Keyword::
+- final
+- static
+- final / finalize / finally
+- checked / unchecked exception
+- primitive type
+- overriding vs overload
+
+== Collections ==
+- stack / queue / deque
+- hashset / treeset
+- String vs StringBuffer
+- Hashmap / Treemap / Hashtable / LinkedHashMap / ConcurrentHashMap
+- Array / ArrayList / LinkedList
+- PriorityQueue / heap
+- comparable / comparator
+- Iterator
+
+== Other ==
+- memory leak
+- JVM
+- garbage collection
+- Object class method
+- getclass() / hashcode()
+- heap / stack
+- java8 / java7
+- extend Thread, Implement RUnnaable Interface , blockingqueue
+
+= Struct & Algo =
+- Binary tree
+- LinkedList: reverse, fast/slow pointer
+- Binay deducation / search
+- hashmap / stack / queue
+- Array / String
+- Shuffle an array
+- java big Integer
+- dfs vs bfs
+- word ladder
+- topological sorting
+- dynamic programming
+    - paint house
+    - stock price
+
+= Computer Network =
+- TCP three handshake
+- TCP vs UDP
+- https / https
+- http request: post / get
+- public / private key
+- HTTP 401, 403, 404 Error
+
+= DB =
+- SQL vs NoSql
+- select / update / delete / insert
+- primary key
+- join(four???)
+- index
+- groupby
+- some nosql DB
+- ACID / CAP distructed system
+
+
+- Serialize:: JSON / Object Serialize / ProtoBuf
+- dead lock
+
+= Design Pattern =
+- singleton
+- factory
+- builder
+- decorator
+

@@ -1,4 +1,5 @@
 = 程序设计 =
+[[API_deisgn_principles_qt]]
 ----
 “编程是一种一个人告诉另一个人他想让计算机做什么的艺术。” Donald Knuth
 == 输入/处理/输出 ==

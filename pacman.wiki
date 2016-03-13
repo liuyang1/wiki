@@ -2,6 +2,7 @@
 
 == search ==
 - Qs        search with string
+- Ql        list file & directory after install this module
 
 == sync ==
 - Syu       sync update yes

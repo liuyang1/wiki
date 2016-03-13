@@ -1,0 +1,14 @@
+= 2016 =
+mtime: 2016-03-13 11:50:56
+
+== course ==
+TODO:
+- algs4, Part II
+DONE:
+- algs4, Part I
+
+== OJ ==
+- leetcode 116/320
+
+== Blog ==
+- 0

@@ -1,0 +1,15 @@
+== Compare to other IPC ==
+Performance::
+One copy, socket twice
+
+Security::
+Binder检查身份, Socket只有地址,安全机制需要上层进行校验.
+
+Binder will check UID of process.
+
+Easy to use::
+OOP, better for Java
+
+
+Comment::
+This tech like zero-copy in linux, Use SHM / mmap to avoid memory copy

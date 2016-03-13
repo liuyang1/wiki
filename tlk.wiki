@@ -17,15 +17,23 @@ shared between process
 - file
 - memory-mapped file
 - socket
-- shared memory
+low performance, it have to copy twice data
+- SHM(shared memory)
+avoid copy, fast, but have to sync between process.
 
 Process interactive with external
 - signal (alarm, SIG_KILL)
+not for pass message or data, but for ISR of process
 - pipe (`|` in shell)
 - named pipe (`mkfifo` in shell)
+`pipe` use one page memory, so may cannot cache too much data.
 - semaphore (sem_init, sem_post, ...)
 - message queue
+This need twice copy message, this need more CPU, so not for frequent and big
+data communication.
 - message passing
+
+[[Binder]]
 === signal ===
 | SIGSTOP | make process to halt its execution | kill -STOP pid |
 | SIGKILL | make proces to exit                | kill pid       |

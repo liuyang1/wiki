@@ -1,0 +1,26 @@
+= API Design principles =
+Ref: [[http://wiki.qt.io/API-Design-Principles]]
+
+- minimal
+- complete
+- clear and simple semantics
+- intuitive
+- easy to memorize
+- lead to readable code
+
+WARNING: This is for C++.
+
+== Pointer vs. References ==
+Yes, references is better as "safer and nicer".
+But use Pointer for API will notify user it may changed in the function.
+
+Comment::
+Seems not big deal, as we have `const`.
+
+== Passing by const-ref vs. Passing by value ==
+If type is bigger than 16 bytes, pass by const-ref.
+
+If type have a non-trivial copy-constructor or a non-trivial destructor, pass by
+const-ref to avoid these methods.
+
+All other types, should usually be passed by value.

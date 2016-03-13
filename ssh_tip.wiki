@@ -220,6 +220,8 @@ but it's too slow.
 telnetd
 
 = mosh =
+keyword: ssh, slow link
+
 for mobile usage, slow and unstable link
 
 install mosh at both client and server host

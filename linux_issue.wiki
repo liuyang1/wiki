@@ -70,3 +70,6 @@ When setting, file which older than `TMPTIME` days, it will be deleted.
 
 == ADT - libstdc++.so.6: cannot open shared object file ==
 `sudo apt-get install lib32stdc++6 lib32z1 lib32z1-dev`
+
+== arch ==
+`uname -r` different with `pacman -Q linux`, this need reboot.
