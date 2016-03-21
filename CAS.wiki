@@ -1,0 +1,8 @@
+= CAS: Content-Addressed Storage =
+
+基于内容的存储,这项技术主要用于云存储系统中.针对于_固定_存储内容系统.
+
+它基于哈希技术进行数字签名.
+使用CAS技术,数据的实际存储位置和其复制份数,对于用户是完全透明的.
+
+== Content-addressed vs. Locaiton-addressed ==

@@ -130,6 +130,8 @@ ref:http://docs.python.org/release/3.1.2/library/struct.html
 - cython
 利用类似python的语言,来编写调用C程序的接口,并且同时方便的调用C和python函数.
 
+Based on Pyrex
+
 - ctypes
 标准库
 
@@ -137,6 +139,11 @@ ref:http://docs.python.org/release/3.1.2/library/struct.html
 
 - cffi
 类似ctypes,但是更为方便,不需要一定编译为so文件,可以直接调用C原始文件(其实是帮助你生成的so库,所以是一样的)
+
+Comment::
+I see recommand use
+- `ctypes` for simple case or already have built ".so" file
+- `Cython` for complex case
 
 == *ML parser ==
 === beautifulsoup ===

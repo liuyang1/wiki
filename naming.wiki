@@ -255,6 +255,9 @@ rtn, ret, rt, r
 == static program analysis ==
 - dead store
 
+== direction ==
+- down/up
+- left/right
 - horizontal
 - vertical
 - diagonal
