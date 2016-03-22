@@ -64,9 +64,10 @@ but there is paramter expanison and command substitution.
 - s1 < s2 字典序比较
 - s1 > s2 字典序比较
 * -n    is null? or is not init?
-* -n string 字符串长度不是0
-* -z    string is null, that is has zero length
-- -z string 字符串长度为0
+            string 字符串长度不是0
+* -z    var exist?
+            string is null, that is has zero length
+            string 字符串长度为0
 - string 如果字符串不是非空字符串
 
 string with wildcard, using start symbol.

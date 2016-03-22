@@ -6,6 +6,15 @@
 * -r, --reverse             reverse the result of comparisons
 * -k, --key=POS1[,POS2]     start a key at POS1...
 
+How to concat file with numberic filename without leading zero?
+
+- filename 1-1.rgb 1-2.rgb ...
+- sort without leading zero
+
+```
+find . -maxdepth 1 -type f -name '1-*.rgb' | sort -t'.' -V -k1 | xargs cat -- >> out.rgb
+```
+
 === find ===
 
 find $HOME -name "*.pdf"

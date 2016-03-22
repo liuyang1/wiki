@@ -13,7 +13,7 @@ auth: liuyang1
 	# flv
 	# mpeg2 ts
 	# rm/rmvb
-	# mkv
+	# [[mkv]]
 # 视频的流化方式
 	# rtsp/rtcp/rtp
 	# http

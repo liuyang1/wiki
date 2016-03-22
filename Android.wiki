@@ -66,6 +66,17 @@ capture screen(GFX plane)
 
 - -p        png
 - -d        dispaly id to capture, default 0
+=== screenrecord ===
+record device's display to a .MP4 file.
+
+screenrecord [output filename]
+
+- --size WIDTHxHEIGHT (default devices display resolution or 1280x720)
+- --bit-rate RATE (default 4M bps)
+- time-limit TIME (default/max is 180)
+
+use H.264 AVC encoder
+
 === selinux ===
 - How to disable it
 `setenfoce 0`
