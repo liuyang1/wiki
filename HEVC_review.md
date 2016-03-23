@@ -101,6 +101,8 @@ REC 709 -> **REC 2020** -> CIE XYZ
 
 require more bits
 
+> 因此HEVC标准支持10 bitdepth, 这是HDR特性的基础.
+
 ### brighter images
 
 - Nature 40 bits
@@ -111,7 +113,9 @@ require more bits
 - LCD 9~10bits
 - Human eye 12bits
 
-color banding
+[[https://www.wikiwand.com/en/Colour_banding|color banding]]
+
+色带问题,颜色的层级不够,导致原本渐变的颜色区域,采样后的颜色变换边缘有跳变现象,从而形成色带.
 
 ## dual layer
 
@@ -120,6 +124,9 @@ contains standard dynamic range information in one layer and additional dynamic 
 This dual-layer HDR format has the advantage of working transparently with existing, non-HDR capable equipment.
 
 ## HDR related SEI messages in HEVC
+
+HEVC的第二版增加了和HDR(或者range extension)相关的SEI
+
 - Chroma resampling filter hint SEI
 
  may transform from one color space to other.

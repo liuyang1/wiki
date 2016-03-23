@@ -18,7 +18,7 @@ ffmpeg.exe -r 5 -f vfwcap -i 0 -s 176x144 -f rawvideo -pix_fmt yuv420p ss.yuv
 -s 176x144表示输出的视频为QCIF大小
 -f rawvide表示输出的文件不压缩
 -pix_fmt yuv420p表示输出的格式为YUV 4:2:0的，这也是最常用的格式。摄像头支持的输入格式有很多种，FFMPEG会自动进行转换。
- 
+
  ./ffmpeg -r 15 -f vfwcap -i 0 -f mp4 cap.mp4
  直接录制为mp4文件
 
@@ -39,7 +39,7 @@ ffmpeg -ss 00:50:00  -i RevolutionOS.rmvb sample.jpg  -r 1 -vframes 1 -an -f mjp
 一般命令格式如下:
 {{{
 ffmpeg -b:v XXXk -pass 1 ...
-ffmpeg -b:v XXXk -pass 2 
+ffmpeg -b:v XXXk -pass 2
 }}}
 
 一个示例
@@ -105,6 +105,10 @@ select_streams video / audio
 {{{
 ffprobe -show_frames -print_format compact -slect_streams v [filename]
 }}}
+
+- -probesize <int64>
+    default to 5*1000*1000 bytes,enlarge it when occur some exceptional TS stream.
+    
 === writer ===
 output dumped format
 - default       tag, and key=value format with newline

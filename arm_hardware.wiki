@@ -19,3 +19,13 @@ Thumb (16bit) / ARM (32 bit)
 Data Memory Barrier, Data Synchronization Barrier, and Instruction Synchronization Barrier.
 
 > This affect stability problem.
+
+== AMBA ==
+- ASB
+- APB
+- AHB AMBA High-Performance Bus
+- AXI
+- ATB
+- AXI4
+- ACE
+- CHI

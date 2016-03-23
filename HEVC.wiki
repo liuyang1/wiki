@@ -1,6 +1,6 @@
 = HEVC =
 auth: liuyang1
-mtime: 2013-01-10 11:37:35 
+mtime: 2013-01-10 11:37:35
 ----
 HEVC是视频编码标准草案.领先于H.264/AVC算法.目前由JCT-VC开发HEVC标准.
 HEVC据说增强了视频质量,压缩效率2倍于H.264.支持8K UHD??,分辨率支持到8192x4320.
@@ -13,7 +13,7 @@ HEVC据说增强了视频质量,压缩效率2倍于H.264.支持8K UHD??,分辨�
 
 项目曾经命名为H.265,H.NGVC.以及VCEG的主要部分,直到2010年命名为HEVC联合项目.
 
-NGVC的主要要求就是比特率减少到H.264 AVC HighProfile的一半,计算复杂度则保持在其1/2到3倍之间.NGVC可以提供更好的压缩效率,同时增加复杂度.
+NGVC的主要要求就是比特率减少到H.264 AVC High Profile 的一半,计算复杂度则保持在其1/2到3倍之间.NGVC可以提供更好的压缩效率,同时增加复杂度.
 
 MPEG在2007年开始了类似的项目,命名为High preformance Video Coding.2007年7月,目标定位减少比特率50%.KTA软件进一步增强.2009年7月,试验结果表明平均码率减少了20%,相比与AVC High Profile.于是推进了MPEG开始标准化VCEG.
 
@@ -47,7 +47,52 @@ HEVC,8次草案于2012-7部分.同时商业产品将于2013年发布.
 == 反向变换 ==
 == 滤波回路 ==
 == 层级 ==
-Main
-Main10
-MainStillPicture
+H.264有profile和level两级结构,用于说明编码的级别.
+H.265则有profile, level, tier的三层结构用于说明编码的级别. 例如:Main 10@L5.1@Main
 
+```mediainfo
+ID                                       : 1001 (0x3E9)
+菜单ID                                     : 257 (0x101)
+文件格式                                     : HEVC
+文件格式/信息                                  : High Efficiency Video Coding
+格式简介                                     : Main 10@L5.1@Main
+编码设置ID                                   : 36
+长度                                       : 1分 23秒
+画面宽度                                     : 3 840像素
+画面高度                                     : 2 160像素
+画面比例                                     : 16:9
+帧率                                       : 59.940 (60000/1001) fps
+色彩空间                                     : YUV
+色度抽样                                     : 4:2:0
+位深度                                      : 10位
+colour_range                             : Limited
+颜色初选                                     : BT.709
+传输特质                                     : BT.709
+矩阵系数                                     : BT.709
+```
+H.264的流信息分为两层结构SPS和PPS信息.
+H.265则分为三层结构VPS,SPS,PPS.
+
+=== profile ===
+ Version 1 profile::
+- Main
+
+Main profile, 采用8bit,YUV420采样.
+
+- Main10
+
+8bit或者10bit,YUV420采样
+
+- MainStillPicture
+
+ Version 2 prifile::
+
+- 21个range extension profile
+- 2个scable extension profile
+- 1个multiview extension profile
+
+ Version 3 profile::
+ TODO
+
+=== Level 和 Tier ===
+13种level和两种Tire(Main或者High)
