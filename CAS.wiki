@@ -2,7 +2,19 @@
 
 基于内容的存储,这项技术主要用于云存储系统中.针对于_固定_存储内容系统.
 
+Fixed content Storage (FCS)
+
 它基于哈希技术进行数字签名.
 使用CAS技术,数据的实际存储位置和其复制份数,对于用户是完全透明的.
 
 == Content-addressed vs. Locaiton-addressed ==
+
+EMC Centera 是 EMC 公司的 CAS 技术.
+
+
+
+When a new data element, or BLOB(Binary large object), is added, the devices calculates a hash of the content and return this hash as the blob's content address.
+
+> 这部分感觉和 git 的内部实现有一些共通的地方. 二者可以相互借鉴下.
+
+Git is a userspace CAS filesystem.

@@ -35,3 +35,13 @@ read from stdin, then we could using *C-V* for other application
 `xset r rate 440 33`
 
 setting cursor auto repeat delay, and repeat rate
+
+== xmacro ==
+to record your operation, then play it back.
+
+== compton ==
+Window composition manager
+
+Shadow, transparent, and other effect.
+
+> add this to awesome WM to make it more awesome

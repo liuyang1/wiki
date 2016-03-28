@@ -9,7 +9,7 @@ printf这个函数，在C语言中是最基本的之一。可是有多少不了�
 ## 可变参数列表
 嗯，这个名词可能没有听说过。`man 3 printf`
 
-    int printf(const char *format, ...);
+    int printf(const char \*format, ...);
 
 这里后面的。。。在编程时候怎么用呢？这就是可变参数列表，即可以加任意格式，任意个数的参数。
 
@@ -53,29 +53,29 @@ printf这个函数，在C语言中是最基本的之一。可是有多少不了�
     va_arg(ap, [TYPE]);
     // 每次调用这个宏，会移动内部的指针，因此不是可重入的。
     // 因此需要保存每个参数的值。或者使用va_copy这个宏
-    
+
     // 如果调用到参数列表结束，也就是到栈底。
     // 这个时候在栈中没有对应的参数，就溢出到栈底了。
 
     // va_list ap, 也可以作为参数传递给其他函数，参考vprintf
-    
+
 ### 深入理解va\_list
 va_list 其实是什么类型呢?好像不是C语言的基本类型,可是也不像是什么结构体.
 
 	typedef char* va_list;
-    
+
 其实根据上面的解释,我们已经可以才出来这一点了.就是va\_list的用法关键在于
 
 - 参数的位置寻址(起始位置和偏移计算)
 - 参数的类型(根据约定或者其他信息,然后强制转换)
 
 所以
-
+```
 	#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
 	#define va_start(ap, last) (ap = (va_list)&last + _INSIZEOF(last))
     #define va_arg(ap, type) (*(type *)((ap += _INTSIZEOF(type)) - _INTSIZEOF(type)))
     #define va_end(ap) (ap = (va_list) 0)
-
+```
 上面的`_INTSIZEOF`的宏的目的,主要是要求寻址过程必须按照4字节对齐的限制.在C语言传递参数的时候,char和short都会转变为int整型.占用字节更长的参数,也要是4字节的整数倍,因此是一致的.
 
 `va_arg` macro, moving forward ap pointer, then derefrence its previous address to `type`.

@@ -90,7 +90,14 @@ integrate with Dolby Vision
 - increase spatial resolution
 - increase temporal resolution
 - increase information carried by each pixel
-    HDR enhance this point.
+    HDR enhance this point. (compared with Standard Dynamic Range (SDR))
+
+ SDR:: 0.1 ~ 100 cd/m2
+ HDR:: 0.01 ~ 1000 cd/m2
+
+luminance -> gamma correction -> brightness
+
+> HDR use knee curve instead of gamma curve, but they are same princple.
 
 Human eyes, can check 12bit depth gray range.
 
@@ -99,9 +106,40 @@ Modern displays, while still not able to display as wide a dynamic range as came
 ### more colors
 REC 709 -> **REC 2020** -> CIE XYZ
 
+ Wide Color Gamut (WCG)
+
 require more bits
 
 > 因此HEVC标准支持10 bitdepth, 这是HDR特性的基础.
+
+> first HDR(&WCG) feature, think need 12 bitdepth and YUV 444 sample.
+actually, using 10 bitdepth and YUV420 sample is enough.
+This is full match HEVC Main10 profile (or refered as HDR10)
+
+> warning: this YUV420 sample is for codec, not for capturing or represention.
+This two part need RGB 444 sample.
+
+ref:[[http://ngcodec.com/news/2015/11/16/fpgas-are-best-for-encoding-high-dynamic-range-hdr-content-with-hevch265]]
+```
+In the example, the encoder side includes:
+
+- The SMPTE ST 2084:2014 Electro Optical Transfer Function (EOTF) and Inverse-EOTF (OETF) commonly referred to as the Transfer Function (TF), which is applied to linear light samples in the RGB BT.2020 domain.
+- Color conversion to the Non-Constant Luminance (NCL) YCbCr BT.2020 format.
+- Chroma down-sampling to 4:2:0.
+- Quantization to a 10 bit integer representation.
+
+Essentially, HDR10 is defined as the combination of the following container and coding characteristics:
+
+- Color container/primaries: BT.2020
+- Transfer function (OETF/EOTF): SMPTE ST 2084
+- Representation: Non Constant Luminance (NCL) YCbCr
+- Sampling: 4:2:0
+- Bit Depth: 10 bits
+- Metadata: SMPTE ST 2086, MaxFALL, MaxCLL,  HEVC Supplemental enhancement information (SEI) Messages  
+- Encoding using: HEVC Main 10 profile (iii)  
+
+The HEVC specification supports all of these features as well as metadata (SEI) that can specify the mastering and brightness limitations characteristics of the content.
+```
 
 ### brighter images
 

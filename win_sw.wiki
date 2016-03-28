@@ -5,3 +5,13 @@ BUGGY::
 
 === faststone capture ===
 scroll window capture
+
+=== TaobaiProtect ===
+结束TaobaoProtect.exe进程
+
+打开一个命令行窗口，运行：
+{{{
+    sc stop TBSecSvc
+    sc delete TBSecSvc
+}}}
+删除以下文件夹：C:\Users<username>\AppData\Roaming\TaobaoProtect （如果有些文件删不掉，杀掉调用的程序再删除）

@@ -109,3 +109,7 @@ x264有3个相关的参数控制VBVbuffer
     注意: x264需要更多的选项来编码充分兼容蓝光的文件,但是以上一所有关于VBV兼容依赖的.
 # 流化视频通过flash,在一个网站上,例如youtube.
     想要视频快速开始,缓冲不超过0.5sec.需要设置用户需要的最小带宽为512kbit/sec.假设90%带宽可用,96kbit/sec用于音频,则剩余364kbit/sec给x264.指定--vbv-maxrate 364 --vbv-buffer 182
+
+
+== Hi10P ==
+H.264 extension to support 10 bitdepth.
