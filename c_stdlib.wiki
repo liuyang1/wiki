@@ -97,6 +97,12 @@ strip newline and other content after newline.
 split S with "\n" delimiter, so it will strip newline and other content after
 newline.
 
+=== string to number ===
+string to dobule, float, long double
+- strtod
+- strtof
+- strtold
+
 == stdbool ==
 bool exists in the current C - C99, but not in C89/90.
 

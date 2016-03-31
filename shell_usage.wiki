@@ -196,6 +196,8 @@ rm -- [FILENAME]
 `cmd > filename 2>&1`
 `1>&2`, stdout redirect to stderr
 
+WARNING: this sequenc is important, "2>&1" has to be last. to make it works.
+
 &, background run
 - running CMD.
 - inherits stdin, stdout, stderr from shell.

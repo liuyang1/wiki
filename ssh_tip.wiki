@@ -80,6 +80,13 @@ ssh xxx 'uname -a'#注意:这里为单引号,不是反引号.
 {{{
 	ssh user@host 'mkdir -p .ssh && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 }}}
+
+> `ssh-copy-id` may copy wrong key (if you have multiple keys) to server, so
+you still cannot auto login to server.
+> if find this kind problem, mannully do it or use `-i` option
+
+- -i [identify_file]
+
 ref:http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html
 
 ==scp==
