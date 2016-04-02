@@ -1,4 +1,4 @@
-= arch of open source =
+== arch of open source application =
 
 == asterisk ==
 telecomm business software.
@@ -16,3 +16,28 @@ TODO:
 - nginx
 - Processing.js
 - PyPy
+
+= Volume 2 =
+== git ==
+设计目标::
+- 支持分布式的工作流程
+- 安全可靠不会破坏内容
+- 高性能
+
+DAG(directed acyclic graph) for content storage, reference pointers for heads, object model represention and remote protocol, and how git tracks the merging of trees.
+
+=== VCS design ===
+Content Storage::
+a delta-based changeset, or with DAG content representation.
+
+> git choose DAG ..
+
+Commit and Merge Histories
+
+Object Database
+- tree, tag, blob and commit, 4 kinds of Primitive Object.
+- all object type have at least attributes: type, size, and content.
+- tree: an element in a tree can be another tree or a blob.
+- blob: represents a file sotred in the repo.
+- commit: a commit points to a tree representing top-level directory for that commit as well as parent commit and standard attributes.
+- tag:...

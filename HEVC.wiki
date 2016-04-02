@@ -96,3 +96,11 @@ Main profile, 采用8bit,YUV420采样.
 
 === Level 和 Tier ===
 13种level和两种Tire(Main或者High)
+
+=== VPS ===
+=== SPS ===
+- conference_window_flag
+conference window flag, use for cropping window flag
+
+H264, named `frame_cropping_flag` ...
+=== PPS ===
