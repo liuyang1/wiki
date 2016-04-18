@@ -42,6 +42,6 @@
 # 球面显示器
 
 == 3D video type ==
-- TB:   Top and bottom
+- TB/TAB:   Top and bottom
 - SBS:  Side by side
 - MVC:  Multiview video coding

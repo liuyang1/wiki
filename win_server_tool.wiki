@@ -14,3 +14,21 @@ telnet IP PORT
 Then remap it using net use again:
 
 `net use Z: \\server\share /user:username password`
+
+== How to format USB disk by command ==
+Disk management cannot delete volume for USB disk, use `diskpart` in `cmd`, it
+works at Windows 7 system.
+
+{{{
+diskpart
+lis dis
+# assume disk 1 is USB disk
+sel disk 1
+clean
+create partition primary
+active
+format fs=ntfs quick
+# or format as fat32 file system with `fs=fat32`
+exit
+exit
+}}}

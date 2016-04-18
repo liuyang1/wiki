@@ -236,3 +236,19 @@ TODO:
 === 红黑树 ===
 
 == priority queue ==
+
+== Merkle Tree ==
+hash pointer
+
+{{{
+typedef hash_pointer {
+    void *ptr;
+    int hash_val;
+};
+}}}
+
+so if use hash_pointer instead of pointer in a LinkedList, it
+*Tamper-resistent*. call it `block chain`.
+
+So if use hash_pointer instead of pointer in a BinaryTree, it also
+tamper-resistent. But we have log time complexity.

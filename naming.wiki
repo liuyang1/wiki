@@ -308,3 +308,12 @@ rtn, ret, rt, r
 
 == video ==
 - caption / subtile
+== operator ==
+- commutative
+- binary, unary
+
+- two's complement
+
+== encrypt ==
+- tamper
+- resistant

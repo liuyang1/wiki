@@ -5,7 +5,8 @@
 - Ql        list file & directory after install this module
 
 == sync ==
-- Syu       sync update yes
+- Syu           sync update yes
+- Syu --force   force to sync update, will overwrite conflict file
 
 == downgrade ==
 - U         /var/cache/pacman/XXX.pkg.tar.xz

@@ -396,6 +396,10 @@ directly execute the haskell as script
 not generate .o or executable file, not enter to ghci
 
 run spec test script could use this.
+
+== ghc-pkg ==
+- list      list ghc package
+
 = NOTE =
 unlike other language, function only means definition a map or a functor,
        which from value of one type to value of other type.
