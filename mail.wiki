@@ -18,6 +18,15 @@ may have some issues.
 * --append "Cc: abc@123.com"                    CC
 * --append "Content-Type: text/html"            send html format mail
 
+== How to send html mail ==
+add header scopr
+{{{
+    "MIME-Version: 1.0"
+    "Content-Type: text/html; charset=utf-8"
+}}}
+
+add html content as mail content
+
 == THEORY ==
 install `mailutils`
 
@@ -44,9 +53,20 @@ transmit binary file to a channel which only for ascii pure text.
 
 `(cat mailtext; uuencode [filename] [name]) | mail ...`
 
-== too slow ==
+== debug ==
+=== too slow ===
 move this
 `127.0.1.1	HOSTNAME`
 
 to
 `127.0.1.1	HOSTNAME.localdomain HOSTNAME`
+
+=== cannot send mail ===
+check `/var/log/syslog`
+
+=== 127.0.0.1 Connection refused ===
+local server `sendmail` service not start
+
+`service sendmail start`
+
+It will auto send blocked mail after startup

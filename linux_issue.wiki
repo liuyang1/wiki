@@ -73,3 +73,11 @@ When setting, file which older than `TMPTIME` days, it will be deleted.
 
 == arch ==
 `uname -r` different with `pacman -Q linux`, this need reboot.
+
+== burn image to usb ==
+`dd if=[image.iso] of=[/dev/sdb] bs=4M`
+
+must use `/dev/sdb` instead of `/dev/sdb1`.
+
+WARNING: this will destory partition table in USB, so file even filesystem in
+USB will gone.

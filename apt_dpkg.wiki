@@ -17,5 +17,8 @@ install all build-depence software.
 
 so easy!!
 
+== How to identify file from which package ==
+`dpkg -S /usr/bin/ls`
+
 == ppa ==
 === ppa-purge ===

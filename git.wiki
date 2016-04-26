@@ -149,6 +149,10 @@ same like author date and committer date.
 
 == am ==
 应用一系列的改动,并且增加commit _这个更为实用啊_
+{{{
+    format-patch -> am
+    diff -> apply
+}}}
 
 == blame ==
 查看每行的改动

@@ -422,6 +422,14 @@ sh is specification of POSIX, not a implemetion.
 - OSX use _zsh_
 - BSD use _pdksh_
 
+== different points between shell ==
+[[http://unix.stackexchange.com/questions/158896/where-are-zsh-and-mksh-incompatible-with-bash]]
+
+=== conditianal expression ===
+- double bracket syntax
+TODO:
+mksh also support it. but it seems doesn't work at Android-M platform.
+
 == export source ==
 export to make it work in child-shell
 

@@ -81,29 +81,37 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 - SAR 存储长宽比
 - DAR 显示长宽比
 === option ===
-- show_frames   显示每一帧的信息
-
 - print_format
 可以选择为default,compact,csv,json,xml等方式
 考虑使用compact格式或者csv格式输出
 这样就可以计算第一个GOP的大小了.
 
-- show_streams
-显示每个stream的信息
-
-- show_format
-显示格式信息
-
+- show_format       显示格式信息
+- show_programs
+- show_streams      显示每个stream的信息
+- show_frames       显示每一帧的信息
+- show_packet
 - show_data
 must use with show_straems, print payload data with dumped hex data format
-
-- show_packet
 
 - -select_streams v
 select_streams video / audio
 
+this option support `stream_type[:stream_index]` format.
+
+`stream_type` support:
+- v             video
+- a             audio
+- s             sub directory
+- d             data
+- t             appendix
+
+`p:program_id[:stream_index]` format
+
+`#stream_id` or `i:stream_id`, such as PID in MPEG2-TS container
+
 {{{
-ffprobe -show_frames -print_format compact -slect_streams v [filename]
+ffprobe -show_frames -print_format compact -select_streams v [filename]
 }}}
 
 - -probesize <int64>

@@ -317,3 +317,12 @@ rtn, ret, rt, r
 == encrypt ==
 - tamper
 - resistant
+
+== graph / gfx ==
+- surface
+- overlay
+- lock/unlock
+
+== mail ==
+- OOO out of office
+- ETA estimate time of arrival
