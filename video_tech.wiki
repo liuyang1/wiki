@@ -69,3 +69,8 @@ motion detect in these frame, and add adjacent frame.
 | 50i | PAL,SECAM |
 | 60i | NTSC      |
 25p -> 24p, slow down to 24fps, 3:2 pulldown |
+
+== links ==
+- sample download
+http://samples.mplayerhq.hu/
+

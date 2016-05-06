@@ -2,7 +2,7 @@
 ----
 
 [[lisp_interpretator|lisp解释器]]
-[[clojure_learning|学习clojure]]
+[[clojure|学习clojure]]
 ----
 == 标点符号 ==
 # 单引号

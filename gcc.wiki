@@ -58,6 +58,16 @@ struct init, as . style.
 === link option ===
 - -lLIBNAME
 
+==== short-enum ====
+ It means that enums are just as big as they need to be, depending on the
+ range of enumeration values. So short enums can be anything from 8 to 32 bits
+ in size (maybe even 64 bits?) -- there's no way to know without knowing how
+ the enum was defined.
+
+ Check compiling result:
+{{{
+readelf -a [ELF file] | grep enum
+}}}
 == 使用ccache加速 ==
 使用ccache gcc或者ccache g++,可以复用缓存的文件,这样加快编译速度.
 

@@ -1,0 +1,29 @@
+== synchronized ==
+- atomicity
+同时只能由一个线程去执行由一个lock保护的代码，从而防止多个线程在更新状态时互相冲突。
+- visiblity
+(寄存器，缓存，指令重排或者其他编译器优化）
+避免上述地因素，确保某一个线程对变量所做地更新先于对现有synchronized块所做地更新。
+类似地规则同样对于volatile变量上。
+
+
+== Reentrant Lock ==
+在已经获得锁地情况下，可以再次获得。但是相应地，释放锁地时候，也需要释放两次（或者对应次数）
+
+使用扩展地锁类，必须在finally进行释放，从而确保在任何情况下，都会释放。
+
+=== fair/unfair ===
+
+== live-lock ==
+When lock support timeout(or try), then it make a bad solution for dead lock
+problem.
+
+Why is it bad?
+- It doesn't avoid dead lock from root, instead recover when dead lock happens.
+- If lock have same timeout threshould, then we have *live-lock*.
+    With live-lock, it soon dead lock after timeout, as lock works at same
+    phase. Using coprime threshould, will avoid this problem.
+
+= Functional language =
+> Hidden and escaped state are just two of the dangers of mutable state in
+concurrent program - there are plenty of others.
