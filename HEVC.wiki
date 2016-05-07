@@ -104,3 +104,10 @@ conference window flag, use for cropping window flag
 
 H264, named `frame_cropping_flag` ...
 === PPS ===
+
+= Tool =
+- Elecard StreamEye Analyser
+- Zond 265
+- CodecVisa
+- Video Pro Analyser(Intel)
+- http://www.parabolaresearch.com/index.html

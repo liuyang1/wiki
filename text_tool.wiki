@@ -55,6 +55,10 @@ cut -s -d '.' -f1-2
 *可以用于提取文件名的前缀*
 
 == paste ==
+combine every two line, convient for [[pacman]] or yaourt.
+
+`paste -d " "  - - < filename`
+
 == join ==
 
 == 字符编码转换 ==
@@ -83,6 +87,7 @@ luit -encoding gbk telnet bbs.ustc.edu.cn
 == echo ==
 * -n,不加回车符号
 * -e,支持内嵌\xXX16进制任意字符
+    expand "\t" to tab
 
 == 正则匹配 ==
 === grep ===

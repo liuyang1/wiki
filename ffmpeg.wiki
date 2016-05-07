@@ -89,10 +89,14 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 - show_format       显示格式信息
 - show_programs
 - show_streams      显示每个stream的信息
+- show_chapters
 - show_frames       显示每一帧的信息
-- show_packet
+- show_packets
 - show_data
 must use with show_straems, print payload data with dumped hex data format
+- show_private_data
+- count_frames
+- count_packets
 
 - -select_streams v
 select_streams video / audio

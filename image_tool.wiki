@@ -5,6 +5,10 @@
 - -Z        zoom mode
 - -x        bordeless window
 
+`feh --recursive --randomize --bg-fill ~/.wallpaper`
+
+> with [[crontab]], it's easy to auto switch wallpaper now.
+
 == convert ==
 ImageMagick
 

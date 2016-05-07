@@ -72,6 +72,8 @@ programming.
 notify end of stream
 
 == array ==
+- add, remove
+- attach, detach
 
 === 2D-array ===
 - grid
@@ -148,6 +150,11 @@ notify end of stream
 - toc
 - beat
 - elapse
+
+= currency =
+- money
+- salary
+- package
 
 == mutex / seamphore / cond ==
 - lock / unlock

@@ -1,6 +1,8 @@
 = zsh 使用 =
 ----
 
+== change to zsh ==
+`chsh -s /bin/zsh`
 == auto completion ==
 cd 历史记录
 cd -(TAB)
