@@ -12,15 +12,18 @@
 	wget -r -p -k -np http://srcpath ./localpath
 }}}
 - -c	断电续传
-- -r	递归下载
-- -nd	递归下载所有内容到同一目录
-- -np	递归下载,不搜索上层目录
+- -r                recursive download 递归下载
+- -nd               递归下载所有内容到同一目录
+- -np --no-parent   递归下载,不搜索上层目录
 - -k	转换链接为相对链接
 - -L	不进入其他主机
 - -p	下载网页所需所有文件(图片,css之类)
 - -i	下载指定文件内容(文件内容为URL).
 - -m    mirror of site
 - --restrict-file-names=nocontrol   中文乱码解决
+
+=== download directory ===
+`wget -r --no-parent [url]`
 
 == rsync ==
 非常强大的工具,支持部分更新.很多工具软件的后台都是调用它实现的.

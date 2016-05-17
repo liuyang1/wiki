@@ -31,6 +31,13 @@ Normal conditon, this CC need less than 10 or 15.
 * PMD
 * CheckStyle
 * JavaNCSS
+* cccc
+=== cccc ===
+- LOC line of code
+- MVG McCabe's Cyclomatic Complexity
+- COM line of comment
+- L_C LOC/COM
+- M_C MVG/COM
 
 == coverity checking tool ==
 * Cobertura

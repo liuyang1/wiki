@@ -23,6 +23,11 @@ ltrace paste a.file b.file > /dev/null
 
     显然对于略微复杂的问题,这个工具还不够强大啊.
 
+- cccc
+    complexity check tool
+
+- klocwork
+    like cppcheck + cccc, but more powerful
 
 == debug 工具 ==
 - gdb

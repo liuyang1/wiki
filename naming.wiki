@@ -74,6 +74,7 @@ notify end of stream
 == array ==
 - add, remove
 - attach, detach
+- column, row
 
 === 2D-array ===
 - grid
@@ -97,6 +98,13 @@ notify end of stream
 - filter
 - fold
 - reduce
+
+== file system ==
+- file
+- directory
+- folder
+- path
+- basename
 
 == decoder ==
 - emptyThisBuffer
@@ -150,6 +158,7 @@ notify end of stream
 - toc
 - beat
 - elapse
+- bip/bop
 
 = currency =
 - money
@@ -245,6 +254,71 @@ rtn, ret, rt, r
 - config
 - setting
 - option
+- param parameter
+- arguement
+- property
+- perference
+
+== network ==
+- playload
+- overhead
+- header / body
+
+== GUI ==
+- button
+- check box
+- combo box
+- diag box
+- option box
+- toolbar
+- scroll bar
+- progress bar
+- text area
+- mouse
+- keyboard
+- tooltip
+- ballon tip
+- form
+- table
+- status line / status bar
+
+- container
+- pane
+- panel
+- grid
+- div
+- anchor point
+
+- text
+- icon
+- image / figure
+
+- title
+- caption
+- label
+
+- desktop
+- window
+    - pop-up window
+    - message box
+- menu
+- clipboard
+
+=== GUI action ===
+- hover
+- click
+- double-click
+- hold
+- drag
+- select
+- choose
+- jump
+
+- shortcut
+- acclearator key
+== font ==
+- glyph
+- anti-alias
 
 == VCS ==
 - feature/feat
@@ -256,6 +330,7 @@ rtn, ret, rt, r
 - chore
 
 == order ==
+- ascending order
 - non-descending order
 - monotone / monotonically increasing
 
@@ -285,6 +360,7 @@ rtn, ret, rt, r
 - slash
 - backslash
 - orthogonal
+- portrait
 
 - width
 - height
@@ -297,6 +373,7 @@ rtn, ret, rt, r
 - rectangle
 - circle
 - eclipse
+- curve
 
 - origin
 - vector
@@ -318,6 +395,7 @@ rtn, ret, rt, r
 - artifact
 - stutter
 - stavation
+- lipsync
 
 - trivial
 
@@ -344,3 +422,9 @@ rtn, ret, rt, r
 - FYI for your information
 - PLS please
 - ASAP as soon as possible
+- IMHO In my humble opinion
+- ToT Top of Tree
+
+- misc miscellaneous
+- cache
+- quota

@@ -241,6 +241,16 @@ execute command to rewrite commit message
 - tag-name-filter       rewrite tag name
 - subdirectory-filter   check history which touch the given subdirectory
 
+== submodule ==
+- add submodule
+`git submodule add [repo URL] [local dir name]`
+
+- init it
+`git submodule update --init`
+
+- update
+`git submodule update`
+
 = high =
 == githooks ==
 
@@ -251,8 +261,15 @@ execute command to rewrite commit message
 | post-commit        | after a commit is made               | YES   | 0     | NO     |
 
 = topic =
+== unstage -> stage ==
+- git add -u
+- git add
+
 == stage -> unstage ==
-reset <file>
+- git reset <file>
+
+== add commit ==
+- git add commit
 
 == 撤销最后一个commit ==
 git reset HEAD~1
