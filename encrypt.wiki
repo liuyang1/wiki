@@ -1,7 +1,18 @@
 = gpg =
+== key ==
+- -k, list-keys         list keys
+- --gen-key             generate key
+- --edit-keys           revsig to abandon key
+- --delete-secret-key [KEY]
+- --delete-key [KEY]
+=== How to generate random bytes ===
+install `rgb-tools`
+
+run
+`sudo rngd -r /dev/urandom`
+
 - -c Encrypt with symmetric cipher using a passphrase
 - -o output filename
-- -k, list-keys         list keys
 - -r, recipient         select key
 
 - import
@@ -16,3 +27,6 @@
 
 - decrypt with key
 `gpg --decrypt demo.en.txt --output demo.de.txt`
+
+== gpg with git ==
+check [[git]]

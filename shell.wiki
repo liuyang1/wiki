@@ -8,14 +8,30 @@ shell not have type system.
 in \'\' even ??
 == logic ==
 === topic ===
+==== test comand ====
 *if/then*, construct test whether the *exit status* of commands.
 
 left bracket special char [, it's a synonym for *test* command.
 *test* command is a builtin.
 
+{{{
+if [ -d "$dir" ]; then
+    echo "do something when exist dir"
+fi
+if [ ! \( -d "$dir" \) ]; then
+    echo "do something when not exist dir"
+fi
+}}}
+
+compare operator must escape using such as: `\<` or `\>`
+
+==== extended test command ====
+
 bash introduced the "\[\[  \]\]", _extended test command_.
 which performs comparisons, such as &&, || and etc.
 "\[\[" "]]" is keyword, `NOT` a command.
+
+*NOT* support for dash.
 
 No filename expansion or word spliting takes place between \[\[ and ]].
 but there is paramter expanison and command substitution.

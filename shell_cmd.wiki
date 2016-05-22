@@ -117,6 +117,7 @@ this command will
 groupadd
 
 == chown ==
+- -R, --recursive
 == chmod ==
 - u+s       set suid permission
 == stat ==

@@ -361,6 +361,7 @@ rtn, ret, rt, r
 - backslash
 - orthogonal
 - portrait
+- landscape
 
 - width
 - height
@@ -374,6 +375,9 @@ rtn, ret, rt, r
 - circle
 - eclipse
 - curve
+
+- descarte
+- coordinate
 
 - origin
 - vector
@@ -398,6 +402,14 @@ rtn, ret, rt, r
 - lipsync
 
 - trivial
+
+== number ==
+- single
+- dual
+- triple
+
+- half
+- quater
 
 == video ==
 - caption / subtile

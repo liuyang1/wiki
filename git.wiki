@@ -118,6 +118,9 @@ The author is the person who originally wrote the work, whereas the committer
 is the person who last applied the work.
 
 same like author date and committer date.
+
+when `--reset-author`, committer may change
+
 == clean ==
 用于清除git的多余的文件
 必须添加-f或者-n参数.
@@ -292,6 +295,19 @@ git push origin +master:master(这一步很关键)
 
 ref:http://blog.csdn.net/brave_heart_lxl/article/details/6651077
 
+== git with gpg ==
+- select key
+{{{
+# list all keys
+gpg -k
+git config user.signingkey XXX
+}}}
+
+- -S sign commit
+`git commit -a -S -m "message"`
+
+- show signature
+`git log --show-signature`
 == gitignore ==
 经常会在代码目录下面生成很多无用的东西,因此需要自动忽略一些文件,可以通过这个方法.
 
