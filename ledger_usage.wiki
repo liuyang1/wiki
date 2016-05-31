@@ -19,5 +19,7 @@ ledger -f my.dat reg Checking
 - Income		收入
 - Salary		工资
 - Liabilities	负债
+- Asset = Liability + Equity
+- Asset + Expense = Liabilit + Equity + Income
 == ref ==
 http://www.ledger-cli.org/3.0/doc/ledger3.html#Fat_002dfree-Accounting

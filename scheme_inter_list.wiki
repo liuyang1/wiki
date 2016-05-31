@@ -25,6 +25,9 @@ scheme因为本身语言简单,解释器众多.有下列:
 到.racketrc中
 
 ref:http://docs.racket-lang.org/readline/index.html
+
+==== option ====
+- -f <file>, --load <file>          load a file, without printing
 ----
 === guile ===
 {{{

@@ -89,9 +89,24 @@ gcc 从2到3引进的
 
 这样的目的,是为了代码优化.可以使用-Wno-stict-aliasing来去除这个警告(实际仍会采用这个优化)
 
-== cicular dependency ==
+== circular dependency ==
 - --start-group
 - --end-group
 
+We also could refine our code to avoid this kind of problem. For example:
+obersavor mode.
+
+libA depend on libB. However, libB need use one function in libA.
+
+- obersavor(libA) register function pointer to libB.
+- libB call the function pointer when need.
+
+so libB don't need know the function when compile, but just know it when
+runtime.
+
+`-Wl,--no-undefined`, check symbol when compiling, if no undefined reference
+symbol, then it fail.
+
+This make extra checking when link.
 == extension ==
 ref: [[https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html]]

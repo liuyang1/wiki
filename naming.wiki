@@ -165,6 +165,12 @@ notify end of stream
 - salary
 - package
 
+== concurrent ==
+- parllel
+- concurrently, simultaneously
+- synchronous, sync,
+- same time
+
 == mutex / seamphore / cond ==
 - lock / unlock
 

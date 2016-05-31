@@ -96,7 +96,15 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 must use with show_straems, print payload data with dumped hex data format
 - show_private_data
 - count_frames
+when `show_streams`, ffprobe try to get `nb_frames` from stream info.
+However, it fail offten, as NO frame number info in stream. So use this option
+`count_frames`.
+
+With `count_frames`, it add one more value: `nb_read_frames`, it parse entire
+stream, find number of frames.
+
 - count_packets
+like `count_frames`.
 
 - -select_streams v
 select_streams video / audio
