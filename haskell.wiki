@@ -399,6 +399,43 @@ run spec test script could use this.
 
 == ghc-pkg ==
 - list      list ghc package
+- describe   list ghc package's version
+
+== profile ==
+# Compile with profile option
+
+`ghc -prof -fprof-auto -rtsopts [haskell file]`
+
+# Run it with profile option
+
+`./[ghc exe] [args] +RTS -p`
+
+This depend on library should also install with `prof`.
+
+`cabal install [package] --enable-library-profiling`
+
+= library =
+== strings in haskell ==
+ref: [[http://blog.ezyang.com/2010/08/strings-in-haskell/]]
+
+Select `Data.ByteString` instead of String([Char]), will get good performance.
+
+- Binary
+    - Packed
+        - Lazy: Data.ByteString.Lazy
+        - Strict: Data.ByteString
+- Text
+    - ASCII or 8-bit
+        - packed and lazy: Data.ByteString.Lazy.Char8
+        - packed and strict: Data.ByteString.Char8
+    - Unicode
+        - UTF-8
+            - Packed and lazy: Data.ByteString.Lazy.UTF8
+            - packed and strict: Data.ByteString.UTF8
+
+=== ByteString ===
+0.10.2 old version don't have `isInfixOf` and `findSubstring` in this library,
+    should update it.
 
 = NOTE =
 unlike other language, function only means definition a map or a functor,
@@ -446,6 +483,7 @@ haskell.
 
 == course ==
 - [[http://www.scs.stanford.edu/11au-cs240h/|CS240h]]
+- CSE341
 == tutorial ==
 - [[https://www.haskell.org/tutorial/|haskell 98]]
 - [[https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/index.html|ghc user guide]]

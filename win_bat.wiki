@@ -13,3 +13,6 @@ support to %9, then use SHIFT, to continue after the 9th.
 == grammer ==
 comment
 line begin with ::
+
+== echo ==
+echo [ON|OFF|message|.]

@@ -291,7 +291,8 @@ v
 
 == mark 书签 ==
 - m[a-z,A-Z]       设置书签
-- '[a-z,A-Z]      书签跳转
+- '[a-z,A-Z]      书签跳转 jump to line of mark
+- `[a-z,A-Z]        jump to postion of mark
 
 === replace 替换===
 ==== replace action ====

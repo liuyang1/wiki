@@ -54,6 +54,14 @@ cut -s -d '.' -f1-2
 
 *可以用于提取文件名的前缀*
 
+- -f, --fileds=LIST
+
+=== LIST syntax ===
+* N         N'th bytes, char, or field, counted from 1
+* N-        from N'th bytes, char, fileds, to end of line
+* N-M
+* -M
+
 == paste ==
 combine every two line, convient for [[pacman]] or yaourt.
 

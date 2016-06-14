@@ -382,6 +382,11 @@ rtn, ret, rt, r
 - eclipse
 - curve
 
+- cone
+
+- area
+- volume
+
 - descarte
 - coordinate
 
@@ -442,6 +447,7 @@ rtn, ret, rt, r
 - ASAP as soon as possible
 - IMHO In my humble opinion
 - ToT Top of Tree
+- EOD End of Day
 
 - misc miscellaneous
 - cache

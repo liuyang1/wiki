@@ -62,5 +62,11 @@ show file system usage
 - h     human readable
 
 == fdisk ==
+=== command ===
+- m, menu
+- p, print
+- d, delete
+- n, new
+
 == mkfs ==
 == lsblk ==

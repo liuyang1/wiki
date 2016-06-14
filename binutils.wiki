@@ -73,6 +73,8 @@ addr2line -f [PC pinter] -e [filename]
 == ar ==
 creating, modifying, extracting from archives.
 
+- ar x      extracting from archives.
+
 == c++filt ==
 filter to demangle encode C++ symbols
 

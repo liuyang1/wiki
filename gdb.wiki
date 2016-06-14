@@ -10,17 +10,31 @@ mtime: 2013-03-27 18:05:40
 - next          step-over
 - step/si          step-into
 - finish        step-out
+- nexti                 机器码step-over
+- stepi                 机器吗setp-into
 
-- break [function]
+- break [function]      函数断点
+- break [linenum]
+- break [filename:linenum]
+- break [filename:function]
 - break *[address]
 - break file:lineno
 - watch file:lineno     跟踪点
 - watch expr            观察点
 
+- condition bnum        条件断点
+- handle,signal         事件断点
+- catch,throw           异常断点
+- tbreak                临时断点
+- delete/d                删除断点
+- clear [breakpoint format]     delete this breakpoint
+
 - bt,where              栈跟踪
 - bt N                  栈跟踪N层
 - bt -N                 栈跟踪从0开始N层.
 - print expr            输出表达式
+    print [variable name]   print var value
+    print *[point name]     print struct value by struct pointer
 - display               显示表达式
 continue show it every step, this is helpful to trace.
 
@@ -30,15 +44,6 @@ continue show it every step, this is helpful to trace.
 - set env var[=val]     设置环境变量
 
 - Disassemble           显示机器码
-- nexti                 机器码step-over
-- stepi                 机器吗setp-into
-
-- condition bnum        条件断点
-- handle,signal         事件断点
-- catch,throw           异常断点
-- break function        函数断点
-- tbreak                临时断点
-- delete/d                删除断点
 
 - commands bnum         命令连接到断点
 - printf/p                输出到命令行
@@ -75,6 +80,10 @@ continue show it every step, this is helpful to trace.
 - info frame            输出栈帧
 - info regiseters
 - info win              show win size of gdb
+- info threads
+- info variables        show global var
+- info locals           show local var
+- info args             show arg of this function
 - thread [N]            切换到线程N
 
 - until/u LINENUM       直到LINENUM行,可以用于跳出循环,或者直接到第几行
@@ -168,3 +177,11 @@ They communicate with each other by COM or TCP/IP.
 `generate-core-file`
 
 Then we get core dump file
+
+=== How to configure core_pattern ===
+`/proc/sys/kernel/core_pattern`
+
+== debugging an already-running process ==
+attach `process-id`
+
+detach
