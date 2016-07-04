@@ -21,6 +21,14 @@ sudo ntpd -gq
 sudo service ntp start
 }}}
 
+`ntpdate ntp.ubuntu.com`
+
+This will adjust time from ntp server immediately.
+
+== hwclock ==
+- --adjust
+- --systohc     write system time to hardware clock
+
 === NITZ ===
 Network Identity and Time Zone
 

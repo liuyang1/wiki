@@ -28,5 +28,8 @@ run
 - decrypt with key
 `gpg --decrypt demo.en.txt --output demo.de.txt`
 
+- recv-keys
+- delete-keys
+
 == gpg with git ==
 check [[git]]

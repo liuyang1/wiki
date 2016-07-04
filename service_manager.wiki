@@ -16,6 +16,7 @@ systemctl
 - systemctl	status httpd.service
 - systemctl	list-units --type=service
 - systemctl	start httpd.service
+- systemctl start sshd
 
 == enable core dump ==
 sysctl -w kernel.core_pattern="core"

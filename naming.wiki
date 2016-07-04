@@ -452,3 +452,7 @@ rtn, ret, rt, r
 - misc miscellaneous
 - cache
 - quota
+
+== number ==
+- integer
+- rational

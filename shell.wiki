@@ -353,6 +353,13 @@ midffix libabc_def.ta -> def
     suffix="${f#*_}"
     mid="${suffix%%.*}"
 }}}
+
+get prefix 1.ft -> 1
+
+{{{
+    prefix="${f%.*}"
+    echo "$prefix"
+}}}
 == meta skill ==
 === dynamic var name ===
 {{{

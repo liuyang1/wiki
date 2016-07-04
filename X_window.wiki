@@ -19,6 +19,19 @@ config it to rotate to left
 
 `xrandr --output VGA1 --rotate left`
 
+=== How to add one more resolution / mode ===
+# cvt
+`cvt 1680 1050`
+
+It generate one line config for this resolution.
+
+# xrandr
+{{{
+xrandr --newmode "1680x1050_60.00" ...
+xrandr --addmode [OUTPUT] "1680x1050_60"
+xrandr --output [OUTPUT] --mode "1680x1050_60"
+}}}
+
 == xv ==
 display image
 
