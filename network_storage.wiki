@@ -16,6 +16,10 @@ mkdir /tmp/fuse
 ./hello /tmp/fuse
 fusermount -u /tmp/fuse(需要root权限)
 
+How to solve `transport endpoint is not connected` issue?
+
+`fusermount -uz [mount ppint]`
+
 === fuse install ===
 依赖 util-linux >= 2.18
 using util-linux 2.22

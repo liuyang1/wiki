@@ -113,3 +113,9 @@ x264有3个相关的参数控制VBVbuffer
 
 == Hi10P ==
 H.264 extension to support 10 bitdepth.
+
+== DPB ==
+decoded picture buffer
+
+buffer holding decoded picture for references, output reordering, or output
+delay specified for HRD in annex C.

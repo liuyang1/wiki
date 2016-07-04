@@ -155,3 +155,18 @@ add this line to idea.properties
 
 == AOSP ==
 Andorid Open-Source Project
+
+= develop tool =
+== repo ==
+snapshort::
+
+save a snapshot of the source tree
+
+`repo manifest -o snapshot.xml -r`
+
+restore tree to the state described in a manifest snapshot file.
+{{{
+cp snapshot.xml .repo/manifest/
+repo init -m snapshot.xml
+repo sync -d
+}}}

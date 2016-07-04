@@ -51,6 +51,8 @@ xprop | grep WM_CLASS
 
 可以获取窗口类的名称,在设置Chromium-browser的awesome规则适合用到.
 
+including process information
+
 == 无法设置壁纸的问题 ==
 这是因为awesome的配置文件,后台也是使用其他东西实现的.
 

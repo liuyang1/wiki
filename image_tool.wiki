@@ -9,16 +9,21 @@
 
 > with [[crontab]], it's easy to auto switch wallpaper now.
 
-== convert ==
-ImageMagick
+== ImageMagick ==
+=== convert ===
 
 - -resize [width]x[height]
 - -reisze 50%
 
-== identify ==
-ImageMagick
+=== identify ===
 
 get meta-data from picture
+
+=== import ===
+
+screen capture
+
+`import [write filename]`, then click window want to capture
 
 == scrot ==
 linux screenshot util
