@@ -19,6 +19,11 @@ ramdisk path to orignal code path.
 - -l lazy umount
 - -f force umount
 
+mount iso file
+
+```
+mount -o loop [ISO file] [dir]
+```
 = seek/find =
 == find ==
 find $HOME -name "*.pdf"

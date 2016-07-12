@@ -11,3 +11,9 @@ F把恒等态射变为恒等态射
 `fmap (f . g) F = fmap f (fmap g F)`
 
 F保持态射的复合
+
+== Applicative ==
+- Maybe
+- List
+- IO
+- (-> r) funciton

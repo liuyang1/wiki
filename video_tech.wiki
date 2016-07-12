@@ -83,6 +83,13 @@ motion detect in these frame, and add adjacent frame.
 | Digital Cinema | 4096*2160   |
 | VGA            | 640 *480    |
 
+== PSNR ==
+{{{
+PSNR = 10 * log10 (MAX^2/MSE) = 20 * log10(MAX/sqrt(MSE))
+     = -20 * log10(sqrt(MSE)/MAX)
+
+MSE = 1/mn * SUM[diff(I(i,j) - K(i,j)) ^ 2]
+}}}
 == links ==
 - sample download
 http://samples.mplayerhq.hu/

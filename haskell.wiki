@@ -458,6 +458,7 @@ but in Haksell, this support inferred style system. GOOD.
 = issues =
 == align ==
 haskell use *align* to parse the program.
+= tools =
 == cabal ==
 - init
 init cabal file
@@ -481,6 +482,18 @@ Upgrade all:
 {{{
 cabal list --simple-output --installed | awk '{print $1}' | uniq | xargs -I {} cabal install {} --reinstall
 }}}
+
+== haddock ==
+write style: https://www.haskell.org/haddock/doc/html/markup.html
+
+add extra "|" after comment "--"
+
+`haddock -h [haskell file] -o [dir name]`
+
+== doctest ==
+Python's doctest comes to Haskell.
+
+`doctest [haskell file]`
 
 = bookmark =
 = Book =
