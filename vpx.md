@@ -37,6 +37,8 @@ Lossless
 
 ### Super frame
 
+![super frame](img/super_frame.png)
+
 VP9 does not support "compound prediction". In order to avoid patens on bi-prediction, compound prediction is only enabled in frames that are marked as not-displayable.
 
 A frame like this is never output for display, but may be used for reference later. In fact, a later frame may consist of nothing but 64x64 blocks  with no residuals and 0,0 motion vectors, that points to this non-displayed frame. Effectively causing it to be output later using very little data.

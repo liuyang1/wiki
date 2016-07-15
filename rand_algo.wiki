@@ -11,6 +11,9 @@
 == Box-Muller algo ==
 
 == ziggurat algo ==
+![ziggurat](img/ziggurat.jpg)
+
 this algorithm is simple, just first generate the spline rectangle region,
      then sampling on this region, when no in this region, just use Box-Muller
      algo to check it.
+
