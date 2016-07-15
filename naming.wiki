@@ -264,6 +264,7 @@ rtn, ret, rt, r
 - arguement
 - property
 - perference
+- factor
 
 == network ==
 - playload
@@ -456,3 +457,9 @@ rtn, ret, rt, r
 == number ==
 - integer
 - rational
+
+== math ==
+- abel
+- euler
+
+penalty

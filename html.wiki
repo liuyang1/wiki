@@ -18,3 +18,8 @@ in url as query string of request
 use *non-break space* `&nbsp;` instead of ' '.
 
 use `<br/>` instead of carriage return
+
+== table ==
+- tr    row in table
+- th    head cell in table
+- td    cell int able

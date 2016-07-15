@@ -16,7 +16,7 @@
 - turn off rightmost 1-bit
 `x = x & (x - 1)`
 
-so determining if an integer is a power of 2
+So determining if an integer is a power of 2
 `x & (x - 1) == 0`
 
 if consider 0 as 2's power
