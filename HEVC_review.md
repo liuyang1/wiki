@@ -8,12 +8,13 @@ Ref::
 
 - MPEG2 or H.263 have rigid block size.
 - H264 have Macroblock(16x16) and block(can split to to 4x4)
-- HEVC have LCU -> CU -> PU ->??? TU layer
+- HEVC have LCU -> CU -> PU ->??? TU layer (Coding Tree Unit, CTU)
     - LCU largest coding unit (64x64)
     - CU  coding unit (64x64~8x8) recursive partition
     - PU  prediction unis(CU~4x4) not recusive, only once; can asymmetric when inter-prediction. This is for match boundaries of objects in picture.
     - TU  transform units(32x32~4x4)
 
+![HEVC CTU](img/hevc_ctu.png)
 > change name to CTU, CB, PB, TB???
 
 ### slice -> tile
@@ -25,7 +26,7 @@ Ref::
 
  H265: tile + slice + entropy slice (no FMO)
 
-### wavefront parallel processing
+### wavefront parallel processing(WPP)
 start processing a new row of LCUs with a new parallel process.
 
 entropy-coding parameters are initialized based on the information obtained from the two fully encoded LCUs in the row above.
@@ -39,6 +40,8 @@ more mode
 
 MDIS:: mode-dependent intra smoothing
 three tap filter:: (1, 2, 1)/4
+
+> hevc have so many intra mode, as camera may use all intra mode, and have high bitrate as requesting high quality. VP9 doesn't consider this case, so have not so many intra mode.
 
 ### improved subpixel interpolation
 8-tap filter and 7-tap filter to generate luma half-pel and quarter-pel samples.

@@ -105,6 +105,26 @@ conference window flag, use for cropping window flag
 H264, named `frame_cropping_flag` ...
 === PPS ===
 
+=== TSA ===
+temporal sub-layer access
+
+H.264 SVC also support this.
+
+![TSA](img/tsa.png)
+
+=== Slice ===
+
+HEVC support dependent or independent slice.
+
+With independent slice, could achieve low delay transmit as pack data when not
+to end of this
+frame.
+
+=== Tile ===
+=== WPP ===
+
+> cannot use Tile or WPP same time as complexity.
+
 = Tool =
 - Elecard StreamEye Analyser
 - Zond 265

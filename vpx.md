@@ -14,7 +14,7 @@
 > as this trend, from raster-scan to tiles style, at different level.
 
 - bitstream
-    - ivf or webm
+    - ivf or [webm](mkv.wiki)
         - if no container at all, it's impossible to seek to a particular frame, as no start code
     - all VP9 bit stream start with a key frame
     - like VP8, VP8 compress using a 8bit arithmetic coding engine (bool-coder). The probability is fixed in one frame, (CABAC is adaptive)
@@ -49,8 +49,27 @@ To resolve this, VP9 introduce concept of super frame.
 
 A super frame is simply one or more non-displayable frames and one displayable frames all strung together as one chunk of data in container. Thus decoder still output a frame, and the internal references are all updated with non-displayable frames.
 
+### inter frame
+
+vp9 have fixed reference frame number: 8.
+
+but only use 3 reference frame for one frame.
+
+- Last frame (last one frame)
+- Golden frame (last key frame)
+- Alter frame (un-display frame)
+
+> check L, A, G char in super frame figure.
+
+so vp9's compound reference use two of these thress reference frames, such as L + A or G + A.
+
+may have two style to make alter frame.
+
+1. copy one from from forward, so that frame could bi-predication.
+1. one frame which after noise-reducation
 
 ### reference
 - [http://forum.doom9.org/showthread.php?t=168947]
+- https://mogusite.wordpress.com/2016/03/22/vp9%E5%92%8Chevc%E7%9A%84%E6%AF%94%E8%BE%83%EF%BC%88%E4%BA%8C%EF%BC%89/
 
 ## vp10

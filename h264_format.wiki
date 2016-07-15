@@ -119,3 +119,7 @@ decoded picture buffer
 
 buffer holding decoded picture for references, output reordering, or output
 delay specified for HRD in annex C.
+
+    DPB size = picture size * ref number
+
+
