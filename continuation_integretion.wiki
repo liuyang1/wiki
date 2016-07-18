@@ -6,3 +6,14 @@
 
 * local config
 * multi-version, complex environment support
+
+=== How to config deploy ===
+
+{{{
+# download and install `ruby` and `gem` first.
+# install `travis` tool
+gem install travis
+
+# config with local travis tool
+travis setup releases
+}}}

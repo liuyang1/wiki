@@ -63,6 +63,8 @@ In specific hardware support for AES, it can hardware-accelerated
 {{{
 	chmod 600 ~/.ssh/config
 }}}
+== test connection ==
+`ssh -T git@github.com`
 = topic =
 ==直接命令==
 ssh也可以直接输入命令,如果仅仅是简单的单个命令的时候就特别方便.例如

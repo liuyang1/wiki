@@ -79,6 +79,19 @@ add letter-space and line-space patch. everything is so good!
 
 line-space compare larger than 3/(50-3) = 6.4%
 
+=== 2016-07-18 build ===
+{{{
+# checkout rxvt-unicode code
+
+# checkout libev
+
+# checkout libptytty
+cvs -z3 -d :pserver:anonymous@cvs.schmorp.de/schmorpforge co libptytty
+
+./autoget.sh
+./configure --enable-everything
+  }}}
+
 == konsole ==
 - multiple tabbed
 - split-view mode
