@@ -38,6 +38,7 @@ programming.
 - begin
 - end
 - bgn/end
+- top/bot
 
 - head
 - tail
@@ -464,3 +465,5 @@ rtn, ret, rt, r
 - euler
 
 penalty
+
+quadratic

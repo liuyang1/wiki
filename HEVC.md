@@ -131,3 +131,21 @@ frame.
 - CodecVisa
 - Video Pro Analyser(Intel)
 - http://www.parabolaresearch.com/index.html
+
+# rbsp
+
+## nal type
+| group     | nal type | meaning |
+|-----------|----------|---------|
+| param set | 32       | VPS     |
+|           | 33       | SPS     |
+|           | 34       | PPS |
+|           | 35       | AUD     |
+| SEI | 39 | prefix sei |
+| | 40 | suffix sei |
+| slice | 0..9 | TRAIL, TSA, STSA, RADL, RASL |
+| | 16..21 | BLA, IDR, CRA |
+
+## slice_segment_header
+
+`first_slice_segment_in_pic_flag` first bit

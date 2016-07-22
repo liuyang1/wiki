@@ -81,12 +81,12 @@ sudo fc-cache -f -v
 
 == fontconfig @ linux ==
 === dpi ===
-xdpyinfo | grep -B2 res
+`xdpyinfo | grep -B2 res`
 
 In general, laptop is 96 dpi.
 
 === gfx card ===
-# lspci | grep VGA
+`lspci | grep VGA`
 
 which your gfx card
 

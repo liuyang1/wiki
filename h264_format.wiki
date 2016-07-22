@@ -54,6 +54,9 @@ time_info
 
 }}}
 
+| nal type | meaning |
+|----------|---------|
+
 以下为MPEG2的部分
 
 == VBV Video Buffering Verifer ==
