@@ -11,8 +11,8 @@ support to %9, then use SHIFT, to continue after the 9th.
 * %~dp0       drive and path to the batch file
 * %~dpnx0     fully qualified path name of the batch file
 == grammer ==
-comment
-line begin with ::
+=== comment ===
+- line begin with ::
 
 == echo ==
 echo [ON|OFF|message|.]

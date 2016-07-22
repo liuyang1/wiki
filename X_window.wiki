@@ -19,6 +19,10 @@ config it to rotate to left
 
 `xrandr --output VGA1 --rotate left`
 
+config relative position of mutiple monitors
+
+`xrandr --output VGA1 --right-of LVDS1`
+
 === How to add one more resolution / mode ===
 # cvt
 `cvt 1680 1050`

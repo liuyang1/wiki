@@ -12,6 +12,8 @@
 == ImageMagick ==
 === convert ===
 
+    convert [input-option] input-file [output-option] output-file
+
 - -resize [width]x[height]
 - -reisze 50%
 

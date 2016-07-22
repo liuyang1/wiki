@@ -213,6 +213,10 @@ WARNING: this sequenc is important, "2>&1" has to be last. to make it works.
 == fg/bg ==
 after ctrl-z suspend it, then `bg` command let it run background
 
+    fg [%jobid]
+
+jobid is from 0
+
 == wait ==
 After run command in background, then `wait` command will wait until last
 background command finished.

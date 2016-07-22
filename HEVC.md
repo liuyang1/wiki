@@ -1,11 +1,11 @@
-= HEVC =
+# HEVC
 auth: liuyang1
 mtime: 2013-01-10 11:37:35
 ----
 HEVC是视频编码标准草案.领先于H.264/AVC算法.目前由JCT-VC开发HEVC标准.
 HEVC据说增强了视频质量,压缩效率2倍于H.264.支持8K UHD??,分辨率支持到8192x4320.
 
-== 历史 ==
+## 历史
 2004年,ITU-T VCEG开始研究新的视频标准标准,或者H.264 AVC的增强标准.2005年1月,VCEG开始设计KTA(关键技术区域,专利池?)为进一步研究.KTA代码库用于进行诸上研究. KTA软件基于JM参考软件,(JM参考软件用于开发H.264 AVC).之后4年,新的技术集成到KTA软件中.
 
 标准化增强压缩技术有两个途径:
@@ -27,26 +27,26 @@ HEVC草案,经过6次草案,2012年2月发布.
 
 HEVC,8次草案于2012-7部分.同时商业产品将于2013年发布.
 
-== 规划 ==
-# 2012-2,草案完成.
-# 2012-7,国际i标准草案.
-# 2013-1,最终国际i保证草案.
+## 规划
+1. 2012-2,草案完成.
+1. 2012-7,国际i标准草案.
+1. 2013-1,最终国际i保证草案.
 
-== 实现 ==
-== 编码效率 ==
-== 特性 ==
-== 视频编码层 ==
-== 编码工具 ==
-== 预测块大小 ==
-== 内部位深增加 ==
-== 并行处理工具 ==
-== 熵编码 ==
-== 帧内预测 ==
-== 运动压缩 ==
-== 运行向量预测 ==
-== 反向变换 ==
-== 滤波回路 ==
-== 层级 ==
+## 实现
+## 编码效率
+## 特性
+## 视频编码层
+## 编码工具
+## 预测块大小
+## 内部位深增加
+## 并行处理工具
+## 熵编码
+## 帧内预测
+## 运动压缩
+## 运行向量预测
+## 反向变换
+## 滤波回路
+## 层级
 H.264有profile和level两级结构,用于说明编码的级别.
 H.265则有profile, level, tier的三层结构用于说明编码的级别. 例如:Main 10@L5.1@Main
 
@@ -73,7 +73,7 @@ colour_range                             : Limited
 H.264的流信息分为两层结构SPS和PPS信息.
 H.265则分为三层结构VPS,SPS,PPS.
 
-=== profile ===
+### profile
  Version 1 profile::
 - Main
 
@@ -94,25 +94,25 @@ Main profile, 采用8bit,YUV420采样.
  Version 3 profile::
  TODO
 
-=== Level 和 Tier ===
+### Level 和 Tier
 13种level和两种Tire(Main或者High)
 
-=== VPS ===
-=== SPS ===
+### VPS
+### SPS
 - conference_window_flag
 conference window flag, use for cropping window flag
 
 H264, named `frame_cropping_flag` ...
-=== PPS ===
+### PPS
 
-=== TSA ===
+### TSA
 temporal sub-layer access
 
 H.264 SVC also support this.
 
 ![TSA](img/tsa.png)
 
-=== Slice ===
+### Slice
 
 HEVC support dependent or independent slice.
 
@@ -120,8 +120,8 @@ With independent slice, could achieve low delay transmit as pack data when not
 to end of this
 frame.
 
-=== Tile ===
-=== WPP ===
+### Tile
+### WPP
 
 > cannot use Tile or WPP same time as complexity.
 

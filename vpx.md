@@ -14,7 +14,7 @@
 > as this trend, from raster-scan to tiles style, at different level.
 
 - bitstream
-    - ivf or [webm](mkv.wiki)
+    - ivf or [webm](mkv.wiki#webm)
         - if no container at all, it's impossible to seek to a particular frame, as no start code
     - all VP9 bit stream start with a key frame
     - like VP8, VP8 compress using a 8bit arithmetic coding engine (bool-coder). The probability is fixed in one frame, (CABAC is adaptive)
@@ -48,6 +48,9 @@ When puting VP9 bitstream in a container, we have issue. Each "frame" from conta
 To resolve this, VP9 introduce concept of super frame.
 
 A super frame is simply one or more non-displayable frames and one displayable frames all strung together as one chunk of data in container. Thus decoder still output a frame, and the internal references are all updated with non-displayable frames.
+
+> ffmpeg 2.x version have wrong process on super frame, it split super-frame to valid pts first, then with wrong pts. It's wrong. we want it pack super frame and fill data.
+> ffmpeg 3.x version is good.
 
 ### inter frame
 

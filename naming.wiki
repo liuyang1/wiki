@@ -37,6 +37,7 @@ programming.
 
 - begin
 - end
+- bgn/end
 
 - head
 - tail

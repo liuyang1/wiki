@@ -7,3 +7,8 @@ mtime: 2013-01-24 12:12:33
 The middle of every successful project looks like a disater.
 
 We always can add a indirection layer to solve all problem.
+
+----
+adding extra code is easy, merging code, and modifing code is hard.
+
+Don't add code so easily.
