@@ -24,6 +24,10 @@ mtime: 2013-03-27 18:05:40
 
 - condition bnum        条件断点
 - handle,signal         事件断点
+
+	send signal to program, by `signal [signal No. / signal name]`.
+	for example: `signal SIGINT`
+
 - catch,throw           异常断点
 - tbreak                临时断点
 - delete/d                删除断点
