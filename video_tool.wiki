@@ -43,6 +43,9 @@ AtomicParsely filename -T
 
 支持设置各种各样的参数,比如作者,时间,版权等等一系列信息
 
+=== bento4 ===
+ref: https://www.bento4.com/documentation/
+
 == flv文件类型 ==
 # flvmeta
 一个flv meta信息注入工具

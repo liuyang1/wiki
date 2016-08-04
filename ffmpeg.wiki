@@ -28,6 +28,11 @@ ffmpeg.exe -r 5 -f vfwcap -i 0 -s 176x144 -f rawvideo -pix_fmt yuv420p ss.yuv
 }}}
 这种分割方法会带来编码方式的变化.
 
+```
+ffmpeg -i [input file] -ss 0 -t 50 -c copy [output file]
+```
+just copy, don't re-encode
+
 - 截屏
 ffmpeg -ss 00:50:00  -i RevolutionOS.rmvb sample.jpg  -r 1 -vframes 1 -an -f mjpeg
 
