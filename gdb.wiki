@@ -75,6 +75,11 @@ continue show it every step, this is helpful to trace.
         - f     float
         - s     C string
         - i     instruction
+=== dump memory to file ===
+- dump [format] memory [filename start_addr end_addr]
+    - format: binary, ihex, srec, tekhex, verilog
+- append [binary] memory [filename start_addr end_addr]
+- restore [filename] [binary] bias start end
 
 - frame arg             选择栈帧
 - up/down               上下移动栈帧

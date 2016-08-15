@@ -13,7 +13,7 @@ The kernel store process info in circluar doubly linked list called the
 == IPC: Interprocess Communication Mechanisms ==
 inter-process communication
 
-shared between process
+Shared between process
 - file
 - memory-mapped file
 - socket
@@ -42,20 +42,22 @@ These two cannot ignore or block.
 Other signal can handle by process self, or default handler by kernel.
 
 The number of supported signals is limit to the word size of the processor. In
-32bit processors, it only can have 32 singals. so we only have 30+ singal in
+32bit processors, it only can have 32 singals. So we only have 30+ singal in
 general.
 
 This info store at `signal` filed of `task_struct` of every process.
-block info store as mask at `blocked` filed. pending siganls are kept in
-`siganl` field. It remains until it is unblocked.
+Block info store as mask at `blocked` filed. pending siganls are kept in
+`signal` field. It remains until it is unblocked.
 
 Info about how each process handle every possible signal, this is held in an
 array of `sigaction` struct pointed at by `task_struct`.
 
 - address of a routine that will handle signal
-- a flag which tells linux that ignore the signal or let kernel handle it.
+- a flag which tells Linux that ignore the signal or let kernel handle it.
 
 | SIGTSTP | suspend process | user's 'Ctrl-Z' | may ignore |
+| SIGNINT |                 | user's `Ctrl-C` | may ignore |
+
 ==== Send signal ====
 setting bit in `task_struct`'s `signal` field will gemerated signal.
 
@@ -82,7 +84,7 @@ must wait until the process is running again.
 register a routine/handler for specific signal
 
 ==== issues ====
-- original, signal is oneshot. when kernel get registered handler, then reset
+- original, signal is oneshot. When kernel get registered handler, then reset
 it back to DFT handler if signal have ONESHOT flag. This flag is default
 setting.
 

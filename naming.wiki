@@ -419,7 +419,7 @@ rtn, ret, rt, r
 
 == number ==
 - single
-- dual
+- dual, double
 - triple
 
 - half

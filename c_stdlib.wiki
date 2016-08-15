@@ -16,6 +16,9 @@ if the name was the last link to a file, but any processes still have the file
 open, the file will remain in existence until the last file descriptor
 referring to it is closed.
 
+=== fgets ===
+- Ctrl-D return EOF
+
 == memory ==
 === malloc ===
 === free ===

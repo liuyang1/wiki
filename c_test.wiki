@@ -7,3 +7,7 @@ function independency.
 implement with Ruby
 
 == gtest ==
+
+### How to disable one test case
+
+add `DISABLED_` prefix to name
