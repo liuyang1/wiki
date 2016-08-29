@@ -25,3 +25,15 @@ cmd:powercmd
 cygwin:securecrt
 
 }}}
+
+== cygwin ==
+=== mintty ===
+- click link
+
+`Ctrl` + left click
+
+- without border
+
+`mintty.exe -B void`
+
+but cannot move window of mintty now.
