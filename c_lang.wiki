@@ -29,3 +29,40 @@ In gcc
 == issue ==
 0x表示十六进制,0开头表示八进制,非零开头表示十进制.
 
+== new style C ==
+
+- LTO 链接时优化 -flto
+
+- type, use fixed length type like this
+
+```
+#include <stdint.h>
+int8_t, uint64_t, instead of char, unsigned long long
+```
+
+float, double could continue to use.
+
+char only premit to use for legacy API.
+
+    - fast type
+
+    use fast type, for system optimization to use best type.
+    for example, I have one type uint32_t, and I don't really case its size.
+    but only range. so we could use `int_fast32_t`.
+
+    In LPP64 system, it could opt to 64bit int, In 32bit system, it keep
+    32bit int.
+
+- `uintptr_t` and `ptrdiff_t` instead of other cast
+
+- var could place anywhere, instead of header of {} scope
+- var could defined in loop, but not before it.
+- use `#pragma once` instead of `ifdef` hack in header file.
+- static init array or struct, but not use `memset` (avoid to use `memset`)
+- use var-length array if need
+- use `void *` instead of `char *`, if present any type.
+- use format tool
+- comment better put C file, instead of H header file.
+- use `calloc` instead of `malloc` to reset memory after allocation
+
+ref: http://www.infoq.com/cn/articles/c-language-2016

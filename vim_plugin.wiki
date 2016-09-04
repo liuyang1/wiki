@@ -111,7 +111,7 @@ vim also have migrate style.
 == status line ==
 # powerline
 
-== GNU global ==
+== GNU global/gtags ==
 This is another powerful tag tools. better than ctags.
 
 - -r        find reference of symbol

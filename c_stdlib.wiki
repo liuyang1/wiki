@@ -115,3 +115,8 @@ Objects of type _Bool hold either 0 or 1, while true and false are also macros f
 == string ==
 - strdup, strdupn, strdupa, strndupa
 copy a string, must free or nothing(if use `alloca`)
+
+== assert ==
+`assert` function
+
+deifne `NDEBUG` to do in release build

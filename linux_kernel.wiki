@@ -62,3 +62,17 @@ DTS go through C preprocessor, use `#include` style.
 scripts/dtc (device tree compiler)
 
 DTB, compiled file.
+
+== kworker ==
+
+"kworker" is a placeholder process for kernel worker threads, which perform
+most of the actual processing for the kernel, especially in cases where there
+are interrupts, timers, I/O, etc.
+
+
+```
+echo l > /proc/sysrq-trigger
+dmesg | tail -n 100
+```
+
+to find out what use so may CPU.
