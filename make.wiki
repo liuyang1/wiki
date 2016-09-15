@@ -84,6 +84,10 @@ start with "-"
 or `make -i`
 or `make -k`, keep-going
 
+=== dependency detect ===
+
+use gcc's -MM option to detect it.
+
 [[makefile_inst]]
 
 ==高级Makefile==

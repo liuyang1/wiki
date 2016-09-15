@@ -23,6 +23,14 @@
 === shortcut ===
 - $         rename session
 
+disable auto wrap mode in VT-like terminal
+
+　　1、Xshell下：文件->属性->终端->VT模式->初始VT模式->去掉 Auto Wrap Mode
+(DECAWM) 勾选->退出SSH重新登录一次
+
+　　2、SecureCRT下：选项->会话选项->终端->仿真模式->去掉 [换行]
+勾选->退出SSH重新登录一次
+
 == xfce-terminal ==
 
 gtk程序,在非对应字体的情况下,会导致CPU运行很高.

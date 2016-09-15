@@ -110,6 +110,7 @@ luit -encoding gbk telnet bbs.ustc.edu.cn
 - -C                print [NUM] lines of output context
 - -q                quiet, output nothing to stdout, but exit with zero status
    if found match
+- -m [NUM]          Stop reading a file after [NUM] matching lines.
 
 grep -E "WORD|"     match every line, and colorize WORD
 
