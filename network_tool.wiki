@@ -177,3 +177,13 @@ dmesg | grpe -i eth
 == netctl ==
 
 == wpa_supplicant ==
+
+= issue shooting =
+== `ifconfig wlp3s0 up`, cannot do due RF-kill ==
+`rfkill` is one program which help save power. It may shutdown wifi,
+    bluetooth.
+
+```sh
+rfkill list
+rfkill unblock wifi
+```
