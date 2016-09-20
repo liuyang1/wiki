@@ -124,3 +124,6 @@ auto add reviewer plugin
 when have no right, it just get fatal error, which declare "no such change"
 
 switch another account, and retry
+
+== premission denied ==
+`ssh -T -vvv [USER]@[SERVER] -p [PORT]`
