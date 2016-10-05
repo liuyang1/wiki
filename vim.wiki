@@ -309,6 +309,10 @@ v
 - <C-R><C-W>            copy & paste current word under cursor
 - empty pattern0        pattern0 default to "@/", which is the search value by
 "\*" or "#"
+- `:%s/.*\zeAAA//g`     from head until pattern (AAA)
+
+    - `.*` to match any char,
+    - \ze end matching so the reset of the patten
 
 {{{
 :%s/\<foo\>.*//

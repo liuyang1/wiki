@@ -49,6 +49,10 @@ programming.
 - lower
 - middle
 
+- previous, next
+- front, back
+- before, after
+
 - range
 - interval
 - step
@@ -466,6 +470,11 @@ BLDN
 - abel
 - euler
 
-penalty
+- penalty
 
-quadratic
+- quadratic
+
+- cleanup
+
+- main
+- auxiliary, dummy

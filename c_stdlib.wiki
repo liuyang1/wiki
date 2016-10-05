@@ -69,6 +69,8 @@ allocate buffer in stack, so not need `free`, but may overflow in `stack`.
 - toupper
 
 == string.h ==
+- strcat, strncat
+- strcpy, strncpy
 - strchr
 - strrchr
 - strchrnul
@@ -105,6 +107,20 @@ string to dobule, float, long double
 - strtod
 - strtof
 - strtold
+
+|                                           | function name              | comment |
+|-------------------------------------------|----------------------------|---------|
+| scan memory for char                      | memchr, memrchr, rawmemchr | opt     |
+| index char in string                      | index, rindex              |         |
+| locate char in string                     | strchr, strrchr, strchrnul |         |
+| search a string for any of a set of bytes | strpbrk                    |         |
+| extract token from string                 | strsep                     |         |
+| get length of a prefix substring          | strspn, strcspn            |         |
+| locate a substring                        | strstr                     |         |
+
+== stdint ==
+
+have `int32_t` and other types definition.
 
 == stdbool ==
 bool exists in the current C - C99, but not in C89/90.
