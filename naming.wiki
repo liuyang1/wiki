@@ -8,7 +8,25 @@ programming.
 - release
 `I love these terms, vast and of equal length.`
 
-== queue / stack ==
+== struct ==
+- list, array, queue, stack
+- linked-list
+- tuple, record
+- lookup table, hash table
+- set
+- tree
+- dict, map, assoc, associated array
+
+=== queue / stack / linked-list ===
+- stack, stk,
+- queue, que, q
+- list, lst
+- link, next, prev
+
+- queue, chain
+- list
+
+- head, tail
 - dequeue / deque (pronounced "deck")
 - put
 - get
@@ -29,11 +47,14 @@ programming.
 - push
 - pop
 
-- bound
+- bound, unbounded
 - thresh
 
 - start
-- stop
+- stop, halt, halting
+- suspend, resume
+- freeze, unfreeze
+- standby
 
 - begin
 - end
@@ -50,6 +71,8 @@ programming.
 - middle
 
 - previous, next
+- predecessor, successor
+- subsequent
 - front, back
 - before, after
 
@@ -68,8 +91,10 @@ programming.
 
 - trim
 - strip
+- truncate
 
 - reverse
+- inverse
 
 === blocking queue ===
 - take (block when queue is empty)
@@ -86,12 +111,17 @@ notify end of stream
 - grid
 - lattice
 == object ==
+
+- object, instance, handle
+
 - init
 - deinit / finit
 - create
 - destroy
 - open
 - close
+- construct, destruct
+- ctor, dtor
 
 - die
 - exit
@@ -134,11 +164,12 @@ notify end of stream
 - symmetric_difference
 
 == memory ==
-- alloc / allocate
+- alloc / allocate / deallocate
 - malloc
 - realloc
 - calloc
 - free
+- new, delete
 
 - release
 - discard
@@ -179,14 +210,15 @@ notify end of stream
 
 == mutex / seamphore / cond ==
 - lock / unlock
+- race condition
+- concurent, parallel
 
 == IO ==
 - print
 - scan
 - get
 - put
-- show
-- stringify
+- show, stringfy, toString, pretty
 
 == file operation ==
 - seek
@@ -209,13 +241,15 @@ notify end of stream
 - get
 
 == data type ==
-- atom / atomic
+- atom / atomic, primitive
 - interval / range
-- enumeration / enum
+- enumeration / enum, struct, union
 - itemization(racket) / Maybe(haskell)
 - compound (consist of two or more itema that naturally belong together)
 - composed (naturally composed of diferent parts)
+- reference
 - self-reference
+- dereference
 
 == search ==
 - haystack
@@ -225,12 +259,29 @@ notify end of stream
 - module
 - package
 - static
-- public
-- private
-- protected
-- extern
-- external
-- internal
+- public , private , protected
+- share
+- extern , external
+- internal, innard
+- import, export, reveal, expose
+- prototypes, interface, implementation, representation
+- declare, declaration
+- right, own, owner, privilege, enforce, permissive
+
+- unchecked runtime error, checked runtime error, exception
+- exception: try, catch, raise
+
+- convention, convent
+- specify
+- implicitly, implicit, explicit
+- pollute, pollution
+- dependent, independent,
+- opaque, hide, hidden
+- transparent
+
+- eval, repr
+
+- client, server
 
 == server name ==
 - app
@@ -255,7 +306,9 @@ notify end of stream
 - pdu       power distribution unit
 - ups       uninterruptible power supply
 
-== abbr ==
+- function, routine, procedure, chunk
+- macro
+== abbr, abbreviate ==
 - function
 func, fcn, fn, f
 - index
@@ -330,10 +383,11 @@ BLDN
 - jump
 
 - shortcut
-- acclearator key
+- accelerator key
 == font ==
 - glyph
 - anti-alias
+- hint, hintfull
 
 == VCS ==
 - feature/feat
@@ -343,6 +397,8 @@ BLDN
 - refactor/refine
 - test
 - chore
+
+- branch, bookmark, tag, commit, CL, pull request
 
 == order ==
 - ascending order
@@ -356,9 +412,10 @@ BLDN
 - swap
 - exchange/exch
 
-== char ==
+== char/symbol ==
 - slash
 - backslash
+- underscore
 
 - magnify
 - zoom in/zoom out
@@ -396,16 +453,19 @@ BLDN
 - area
 - volume
 
-- descarte
+- desecrate
 - coordinate
 
 - origin
 - vector
 
 == pointer ==
+- cursor
 - loitering
 - guard/sentinel/sentry
+- defense, defensive, offensive
 
+- dangling pointer
 - heuristic
 
 == binary ==
@@ -429,10 +489,10 @@ BLDN
 - triple
 
 - half
-- quater
+- quarter
 
 == video ==
-- caption / subtile
+- caption / subtitle
 == operator ==
 - commutative
 - binary, unary
@@ -478,3 +538,32 @@ BLDN
 
 - main
 - auxiliary, dummy
+- placeholder
+- reserve, reserved
+- var, variable
+
+- The quick brown fox jumps over the lazy dog
+- 我能吞下玻璃而不伤身体
+
+- coupling 耦合
+- conflict, collision
+
+- coach, train
+
+- pitfall
+
+=== arith ===
+- add, addition, minus, multiply, divide, division,
+- quotient, modular, mod, remainder, quot
+- operator, operand
+- argument
+- minimum, maximum
+- ceil, ceiling, floor, round
+- sign, abs
+- even, evenly, odd
+
+- consistent, adhere
+- relate, relation, relationship
+- involve
+
+- repeat, replicate
