@@ -25,8 +25,10 @@ referring to it is closed.
 === calloc ===
 `void *calloc(size_t nmemb, size_t size);`
 
-allocate memory for an array of NMEMB elements of SIZE bytes each, and return
+Allocate memory for an array of NMEMB elements of SIZE bytes each, and return
 a pointer to the allocated memory.
+
+This function will do exter `memset` after allocation.
 
 === realloc ===
 用于改变指针指向的存储空间的大小。从开始位置到min（new size， old size）之间的内容得以保持不变。
@@ -37,19 +39,24 @@ a pointer to the allocated memory.
 
 如果参数size是0，而ptr不是NULL，那么等同于free的效果。
 
+=== alloca ===
+allocate buffer in stack, so not need `free`, but may overflow in `stack`.
+
 === trouble shooting ===
 {{{
-Crashes in memory releated function are almost always related to heap
+Crashes in memory related function are almost always related to heap
 corruption, such as overflowing an allocated chunk, or freeing the same
 pointer twice.
 }}}
 
-if realloc size is not alignment, it may return error when `free`.
+If realloc size is not alignment, it may return error when `free`.
 
-error message: invalid next size
+Error message: invalid next size
 
-=== alloca ===
-allocate buffer in stack, so not need `free`, but may overflow in `stack`.
+- dangling pointer
+- free twice
+- allocate pointer which is not allocated from heap
+
 == ctype.h ==
 - isalnum
 - isalpha
@@ -136,3 +143,6 @@ copy a string, must free or nothing(if use `alloca`)
 `assert` function
 
 deifne `NDEBUG` to do in release build
+
+== limits.h ==
+- LLONG_MAX, LLONG_MIN, ULLONG_MAX

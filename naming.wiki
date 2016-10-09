@@ -8,14 +8,15 @@ programming.
 - release
 `I love these terms, vast and of equal length.`
 
-== struct ==
+== struct, st ==
 - list, array, queue, stack
 - linked-list
 - tuple, record
-- lookup table, hash table
+- lookup table, lut, hash table, tbl, tab
 - set
 - tree
 - dict, map, assoc, associated array
+- heap
 
 === queue / stack / linked-list ===
 - stack, stk,
@@ -43,12 +44,12 @@ programming.
 - pool (retrieve and remove head of list)
 
 - full
-- empty
+- empty, isEmpty
 - push
 - pop
 
 - bound, unbounded
-- thresh
+- thresh, threshold
 
 - start
 - stop, halt, halting
@@ -71,10 +72,12 @@ programming.
 - middle
 
 - previous, next
-- predecessor, successor
+- predecessor, successor, succeeding
 - subsequent
 - front, back
-- before, after
+- before, after, afterward, forward, backward
+
+- compatible
 
 - range
 - interval
@@ -85,6 +88,7 @@ programming.
 - size
 - length
 - capacity
+- fullness, depth
 
 - find
 - index
@@ -112,7 +116,7 @@ notify end of stream
 - lattice
 == object ==
 
-- object, instance, handle
+- object, instance, handle, subject
 
 - init
 - deinit / finit
@@ -168,7 +172,7 @@ notify end of stream
 - malloc
 - realloc
 - calloc
-- free
+- free, dispose
 - new, delete
 
 - release
@@ -268,8 +272,10 @@ notify end of stream
 - declare, declaration
 - right, own, owner, privilege, enforce, permissive
 
+- check, chk
 - unchecked runtime error, checked runtime error, exception
 - exception: try, catch, raise
+- diag, Diagnostic, debug
 
 - convention, convent
 - specify
@@ -336,7 +342,7 @@ BLDN
 - button
 - check box
 - combo box
-- diag box
+- dialog box
 - option box
 - toolbar
 - scroll bar
@@ -404,6 +410,7 @@ BLDN
 - ascending order
 - non-descending order
 - monotone / monotonically increasing
+- total-ordering
 
 - alignment
 - padding
@@ -416,6 +423,7 @@ BLDN
 - slash
 - backslash
 - underscore
+- parenthese
 
 - magnify
 - zoom in/zoom out
@@ -492,7 +500,12 @@ BLDN
 - quarter
 
 == video ==
-- caption / subtitle
+- caption / subtitle, title
+- descriptor
+== OS ==
+- process
+- thread
+- context
 == operator ==
 - commutative
 - binary, unary
@@ -567,3 +580,5 @@ BLDN
 - involve
 
 - repeat, replicate
+
+- bouns

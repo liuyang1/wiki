@@ -188,3 +188,5 @@ NUM is level
 
 == pv ==
 progress of pipe
+
+`dd if=/dev/urandom | pv | dd of=/dev/null`

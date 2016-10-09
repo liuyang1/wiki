@@ -8,6 +8,9 @@
 - Syu           sync update yes
 - Syu --force   force to sync update, will overwrite conflict file
 
+This command cannot delete directory, so may need manually delete directory if
+need.
+
 == downgrade ==
 - U         /var/cache/pacman/XXX.pkg.tar.xz
 

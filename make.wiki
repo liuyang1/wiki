@@ -58,6 +58,11 @@ $(function args)
 - subst         text replace $(subst from,to,text)
 - patsubst      pattern matching replace $(patsubst pattern,replacement,text)
 - VAR:oldSuffix=newSuffix       suffix replace `min: $(OUTPUT):.js=.min.js`
+- filter-out
+
+    `SRCS:=$(filter-out mem.c,$(SRCS))`
+
+from $(SRCS) remove `mem.c` file.
 == makefile debug param ==
 make -d
 输出细节
@@ -74,9 +79,9 @@ basic, verbose, implicit, jobs, all, makefile
 == shell ==
 $$SHELL_VAR_NAME
 
-default using shell is /bin/sh, change this by SHELL var.
+Default using shell is /bin/sh, change this by SHELL var.
 
-cannot run enviroment function from parent shell, but can source and run it in subshell
+Cannot run enviroment function from parent shell, but can source and run it in subshell
 
 == issues ==
 === ignore on error ===

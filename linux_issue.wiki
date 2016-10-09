@@ -77,7 +77,25 @@ When setting, file which older than `TMPTIME` days, it will be deleted.
 == burn image to usb ==
 `dd if=[image.iso] of=[/dev/sdb] bs=4M`
 
-must use `/dev/sdb` instead of `/dev/sdb1`.
+Must use `/dev/sdb` instead of `/dev/sdb1`.
 
-WARNING: this will destory partition table in USB, so file even filesystem in
+WARNING: this will destroy partition table in USB, so file even file system in
 USB will gone.
+
+== How to fix system ==
+
+1. Burn image to usb
+1. Boot from usb
+1. Mount disk to /mnt
+{{{
+# mount your disk filesystem to /mnt
+# mount runtime directory
+cd /mnt
+mount -t proc proc proc/
+mount -t sysfs sys sys/
+mount -o bind /dev dev/
+}}}
+1. `chroot .`
+1. `pacman -Syu`
+
+ref: https://kelvinh.github.io/blog/2013/09/03/fix-archlinux-on-mac-air/
