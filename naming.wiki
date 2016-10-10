@@ -99,6 +99,7 @@ programming.
 
 - reverse
 - inverse
+- traverse, walk
 
 === blocking queue ===
 - take (block when queue is empty)
@@ -286,8 +287,9 @@ notify end of stream
 - transparent
 
 - eval, repr
+- static, dynamic
 
-- client, server
+- client, cl, server, srv
 
 == server name ==
 - app
@@ -420,10 +422,66 @@ BLDN
 - exchange/exch
 
 == char/symbol ==
-- slash
-- backslash
-- underscore
-- parenthese
+
+ref: https://www.douban.com/group/topic/12410327/
+
+| symbol | name                         |
+| !      | exclamation mark, bang       |
+| ?      | question mark                |
+| ,      | comma                        |
+| .      | dot, period, point           |
+| :      | colon                        |
+| ;      | semicolon                    |
+| \"     | quotation mark, double quote |
+| \'     | apostrophe, single quote     |
+| \`     | backquote, grave accent      |
+| *      | asterisk, star               |
+| +      | plus sign                    |
+| -      | hyphen, dash, minus sign     |
+| =      | equal sign                   |
+| /      | slash                        |
+| \\     | backslash                    |
+| _      | underline, underscore        |
+| $      | dollar sign                  |
+| @      | at sign                      |
+| #      | crosshatch, sharp, hash      |
+| %      | percent sign, mod            |
+| &      | and, ampersand               |
+| ^      | circumflex, caret            |
+| {}     | brace                        |
+| []     | bracket                      |
+| ()     | parentheses                  |
+| <>     | angle bracket                |
+| <      | less than                    |
+| >      | greater than                 |
+
+{{{
+    bar, pipe, vertical bar
+}}}
+
+- alpha
+- beta
+- gamma
+- delta
+- epsilon
+- zeta
+- eta
+- theta
+- iota
+- kappa
+- lambda
+- my
+- ny
+- xi
+- omicron
+- pi
+- rho
+- sigma
+- ypsilon
+- phi
+- chi
+- psi
+- omega
 
 - magnify
 - zoom in/zoom out
@@ -435,11 +493,11 @@ BLDN
 - down/up
 - left/right
 - horizontal
-- vertical
+- vertical, 竖直
 - diagonal
 - slash
 - backslash
-- orthogonal
+- orthogonal,  正交
 - portrait
 - landscape
 
@@ -566,7 +624,7 @@ BLDN
 - pitfall
 
 === arith ===
-- add, addition, minus, multiply, divide, division,
+- add, addition, plus, minus, multiply, divide, division,
 - quotient, modular, mod, remainder, quot
 - operator, operand
 - argument
