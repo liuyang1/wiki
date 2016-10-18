@@ -175,6 +175,7 @@ notify end of stream
 - calloc
 - free, dispose
 - new, delete
+- shrink
 
 - release
 - discard
@@ -224,6 +225,7 @@ notify end of stream
 - get
 - put
 - show, stringfy, toString, pretty
+- illustrate
 
 == file operation ==
 - seek
@@ -248,7 +250,7 @@ notify end of stream
 == data type ==
 - atom / atomic, primitive
 - interval / range
-- enumeration / enum, struct, union
+- enumeration / enum / enumerate, struct, union
 - itemization(racket) / Maybe(haskell)
 - compound (consist of two or more itema that naturally belong together)
 - composed (naturally composed of diferent parts)
@@ -454,6 +456,9 @@ ref: https://www.douban.com/group/topic/12410327/
 | <>     | angle bracket                |
 | <      | less than                    |
 | >      | greater than                 |
+| ' '    | whitespace, space            |
+| '\n'   | newline, line feed, LF       |
+| '\r'   | carriage return, CR, return  |
 
 {{{
     bar, pipe, vertical bar
@@ -514,6 +519,8 @@ ref: https://www.douban.com/group/topic/12410327/
 - eclipse
 - curve
 
+- draw
+
 - cone
 
 - area
@@ -546,6 +553,8 @@ ref: https://www.douban.com/group/topic/12410327/
 - stutter
 - stavation
 - lipsync
+- saw-teeth
+- latency
 
 - trivial
 
@@ -560,6 +569,11 @@ ref: https://www.douban.com/group/topic/12410327/
 == video ==
 - caption / subtitle, title
 - descriptor
+
+- luma, intensity
+- chroma
+- HDR, SDR
+
 == OS ==
 - process
 - thread
@@ -578,6 +592,11 @@ ref: https://www.douban.com/group/topic/12410327/
 - surface
 - overlay
 - lock/unlock
+- vertex
+- shader
+- texture
+- rasterization
+- framebuffer, fb
 
 == mail ==
 - OOO out of office
@@ -589,6 +608,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - ToT Top of Tree
 - EOD End of Day
 
+- estimate
 - misc miscellaneous
 - cache
 - quota
@@ -598,9 +618,12 @@ ref: https://www.douban.com/group/topic/12410327/
 - rational
 
 == math ==
+=== mather ===
 - abel
 - euler
 
+- palindromic
+- proportional, direct ratio
 - penalty
 
 - quadratic
@@ -639,4 +662,8 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - repeat, replicate
 
-- bouns
+- bonus
+- thank, thx
+- trade-off
+
+- fail, final, end, bailout

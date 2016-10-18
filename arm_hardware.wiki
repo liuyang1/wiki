@@ -24,7 +24,7 @@ Data Memory Barrier, Data Synchronization Barrier, and Instruction Synchronizati
 - ASB
 - APB
 - AHB AMBA High-Performance Bus
-- AXI
+- AXI one kind of bus
 - ATB
 - AXI4
 - ACE

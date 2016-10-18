@@ -133,6 +133,14 @@ C语言提供过一个特性,就是自动拼接相邻的字符串.
 ## __builtin__memset_chk will always overflow destination buffer
 void *memset(void *s, int c, size_t n)
 
-that is mean: n > sizeof("*s")
+That is mean: n > sizeof("*s")
 
-generally, maybe passing a pointer of pointer s, and n greater than 4(x86) or 8(x64)
+Generally, maybe passing a pointer of pointer s, and n greater than 4(x86) or 8(x64)
+
+## multi-char
+
+multi-char let one store several chars in an integer. Since order in which the chars are packed into one int is not specified, portable use of multi-char constants is difficult.
+
+use `FOURCC_GEN` like macro, could fix this kind of issue. but must ensure they have same order.
+
+Check sample code at github: [testMultiChar.c](https://github.com/liuyang1/test/blob/master/lang/c/cleanWarning/testMultiChar.c)

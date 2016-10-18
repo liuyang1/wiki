@@ -104,6 +104,9 @@ remote will automatically create remotebranch
 - shortstat         show statistic with summary
 ==== shortlog ====
 summary git log as author
+
+`git shortlog -ns --after=2016-1-1`
+
 == author ==
 string, such as 'liuyang <liuyang@xxx.com>'
 
