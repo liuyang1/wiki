@@ -11,3 +11,10 @@ mtime: 2013-04-21 18:23:31
 
 kcachegrind
 一个图形前端
+
+== How to use ==
+simple
+
+`valgraind ./a.out`
+
+It could be checking uninit memory issue.
