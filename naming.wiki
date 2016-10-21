@@ -18,10 +18,12 @@ programming.
 - dict, map, assoc, associated array
 - heap
 
+- node, listnode, treenode
+
 === queue / stack / linked-list ===
 - stack, stk,
-- queue, que, q
-- list, lst
+- queue, que, q, Q
+- list, lst, ls
 - link, next, prev
 
 - queue, chain
@@ -70,6 +72,7 @@ programming.
 - upper
 - lower
 - middle
+- bottom, up
 
 - previous, next
 - predecessor, successor, succeeding
@@ -97,9 +100,10 @@ programming.
 - strip
 - truncate
 
+- rotate
 - reverse
 - inverse
-- traverse, walk
+- traverse, traversal, walk
 
 === blocking queue ===
 - take (block when queue is empty)
@@ -164,9 +168,12 @@ notify end of stream
 - issubset
 - issuperset
 - union
-- intersection
+- intersection, intersect
 - difference
 - symmetric_difference
+
+- symmetric, asysmetric
+- intuitive
 
 == memory ==
 - alloc / allocate / deallocate
@@ -667,3 +674,15 @@ ref: https://www.douban.com/group/topic/12410327/
 - trade-off
 
 - fail, final, end, bailout
+
+- lower, upper, vowel 元音
+
+== log level ==
+- die
+- panic
+- fatal
+- error
+- warning
+- info
+- high, mid, low
+- usr, user

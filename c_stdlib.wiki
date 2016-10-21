@@ -146,3 +146,8 @@ deifne `NDEBUG` to do in release build
 
 == limits.h ==
 - LLONG_MAX, LLONG_MIN, ULLONG_MAX
+
+== unistd.h ==
+
+| function      | comment                          |
+| pread, pwrite | read or write fd at given offset |
