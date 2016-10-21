@@ -13,6 +13,4 @@ CIE:国际照明委员会
 
 和RGB,CYMK没有简单的转换公式.
 
-![CIE](img/CIE_1931.png)
-
 <img src="img/CIE_1931.png" />
