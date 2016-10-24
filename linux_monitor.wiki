@@ -131,8 +131,6 @@ CPU平均负载,硬盘活动情况.
 搜集,报告,存储系统活动信息.
 
 
-== strace ==
-
 == mpstat ==
 显示多处理器使用率
 
@@ -157,6 +155,12 @@ show file descrpitor
 
 == strace ==
 系统调用
+
+trace system calls and signals
+
+`strace ./a.out`
+
+then it will show syscall in stderr.
 
 == /proc ==
 各种内核信息

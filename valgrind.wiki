@@ -18,3 +18,7 @@ simple
 `valgraind ./a.out`
 
 It could be checking uninit memory issue.
+
+工具valgrind
+
+valgrind --tool=memcheck --leak-check=full [./processName]

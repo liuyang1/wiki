@@ -133,6 +133,7 @@ notify end of stream
 - ctor, dtor
 
 - die
+- trap
 - exit
 - quit
 - bye
@@ -686,3 +687,10 @@ ref: https://www.douban.com/group/topic/12410327/
 - info
 - high, mid, low
 - usr, user
+
+== Book ==
+| CII   | C Implementation and Interface |
+| CLRS  | Introduction to Algorithms     |
+| CSAPP |                                |
+
+- group, bundle

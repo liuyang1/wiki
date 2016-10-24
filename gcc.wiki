@@ -54,6 +54,7 @@ struct init, as . style.
 
 === debug option ===
 - -g
+- -Og optimize debug experience.
 
 === link option ===
 - -lLIBNAME

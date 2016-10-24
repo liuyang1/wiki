@@ -9,6 +9,14 @@ a non-valid mode was specified.
 
 * at+       append, and if not exist, will create
 
+=== fdopen ===
+=== freopen ===
+
+`FILE *freopen(const char *path, const char *mode, FILE *stream)`
+
+close `stream` (if exist), then open the file with mode, associate the stream
+pointed to by stream with it.
+
 === remove ===
 `int remove(const char *pathname)`
 
