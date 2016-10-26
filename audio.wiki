@@ -1,0 +1,9 @@
+= Audio =
+
+- PCM
+- AAC, AAC+, eAAC+
+- MP3, AMP - NB and WB
+- FLAC
+- APE
+- DSD
+- WAV

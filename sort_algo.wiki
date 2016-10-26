@@ -1,0 +1,14 @@
+= sort =
+== bucket sort ==
+
+- data must have a limited range. so we could split bucket.
+- map data to bucket, add do insert sort in bucket
+- chain all buckets to output sorted result.
+
+== index sort ==
+index sort is one special case of bucket sort.
+
+- it use value base on index or base for mapping.
+- It do one more bucket sort instead of insert sort IN bucket.
+
+= heap / priority queue =

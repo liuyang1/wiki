@@ -65,3 +65,9 @@ use `..` instead of `--` to get dotted line
 - protected         #
 - package private   ~
 - public            +
+
+== How to visualize tree ==
+
+- networkx  for complex network (including tree)
+- graphviz
+- ete       for decision tree

@@ -58,3 +58,13 @@ prefix with `pthread_rwlock_`
 - trywrlock
 - timedwrlock
 - unlock
+
+== mman ==
+
+- getpagesize
+- mmap
+- munmap
+- msync
+    return `ENOMEM`, memory was not mapped
+
+- shm_open
