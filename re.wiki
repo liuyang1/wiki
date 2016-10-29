@@ -2,9 +2,33 @@
 - "[]"          one of, matches any char of a set of chars
 `[ _]c_`    match `_c_` or ` c_`
 
-- ^             matches the begining of a string
+- if first char of "[]" is "^", then match any char except in bracket.
+- "-", hyphen char means RANGE, when not in first char in bracket.
+- when "-" hyphen char is first char in bracket, it means literal "-" hyphen
+char.
+
+- "{}"          match times
+
+    - "A{1, 3}" means it match "A" or "AAA"
+    - "0{5}" means it match "00000"
+
+- ^             matches the begining of a string, or complement when in
+bracket.
 - $             matches the end of a string
-- .             matches any single char
+- .             matches any single char, except newline
 - *             matches any count (0-n) of the previous char
 - +             matches any count, but at least 1 of the previous char
+- |             alternative operator.
 - (...)         groups a set of chars into a subSpec
+- "\\"          translate sequence
+- /             trailing context, match but don't probe out trailing content
+
+"0/1" have to match with "01", but not "0" or "02", match result is "0".
+
+== list ==
+- `[^ \t\n\r\f\v]+`      string without whitesapce
+- `[-+]?[0-9]+`          integer number
+- `0x[a-f0-9]+`          hex number
+- `[-+]?([0-9]*\.?[0-9]+|[0-9]+\.)`   float number
+- `[-+]?([0-9]*\.?[0-9]+|[0-9]+\.)(E(+|-)?[0-9]+)?`   fortran exp number
+- `[a-zA-Z_][a-zA-Z0-9_]*`      identifier in C

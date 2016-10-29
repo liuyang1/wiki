@@ -86,6 +86,7 @@ Error message: invalid next size
 == string.h ==
 - strcat, strncat
 - strcpy, strncpy
+- stpcpy, copy a string returing a pointer to its end
 - strchr
 - strrchr
 - strchrnul
@@ -118,10 +119,12 @@ split S with "\n" delimiter, so it will strip newline and other content after
 newline.
 
 === string to number ===
+- atoi
 string to dobule, float, long double
 - strtod
 - strtof
 - strtold
+- strtol
 
 |                                           | function name              | comment |
 |-------------------------------------------|----------------------------|---------|

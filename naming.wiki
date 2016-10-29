@@ -17,6 +17,7 @@ programming.
 - tree
 - dict, map, assoc, associated array
 - heap
+- counter, cnt
 
 - node, listnode, treenode
 
@@ -49,6 +50,8 @@ programming.
 - empty, isEmpty
 - push
 - pop
+
+- null, nil
 
 - bound, unbounded
 - thresh, threshold
@@ -391,6 +394,7 @@ BLDN
 - clipboard
 
 === GUI action ===
+- action, act, actor
 - hover
 - click
 - double-click
@@ -468,9 +472,17 @@ ref: https://www.douban.com/group/topic/12410327/
 | '\n'   | newline, line feed, LF       |
 | '\r'   | carriage return, CR, return  |
 
+- EOL: end of line
+- EOF: end of file
+- EOS: end of stream
+
 {{{
     bar, pipe, vertical bar
 }}}
+
+- utf
+- ascii
+- Alphabetical order, alphabet
 
 - alpha
 - beta
@@ -585,12 +597,13 @@ ref: https://www.douban.com/group/topic/12410327/
 == OS ==
 - process
 - thread
-- context
+- context, ctx
 == operator ==
 - commutative
 - binary, unary
 
 - two's complement
+- complement 补集
 
 == encrypt ==
 - tamper
@@ -641,7 +654,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - main
 - auxiliary, dummy
 - placeholder
-- reserve, reserved
+- reserve, reserved, rsvd, rsv
 - var, variable
 
 - The quick brown fox jumps over the lazy dog
@@ -655,7 +668,10 @@ ref: https://www.douban.com/group/topic/12410327/
 - pitfall
 
 === arith ===
-- add, addition, plus, minus, multiply, divide, division,
+- add, addition, plus
+- minus, substract, SUB
+- multiply, MUL
+- divide, division, DIV
 - quotient, modular, mod, remainder, quot
 - operator, operand
 - argument
@@ -689,8 +705,50 @@ ref: https://www.douban.com/group/topic/12410327/
 - usr, user
 
 == Book ==
-| CII   | C Implementation and Interface |
-| CLRS  | Introduction to Algorithms     |
-| CSAPP |                                |
+| CII   | C Implementation and Interface                     |
+| CLRS  | Introduction to Algorithms                         |
+| CSAPP |                                                    |
+| TAOCP | The art of Computer Programming                    |
+| SICP  | Structure and Interpretation of Computer Programms |
+| HtDP  | How to Design Programs                             |
 
 - group, bundle
+
+- alternative
+
+== language ==
+- CFG: context free grammar
+- BNF: BackusNaur Form
+- RPN: reverse polish ??
+- Ambiguity 二义性
+- keyword
+- identifier
+- token, symbol
+- lexical analsis, scaning
+- lexical analyzer
+- syntax analysis, parsing
+- regex, regular expression
+- finitre automation
+- GLR: generalized Left to Right
+- LALR: Look Ahead Left to Right
+- lookahead
+- grammer
+- syntax
+- semantic
+- nonterminal
+- pattern
+- rule
+- precedence
+
+- compiler
+- preprocesser
+- linker
+- loader
+- interpreter
+
+- shift
+
+- book
+- paper
+- specification
+- amendment

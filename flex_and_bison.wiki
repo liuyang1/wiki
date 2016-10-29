@@ -14,3 +14,9 @@ flex样例代码,见test/flex_bison/fb.1.1.l
 	`flex fb***.l`
 	`gcc lex.yy.c -lfl`
 注:lex.yy.c试上一部flex的默认生成文件
+
+== how to handle Ambiguity ==
+1. try to match longest string
+1. if match two cases, select first one.
+
+These two rules have order, first apply 1st rule.
