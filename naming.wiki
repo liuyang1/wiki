@@ -752,3 +752,9 @@ ref: https://www.douban.com/group/topic/12410327/
 - paper
 - specification
 - amendment
+- article
+- standard
+
+- source, filter, sink
+
+- launch

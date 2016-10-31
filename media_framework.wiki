@@ -1,4 +1,41 @@
 
-OpenCORE
+== OpenCORE ==
+
+== GStreamer ==
+
+- pipeline
+- bin
+- pad (like port)
+
+=== usage ===
+
+`gst-launch-0.10 filesrc location="concept.mp3" ! decodedbin ! alsasink`
+
+== OpenMAX IL ==
+
+using in Android system
+
+OpenMAX use three laerys:
+
+- AL Application layer
+- IL Integertion layer
+- DL Development layer
+
+- OpenMAX IL doesn't auto connect components.
+- OpenMAX IL doesn't recognize input streams.
+- OpenMAX IL doesn't automatically change states.
+- OpenMAX IL is in a lower level than GStreamer
+- OpenMAX IL is a standard
+
+gst-openmax is GStreamer plugin that map OpenMAX IL standard components as
+GStreamer elements.
+
+gst-omx is a similar one. still in maintain.
+
+ref:
+- http://www.celinux.org/elc08_presentations/gst-openmax.pdf
+- https://www.khronos.org/files/openmax/whitepapers/OpenMAX_IL_with_GSstreamer.pdf
 
 
+== directshow ==
+Windows platform
