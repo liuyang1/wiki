@@ -1,0 +1,23 @@
+= wechat =
+
+== 微信小视频 ==
+
+- H.264 AVC, Baseline profile, 960x720 or 960x540, <=800kbps, 24fps
+- AAC, <=96kbps, 44.1kHz
+- container: MP4
+
+== video calling ==
+
+speex to record and send same time
+
+based on
+- speex
+- webrtc
+- voip
+
+= webrtc =
+
+webrtc default use VP8 encoding
+
+I420?
+

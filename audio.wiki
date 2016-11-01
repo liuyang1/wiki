@@ -7,3 +7,11 @@
 - APE
 - DSD
 - WAV
+
+== AMR ==
+Adaptive multi-rate compression
+自适应多速率音频压缩
+
+3GPP first use 1998.10
+
+=== AMR file format ===

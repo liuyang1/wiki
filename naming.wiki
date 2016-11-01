@@ -198,6 +198,8 @@ notify end of stream
 - unref
 
 == producer / consumer / message ==
+- producer, prod
+- consumer, cons,
 - send / snd
 - receive / recv / rcv
 - acknowledge / ack
@@ -206,6 +208,8 @@ notify end of stream
 - publish
 - subscribe
 - broadcast
+- event, evt, ev
+- post
 
 == hearbeat / timer ==
 - tic
@@ -298,9 +302,14 @@ notify end of stream
 - dependent, independent,
 - opaque, hide, hidden
 - transparent
+- transmission, TX
+- RX
+
+- discontiunuous, discontinue, discon
 
 - eval, repr
 - static, dynamic
+- adaptive
 
 - client, cl, server, srv
 
@@ -434,6 +443,7 @@ BLDN
 
 - swap
 - exchange/exch
+- substitute
 
 == char/symbol ==
 
@@ -758,3 +768,13 @@ ref: https://www.douban.com/group/topic/12410327/
 - source, filter, sink
 
 - launch
+
+- stable, steady
+
+- OOM: out of memory
+- ANR: application not responding
+
+- mangle, demangle
+
+- slot
+- flag, mark

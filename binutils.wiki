@@ -76,7 +76,12 @@ creating, modifying, extracting from archives.
 - ar x      extracting from archives.
 
 == c++filt ==
-filter to demangle encode C++ symbols
+filter to demangle encode C++/Java symbols
+
+{{{
+c++filt _Z23CreateObject_PByteArrayP7_JNIEnvP8_jobjectP11_jbyteArray
+CreateObject_PByteArray(_JNIEnv*, _jobject*, _jbyteArray*)
+}}}
 
 == ddltool ==
 creates files for building and uinsg DDLs.

@@ -7,6 +7,15 @@
 == sed script ==
 - i \         insert text, which has each embedded newline preceded by a
 backslash.
+- s/.../.../  substitue
+
+== sed pattern flags ==
+- g             glboal, not only first match
+- I             ignore case
+- p             print
+- w filename    write to file
+
+ref: https://www.grymoire.com/Unix/Sed.html
 
 = Example =
 == add content to header of file ==
