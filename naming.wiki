@@ -102,6 +102,7 @@ programming.
 - trim
 - strip
 - truncate
+- suppress
 
 - rotate
 - reverse

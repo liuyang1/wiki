@@ -6,6 +6,8 @@ unrar
 解压到特定文件夹
 tar zxvf XX.gz -C /tmp/
 
+- --list -f [ARCHIVE]       list files in ARCHIVE
+
 ==zip==
 problem::
 Problem unzipping file on Linux - need PK compat. 4.5
