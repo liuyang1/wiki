@@ -779,3 +779,12 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - slot
 - flag, mark
+
+- patch, patchset
+- change, changelist, CL
+- pull request, PR
+- branch, commit, message, tag, version
+
+- osal: OS abstraction layer
+- host, target
+- meta

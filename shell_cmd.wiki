@@ -71,6 +71,13 @@ and hark link not guarrante file totally sync, as cache or other issue
 
 获取路径和文件名,从文件的路径全名中.
 
+basename strip dir and suffix from filename
+
+{{{
+basename include/stdio.h .h
+stdio
+}}}
+
 === cygpath ===
 
 路径转换,从cygwin路径,到windows路径.

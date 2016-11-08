@@ -8,6 +8,7 @@
 - i \         insert text, which has each embedded newline preceded by a
 backslash.
 - s/.../.../  substitue
+- D             delete
 
 == sed pattern flags ==
 - g             glboal, not only first match

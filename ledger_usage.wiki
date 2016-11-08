@@ -15,11 +15,20 @@ ledger -f my.dat reg Checking
 
 == 常用词汇 ==
 - Expenses		支出
+    - food
+    - rent
+    - supplies
+- revenue
+    - business income
+    - gifts received
 - Assets		资产
+    - checking
+    - cash
 - Income		收入
 - Salary		工资
 - Liabilities	负债
-- Asset = Liability + Equity
+    - credit card
+[[-]] Asset = Liability + Equity
 - Asset + Expense = Liabilit + Equity + Income
 == ref ==
 http://www.ledger-cli.org/3.0/doc/ledger3.html#Fat_002dfree-Accounting
