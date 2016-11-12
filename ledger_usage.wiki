@@ -18,17 +18,39 @@ ledger -f my.dat reg Checking
     - food
     - rent
     - supplies
+    - Adjustment    调整
+    - groceries     杂货
+    - hobbies       爱好
+    - insurance     保险
+    - mediacal      医疗
+    - misc,miscellaneous    杂项
+    - phone, cable, computer, online service
+    - transportation: public transportation
+    - subscriptions     订阅
+    - supplies      用品
+    - utilities     公用事业
+    - auto          汽车
 - revenue
     - business income
     - gifts received
 - Assets		资产
     - checking
     - cash
+    - fixed assets
 - Income		收入
-- Salary		工资
+    - Salary		工资
+    - Bonus
+    - Gift Received
+    - Interest income
 - Liabilities	负债
     - credit card
-[[-]] Asset = Liability + Equity
-- Asset + Expense = Liabilit + Equity + Income
+- Equity
+    - Opening Balances
+- Liability
+    - Loans
+    - Mortgage Loan
+- Asset = Liability + Equity
+- Asset + Expense = Liability + Equity + Income
+
 == ref ==
 http://www.ledger-cli.org/3.0/doc/ledger3.html#Fat_002dfree-Accounting

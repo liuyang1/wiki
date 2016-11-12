@@ -788,3 +788,6 @@ ref: https://www.douban.com/group/topic/12410327/
 - osal: OS abstraction layer
 - host, target
 - meta
+
+- cadenc
+- candidate
