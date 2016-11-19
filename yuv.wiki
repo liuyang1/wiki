@@ -21,6 +21,12 @@ YUV have 3 compotents:
 == bit depth ==
 * 8 bit, This is general situation.
 * 10 bit
+    * for 10bit, we need to determinte how to representate it as pixel is not
+    one or half bytes.
+        * compact style, five bytes represent 4 Y pixels. big endian
+        * lose style, 16 bytes represent one 10bit data. we have 6 bits zero
+        redutant.
+* 12 bit
 * 16 bit
 
 == range ==

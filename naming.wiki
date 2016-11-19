@@ -650,6 +650,16 @@ ref: https://www.douban.com/group/topic/12410327/
 - rational
 
 == math ==
+
+- tempral, sptial, frequent
+- discrete, continuous
+- consecutive
+- coefficient
+- matrix
+
+=== triangle math ===
+- sin, cos, cosine
+
 === mather ===
 - abel
 - euler
@@ -791,3 +801,5 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - cadenc
 - candidate
+- penalty
+- forbidden

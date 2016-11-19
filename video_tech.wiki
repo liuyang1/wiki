@@ -67,15 +67,15 @@ Then FRC in TV, detech input frame pattern is 2-3-2-3 sequence, it will use
 motion detect in these frame, and add adjacent frame.
 
 == frame rate ==
-| 24p       | film      |
-| 25p       | PAL 50i   |
-| 30p       | from NTSC |
-| 48p       | film      |
-| 50i       | PAL,SECAM |
-| 60i       | NTSC      |
-| 23.976fps | ATSC      |
-| 29.97fps  | ATSC      |
-| 59.94fps  | ATSC      |
+| 24p       | film                |
+| 25p       | PAL 50i             |
+| 30p       | from NTSC           |
+| 48p       | film                |
+| 50i       | PAL,SECAM, Europe   |
+| 60i       | NTSC                |
+| 23.976fps | ATSC                |
+| 29.97fps  | ATSC                |
+| 59.94fps  | ATSC, north America |
 
 25p -> 24p, slow down to 24fps, 3:2 pulldown |
 
@@ -104,3 +104,7 @@ MSE = 1/mn * SUM[diff(I(i,j) - K(i,j)) ^ 2]
 - sample download
 http://samples.mplayerhq.hu/
 
+== aspect ratio ==
+- square pixels
+- 4:3
+- 16:9
