@@ -47,3 +47,6 @@ ltrace paste a.file b.file > /dev/null
 === uncrusity ===
 这个可以,就是需要外部配置文件
 
+== code browser ==
+- source insight
+- scitools understand

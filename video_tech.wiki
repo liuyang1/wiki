@@ -108,3 +108,17 @@ http://samples.mplayerhq.hu/
 - square pixels
 - 4:3
 - 16:9
+
+每个图像或者视频编解码器豆要在三个关键维度上选择：
+
+- 压缩比
+- 质量
+- 复杂性
+
+== intermediate codecs ==
+
+Apple ProRes 偏重于质量和低复杂度，这样可以提供更好的视频编辑性能
+
+- Apple ProRes
+- DNxHD
+- CineForm

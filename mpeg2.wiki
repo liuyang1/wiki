@@ -66,3 +66,18 @@ layer::
 == ref ==
 - [x] https://en.wikipedia.org/wiki/H.262/MPEG-2_Part_2#cite_note-mpeg-2-2013-2
 - [x] http://dvd.sourceforge.net/dvdinfo/mpeghdrs.html
+
+= Tming model =
+== PTS ==
+
+PTS or DTS is entered in the bitstream at intervals not exceeding 700ms.
+
+ATSC further constrains PTS or PTS to be inserted at the beginning of eash
+coded picture.
+
+PTS is time stamped with STC(System Timc Clock) values.
+
+- called PCR(Program Clock Reference) if stamp is at transport packet level.(in TS)
+    - PCR time stamps are required to occur at maximum 100ms intervals.
+- called SCR(System Clock Reference) if stamp is at PES level. (in PS)
+    - SRC are required to occur at maximum 700ms intervals.
