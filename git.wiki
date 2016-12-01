@@ -329,6 +329,12 @@ git config user.signingkey XXX
 等等.
 
 
+== check commit in which branch ==
+
+{{{
+git branch --contains <commit>
+}}}
+
 ==服务器配置==
 
 服务器更新

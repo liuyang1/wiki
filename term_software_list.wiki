@@ -17,6 +17,10 @@
 - -2            force 256 colors
 
 === mouse in tmux ===
+For tmux new version(2.0), may need disable mouse mode with command:
+
+`set-option -g -q mouse off`
+
 - shift+left select         copy
 - shift+middle key          paste
 

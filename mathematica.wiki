@@ -1,0 +1,35 @@
+== numbers ==
+- base^^digits          integer in specified base
+    16^^def => 3567
+    2^^100101 => 37
+
+transfer from number fo hexdigit
+
+- BaseForm[num, base]
+- IntegerString[num, base]      transfer to string
+
+== graph plot ==
+
+- GraphPlot
+- GraphPlot3D
+- LayeredGraphPlot
+- TreePlot
+
+http://reference.wolfram.com/language/tutorial/LayeredGraphDrawing.zh.html
+
+example:
+
+{{{
+LayeredGraphPlot[{"total" -> "TotalDispatch", 
+  "TotalList" -> "CheckThreading", "TotalList" -> "TotalDispatch", 
+  "TotalSparse" -> "TotalDispatch", "TotalSparse" -> "TotalDispatch", 
+  "TotalDispatch" -> "TotalDispatch", "TotalDispatch" -> "TotalList", 
+  "TotalDispatch" -> "TotalPacked", "TotalDispatch" -> "TotalSparse"},
+  VertexLabeling -> True]
+}}}
+
+
+Matrix67 comment:
+> 用 http://Paint.NET 、 Pixelmator 、 Mathematica 、 GeoGebra
+等工具画图。配图的秘诀就是背景透明化、图形反锯齿化、注重色彩、多用 png
+、图内字体大小与正文一致
