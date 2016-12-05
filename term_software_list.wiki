@@ -104,6 +104,10 @@ cvs -z3 -d :pserver:anonymous@cvs.schmorp.de/schmorpforge co libptytty
 ./configure --enable-everything
   }}}
 
+=== How to enable background ===
+
+urxvt -pixmap [backgroud.png]
+
 == konsole ==
 - multiple tabbed
 - split-view mode

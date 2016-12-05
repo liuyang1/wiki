@@ -234,6 +234,8 @@ notify end of stream
 - lock / unlock
 - race condition
 - concurent, parallel
+- condition
+    - signal, wait, boardcast, timedwait
 
 == IO ==
 - print
@@ -803,3 +805,6 @@ ref: https://www.douban.com/group/topic/12410327/
 - candidate
 - penalty
 - forbidden
+
+- combine, meld, merge, blend, mix, fuse, compound, comb, bind, joint, tie
+- seperate

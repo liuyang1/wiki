@@ -58,6 +58,12 @@ search executable under `PATH` env var
 - pthread_cond_signal
 - pthread_cond_broadcast
 
+cond var have a lot of potential issue:
+
+- lost signal if no thread is waiting.
+- fake signal
+- thread switch multiple times, performance bad
+
 == mutex ==
 - pthread_mutex_init
 - pthread_mutex_destory
