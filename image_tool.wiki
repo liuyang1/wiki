@@ -16,6 +16,19 @@
 
 - -resize [width]x[height]
 - -reisze 50%
+- -append, +append
+
+=== montage ===
+
+{{{
+montage [0-5].png -tile 5x1 -geometry +0+0 out.png
+montage -label %f -frame 6 *.png -tile 3x2 -geometry +4+4 out.png
+}}}
+
+- label "%f"        add file name to picture
+- frame             add frame around
+- tile
+- geometry          add space
 
 === identify ===
 

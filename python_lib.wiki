@@ -219,6 +219,20 @@ depends on::
 pyzmq jinja2 tornado
 numpy scipy pylab matplotlib
 
+== matplotlib ==
+
+=== XServer issue ===
+
+When run matplotlib script at remote linux server, may have this kind of issue
+as no X Window.
+
+change to this to avoid this issue.
+
+{{{
+    import matplotlib as mpl
+        mpl.use('Agg')
+}}}
+
 = various file support =
 == excel ==
 === xlsxwriter ===

@@ -211,6 +211,7 @@ notify end of stream
 - broadcast
 - event, evt, ev
 - post
+- message queue, mailbox
 
 == hearbeat / timer ==
 - tic
@@ -475,7 +476,7 @@ ref: https://www.douban.com/group/topic/12410327/
 | %      | percent sign, mod            |
 | &      | and, ampersand               |
 | ^      | circumflex, caret            |
-| {}     | brace                        |
+| {}     | brace, curly bracket         |
 | []     | bracket                      |
 | ()     | parentheses                  |
 | <>     | angle bracket                |
@@ -609,6 +610,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 == OS ==
 - process
+    - spawn, fork
 - thread
 - context, ctx
 == operator ==
@@ -808,3 +810,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - combine, meld, merge, blend, mix, fuse, compound, comb, bind, joint, tie
 - seperate
+
+- TL;DR too long; don't read
+
+- decoupled

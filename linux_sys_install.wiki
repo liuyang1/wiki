@@ -74,6 +74,10 @@ dpkg -r package.deb
 
 dpkg -l 列出所有已经安装的软件 (开始为ii,表示已经安装的软件)
 
+=== How to install all dependencies of one deb file ===
+
+`sudo gdebi package.deb`
+
 == rpm install ==
 rpm -ivh ABC.rpm
 

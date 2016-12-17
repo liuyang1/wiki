@@ -98,6 +98,19 @@ sync tags with upstream
 git push origin localbranch:remotebranch
 
 remote will automatically create remotebranch
+== branch ==
+
+# invalid branch name
+
+A branch name can not:
+
+- Have a path component that begins with "."
+- Have a double dot ".."
+- Have an ASCII control character, "~", "^", ":" or SP, anywhere
+- End with a "/"
+- End with ".lock"
+- Contain a "\" (backslash)"
+
 == log ==
 - stat              show statistic with cli visual format
 - numstat           show statistic with number
