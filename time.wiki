@@ -36,3 +36,14 @@ local time, time zone and DST offset as well as netowork provider Identity
 information, to mobile devices via wireless network.
 
 NITZ is often used to automatically update system clock of mobie phones.
+
+== How to adjust time ==
+
+{{{
+# sync with NTP server
+ntpdate 0.rhel.pool.ntp.org
+# double-check time
+date
+# write to hwclock
+sudo hwclock -w
+}}}

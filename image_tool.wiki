@@ -43,7 +43,7 @@ screen capture
 == scrot ==
 linux screenshot util
 
-- default       fullscreen screenshot, save as DATA_TIME_screenshoft.png
+- default       fullscreen screenshot, save as DATA_TIME_screenshot.png
 - -d            delay time
 - -c            count number
 - -s            select rectangle or window

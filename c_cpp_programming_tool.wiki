@@ -44,8 +44,10 @@ ltrace paste a.file b.file > /dev/null
 === astyle ===
 不好用.支持的不够.
 
-=== uncrusity ===
+=== uncrustify ===
 这个可以,就是需要外部配置文件
+
+`uncrustify --replace *.c`
 
 == code browser ==
 - source insight

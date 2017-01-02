@@ -1,0 +1,8 @@
+== How to search dynamic library ==
+- if DT_RUNPATH not exist in ELF file, but exist DT_RPATH, then try load lib
+from it.
+- if not setuid ELF, load from LD_LIBRARY_PATH env
+- if DT_RUNPATH exist, load from it
+- load library, check from /etc/ls.so.conf
+    - ls.so.conf file was built by `ldconfig` command
+- try from /lib, /usr/lib
