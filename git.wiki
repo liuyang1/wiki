@@ -356,6 +356,12 @@ git branch --contains <commit>
 	cd /path/to/git/repo
 	git --bare init
 }}}
+
+初次拉出bare的repo，然后需要push回去，那么因为remote
+repo里面没有branch，这里需要推送branch上去
+{{{
+    git push --set-upstream origin master
+}}}
 客户端使用
 之前需要建立git目录,并且坐同步之类的..
 {{{
@@ -537,3 +543,12 @@ display path
 - -c
 - -p
 - -v
+
+== large file support ==
+
+=== lfs ===
+github
+
+but cannot support file > 1G
+
+=== annex ===

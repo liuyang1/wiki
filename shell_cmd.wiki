@@ -121,7 +121,12 @@ this command will
 # ask password
 # input more information.
 
-groupadd
+==== id =====
+get uid of user
+
+`id -u [username]`
+
+==== groupadd ====
 
 == chown ==
 - -R, --recursive

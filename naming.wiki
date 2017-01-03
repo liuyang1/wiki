@@ -211,7 +211,7 @@ notify end of stream
 - broadcast
 - event, evt, ev
 - post
-- message queue, mailbox
+- message queue, mailbox, mesg, msg
 
 == hearbeat / timer ==
 - tic
@@ -711,7 +711,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - repeat, replicate
 
-- bonus
+- bouns
 - thank, thx
 - trade-off
 
@@ -814,3 +814,4 @@ ref: https://www.douban.com/group/topic/12410327/
 - TL;DR too long; don't read
 
 - decoupled
+- group, bundle

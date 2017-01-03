@@ -6,7 +6,7 @@ Ref::
 ## feature
 ### large block structures with flexible sub-partitioning mechanisms.
 
-- MPEG2 or H.263 have rigid block size.
+- MPEG2 or H.263 have rigid block size. 固定，刚性的
 - H264 have Macroblock(16x16) and block(can split to to 4x4)
 - HEVC have LCU -> CU -> PU ->??? TU layer (Coding Tree Unit, CTU)
     - LCU largest coding unit (64x64)
