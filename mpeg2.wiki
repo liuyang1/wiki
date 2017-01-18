@@ -57,6 +57,14 @@ layer::
 | 7    | -            | 60000/1001 |
 | 8    | -            | 60         |
 
+Technical (coding) information is contained in the MPEG-2 bitstream in
+macroblock headers, slice headers, picture headers, Group of Picture (GOP)
+headers, and sequence headers. The sequence header provides data needed
+before decoding can begin, such as the size of the picture and the frame
+rate. Because it is so important, the sequence header is usually repeated
+as often as twice a second.
+
+ref: http://www.digitalpreservation.gov/formats/fdd/fdd000028.shtml
 === picture header ===
 
 | byte4 .. byte5[7,6]        | tempral sequence               |

@@ -80,18 +80,23 @@ motion detect in these frame, and add adjacent frame.
 25p -> 24p, slow down to 24fps, 3:2 pulldown |
 
 == resolution ==
-| SIF            | 288x240 25/30fps |
-| QCIF           | 176*144          |
-| CIF            | 352*288          |
-| 4CIF           | 704*576          |
-| NTSC           |                  |
-| PAL            | 768*576          |
-| qHD            | 960*540          |
-| HD             | 1280*720         |
-| FHD            | 1920 * 1080      |
-| UHD            | 3840 * 2160      |
-| Digital Cinema | 4096*2160        |
-| VGA            | 640 *480         |
+| SIF                    | 288x240 25/30fps |
+| QCIF                   | 176*144          |
+| CIF                    | 352*288          |
+| 4CIF                   | 704*576          |
+| NTSC                   |                  |
+| PAL                    | 768*576          |
+| qHD                    | 960*540          |
+| HD                     | 1280*720         |
+| FHD                    | 1920 * 1080      |
+| QHD,WQHD               | 2560 * 1440      |
+| UHD                    | 3840 * 2160      |
+| Digital Cinema, DCI 4K | 4096*2160        |
+| HVGA                   | 480 * 320        |
+| VGA                    | 640 *480         |
+| WXGA                   | 1366 * 768       |
+
+https://en.wikipedia.org/wiki/Graphics_display_resolution
 
 == PSNR ==
 {{{
