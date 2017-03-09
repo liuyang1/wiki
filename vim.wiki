@@ -582,3 +582,16 @@ remove `fcitx-fontend-gtk2`
 
 == ubuntu menu proxy ==
 alias gvim="UBUNTU_MENUPROXY= gvim"
+
+== Converting variables to or from camel case ==
+
+
+{{{
+" Convert each NameLikeThis to name_like_this in current line.
+:s#\(\<\u\l\+\|\l\+\)\(\u\)#\l\1_\l\2#g
+
+" Alternative: accept numbers in name.
+:s#\C\(\<\u[a-z0-9]\+\|[a-z0-9]\+\)\(\u\)#\l\1_\l\2#g
+}}}
+
+ref: http://vim.wikia.com/wiki/Converting_variables_to_or_from_camel_case

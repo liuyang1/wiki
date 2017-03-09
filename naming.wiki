@@ -243,7 +243,7 @@ notify end of stream
 - scan
 - get
 - put
-- show, stringfy, toString, pretty
+- show, stringfy, toString, pretty, asString
 - illustrate
 
 == file operation ==

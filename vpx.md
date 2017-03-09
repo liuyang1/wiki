@@ -71,6 +71,19 @@ may have two style to make alter frame.
 1. copy one from from forward, so that frame could bi-predication.
 1. one frame which after noise-reducation
 
+### profiles
+
+There are several variants of the VP9 format, the so-called coding profiles, that successively allow more features, starting from the basic version, the profile 0 (minimum for hardware implementations), up to profile 3:
+
+- profile 0
+color depth: 8 bit/sample, chroma subsampling: 4:2:0
+- profile 1
+color depth: 8 bit, chroma subsampling: 4:2:0, 4:2:2, 4:4:4
+- profile 2
+color depth: 10–12 bit, chroma subsampling: 4:2:0
+- profile 3
+color depth: 10–12 bit, chroma subsampling: 4:2:0, 4:2:2, 4:4:4[19]
+
 ### reference
 - [http://forum.doom9.org/showthread.php?t=168947]
 - https://mogusite.wordpress.com/2016/03/22/vp9%E5%92%8Chevc%E7%9A%84%E6%AF%94%E8%BE%83%EF%BC%88%E4%BA%8C%EF%BC%89/
