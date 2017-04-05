@@ -82,6 +82,7 @@ programming.
 - subsequent
 - front, back
 - before, after, afterward, forward, backward
+- fd, bk, forward, back
 
 - compatible
 
@@ -342,6 +343,12 @@ notify end of stream
 
 - function, routine, procedure, chunk
 - macro
+- chunk, block, sample
+- atom, box
+- video/stream/track/sequence/gop/frame/picture/field/tile/slice/macro
+block/block/unit/block/pixel
+- chroma, luminace
+
 == abbr, abbreviate ==
 - function
 func, fcn, fn, f
@@ -357,7 +364,7 @@ BLDN
 - option
 - param parameter
 - arguement
-- property
+- property, prop
 - perference
 - factor
 

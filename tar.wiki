@@ -29,6 +29,9 @@ unzip -O CP936 XX.zip
 
 unzip -O GBK XX.zip
 
+=== How to compress with zip ===
+
+zip -r wiki.zip wiki
 
 ==jar==
 ----
