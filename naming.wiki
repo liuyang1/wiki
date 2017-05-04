@@ -823,3 +823,21 @@ ref: https://www.douban.com/group/topic/12410327/
 - decoupled
 - group, bundle
 - closure, cl
+
+
+- exposure 曝光
+- contrast 对比度
+- straighten 旋转/rotate
+- crop 裁剪
+- skew 翻转
+- sharpen 锐化
+- clarity 明晰？
+- saturation 饱和度
+- highlights 高亮
+- shadow 阴影
+- temperature 色温
+- tint 色相 调节
+- skin tone 肤色调整
+- vignette 小插曲？？？
+- grain 谷物，纹理
+- fade 渐变

@@ -42,6 +42,25 @@ util-linux是linux的一系列工具套件,涉及加载,卸载,格式化,分区�
 == nfs ==
 `mount [IP]:[PATH/TO] [LOCALDIR]`
 
+option:
+`-t nfs -o nolock,rw`
+
+== nfs server ==
+# install
+`sudo apt-get install nfs-kernel-server`
+
+# start / restart
+`sudo /etc/init.d/nfs-kernel-server restart`
+
+# edit config
+`/etc/exports`
+
+add this
+
+{{{
+/home/user/dir *(rw,sync)
+}}}
+
 === issue ===
 ==== df hang ====
 when network slow, `df` command maybe hang, as it try to read state of mount
