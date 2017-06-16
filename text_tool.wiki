@@ -102,8 +102,8 @@ luit -encoding gbk telnet bbs.ustc.edu.cn
 - -E                extend RE mode(same with egrep)
 - --color=[WHEN]    when=always/never/auto
 - -l, --files-with-mathces
-- -L, --files-without-mathces
-- -R, -r, --recursive       recursive under each directory
+- -L, --files-without-mathces   file files wichi cannot match that strings
+- -R, -r, --recursive           recursive under each directory
 - -i                ignore case
 - -v                reverse
 - -A/-B             after/before context with [NUM] of lines
