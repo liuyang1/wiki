@@ -40,6 +40,7 @@ related: [[pic_format]]
 ----
 [[video_base_knowledge_network|Video基础知识网络]]
 
+
 ----
 = 视频网络笔记 =
 
@@ -110,6 +111,14 @@ MSE = 1/mn * SUM[diff(I(i,j) - K(i,j)) ^ 2]
 http://samples.mplayerhq.hu/
 
 == aspect ratio ==
+- SAR 存储长宽比
+- DAR 显示长宽比
+
+| ratio | name         |
+| 4:3   | classic TV   |
+| 16:9  | wide screen  |
+| 21:9  | cinema scope |
+
 - square pixels
 - 4:3
 - 16:9
@@ -127,3 +136,6 @@ Apple ProRes 偏重于质量和低复杂度，这样可以提供更好的视频�
 - Apple ProRes
 - DNxHD
 - CineForm
+
+== material ==
+- introduction https://github.com/leandromoreira/digital_video_introduction

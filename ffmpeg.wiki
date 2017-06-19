@@ -83,8 +83,6 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 * tbc   time base in AVCodecContext for the codec used for a particular stream
 * tbr   guessed from the video stream and is the value users want to see when they look for the video frame rate, except sometimes it is twice what one would expect because of field rate versus frame rate
 
-- SAR 存储长宽比
-- DAR 显示长宽比
 === option ===
 - print_format
 可以选择为default,compact,csv,json,xml等方式
@@ -687,3 +685,9 @@ even though both encoding and decoding are supported. For example, the h263
 decoder corresponds to the h263 and h263p encoders, for file formats it is even
 worse.
 }}}
+
+== analysis ==
+
+analysis motion vector, macroblock types, QP values
+
+https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
