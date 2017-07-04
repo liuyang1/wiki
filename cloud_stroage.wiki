@@ -7,3 +7,17 @@
 | bittorrent sync | https://www.resilio.com/ |
 
 ref: https://github.com/Kickball/awesome-selfhosted#file-transfersynchronization
+
+资料的搜集应该按照，重要性，和频率，以及大小综合考虑。
+
+主要分为以下几个类型：
+
+- code/wiki
+    - 使用github存储
+- private code/wiki
+    - 使用gogs存储
+    - Confluence & trac 中的资料，需要转移到gogs或者文档中去
+- doc
+    - 使用nutstore
+- 大批量的资料
+    - 硬盘，和rsync备份
