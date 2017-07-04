@@ -552,3 +552,5 @@ github
 but cannot support file > 1G
 
 === annex ===
+
+to manage tons of big files.

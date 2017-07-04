@@ -1,0 +1,24 @@
+= Note tool compare =
+
+== Evernote ==
+
+== Onenote ==
+
+== Workflowy ==
+
+== orgmode for emacs ==
+
+== markdown on github ==
+
+== other wiki ==
+
+| wiki       | type        | service | price | feature        | con                |
+| confluence | commercial  | Y       | ?     |                |                    |
+| trac       | open source | Y       | -     |                | old-style          |
+| bookstack  | open source | Y       | -     |                |                    |
+| Documize   | open source | Y       | -     |                |                    |
+| tiddlywiki | open source | NO      | -     | non-linear     | ugly               |
+| vimwiki    | open source | NO      | -     | embeded in vim | not support mobile |
+ 
+ 
+ref: https://github.com/Kickball/awesome-selfhosted#wikis

@@ -1,0 +1,9 @@
+= cloud storage =
+2017-07-04 09:38:29
+
+| name            | link                     |
+| owncloud        |                          |
+| syncany         | https://www.syncany.org/ |
+| bittorrent sync | https://www.resilio.com/ |
+
+ref: https://github.com/Kickball/awesome-selfhosted#file-transfersynchronization
