@@ -50,6 +50,7 @@ from:[[expert_shell_scripting|shell专家指南]]
 * -q,静默模式,错误不输出
 * -t,维护修改时间
 * -delete,删除多余的文件
+   (如果没有这个选项，那么在src目录中已经被删除的文件，不会在dst目录中删除掉）
 * --exclude=PATH,除去路径(相对路径)
 * -progress,显示进度
 * -L, follow soft link, consider it like real file, not only copy a link

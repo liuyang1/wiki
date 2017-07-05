@@ -1,0 +1,6 @@
+= 工作流 =
+
+- [[gtd_tool|如何管理任务]]
+    - gtd.md
+- [[note_tool|如何记录笔记]]
+- [[accounting|如何记账]]
