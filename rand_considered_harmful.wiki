@@ -1,0 +1,24 @@
+= rand() considered harmful =
+
+<img src="img/wrong.rand.png" />
+
+* `time`的返回类型`time_t`  和 `srand`的参数类型（32bit）
+不符合，进行了强制转换。
+* `time`函数的结果，每秒钟变化，因此如果频繁运行，其结果不总是random的。（一秒钟内，运行出同样的结果）
+* `rand`函数的返回值范围太小，并且不能整除100，因此`rand() %
+100`不再是均匀分布
+
+{{{
+In the GNU C Library, it is 2147483647, which is the largest signed integer
+representable in 32 bits. In other libraries, it may be as low as 32767.
+[[manual of gcc|https://www.gnu.org/software/libc/manual/html_node/ISO-Random.html]]
+
+However, even `RAND_MAX` is large, it's wrong!
+}}}
+
+<img src="img/correct.random.png" />
+
+* 使用确定的种子（这里演示的是”random“的，也就是伪的。如果需要真实的随机数，需要使用`random_device`
+* 使用C++标准库的均匀分布函数
+
+ref: [[STLGN13rand.pptx|https://view.officeapps.live.com/op/view.aspx?src=http%3a%2f%2fvideo.ch9.ms%2fsessions%2fgonat%2f2013%2fSTLGN13rand.pptx]]

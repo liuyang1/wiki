@@ -42,6 +42,12 @@ zip -r wiki.zip wiki
 ==xz==
 xz
 
+* How to xz a directory?
+
+First tar the directory to a file, then compress it.
+
+`tar -cf - [DIR] | xz -9 -c - > [DIR.tar.xz]`
+
 unxz
 
 == dtrx ==

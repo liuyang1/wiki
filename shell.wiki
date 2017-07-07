@@ -45,7 +45,7 @@ but there is paramter expanison and command substitution.
 - -a的优先级比-o高
 === logic about file ===
 * -d    dir exist?
-* -f    file exist? 文件存在且为常规文件
+* -f    file exist? 文件存在且为常规文件, cannot check device file
 * -L    link exist?
 - -b 文件存在且为块特殊文件
 - -c 文件存在且为字符特殊文件
