@@ -40,3 +40,10 @@ Ctrl+N,输入地址.
 - C-p       perference
 - e         next frame
 - Shift-S   snapshot
+
+== udp streamming ==
+
+{{{
+vlc [VIDEO TS FILE] --sout=#std{access=udp{ttl=1},mux=ts{pid-audio=1002,pid-video=1001},dst=238.1.1.1:5611} --sout-keep --loop &
+vlc udp://@238.1.1.1:5611
+  }}}

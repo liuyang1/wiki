@@ -300,6 +300,8 @@ notify end of stream
 - exception: try, catch, raise
 - diag, Diagnostic, debug
 
+- verify, prove, valid, validator
+
 - convention, convent
 - specify
 - implicitly, implicit, explicit

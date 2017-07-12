@@ -33,3 +33,11 @@ Matrix67 comment:
 > 用 http://Paint.NET 、 Pixelmator 、 Mathematica 、 GeoGebra
 等工具画图。配图的秘诀就是背景透明化、图形反锯齿化、注重色彩、多用 png
 、图内字体大小与正文一致
+
+=== Entity ===
+
+`Entity["type", name]`
+
+use `Ctrl-=` to input `Entity`
+
+ref: http://reference.wolfram.com/language/ref/Entity.html.en

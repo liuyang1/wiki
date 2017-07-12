@@ -37,9 +37,12 @@ data communication.
 === signal ===
 | SIGSTOP | make process to halt its execution | kill -STOP pid |
 | SIGKILL | make proces to exit                | kill pid       |
-These two cannot ignore or block.
+
+*These two cannot ignore or block.*
 
 Other signal can handle by process self, or default handler by kernel.
+
+----
 
 The number of supported signals is limit to the word size of the processor. In
 32bit processors, it only can have 32 singals. So we only have 30+ singal in

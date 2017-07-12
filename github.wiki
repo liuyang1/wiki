@@ -39,3 +39,19 @@ git push --mirror git@github.com:yourname/repo.git
 add upstream
 
 then merge or rebase
+
+== introduce ==
+
+github is an integrated code-hosted service.
+
+- code-hosted
+- review and merge
+- wiki
+- CI system interface
+    - with this interface, we could integrate code static checking, build, tag
+    browsing and more service.
+- bug/issue tracking
+- release management
+
+Compared with ssh, gerrit, editor, confluence, jira, github is highly
+integrated.
