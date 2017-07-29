@@ -157,9 +157,13 @@ notify end of stream
 - path
 - basename
 
-== decoder ==
+== decoder in OMX ==
 - emptyThisBuffer
 - fillThisBuffer
+- allocateBuffer, freeBuffer
+- useBuffer, ??? releaseBuffer
+- emptyBuffer, onEmptyBufferDone
+- fillBuffer, onFillBufferDone
 
 == status ==
 - loaded
