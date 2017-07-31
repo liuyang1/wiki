@@ -144,3 +144,9 @@ multi-char let one store several chars in an integer. Since order in which the c
 use `FOURCC_GEN` like macro, could fix this kind of issue. but must ensure they have same order.
 
 Check sample code at github: [testMultiChar.c](https://github.com/liuyang1/test/blob/master/lang/c/cleanWarning/testMultiChar.c)
+
+## -Wcommeent
+
+- multiline comment
+
+## -Wdeprecated-declaration

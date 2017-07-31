@@ -83,5 +83,9 @@ cannot delete file
     map to guest = Bad User
 }}}
 
+comand to restart: `sudo service smbd restart`
+
+config file `/etc/samba/smb.conf`
+
 === add user ===
 `sudo smbpasswd -a [User Name]`

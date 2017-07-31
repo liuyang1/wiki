@@ -1,0 +1,9 @@
+== namespace 隔离 ==
+- UTS:  hostname
+- IPC:  semphore, message queue and shared memory
+- PID:  process ID
+- network:  device, network stack, port and etc.
+- mount:    file system mount point
+- user: user and group
+
+== cgroups ==

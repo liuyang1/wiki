@@ -62,6 +62,8 @@ programming.
 - freeze, unfreeze
 - standby
 
+- yield, resume, status
+
 - begin
 - end
 - bgn/end

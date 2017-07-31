@@ -1,13 +1,14 @@
 = sed =
-== options ==
+
+== sed command line options ==
 - -i[SUFFIX] --in-plane[=SUFFIX]        edit files in places(make backup if
    SUFFIX supplied)
 - -e script, --expression=script        add script to command to be executed
 
-== sed script ==
-- i \         insert text, which has each embedded newline preceded by a
+== sed commands ==
+- i \           insert text, which has each embedded newline preceded by a
 backslash.
-- s/.../.../  substitue
+- s/.../.../    substitute
 - D             delete
 
 == sed pattern flags ==
@@ -17,6 +18,10 @@ backslash.
 - w filename    write to file
 
 ref: https://www.grymoire.com/Unix/Sed.html
+
+{{{
+REMIND: sed -i [command line options] "[sed commands]/XXXXX/YYYYY/[sed pattern flags]" [file]
+}}}
 
 = Example =
 == add content to header of file ==
@@ -51,3 +56,13 @@ just like /.
 NOTE:
 when use for replace which contain a lost "/", such like path name, it's so
 useful.
+
+== using & as the matched string ==
+
+{{{
+echo "123 abc" | sed 's/[0-9]*/& &/'
+}}}
+
+if will matched "123", and replace it with "123 123" as & is represented as "&"
+
+ref: http://www.grymoire.com/Unix/Sed.html#uh-3
