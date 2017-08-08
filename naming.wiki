@@ -35,6 +35,18 @@ programming.
 - put
 - get
 
+C++, pair struct
+
+- pair, first, second
+
+Haskell
+
+- fst, snd
+
+Lisp
+
+- car, cdr, cons
+
 - pushback
 - append
 - pop
@@ -55,12 +67,15 @@ programming.
 
 - bound, unbounded
 - thresh, threshold
+- close, guess, tolerance
 
 - start
 - stop, halt, halting
 - suspend, resume
 - freeze, unfreeze
 - standby
+
+- free(idle), runnable, runnig, susupend
 
 - yield, resume, status
 
@@ -84,7 +99,7 @@ programming.
 - subsequent
 - front, back
 - before, after, afterward, forward, backward
-- fd, bk, forward, back
+- fd, bk, forward, back, fw, bk
 
 - compatible
 
@@ -544,7 +559,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - dead store
 
 == direction / orientation ==
-- down/up
+- down/up, dn, up
 - left/right
 - horizontal
 - vertical, 竖直
@@ -628,6 +643,10 @@ ref: https://www.douban.com/group/topic/12410327/
     - spawn, fork
 - thread
 - context, ctx
+- signal
+- ISR, IRQ
+- supervisor, governer
+
 == operator ==
 - commutative
 - binary, unary
@@ -849,3 +868,4 @@ ref: https://www.douban.com/group/topic/12410327/
 - vignette 小插曲？？？
 - grain 谷物，纹理
 - fade 渐变
+

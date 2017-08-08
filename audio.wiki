@@ -15,3 +15,6 @@ Adaptive multi-rate compression
 3GPP first use 1998.10
 
 === AMR file format ===
+
+=== naming ===
+Verance音频水印
