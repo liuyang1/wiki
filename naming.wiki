@@ -63,7 +63,7 @@ Lisp
 - push
 - pop
 
-- null, nil
+- null, nil, nihil(来自拉丁语)
 
 - bound, unbounded
 - thresh, threshold
@@ -199,8 +199,12 @@ notify end of stream
 - difference
 - symmetric_difference
 
-- symmetric, asysmetric
+- symmetric, asymmetric
 - intuitive
+- reflexivity 自反性
+- antisymmetric 反对称性
+- transitivity 传递性
+- conversely 反过来
 
 == memory ==
 - alloc / allocate / deallocate
@@ -259,6 +263,7 @@ notify end of stream
 - concurent, parallel
 - condition
     - signal, wait, boardcast, timedwait
+- fence
 
 == IO ==
 - print
@@ -663,10 +668,15 @@ ref: https://www.douban.com/group/topic/12410327/
 - overlay
 - lock/unlock
 - vertex
+- edge
 - shader
 - texture
 - rasterization
 - framebuffer, fb
+
+- topological
+
+- circle, ring, cycle, loop
 
 == mail ==
 - OOO out of office
@@ -685,7 +695,8 @@ ref: https://www.douban.com/group/topic/12410327/
 
 == number ==
 - integer
-- rational
+- rational, rat, R
+    - numer, denom, num, den
 
 == math ==
 
@@ -694,6 +705,8 @@ ref: https://www.douban.com/group/topic/12410327/
 - consecutive
 - coefficient
 - matrix
+- integral, deriv
+- damp
 
 === triangle math ===
 - sin, cos, cosine
@@ -869,3 +882,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - grain 谷物，纹理
 - fade 渐变
 
+- shortening 截短词
+- contraction 收缩词 Docter -> Dr
+- initialism 首字母缩略词(但不可读)
+- acronym 首字母缩略次(可读)

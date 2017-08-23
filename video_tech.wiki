@@ -114,14 +114,12 @@ http://samples.mplayerhq.hu/
 - SAR 存储长宽比
 - DAR 显示长宽比
 
-| ratio | name         |
-| 4:3   | classic TV   |
-| 16:9  | wide screen  |
-| 21:9  | cinema scope |
-
-- square pixels
-- 4:3
-- 16:9
+| ratio     | name          |
+| 1:1       | square pixels |
+| 4:3       | classic TV    |
+| 16:9      | wide screen   |
+| 21:9      | cinema scope  |
+| 2176:2169 |               |
 
 每个图像或者视频编解码器豆要在三个关键维度上选择：
 

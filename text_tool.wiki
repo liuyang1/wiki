@@ -102,7 +102,7 @@ luit -encoding gbk telnet bbs.ustc.edu.cn
 - -E                extend RE mode(same with egrep)
 - --color=[WHEN]    when=always/never/auto
 - -l, --files-with-mathces
-- -L, --files-without-mathces   file files wichi cannot match that strings
+- -L, --files-without-mathces   file files which cannot match that strings
 - -R, -r, --recursive           recursive under each directory
 - -i                ignore case
 - -v                reverse
@@ -138,6 +138,8 @@ show process status as tree
 ==== ag ====
 # multi-pattern
 ag "(header0|header1)tail"
+
+- -H, no heading
 == issue ==
 match ctags, as --all-text / -t will override --ignore
 == tee ==
