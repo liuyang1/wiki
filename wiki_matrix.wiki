@@ -1,0 +1,10 @@
+I perfer
+- no datbase, just text file.
+- easy to install and host
+- share in public
+
+- dokuwiki
+- tiddlywiki
+- moinmoin
+- confluence
+It's good, but it need money.

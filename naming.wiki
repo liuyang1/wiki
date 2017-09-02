@@ -565,7 +565,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 == direction / orientation ==
 - down/up, dn, up
-- left/right
+- left/right, lft/rgt
 - horizontal
 - vertical, 竖直
 - diagonal
