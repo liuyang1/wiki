@@ -42,6 +42,8 @@ find . -type f -size + 100000k
 
 find /tmp -ctime +10 -exec rm -rf {} +
 
+find . -type f -exec sed -i "s/OLD/NEW/g" {} \;
+
 == tree ==
 - -f    full path
 tree -f | grep ABC

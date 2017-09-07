@@ -95,11 +95,11 @@ gcc 从2到3引进的
 - --end-group
 
 We also could refine our code to avoid this kind of problem. For example:
-obersavor mode.
+observer mode.
 
 libA depend on libB. However, libB need use one function in libA.
 
-- obersavor(libA) register function pointer to libB.
+- obersever(libA) register function pointer to libB.
 - libB call the function pointer when need.
 
 so libB don't need know the function when compile, but just know it when
@@ -111,3 +111,6 @@ symbol, then it fail.
 This make extra checking when link.
 == extension ==
 ref: [[https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html]]
+
+== multilib ==
+`-m32`

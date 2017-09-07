@@ -886,3 +886,12 @@ ref: https://www.douban.com/group/topic/12410327/
 - contraction 收缩词 Docter -> Dr
 - initialism 首字母缩略词(但不可读)
 - acronym 首字母缩略次(可读)
+
+- Yet another
+- Done right
+- a bit of
+- learn you xxx for great good
+- practice xxx
+- effective C++
+- lambda the ultimate:
+- GOTO consider harmful
