@@ -4,7 +4,27 @@ yum install tftp-server
 == 配置 ==
 /etc/xinetd.d/tftp
 
+```
+service tftp
+{
+        socket_type    = dgram
+        protocol       = udp
+        wait           = yes
+        user           = root
+        server         = /usr/sbin/in.tftpd
+        server_args    = -s /var/tftpboot/
+        disable        = no
+        per_source     = 11
+        cps            = 100 2
+        flags          = IPv4
+}
+```
+
 disable=no
+
+if find cannot start tftp service, `netstat -antup | ag 69`, cannot find tftp service.
+then check `/var/log/syslog` find error log.
+
 == 运行 ==
 service xinetd start/restart
 == 测试 ==

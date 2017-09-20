@@ -348,6 +348,18 @@ tab页面重新排列
 命令参数
 
 vim -p first second 依次打开文件,在不同的tab页面
+
+== scroll ==
+- scrollbind
+- cursorbind
+
+== quickfix ==
+- cclose            close quickfix window
+- cnext
+- cprevious
+- cfirst
+- clast
+
 == window 窗口分割 ==
 http://yuzifu.net/book/vimdoc/windows.html
 
@@ -356,6 +368,8 @@ http://yuzifu.net/book/vimdoc/windows.html
 - CTRL-W v/:vsp     vertical split windows
 - CTRL-W n/:new     split window and init a blank file
 - Ctrl-W =          evens split panels size
+- Ctrl-W t          move to top-left most window
+- Ctrl-W b          move to bottom-right most window
 - :vnew[w]          vertical split window and init a blank file
 
 - :sp/:vsp          分割窗口/纵向分割窗口(比使用全部命令split与vsplit省事一点点)

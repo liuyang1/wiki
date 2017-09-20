@@ -114,3 +114,8 @@ ref: [[https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html]]
 
 == multilib ==
 `-m32`
+
+== std ==
+
+- c99
+- gnu99     c99, + gcc extension

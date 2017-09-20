@@ -1,0 +1,4 @@
+== formula ==
+
+=== on time ===
+- =TEXT(B2-A2, "h:mm")
