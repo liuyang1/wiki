@@ -33,10 +33,17 @@ different compiler will impl different style.
 so not portable.
 = extend =
 struct init, as . style.
+
+= proection for hacking =
+== ASLR ==
+TODO:
 == stack protector ==
 - -fstack-protector         only for func using char array
 - -fstack-protector-all     for all func
 - -fno-stack-protector
+== executable space protection ==
+TODO:
+ref: https://en.wikipedia.org/wiki/Executable_space_protection#Android
 
 == others ==
 * -v                        verbose output for parameter details

@@ -677,6 +677,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - topological
 
 - circle, ring, cycle, loop
+- rotate: pitch，yaw，roll
 
 == mail ==
 - OOO out of office

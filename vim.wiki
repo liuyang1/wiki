@@ -44,6 +44,11 @@ vim scp://hd0/.bash_profile
 - <C-W>         *插入模式下,向后删除一个单词*,插入模式的功能异常犀利啊!
 - <C-U>         删除左侧的一整行
 
+=== operate on number ===
+- <C-a>         increment cword
+- increment all number in region
+    `%s/\d\+/\=(submatch(0)+1)/g`
+
 == 复制部分内容 ==
 - <C-Y>         复制上一行同一列的内容
 - <C-E>         复制下一行同一列的内容

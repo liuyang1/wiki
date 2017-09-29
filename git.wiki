@@ -348,6 +348,19 @@ git config user.signingkey XXX
 git branch --contains <commit>
 }}}
 
+== create new git server ==
+
+{{{
+    git clone --bare
+}}}
+
+
+== mirror git server ==
+
+{{{
+    git clone --mirror
+}}}
+
 ==服务器配置==
 
 服务器更新
