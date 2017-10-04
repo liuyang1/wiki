@@ -15,10 +15,13 @@ programming.
 - lookup table, lut, hash table, tbl, tab
 - set
 - tree
+    - root, child, left, right, sibling
 - dict, map, assoc, associated array
 - heap
 - counter, cnt
-
+- common
+- grpah
+    - directed
 - node, listnode, treenode
 
 === queue / stack / linked-list ===
@@ -35,17 +38,12 @@ programming.
 - put
 - get
 
-C++, pair struct
-
-- pair, first, second
-
-Haskell
-
-- fst, snd
-
-Lisp
-
-- car, cdr, cons
+- C++, pair struct
+    - pair, first, second
+- Haskell
+    - fst, snd
+- Lisp
+    - car, cdr, cons
 
 - pushback
 - append
@@ -63,8 +61,6 @@ Lisp
 - push
 - pop
 
-- null, nil, nihil(来自拉丁语)
-
 - bound, unbounded
 - thresh, threshold
 - close, guess, tolerance
@@ -76,8 +72,9 @@ Lisp
 - standby
 
 - free(idle), runnable, runnig, susupend
+- pend, pending
 
-- yield, resume, status
+- yield, resume, status, state
 
 - begin
 - end
@@ -154,18 +151,63 @@ notify end of stream
 - construct, destruct
 - ctor, dtor
 
+== 失败退出 ==
+- fail, failure, fatal
+- clean up, cleanup
+- final
+- end
+- crash
+- segment fault
+- underflow, overflow
+- overwrite
+- panic, kernel panic
+- bail out, bailout
 - die
 - trap
+- check, chk
+- unchecked runtime error, checked runtime error, exception
+- error, err, errno, error eode
+- exception, except: try, catch, raise
+- abort
+- diag, Diagnostic, debug
+- kill
+
+== 正常退出 ==
 - exit
 - quit
 - bye
 - terminate
+- success
+- OK
 
 == functional programming ==
 - map
 - filter
-- fold
+- fold, foldl, foldr, foldl1, foldr1
 - reduce
+- accumulate, accumulation, acc
+
+== programming 范式 ==
+- functional 函数式
+- imperative 过程式
+- declarative 声明式
+- implicitly, implicit, explicit 显式，隐式
+- 结构的
+- OOP: orien-object programming
+    - method
+    - overloaded
+- script 脚本
+- static, dynamic
+- adaptive
+- 求值顺序 lazy, eager, strict
+- innermost, outermost
+- polymorphic 多态
+- template 模板
+- macro
+- function, routine, procedure, lambda, thunk
+- unless, if, if then, else, elseif, elif, endif, otherwise
+- while, loop, for, until, do while
+- switch, case
 
 == file system ==
 - file
@@ -232,11 +274,11 @@ notify end of stream
 - acknowledge / ack
 - write
 - read
-- publish
-- subscribe
-- broadcast
+- publish, pub
+- subscribe, sub
+- broadcast, multicast
 - event, evt, ev
-- post
+- post, put
 - message queue, mailbox, mesg, msg
 
 == hearbeat / timer ==
@@ -245,6 +287,18 @@ notify end of stream
 - beat
 - elapse
 - bip/bop
+
+== time ==
+- second
+- minute
+- hour
+- am, pm
+- day, night
+- month
+- year
+- leap 闰年
+- decade
+- century
 
 = currency =
 - money
@@ -266,11 +320,18 @@ notify end of stream
 - fence
 
 == IO ==
-- print
+- read, write
+- feed
+- fullness
+- drain
+- print, println
 - scan
 - get
 - put
-- show, stringfy, toString, pretty, asString
+- input, output
+- show, stringfy, toString, pretty, asString, _str
+- format
+- display, displayln, putStrLn
 - illustrate
 
 == file operation ==
@@ -281,12 +342,20 @@ notify end of stream
 - register
 - unregister
 - notify
+- listen, listener
 == struct ==
 - head / header / hdr
 - body
 - section
 - tag
 - attribute / attr
+- offset
+- payload
+
+== network ==
+- payload
+- overhead
+- header / body
 
 - probe
 - query
@@ -294,6 +363,12 @@ notify end of stream
 - get
 
 == data type ==
+- type, class, kind, interface, superclass
+- super, self
+- local, nonlocal, global
+- instance
+- variable, var
+- signleton
 - atom / atomic, primitive
 - interval / range
 - enumeration / enum / enumerate, struct, union
@@ -313,7 +388,7 @@ notify end of stream
 - package
 - static
 - public , private , protected
-- share
+- share, shared
 - extern , external
 - internal, innard
 - import, export, reveal, expose
@@ -321,16 +396,10 @@ notify end of stream
 - declare, declaration
 - right, own, owner, privilege, enforce, permissive
 
-- check, chk
-- unchecked runtime error, checked runtime error, exception
-- exception: try, catch, raise
-- diag, Diagnostic, debug
-
 - verify, prove, valid, validator
 
 - convention, convent
 - specify
-- implicitly, implicit, explicit
 - pollute, pollution
 - dependent, independent,
 - opaque, hide, hidden
@@ -341,10 +410,9 @@ notify end of stream
 - discontiunuous, discontinue, discon
 
 - eval, repr
-- static, dynamic
-- adaptive
 
 - client, cl, server, srv
+
 
 == server name ==
 - app
@@ -369,8 +437,6 @@ notify end of stream
 - pdu       power distribution unit
 - ups       uninterruptible power supply
 
-- function, routine, procedure, chunk
-- macro
 - chunk, block, sample
 - atom, box
 - video/stream/track/sequence/gop/frame/picture/field/tile/slice/macro
@@ -395,11 +461,6 @@ BLDN
 - property, prop
 - perference
 - factor
-
-== network ==
-- playload
-- overhead
-- header / body
 
 == GUI ==
 - button
@@ -426,13 +487,32 @@ BLDN
 - div
 - anchor point
 
-- text
 - icon
 - image / figure
 
+== text ==
+- text, txt
+- char, word, line
 - title
 - caption
 - label
+- segment
+- content
+- TOC: table of content
+- preface
+- brief content
+- acknowledgment
+- chapter
+- section
+- layout 布局
+- introduction
+- conclusion
+- note, footnote
+- table, figure
+- summary
+- question, quiz, test, exam
+- problem, application
+- glossary 术语表
 
 - desktop
 - window
@@ -440,6 +520,12 @@ BLDN
     - message box
 - menu
 - clipboard
+
+== compure operation ==
+- cut
+- copy
+- paste
+- recycle bin
 
 === GUI action ===
 - action, act, actor
@@ -475,6 +561,8 @@ BLDN
 - non-descending order
 - monotone / monotonically increasing
 - total-ordering
+- increment, decrement, successor
+- inc, dec, succ, pred?
 
 - alignment
 - padding
@@ -585,12 +673,14 @@ ref: https://www.douban.com/group/topic/12410327/
 - triangle
 - rectangle
 - circle
-- eclipse
-- curve
+- eclipse 椭圆
+- curve 曲线
 
 - draw
+- redraw, update, flush
 
-- cone
+- cone 圆锥
+- sphere 椭球
 
 - area
 - volume
@@ -611,8 +701,13 @@ ref: https://www.douban.com/group/topic/12410327/
 - heuristic
 
 == binary ==
-- byte / octet
 - bit
+- byte / octet
+- short, long
+- float, double
+- word, dword
+- reg 寄存器
+- B, KB, MB, GB, TB, PB
 
 == effect ==
 - mosaic
@@ -628,12 +723,27 @@ ref: https://www.douban.com/group/topic/12410327/
 - trivial
 
 == number ==
+- number, No
 - single
-- dual, double
+- dual, double, twice
 - triple
 
 - half
 - quarter
+- quadratic
+- five
+- six
+- seven
+- eight, octet
+- nine
+- ten
+- eleven
+- twelve, dozen
+
+- nth
+- hundred
+- thousand, kilo
+- million
 
 == video ==
 - caption / subtitle, title
@@ -646,9 +756,15 @@ ref: https://www.douban.com/group/topic/12410327/
 == OS ==
 - process
     - spawn, fork
+    - job
+    - task
+    - worker
 - thread
 - context, ctx
 - signal
+    - alarm
+    - ignore, IGN
+    - default, DFT
 - ISR, IRQ
 - supervisor, governer
 
@@ -679,10 +795,14 @@ ref: https://www.douban.com/group/topic/12410327/
 - circle, ring, cycle, loop
 - rotate: pitch，yaw，roll
 
+== color space ==
+- yuv
+- rgb
+
 == mail ==
 - OOO out of office
 - ETA estimate time of arrival
-- FYI for your information
+- FYI: for your information
 - PLS please
 - ASAP as soon as possible
 - IMHO In my humble opinion
@@ -695,13 +815,15 @@ ref: https://www.douban.com/group/topic/12410327/
 - quota
 
 == number ==
-- integer
+- integer, int
 - rational, rat, R
     - numer, denom, num, den
+- fractional
+- complex, real, imagic, Z
 
 == math ==
 
-- tempral, sptial, frequent
+- tempral, sptial, frequent, frequency
 - discrete, continuous
 - consecutive
 - coefficient
@@ -712,23 +834,16 @@ ref: https://www.douban.com/group/topic/12410327/
 === triangle math ===
 - sin, cos, cosine
 
-=== mather ===
-- abel
-- euler
-
-- palindromic
+- palindromic 回文的
 - proportional, direct ratio
 - penalty
 
-- quadratic
-
-- cleanup
+- infinity, finity, unlimited, limited
 
 - main
 - auxiliary, dummy
 - placeholder
 - reserve, reserved, rsvd, rsv
-- var, variable
 
 - The quick brown fox jumps over the lazy dog
 - 我能吞下玻璃而不伤身体
@@ -752,6 +867,9 @@ ref: https://www.douban.com/group/topic/12410327/
 - ceil, ceiling, floor, round
 - sign, abs
 - even, evenly, odd
+- square, sqr 平方
+- sqrt 开方
+- cubic 立方
 
 - consistent, adhere
 - relate, relation, relationship
@@ -759,11 +877,25 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - repeat, replicate
 
+== logic ==
+- and, &&
+- or, ||
+- not, !, /=
+- xor, ^
+- any
+- all
+- bool, boolean
+- predicate
+- is
+- in, elem, element
+- find, index
+- compare, cmp
+- LT, GT, EQ
+- true, false, T, F
+
 - bouns
 - thank, thx
 - trade-off
-
-- fail, final, end, bailout
 
 - lower, upper, vowel 元音
 
@@ -829,6 +961,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - standard
 
 - source, filter, sink
+- swim, sink 上浮，下潜
 
 - launch
 
@@ -836,6 +969,11 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - OOM: out of memory
 - ANR: application not responding
+- NAN: not a number
+- NA: not avaiable
+- NULL, null, nil, nihil(来自拉丁语)
+- undefined
+- ()
 
 - mangle, demangle
 
@@ -896,3 +1034,5 @@ ref: https://www.douban.com/group/topic/12410327/
 - effective C++
 - lambda the ultimate:
 - GOTO consider harmful
+
+- miner, mine, mining 挖矿
