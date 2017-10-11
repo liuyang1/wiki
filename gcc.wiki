@@ -1,3 +1,48 @@
+= GCC =
+ref: https://gcc.gnu.org/onlinedocs/gcc/index.html#Top
+
+== command options ==
+
+=== options for directory search ===
+ref: https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html#Directory-Options
+
+- -I [include dir]
+- -L [linker dir]
+- --sysroot=[system root]
+    for corss compile
+
+=== code generator option ===
+ref: https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html#Code-Gen-Options
+
+- -fpic
+
+pic:: psition-independent code (PIC)
+GOT:: global offset table
+
+    - generate PIC for used a shared library if supported for target machine.
+    - such code access all constant address through GOT(global offset table).
+    - dynamic loader resolve GOT when the program starts.
+    - If GOT size exceed the machine's limit, will get a error messsage. Maybe
+    Need use `-fPIC` under this case.
+        - x86 have no such limit.
+
+- -fPIC
+
+    - chosse PIC code if supported; if not, fallback to normal mode.
+
+- -fPIE -fpie
+
+    - like PIC, but PIC only can be linked to executables.
+
+=== link options ===
+ref: https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html#Link-Options
+
+- -pie
+
+Produce a dynamically linked position independent executable on targets that
+support it.
+
+need `-fPIE` or `-fpie` for compiling process
 
 = rarely std =
 == multi-char const ==

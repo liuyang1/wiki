@@ -5,6 +5,15 @@
 * [[arm_hardware]]
 * [[Binder]]
 
+== NDK ==
+
+since Android 5.0 version, only support PIE. (check [[gcc]] to find more
+        details)
+
+so need `-fPIE -pie`, when try to compile for android platform.
+
+ref: https://stackoverflow.com/questions/24818902/running-a-native-library-on-android-l-error-only-position-independent-executab
+
 == tools ==
 === am ===
 start apk in command line

@@ -203,6 +203,7 @@ notify end of stream
 - innermost, outermost
 - polymorphic 多态
 - template 模板
+- Idempotence  幂等性
 - macro
 - function, routine, procedure, lambda, thunk
 - unless, if, if then, else, elseif, elif, endif, otherwise
@@ -1036,3 +1037,6 @@ ref: https://www.douban.com/group/topic/12410327/
 - GOTO consider harmful
 
 - miner, mine, mining 挖矿
+
+- lanucher 启动器
+- emit 发射
