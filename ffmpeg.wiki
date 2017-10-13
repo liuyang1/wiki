@@ -3,6 +3,10 @@ mtime: 2012-10-30 16:11:15
 
 x264opts    设置x264的参数,设置参数的方法为key=value:key2=vlaue2.
 
+== downscale ==
+
+    ffmpeg -i input.avi -vf scale=320:240 output.avi
+
 ==SVC==
 [[http://gitorious.org/ffmpeg-kraken/|ffmpeg-kraken]]是ffmpeg的一个扩展,来支持svc的编码与解码.
 
