@@ -253,3 +253,10 @@ nohup.ouot and shields it from SIGHUP.
 | &      | Normal |            |          | background      |        |
 | disown |        | No in jobs | same     | must background | NO     |
 | nohup  | NO     |            | NO       |                 | NO     |
+
+== profile/environment ==
+
+- environment: for all shell
+- /etc/profile: for all login shell for all Bourne-compatible shells (including bash and dash).
+- $(HOME)/.profile: for specific user's login
+- bashrc: for all bash

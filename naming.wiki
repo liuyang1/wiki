@@ -11,7 +11,7 @@ programming.
 == struct, st ==
 - list, array, queue, stack
 - linked-list
-- tuple, record
+- tuple, record, recorder
 - lookup table, lut, hash table, tbl, tab
 - set
 - tree
@@ -319,6 +319,7 @@ notify end of stream
 - condition
     - signal, wait, boardcast, timedwait
 - fence
+- spin lock: save, restore
 
 == IO ==
 - read, write
@@ -521,6 +522,7 @@ BLDN
     - message box
 - menu
 - clipboard
+- sanitize
 
 == compure operation ==
 - cut

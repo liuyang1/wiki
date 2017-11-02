@@ -98,3 +98,12 @@ rpm -ivh ABC.rpm
 总线错误,输入输出错误.
 
 这种问题,一般在于系统的硬件连接可能存在问题.
+
+== How to run x86 program on x64 OS ==
+"No such file or directory" when try to run x86 program on x64 OS
+
+{{{
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386
+}}}
