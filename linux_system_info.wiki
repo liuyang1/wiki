@@ -149,3 +149,15 @@ ref:man ps
 lsb_release -a
 
 cat /etc/issue(如果仅仅看系统的名字,这个比较合适)
+
+== check memory ==
+lshw -short -C memory
+
+details information:
+
+dmidecode --type 17
+
+== check disk ==
+haparm -I /dev/sda
+
+lshw -class disk -class storage

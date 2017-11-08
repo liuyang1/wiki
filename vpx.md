@@ -92,3 +92,7 @@ color depth: 10–12 bit, chroma subsampling: 4:2:0, 4:2:2, 4:4:4[19]
 
 = Tool =
 - http://aomanalyzer.org/
+
+## video hardware RTL
+
+google use  Calypto's Catapult solution to generate RTL and firmware.

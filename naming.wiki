@@ -320,6 +320,7 @@ notify end of stream
     - signal, wait, boardcast, timedwait
 - fence
 - spin lock: save, restore
+- capture
 
 == IO ==
 - read, write
@@ -863,7 +864,11 @@ ref: https://www.douban.com/group/topic/12410327/
 - minus, substract, SUB
 - multiply, MUL
 - divide, division, DIV
-- quotient, modular, mod, remainder, quot
+- quotient, quot
+- remainder
+- modulo, modular, mod
+- ratio, fraction
+- prime
 - operator, operand
 - argument
 - minimum, maximum
@@ -894,7 +899,9 @@ ref: https://www.douban.com/group/topic/12410327/
 - find, index
 - compare, cmp
 - LT, GT, EQ
+- Loss, Win, Tie
 - true, false, T, F
+- yes, no
 
 - bouns
 - thank, thx
@@ -1042,3 +1049,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - lanucher 启动器
 - emit 发射
+
+= 密码学 =
+- Alice
+- Bob

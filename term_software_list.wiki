@@ -127,6 +127,11 @@ those files directly from Terminology.
 
 > it look cool, but need more work
 
+== butterfly ==
+- run in browser.
+- Too slow, cannot catch up key striking.
+
+
 = my terminal requriment =
 - font style support
     * bold

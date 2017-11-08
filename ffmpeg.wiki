@@ -32,6 +32,8 @@ ffmpeg.exe -r 5 -f vfwcap -i 0 -s 176x144 -f rawvideo -pix_fmt yuv420p ss.yuv
 }}}
 这种分割方法会带来编码方式的变化.
 
+`ffmpeg -i [input.file] -vcodec copy -avcodec copy -s 00:10:00 -t 00:00:00.060 [output.file]`
+
 ```
 ffmpeg -i [input file] -ss 0 -t 50 -c copy [output file]
 ```

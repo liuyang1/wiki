@@ -357,7 +357,8 @@ midffix libabc_def.ta -> def
 get prefix 1.ft -> 1
 
 {{{
-    prefix="${f%.*}"
+    filename="1.ft"
+    prefix="${filename%.*}"
     echo "$prefix"
 }}}
 == meta skill ==

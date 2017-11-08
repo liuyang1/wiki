@@ -95,3 +95,6 @@ prefix with `pthread_rwlock_`
     return `ENOMEM`, memory was not mapped
 
 - shm_open
+
+== futex ==
+TODO:
