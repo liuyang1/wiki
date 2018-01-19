@@ -21,6 +21,12 @@ fi
 if [ ! \( -d "$dir" \) ]; then
     echo "do something when not exist dir"
 fi
+if [[ !  -d "$dir"  ]]; then
+    echo "do something when not exist dir"
+fi
+if [[ -f "$file0" && -f "$file1" ]]; then
+    echo "do something when exist the 2 files"
+fi
 }}}
 
 compare operator must escape using such as: `\<` or `\>`
