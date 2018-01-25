@@ -77,3 +77,12 @@ show file system usage
 
 == mkfs ==
 == lsblk ==
+
+- How to enlarge file system in VirtualBox
+    - use VBoxManager to enlarge vdi disk
+        - http://www.redstk.com/resizing-a-virtualbox-5-1-4-hdd-vdi-file/
+    - use GParted to enlarge disk size
+    - use cryptsetup to enlarge LUKS crypted disk
+    - use pvresize/lvresize to enlarge PV,LV
+    - use e2fsck/resize2fs to enlarge file system
+        - https://help.ubuntu.com/community/ResizeEncryptedPartitions

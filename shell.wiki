@@ -352,7 +352,7 @@ all sub could be a Regular Expression.
 - ${string/#sub/rep}    使用string前缀匹配sub,那么就用rep,替代所有的sub
 - ${string/%sub/rep}    使用string后缀匹配sub,那么就有rep,替代所有的sub
 
-=== pratice ===
+=== practice ===
 midffix libabc_def.ta -> def
 
 {{{

@@ -27,6 +27,9 @@ output all binary content but first 10 bytes
 
 output all content from 10 line
 
+== tr ==
+truncate char in IO
+
 == multitail ==
 多日志文件跟踪工具
 
