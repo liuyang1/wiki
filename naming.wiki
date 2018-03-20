@@ -465,6 +465,8 @@ BLDN
 - perference
 - factor
 
+- DUT: device under test
+
 == GUI ==
 - button
 - check box
@@ -482,6 +484,7 @@ BLDN
 - form
 - table
 - status line / status bar
+- notch 刘海头的bar
 
 - container
 - pane
@@ -601,7 +604,7 @@ ref: https://www.douban.com/group/topic/12410327/
 | @      | at sign                      |
 | #      | crosshatch, sharp, hash      |
 | %      | percent sign, mod            |
-| &      | and, ampersand               |
+| &      | and, **ampersand**           |
 | ^      | circumflex, caret            |
 | {}     | brace, curly bracket         |
 | []     | bracket                      |
@@ -714,15 +717,17 @@ ref: https://www.douban.com/group/topic/12410327/
 - B, KB, MB, GB, TB, PB
 
 == effect ==
-- mosaic
-- blink
-- judder
+- mosaic 马赛克
+- blink 闪烁
+- judder 抖动
 - artifact
 - stutter
 - stavation
 - lipsync
-- saw-teeth
+- saw-teeth 锯齿
 - latency
+- jitter 抖动
+- stuck
 
 - trivial
 
@@ -1055,3 +1060,5 @@ ref: https://www.douban.com/group/topic/12410327/
 - Bob
 
 - qualify
+
+- marshal/unmarshal json serial/deserial

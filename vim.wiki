@@ -105,7 +105,8 @@ stoped last time in the current buffer.
 ===删除===
 - dd                删除一行
 - [1~9]dd           删除几行
-- *D*               删除到行尾,_不用使用d$这么恶心的操作了._
+- *D*               删除到行尾,_不用使用d$这么恶心的操作了._ delete to tail of line
+- d0                delete to head of line
 - di",di[,di{       删除对应的符号内部的内容
 - dw                删除一个单词
 - dW                删除从该位置到下一个空白处
@@ -422,6 +423,9 @@ record marcro, then reexecute it, will helpling a lot of duplicate jobs.
 = topic =
 == trim trailing whitespace ==
 `:%s/\s\+$//`
+
+== How to change tab to whitesapces ==
+`:%retab!`
 
 == undo branch ==
 - g-            go to older text state. with a count repeat that many times.

@@ -3,6 +3,8 @@
 
 == change to zsh ==
 `chsh -s /bin/zsh`
+
+`usermod -s /bin/zsh [user]`
 == auto completion ==
 cd 历史记录
 cd -(TAB)

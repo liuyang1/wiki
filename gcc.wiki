@@ -3,10 +3,10 @@ ref: https://gcc.gnu.org/onlinedocs/gcc/index.html#Top
 
 == command options ==
 
+
 === options for directory search ===
 ref: https://gcc.gnu.org/onlinedocs/gcc/Directory-Options.html#Directory-Options
 
-- -I [include dir]
 - -L [linker dir]
 - --sysroot=[system root]
     for corss compile
@@ -98,11 +98,50 @@ ref: https://en.wikipedia.org/wiki/Executable_space_protection#Android
 * m32,m64                   spec for 32bit or 64bit code
 * -E                        preprocess only
 * -e/--entry _ENTRY_        self define entry function
-* -o                        output filename
 
+== preproces step ==
+
+- use '-E' option to only do preprocess step.
+- preprocess step include all header, and extend all macros.
+
+=== preprocess option ===
+ref: https://gcc.gnu.org/onlinedocs/gcc-5.2.0/gcc/Preprocessor-Options.html
+
+- -D name
+- -D name=definition
+- -U name               undefine macro
+- -I [include dir]
+- -include [file]       auto include one header files
+- -o                    output filename
 === warning of option ===
 - -Wall
 - -Werror
+
+=== system macro ===
+ref: https://gcc.gnu.org/onlinedocs/cpp/Standard-Predefined-Macros.html
+
+- __FILE__
+
+This macro expands to the name of the current input file, in the form of a C
+string constant. This is the path by which the preprocessor opened the file,
+       not the short name specified in ‘#include’ or as the input file name
+       argument. For example, "/usr/local/include/myheader.h" is a possible
+       expansion of this macro.
+
+This is absolute path of source file, or relative path of source file. Both
+are possible. It is determined by argument of the gcc command.
+
+The string store at read-only section.
+
+- __func__
+- __line__
+
+- assert
+
+assert macro expand to '__assert2' (on Android platform).
+
+it use __FILE__, __LINE__, __func__
+
 
 === debug option ===
 - -g
