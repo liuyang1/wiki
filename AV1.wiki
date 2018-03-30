@@ -1,0 +1,6 @@
+= AOM/AV1 =
+
+next step for google's webm project
+
+Year2018 release
+1st hw decode will release at 2019

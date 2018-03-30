@@ -1,0 +1,9 @@
+= x86 =
+= x64 =
+== register ==
+
+ref: https://wiki.cdot.senecacollege.ca/wiki/X86_64_Register_and_Instruction_Quick_Start
+
+- rsp - register stack pointer (current location in stack, growing downwards)
+
+= ARM =

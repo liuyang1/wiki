@@ -1,0 +1,3 @@
+= HEIF =
+
+Container format based on ISO Base Media File Format

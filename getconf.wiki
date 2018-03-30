@@ -1,0 +1,11 @@
+= getconf =
+
+query system config var
+
+== ARG_MAX ==
+limit of command's length
+
+getconf ARG_MAX
+
+- 2M for normal linux OS
+- 32000 for cygwin

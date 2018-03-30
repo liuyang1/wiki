@@ -143,7 +143,7 @@ notify end of stream
 - object, instance, handle, subject
 
 - init
-- deinit / finit
+- deinit / finit / fini
 - create
 - destroy
 - open
@@ -1062,3 +1062,6 @@ ref: https://www.douban.com/group/topic/12410327/
 - qualify
 
 - marshal/unmarshal json serial/deserial
+- mock
+- stub
+- tramp

@@ -5,6 +5,10 @@
 * [[arm_hardware]]
 * [[Binder]]
 
+== Android based on Linux ==
+=== ion ===
+ion use IDR lib.
+
 == NDK ==
 
 since Android 5.0 version, only support PIE. (check [[gcc]] to find more

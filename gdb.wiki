@@ -194,3 +194,8 @@ Then we get core dump file
 attach `process-id`
 
 detach
+
+== gdb-server ==
+board: gdb-server :[port num] --attach [PID]
+server: gdb
+target remote [IP:port]

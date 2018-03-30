@@ -76,3 +76,70 @@ dmesg | tail -n 100
 ```
 
 to find out what use so may CPU.
+
+== IDR: integer ID management ==
+idr 是小整数ID管理的库
+
+使用稀疏数组映射整数到任意指针类型
+
+> 和我们实现的idmap是类似的东西
+
+- void idr_init(struct idr *idp);
+- int idr_pre_get(struct idr *idp, unsigned int gfp_mask);
+    - 准备工作可以在没有锁的情况下进行，而真正的工作需要在锁的保护下
+- int idr_get_new(struct idr *idp, void *ptr, int *id);
+- int idr_get_new_above(struct idr *idp, void *ptr, int start_id, int *id);
+- void *idr_find(struct idr *idp, int id);
+- void idr_remove(struct idr *idp, int id);
+
+== spin lock自旋锁 ==
+spin lock
+
+其实关键就是try-again的机制
+
+ {{{
+  again:
+	if (idr_pre_get(&my_idr, GFP_KERNEL) == 0) {
+		/* No memory, give up entirely */
+	}
+	spin_lock(&my_lock);
+	result = idr_get_new(&my_idr, &target, &id);
+	if (result == -EAGAIN) {
+		sigh();
+		spin_unlock(&my_lock);
+		goto again;
+	}
+
+}}}
+
+== IO ==
+ref: https://blog.csdn.net/KingCat666/article/details/77689274
+
+多路复用
+=== sync IO/select ===
+`int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);`
+
+select 监视读写异常三个组的文件描述符集合。直到有一个描述符就绪，或者超时
+
+出来后的结果，通过FD_ISSET宏之类的判断其mask的结果
+
+缺陷：FD的个数有限制，并且复杂度O(Num(fd))
+
+=== async IO/poll ===
+
+`int poll (struct pollfd *fds, unsigned int nfds, int timeout);`
+
+- 使用链表
+- 水平触发
+
+=== epoll ===
+
+{{{
+int epoll_create(int size)；// 创建一个 epoll 的句柄，size 用来告诉内核这个监听的数目一共有多大
+int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
+int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);
+}}}
+
+- 减小需要复制到内核的内容
+- mmap
+- 边沿触发
