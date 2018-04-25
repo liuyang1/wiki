@@ -210,3 +210,6 @@ ref: [[https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html]]
 
 - c99
 - gnu99     c99, + gcc extension
+
+== attribute ==
+- `__attribute__((warn_unused_result))[[`]]

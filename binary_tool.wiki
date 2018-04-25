@@ -68,3 +68,7 @@ ascii 16进制数字,列出其各个形式,以及对应的具体信息,比如asc
 n 跳到下一个不同的地方
 == hexedit ==
 == hexer ==
+== bless ==
+Linux GUI tool
+== madedit ==
+Windows GUI tool

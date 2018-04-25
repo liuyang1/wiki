@@ -85,6 +85,10 @@ mencoder -of lavf -lavfopts format=mpegts -o output.ts -vcodec copy -acodec copy
 
 ==ffprobe==
 === 名词解释 ===
+
+ref:
+http://www.ffmpeg-archive.org/What-does-the-output-of-ffmpeg-mean-tbr-tbn-tbc-etc-td941538.html
+
 * tbn   time base in AVStream that has come from the container.
 * tbc   time base in AVCodecContext for the codec used for a particular stream
 * tbr   guessed from the video stream and is the value users want to see when they look for the video frame rate, except sometimes it is twice what one would expect because of field rate versus frame rate
@@ -694,6 +698,6 @@ worse.
 
 == analysis ==
 
-analysis motion vector, macroblock types, QP values
+Analysis motion vector, macroblock types, QP values
 
 https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
