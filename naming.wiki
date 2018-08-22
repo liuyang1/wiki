@@ -787,7 +787,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - signal
     - alarm
     - ignore, IGN
-    - default, DFT
+    - default, DFT, DLFT
 - ISR, IRQ
 - supervisor, governer
 
@@ -832,7 +832,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - ToT Top of Tree
 - EOD End of Day
 
-- estimate
+- estimate, EST.
 - misc miscellaneous
 - cache
 - quota
@@ -1090,3 +1090,6 @@ ref: https://www.douban.com/group/topic/12410327/
 - medal
 
 - drift 漂移
+
+- quantity, Qty
+- flase alarm

@@ -28,11 +28,12 @@ Normal conditon, this CC need less than 10 or 15.
 对于Java有工具,JavaNCSS, PMD, CheckStyle等.
 对于Python有Mccabe.
 == complexity checking tool ==
+=== for Java ===
 * PMD
 * CheckStyle
 * JavaNCSS
-* cccc
-=== cccc ===
+=== for C/C++ ===
+==== cccc ====
 - LOC line of code
 - MVG McCabe's Cyclomatic Complexity
 - COM line of comment
