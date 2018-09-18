@@ -193,7 +193,7 @@ Then we get core dump file
 == debugging an already-running process ==
 attach `process-id`
 
-detach
+Detach
 
 == gdb-server ==
 board: gdb-server :[port num] --attach [PID]

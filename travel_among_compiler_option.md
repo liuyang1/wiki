@@ -12,8 +12,8 @@ However, new GCC stuck sometimes. I don't know the reason. Let's check it.
 2. `pstree | grep -i gcc`. I find gcc try to execute the `as` command.
 3. `strace -p [PID of as]`. The `as` process is waiting for `read` system call.
 
-    strace -p [PID of as]
-    read(0,
+        strace -p [PID of as]
+        read(0,
 
 Looks like `as` is waiting for input from fileno 0 (STDIN).
 
@@ -27,10 +27,10 @@ I try to `gdb -p [PID of as]`, but the `as` program is stripped.
 
 5. under root directory of `binutils`'s source code
 
-    mkdir /tmp/4as
-    ./configure --prefix=/tmp/4as
-    make && make install
-    export PATH=/tmp/4as:$PATH
+        mkdir /tmp/4as
+        ./configure --prefix=/tmp/4as
+        make && make install
+        export PATH=/tmp/4as:$PATH
 
 We get debug version of `as` under `/tmp/4as` now.
 And our debug version will shadow the system one.
@@ -56,6 +56,8 @@ Just run the build command again. This time, we could get the call stack now.
     #7  0x00000000004045d0 in perform_an_assembly_pass (argv=0x9eecc8,
         argc=<optimized out>) at as.c:1187
     #8  main (argc=3, argv=0x9eecc0) at as.c:1342
+
+It try to open filename="", when call `input_file_open`. It's interesting!
 
 6. check code of `binutils/gas`.
 https://github.com/bminor/binutils-gdb/blob/master/gas/input-file.c#L117-L146
@@ -174,6 +176,12 @@ How to resolve this issue?
 Just remove the dumb '-Wa,' option.
 
 I study this issue several hours, and just remove 5 characters. :)
+
+## Postscript
+
+### Why old gcc version is good with '-Wa,' option?
+
+I'm not sure. Maybe gcc update issue. gcc's history is too complex for me.    
 
 ## Ref
 

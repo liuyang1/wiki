@@ -538,7 +538,7 @@ BLDN
 - clipboard
 - sanitize
 
-== compure operation ==
+== computer operation ==
 - cut
 - copy
 - paste
@@ -793,7 +793,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 == operator ==
 - commutative
-- binary, unary
+- binary, unary, ternary
 
 - two's complement
 - complement 补集
@@ -951,8 +951,6 @@ ref: https://www.douban.com/group/topic/12410327/
 - a piece of <>
 - <> in perals
 
-- group, bundle
-
 - alternative
 
 == language ==
@@ -1034,7 +1032,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - TL;DR too long; don't read
 
 - decoupled
-- group, bundle
+- group, bundle, unbundle
 - closure, cl
 
 
@@ -1092,4 +1090,9 @@ ref: https://www.douban.com/group/topic/12410327/
 - drift 漂移
 
 - quantity, Qty
-- flase alarm
+- false alarm
+
+- pseudo 伪
+- quasi 拟
+
+- control: ctl

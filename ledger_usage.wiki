@@ -54,3 +54,18 @@ ledger -f my.dat reg Checking
 
 == ref ==
 http://www.ledger-cli.org/3.0/doc/ledger3.html#Fat_002dfree-Accounting
+
+== more ==
+
+one site to discuss plain text accounting
+    https://plaintextaccounting.org/
+
+vim-plugin to support ledger
+    https://github.com/ledger/vim-ledger
+
+Haskell have one derivation software: hledger
+
+hledger have extension to support recording time.
+
+- timeclock
+- timedot
