@@ -49,3 +49,6 @@ linux screenshot util
 - -s            select rectangle or window
 - -q            quality
 - -t            scale, 10 -> 10%
+
+== chafa ==
+CLI tool to preview image

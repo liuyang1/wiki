@@ -5,9 +5,15 @@
 
 == elinks/links ==
 
+DEAD
+
 == lynx ==
 - dump translate html to text
 
 == curl ==
 == httpie ==
 == wget ==
+
+== browsh ==
+
+headless firefox

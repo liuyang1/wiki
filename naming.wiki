@@ -351,7 +351,7 @@ notify end of stream
 - body
 - section
 - tag
-- attribute / attr
+- attribute / attr / attrib
 - offset
 - payload
 
@@ -376,8 +376,8 @@ notify end of stream
 - interval / range
 - enumeration / enum / enumerate, struct, union
 - itemization(racket) / Maybe(haskell)
-- compound (consist of two or more itema that naturally belong together)
-- composed (naturally composed of diferent parts)
+- compound (consist of two or more item that naturally belong together)
+- composed (naturally composed of different parts)
 - reference
 - self-reference
 - dereference
@@ -393,7 +393,7 @@ notify end of stream
 - public , private , protected
 - share, shared
 - extern , external
-- internal, innard
+- internal, inward
 - import, export, reveal, expose
 - prototypes, interface, implementation, representation
 - declare, declaration
@@ -410,7 +410,7 @@ notify end of stream
 - transmission, TX
 - RX
 
-- discontiunuous, discontinue, discon
+- discontinuous, discontinue, discon
 
 - eval, repr
 
@@ -792,6 +792,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - supervisor, governer
 
 == operator ==
+- rhs, lhs, right hand side, left hand side
 - commutative
 - binary, unary, ternary
 
@@ -806,10 +807,10 @@ ref: https://www.douban.com/group/topic/12410327/
 - surface
 - overlay
 - lock/unlock
-- vertex
+- vertex, node
 - edge
 - shader
-- texture
+- texture, tex
 - rasterization
 - framebuffer, fb
 
@@ -866,6 +867,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - main
 - auxiliary, dummy
 - placeholder
+- foo, bar, baz, qux
 - reserve, reserved, rsvd, rsv
 
 - The quick brown fox jumps over the lazy dog
@@ -1069,7 +1071,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - miner, mine, mining 挖矿
 
-- lanucher 启动器
+- launcher 启动器
 - emit 发射
 
 = 密码学 =
@@ -1096,3 +1098,5 @@ ref: https://www.douban.com/group/topic/12410327/
 - quasi 拟
 
 - control: ctl
+
+- this, ths

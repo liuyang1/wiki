@@ -1,0 +1,7 @@
+- man
+- info
+- cheat
+
+- dash in MAC OS
+- zeal in linux
+- http://devdocs.io for web
