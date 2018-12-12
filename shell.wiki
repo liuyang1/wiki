@@ -149,7 +149,7 @@ for (( i = 0 ; i < ${#names[@]} ; i++ )) do
     echo ${names[$i]}
 done
 }}}
-* copy
+* copy (assign whole array)
 need extra parens
 `Linux=("${Unix[@]}")`
 
@@ -164,7 +164,7 @@ newmap[what]="value"
 echo ${newmap[name]}
 }}}
 
-more details check test code
+More details check test code
 
 === more bash options ===
 * -v                verbose

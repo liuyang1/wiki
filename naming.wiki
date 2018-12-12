@@ -20,7 +20,7 @@ programming.
 - heap
 - counter, cnt
 - common
-- grpah
+- graph, G
     - directed
 - node, listnode, treenode
 
@@ -71,7 +71,7 @@ programming.
 - freeze, unfreeze
 - standby
 
-- free(idle), runnable, runnig, susupend
+- free(idle), runnable, running, suspend, resume
 - pend, pending
 
 - yield, resume, status, state
@@ -127,7 +127,7 @@ programming.
 === blocking queue ===
 - take (block when queue is empty)
 - put(block when queue is full)
-- posion pill/ EOS
+- poison pill/ EOS
 notify end of stream
 
 == array ==
@@ -166,7 +166,7 @@ notify end of stream
 - trap
 - check, chk
 - unchecked runtime error, checked runtime error, exception
-- error, err, errno, error eode
+- error, err, errno, error code
 - exception, except: try, catch, raise
 - abort
 - diag, Diagnostic, debug
@@ -371,7 +371,7 @@ notify end of stream
 - local, nonlocal, global
 - instance
 - variable, var
-- signleton
+- singleton
 - atom / atomic, primitive
 - interval / range
 - enumeration / enum / enumerate, struct, union
@@ -434,7 +434,7 @@ notify end of stream
 - con       console/terminal server
 - fwl       firewall
 - lbl       load balance
-- rtr       L3 rounter
+- rtr       L3 router
 - swt       L2 switch
 - vpn
 - pdu       power distribution unit
@@ -449,7 +449,6 @@ notify end of stream
 - atom, box
 - video/stream/track/sequence/gop/frame/picture/field/tile/slice/macro
 block/block/unit/block/pixel
-- chroma, luminace
 
 - example (xmpl)
 - sample
@@ -490,7 +489,7 @@ BLDN
 - mouse
 - keyboard
 - tooltip
-- ballon tip
+- balloon tip
 - form
 - table
 - status line / status bar
@@ -773,6 +772,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - descriptor
 
 - luma, intensity
+- chroma, luminance
 - chroma
 - HDR, SDR
 
@@ -789,7 +789,7 @@ ref: https://www.douban.com/group/topic/12410327/
     - ignore, IGN
     - default, DFT, DLFT
 - ISR, IRQ
-- supervisor, governer
+- supervisor, governor
 
 == operator ==
 - rhs, lhs, right hand side, left hand side
@@ -813,6 +813,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - texture, tex
 - rasterization
 - framebuffer, fb
+- display, dpy
 
 - topological
 
@@ -841,13 +842,13 @@ ref: https://www.douban.com/group/topic/12410327/
 == number ==
 - integer, int
 - rational, rat, R
-    - numer, denom, num, den
+    - number, denom, num, den
 - fractional
 - complex, real, imagic, Z
 
 == math ==
 
-- tempral, sptial, frequent, frequency
+- temporal, sptial, frequent, frequency
 - discrete, continuous
 - consecutive
 - coefficient
@@ -882,7 +883,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 === arith ===
 - add, addition, plus
-- minus, substract, SUB
+- minus, subtract, SUB
 - multiply, MUL
 - divide, division, DIV
 - quotient, quot
@@ -924,7 +925,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - true, false, T, F
 - yes, no
 
-- bouns
+- bonus
 - thank, thx
 - trade-off
 
@@ -941,17 +942,17 @@ ref: https://www.douban.com/group/topic/12410327/
 - usr, user
 
 == Book ==
-| CII   | C Implementation and Interface                     |
-| CLRS  | Introduction to Algorithms                         |
-| CSAPP |                                                    |
-| TAOCP | The art of Computer Programming                    |
-| SICP  | Structure and Interpretation of Computer Programms |
-| HtDP  | How to Design Programs                             |
+| CII   | C Implementation and Interface                   |
+| CLRS  | Introduction to Algorithms                       |
+| CSAPP |                                                  |
+| TAOCP | The art of Computer Programming                  |
+| SICP  | Structure and Interpretation of Computer Program |
+| HtDP  | How to Design Programs                           |
 
 - real world <>
 - <> in action
 - a piece of <>
-- <> in perals
+- <> in pearls
 
 - alternative
 
@@ -963,7 +964,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - keyword
 - identifier
 - token, symbol
-- lexical analsis, scaning
+- lexical analysis, scaning
 - lexical analyzer
 - syntax analysis, parsing
 - regex, regular expression
@@ -1023,18 +1024,19 @@ ref: https://www.douban.com/group/topic/12410327/
 - host, target
 - meta
 
-- cadenc
+- cadence
 - candidate
 - penalty
 - forbidden
 
 - combine, meld, merge, blend, mix, fuse, compound, comb, bind, joint, tie
-- seperate
+- separate
 
 - TL;DR too long; don't read
 
 - decoupled
-- group, bundle, unbundle
+- group, grp
+- bundle, unbundle
 - closure, cl
 
 

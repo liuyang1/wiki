@@ -1,0 +1,19 @@
+= file system =
+== mknod ==
+mknod [OPTION] NAME TYPE [MAJOR MINOR]
+
+mknod /dev/fb0 c 29 0
+
+- create a character (unbuffered) special file
+- major number 29: frame buffer
+- monior number 0: first frame buffer
+
+Type::
+- c, u  character special file
+- b     block special file
+- p     FIFO file
+
+== mkdir ==
+How umask & mode works?
+
+    final_mode = mode & ~umask & 0777

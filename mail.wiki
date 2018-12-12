@@ -8,6 +8,7 @@ mail body from _STDIN_ or using _echo_ command
 - -s    SUBJECT
 - comma delimiter in TOADDR
 - -a    append other header scope
+- -A    attach=FILE
 NOTE:
 may have some issues.
 - -c    CC to addr
