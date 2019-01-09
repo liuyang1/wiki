@@ -1,7 +1,8 @@
-
 =awesome配置文档=
-http://blog.csdn.net/wearenoth/article/details/7489157
-http://josephpan.net/blog/?p=992
+
+ref:
+- http://blog.csdn.net/wearenoth/article/details/7489157
+- http://josephpan.net/blog/?p=992
 
 awesome的配置,不需要需改.xinitrc,这个文件用于自动启动,目前ubunut已经采用了会话管理器,因此不需要这个.
 

@@ -115,6 +115,15 @@ adb -s [DevicesID] remount
 
 or check `df` or `mount` first
 
+==== no permission ====
+```
+chown root:[user_group] adb
+chmod 4550 adb
+```
+
+correct solution need this:
+https://stackoverflow.com/questions/14460656/android-debug-bridge-adb-device-no-permissions/19291975#19291975
+
 === android ===
 NOTE:
 this is development tool, not other things.

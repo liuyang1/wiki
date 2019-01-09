@@ -754,7 +754,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - quarter
 - quadratic
 - five
-- six
+- six, hexagonal
 - seven
 - eight, octet
 - nine
@@ -775,6 +775,12 @@ ref: https://www.douban.com/group/topic/12410327/
 - chroma, luminance
 - chroma
 - HDR, SDR
+
+== audio ==
+== voice ==
+- beamforming 波束成形
+
+- state-of-the-art 最先进
 
 == OS ==
 - process
