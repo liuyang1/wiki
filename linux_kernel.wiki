@@ -1,7 +1,15 @@
 == module ==
+`init_module`/`finit_module` to load a kernal module
+
+- load an ELF image into kernel space,
+- performs any necessary symobl relocations,
+- init module params to values providied by the caller
+- run modules' init function
+
 === insmod ===
 === rmmod ===
 === lsmod ===
+Module Size 'Used by'
 === modprobe ===
 === modinfo ===
 
