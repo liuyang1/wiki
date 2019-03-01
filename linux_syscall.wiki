@@ -1,0 +1,17 @@
+= fd =
+
+fd is namespace of one process. serveral syscall may allocate it.
+
+- socket
+- openat
+- open
+
+== fd allocation ==
+
+POSIX compliant
+
+ref: http://pubs.opengroup.org/onlinepubs/9699919799/functions/V2_chap02.html#tag_15_14
+
+2.14. File Descriptor Allocation
+All functions that open one or more file descriptors shall, unless specified
+otherwise, atomically allocate the `lowest` numbered available (that is, not already open in the calling process) file descriptor at the time of each allocation. Where a single function allocates two file descriptors (for example, pipe() or socketpair()), the allocations may be independent and therefore applications should not expect them to have adjacent values or depend on which has the higher value.
