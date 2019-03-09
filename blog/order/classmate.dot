@@ -1,0 +1,8 @@
+digraph {
+	rankdir="LR"
+
+	Ming -> Hong -> Gang -> Ming
+	Gang -> Hong -> Ming -> Gang
+
+	Hanlei -> Limeimei -> Hanlei
+}

@@ -1,0 +1,3 @@
+digraph {
+	rock -> scissors -> paper -> rock
+}

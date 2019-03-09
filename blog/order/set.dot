@@ -1,0 +1,20 @@
+digraph {
+
+	//node [shape=plaintext, fontname="Microsoft Yahei"];
+	_ [label="Empty"]
+	0 [label="{0}"]
+	1 [label="{1}"]
+	2 [label="{2}"]
+	01 [label="{0,1}"]
+	02 [label="{0,2}"]
+	12 [label="{1,2}"]
+	012 [label="{0,1,2}"]
+
+	_ -> {0,1,2,01,02,12,012}
+	0 -> {01,02,012}
+	1 -> {01,12,012}
+	2 -> {02,12,012}
+	{01,02,12} -> 012
+	
+	
+}

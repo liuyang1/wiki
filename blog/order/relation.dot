@@ -1,0 +1,14 @@
+digraph {
+	node [shape=plaintext, fontname="Microsoft Yahei"];
+
+	edge [fontname="Microsoft-Yahei" splines="ortho"]
+	rankdir="LR"
+
+	二元关系 -> 相容 [label="自反性,对称性"]
+	相容 -> 等价 [label="+传递性"]
+	二元关系 -> 预序 [label="自反性,传递性"]
+	预序 -> 等价 [taillabel="+对称性"]
+	预序 -> 偏序 [label="+反对称性"]
+	偏序 -> 全序 [label="+完全性"]
+	全序 -> 良序 [label="+良基"]
+}

@@ -1,0 +1,4 @@
+digraph {
+	scissors -> paper -> rock -> lizard -> spock -> scissors
+	scissors -> lizard -> paper -> spock -> rock -> scissors
+}
