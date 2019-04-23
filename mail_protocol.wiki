@@ -1,0 +1,23 @@
+= name =
+
+- MDA: mail delivery agent
+
+= SMTP =
+simple mail transfer protocol
+
+outgoing mail is pushed from the sender to the final MDA using SMTP.
+
+= POP3 =
+
+Post Office Protocol
+
+Negative:
+
+- POP3 is a example of a polling email delivery protocol.
+so we have to setting the polling interval, and cannot receive mail on time.
+
+- POP3 only support receive mail. so it cannot push sent mail to backup at server side.
+
+= IMAP =
+
+= Exchange =

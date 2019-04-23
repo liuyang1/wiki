@@ -312,7 +312,7 @@ notify end of stream
 - synchronous, sync,
 - same time
 
-== mutex / seamphore / cond ==
+== mutex / semaphore / cond ==
 - lock / unlock
 - race condition
 - concurent, parallel
@@ -321,6 +321,7 @@ notify end of stream
 - fence
 - spin lock: save, restore
 - capture
+- semaphore, sem, semphr
 
 == IO ==
 - read, write
@@ -408,7 +409,8 @@ notify end of stream
 - opaque, hide, hidden
 - transparent
 - transmission, TX
-- RX
+- transfer, xfer
+- TX, RX
 
 - discontinuous, discontinue, discon
 
