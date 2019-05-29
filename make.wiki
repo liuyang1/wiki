@@ -48,13 +48,24 @@ else
 endif
 }}}
 
+Makefile don't support complex condition
+
 == loop ==
 
 == function ==
 $(function args)
 
 - shell         execute shell command
+
+	$(shell uname -s)
+	get OS from shell
+
 - subst         text replace $(subst from,to,text)
+
+	obj = $(src:.c=.o)
+	replace source files's '.c' suffix to .o
+
+
 - patsubst      pattern matching replace $(patsubst pattern,replacement,text)
 - VAR:oldSuffix=newSuffix       suffix replace `min: $(OUTPUT):.js=.min.js`
 - filter-out
@@ -74,6 +85,7 @@ ref: https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html
 - addpreefix
 - join
 - wildcard      expand asterisk char
+src = $(wildcard *.c)
 - realpath
 - abspath
 
@@ -328,3 +340,10 @@ make command goals
 ref:
 - https://www.gnu.org/software/make/manual/html_node/MAKE-Variable.html#MAKE-Variable
 - https://stackoverflow.com/questions/3477292/what-do-and-do-as-prefixes-to-recipe-lines-in-make
+
+== header file dependence ==
+
+# rule to generate a dep file by using the C preprocessor
+# (see man cpp for details on the -MM and -MT options)
+%.d: %.c
+    @$(CPP) $(CFLAGS) $< -MM -MT $(@:.d=.o) >$@

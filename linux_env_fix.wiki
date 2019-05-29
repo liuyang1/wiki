@@ -1,0 +1,3 @@
+# How to run i386 program on x64 linux OS?
+
+sudo apt install libc6:i386 multiarch-support

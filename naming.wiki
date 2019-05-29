@@ -15,7 +15,7 @@ programming.
 - lookup table, lut, hash table, tbl, tab
 - set
 - tree
-    - root, child, left, right, sibling
+    - root, parent, child, left, right, sibling
 - dict, map, assoc, associated array
 - heap
 - counter, cnt
@@ -35,8 +35,7 @@ programming.
 
 - head, tail
 - dequeue / deque (pronounced "deck")
-- put
-- get
+- put/get(obtain)
 
 - C++, pair struct
     - pair, first, second
@@ -317,11 +316,13 @@ notify end of stream
 - race condition
 - concurent, parallel
 - condition
-    - signal, wait, boardcast, timedwait
+    - signal, wait, broadcast, timedwait
 - fence
 - spin lock: save, restore
 - capture
-- semaphore, sem, semphr
+- semaphore, semphr, sem
+    - up/down
+    - give/take
 
 == IO ==
 - read, write
@@ -896,6 +897,9 @@ ref: https://www.douban.com/group/topic/12410327/
 - divide, division, DIV
 - quotient, quot
 - remainder
+
+dividend / divisor = qutotient ... remainder
+
 - modulo, modular, mod
 - ratio, fraction
 - prime
@@ -948,6 +952,8 @@ ref: https://www.douban.com/group/topic/12410327/
 - info
 - high, mid, low
 - usr, user
+
+- emerg, alter, crit, err, warning, notice, info, debug
 
 == Book ==
 | CII   | C Implementation and Interface                   |
@@ -1107,6 +1113,22 @@ ref: https://www.douban.com/group/topic/12410327/
 - pseudo 伪
 - quasi 拟
 
-- control: ctl
+- control: ctl, ctrl, cntl
 
 - this, ths
+
+- scatter-gather,sg
+- nents, number of entries
+- src, dst, tgt
+
+= socket =
+- bind
+- connect
+- listen
+- accept
+- send, recv
+- sendto, recvfrom
+
+- set/unset
+- enable/disable
+- clear
