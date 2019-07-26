@@ -18,3 +18,8 @@ Adaptive multi-rate compression
 
 === naming ===
 Verance音频水印
+
+== PCM ==
+It's signed number
+
+0xFFFF -> -1

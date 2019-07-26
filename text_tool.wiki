@@ -191,7 +191,21 @@ similar with `tail -f`, but can interrupt trace (by `<Ctrl-C>`) or resume by
 NUM is level
 == diffstat ==
 
+== comm ==
+compare sorted file
+
 == pv ==
 progress of pipe
 
 `dd if=/dev/urandom | pv | dd of=/dev/null`
+
+== on file type ==
+- HTML to text
+    lynx -dump -stdin
+- makrdown, html convertor
+    pandoc
+- xml: xmlstarlet
+- JSON: jq
+- YAML: shyaml
+- csv: csvkit
+- Amazon S3: s3cmd, s4cmd, aws, saws

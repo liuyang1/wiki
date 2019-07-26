@@ -99,3 +99,35 @@ mount -o bind /dev dev/
 1. `pacman -Syu`
 
 ref: https://kelvinh.github.io/blog/2013/09/03/fix-archlinux-on-mac-air/
+
+== fix ubuntu system ==
+
+{{{
+mount /dev/sda1 /mnt
+mount --bind /dev /mnt/dev
+mount --bind /proc /mnt/proc
+mount --bind /sys /mnt/sys
+chroot /mnt
+
+# may need resolve the DNS issue
+echo 'nameserver [IP]' > /etc/resolv.conf
+
+rm /var/lib/apt/lists/lock
+rm /var/lib/dpkg/lock
+rm /var/lib/dpkg/lock-frontend
+dpkg --configure -a
+apt update
+apt clean
+apt update --fix-missing
+apt install -f
+dpkg --configure -a
+apt upgrade
+apt dist-upgrade
+}}}
+
+== manually mount the encrypted disk ==
+
+udisksctl unlock -b /dev/sda5
+# input your passphrase
+udisksctl mount -b /dev/mapper/ubuntu-root
+# it will show the mounted path

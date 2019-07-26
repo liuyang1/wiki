@@ -34,14 +34,17 @@ hexdump -C filename
 
 - -n 长度
 
+== hd ==
 == xxd ==
 - -l 长度
 - -u 使用大写字母
 
-== bview/bvi ==
+== biew/bvi ==
 二进制文件的编辑器
 == vbindiff ==
 diff on binary data
+== xdelta3 ==
+create diff file for binary
 == cmp ==
 二进制文件比较.
 

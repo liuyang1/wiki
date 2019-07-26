@@ -172,7 +172,7 @@ More details check test code
 * -e/-o errexit     exit when any command return false
 but now you can judge on $?, will have to use && or || to combine command
 * -o pipefall       fail when one of pipe fall (default as last command)
-* -x                output detail
+* -x/-o xtrace      output detail
 reverse operation +v or +u ...
 
 example::
@@ -181,6 +181,12 @@ set -v on
 
 :cmd:
 bash -v
+
+better pratice:
+
+set -o pipefall nounset errexit
+trap "echo 'error: script failed, check failed command above'" ERR
+
 ==== add lineno output in bash script ====
 *NOT* support for dash.
 
@@ -210,6 +216,13 @@ this is like case: break in C.
 - $? 上一个命令或者函数的返回值
 - $@ every param in array
 - $- option for current shell
+
+- check $1 is empty or not
+input_file=${1:?uage: $0 input_file}
+- use default value
+${name:-default}
+
+
 
 == getopts ==
 参数解析
@@ -488,6 +501,7 @@ using set -u or set -o nounset to defend this BUG.
 = is for string compare, while -eq for number.
 * string compare
 > < for redirect stdin or stdout
+    <([command] ), use subshell's output as input
 \< \> is for string compare.
 -gt -lt is for number.
 * using let for var assign
@@ -534,3 +548,5 @@ using shellcheck to detect this warnings to write robust bash script.
 - -t        var have trace property
 - -x        setting env var
 - -A        assoc array, just map
+
+limit of command length is 128k

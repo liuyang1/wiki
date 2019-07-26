@@ -1,0 +1,7 @@
+- ldr: load, set register to value
+- cmp
+- ittt: check cmp's result
+	ittt lt # if compare result is less than,...
+- ldrlt: loader data from address
+- strlt: store data from register to address
+- blt

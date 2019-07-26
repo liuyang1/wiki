@@ -6,6 +6,7 @@ basic introduce page: [[http://www.ruanyifeng.com/blog/2015/02/make.html]]
 assignment::
 - =         normal, when var is *used*, *recursively* expanded
 - :=        when var is *declared*, expanded.
+> perfer to use `:=` instead of `=`. The "=" will expand many times. but `:=` will store intermediate var.
 - ?=        setting only if it *doesn't* have a value
 - +=        *appending* to the existing value, or setting it if the var didn't
             exist
@@ -107,7 +108,7 @@ $$SHELL_VAR_NAME
 
 Default using shell is /bin/sh, change this by SHELL var.
 
-Cannot run enviroment function from parent shell, but can source and run it in subshell
+Cannot run environment function from parent shell, but can source and run it in subshell
 
 == issues ==
 === ignore on error ===

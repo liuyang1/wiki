@@ -67,3 +67,6 @@
 重命名
 
 rename jiaden jiadeN jiadeNcifang_*
+
+== repren ==
+repren --full --preserver-case --from foo --to bar

@@ -111,7 +111,7 @@ programming.
 - fullness, depth
 
 - find
-- index
+- index, ind, idx
 
 - trim
 - strip
@@ -789,7 +789,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - process
     - spawn, fork
     - job
-    - task
+    - task, tsk
     - worker
 - thread
 - context, ctx
@@ -811,6 +811,9 @@ ref: https://www.douban.com/group/topic/12410327/
 == encrypt ==
 - tamper
 - resistant
+- key
+- encryption
+- passphrase
 
 == graph / gfx ==
 - surface
@@ -885,6 +888,7 @@ ref: https://www.douban.com/group/topic/12410327/
 
 - coupling 耦合
 - conflict, collision
+- clash
 
 - coach, train
 
@@ -1017,6 +1021,7 @@ dividend / divisor = qutotient ... remainder
 - stable, steady
 
 - OOM: out of memory
+- memory fragmetation
 - ANR: application not responding
 - NAN: not a number
 - NA: not avaiable
@@ -1132,3 +1137,9 @@ dividend / divisor = qutotient ... remainder
 - set/unset
 - enable/disable
 - clear
+
+- speaker, SPK
+- mic, MIC
+- TDM, PDM, LOOPBACK
+- AEC
+- VAD

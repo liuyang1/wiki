@@ -1,0 +1,46 @@
+= C/C++ =
+
+- newlib
+
+libc for embedded platform
+
+FreeRTOS project use it
+
+== Unit Test ==
+=== Creterion ===
+
+xUnit Test framework for C
+http://github.com/Snaipe/Criterion
+
+Codewars use it as test framework for C language.
+
+=== gtest ===
+
+=== CUnit ===
+
+xUnit Test framework for C
+
+Simple
+
+= Audio Codec =
+
+== opus ==
+== speex ==
+== mp3dec ==
+
+= Audio Container ==
+
+== Ogg ==
+
+ogg is Xiph's container. It works with Opus/Speex/...
+
+- packet
+- stream
+- page
+
+1. packet have data.
+2. push (packet in) packet to stream
+3. pop page out (packet out) from stream (or flush, or flush_fill)
+4. write page to final file
+
+== libopusenc ==
