@@ -22,3 +22,6 @@ so easy!!
 
 == ppa ==
 === ppa-purge ===
+
+==  upgrade system ==
+sudo do-release-upgrade
