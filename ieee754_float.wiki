@@ -1,0 +1,13 @@
+ = IEEE754 float =
+
+ f = sign*(1+mantissa)*2^exp
+   = sign_bit(1+MANTISA)^(EXP_BITS-bias)
+
+For examples:
+0.15625 = 1*(1.25)*2^(-3)
+
+sign_bit=0
+exp_bits=-3+127(BIAS)=124=0b01111100
+mantissa=0.25=0b01000... (23bits)
+
+https://h-schmidt.net/FloatConverter/IEEE754.html

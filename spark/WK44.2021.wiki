@@ -1,0 +1,3 @@
+- [X] pomd at terminal
+- [X] taskwarrior
+				- [ ] task add, task list

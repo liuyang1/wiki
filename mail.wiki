@@ -20,7 +20,7 @@ may have some issues.
 * --append "Content-Type: text/html"            send html format mail
 
 == How to send html mail ==
-add header scopr
+add header scope
 {{{
     "MIME-Version: 1.0"
     "Content-Type: text/html; charset=utf-8"

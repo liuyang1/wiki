@@ -48,6 +48,8 @@ vim scp://hd0/.bash_profile
 - <C-a>         increment cword
 - increment all number in region
     `%s/\d\+/\=(submatch(0)+1)/g`
+- add , after every digits
+    `%s/\d/\0,/g`
 
 == 复制部分内容 ==
 - <C-Y>         复制上一行同一列的内容

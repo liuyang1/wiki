@@ -74,6 +74,7 @@ $(function args)
     `SRCS:=$(filter-out mem.c,$(SRCS))`
 
 from $(SRCS) remove `mem.c` file.
+- if            flags=$(if $(cond),ttt,fff)
 
 === function for file names ===
 ref: https://www.gnu.org/software/make/manual/html_node/File-Name-Functions.html

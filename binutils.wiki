@@ -74,6 +74,11 @@ addr2line -f [PC pinter] -e [filename]
 creating, modifying, extracting from archives.
 
 - ar x      extracting from archives.
+- ar -cr libwav.a wav.o
+
+- if linking with different format, it show error msg:
+"... in archive is not an object"
+
 
 == c++filt ==
 filter to demangle encode C++/Java symbols

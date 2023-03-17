@@ -1,0 +1,32 @@
+# Space around comma
+
+Replace ',(non-space)' to ', (non-space)'
+use \1 as first backreference
+
+:%s/,\(\S\)/, \1/g
+
+# Multiple blank lines
+
+:%!cat -s
+
+# Missing blank line after declaration
+
+NO solution
+
+# Missing blank line after function/sturct/union/enum
+
+Issue: Cannot handle '}\n#endif' case
+
+:%s/}\n\(\S\)/}^M^M\1/g
+
+^M <= input by Ctrl-V Ctrl-M
+
+# Blank lines aren't necessary after an open brace { }
+
+# CamelCase to snake_case
+
+use tpope/vim-abolish plugin
+
+shortcut:
+
+crs

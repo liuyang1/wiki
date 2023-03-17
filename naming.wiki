@@ -107,7 +107,7 @@ programming.
 
 - size
 - length
-- capacity
+- capacity, max_size
 - fullness, depth
 
 - find
@@ -141,7 +141,7 @@ notify end of stream
 
 - object, instance, handle, subject
 
-- init
+- init, initialise, initialize
 - deinit / finit / fini
 - create
 - destroy
@@ -149,6 +149,7 @@ notify end of stream
 - close
 - construct, destruct
 - ctor, dtor
+- initial/terminal
 
 == 失败退出 ==
 - fail, failure, fatal
@@ -719,6 +720,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - loitering
 - guard/sentinel/sentry
 - defense, defensive, offensive
+- golden (ref data)
 
 - dangling pointer
 - heuristic
@@ -799,6 +801,8 @@ ref: https://www.douban.com/group/topic/12410327/
     - default, DFT, DLFT
 - ISR, IRQ
 - supervisor, governor
+- TCB: task control block
+- Priority
 
 == operator ==
 - rhs, lhs, right hand side, left hand side
@@ -867,9 +871,11 @@ ref: https://www.douban.com/group/topic/12410327/
 - matrix
 - integral, deriv
 - damp
+- interpolation
 
 === triangle math ===
 - sin, cos, cosine
+- atan2, hypot
 
 - palindromic 回文的
 - proportional, direct ratio
@@ -903,6 +909,40 @@ ref: https://www.douban.com/group/topic/12410327/
 - remainder
 
 dividend / divisor = qutotient ... remainder
+
+==== ARM NEON operator ====
+- add, mul
+- mla:: multiply-accummulate
+- mls:: multiply-substract
+- sub
+- ceq, cge(greater than or equal to), cle (less than or equal to), cgt, clt, (comparison)
+- cage (comparison absolute greater than or equal to)
+- cale (comparison absolute less than or equal to)
+- cagt, calt
+- tst (test bits)
+- abd (absolute difference)
+- aba (absolute difference and accumulate)
+- max, min
+- padd (pairwise add)
+- padal (pairwise add, single_opcode widen and accumulate)
+- pmax (folding maximum)
+- pmin (folding minimum)
+- recps (reciprocal step)
+- rsqrts (reciprocal sqrt)
+- shl, vector shift left
+- shr, vector shift right
+- sra_n, vector shift right by constant and accumulate
+- sri, vector shift right, and insert
+- abs
+- neg, negation
+- mvn (bitwise not)
+- cls (count leading sign bits)
+- clz (count leading zeros)
+- cnt (count number of set bits)
+- recpe (reciprocal estimate)
+
+- mantissa, exponent
+- significant
 
 - modulo, modular, mod
 - ratio, fraction
@@ -1143,3 +1183,31 @@ dividend / divisor = qutotient ... remainder
 - TDM, PDM, LOOPBACK
 - AEC
 - VAD
+- audio channel
+    - Center, Front Center
+    - Left, Front Left,
+    - Right, Front Right
+    - LFE, Low Frequency
+    - Ls, side left
+    - Rs, side right
+    - Lb, Back Left
+    - Rb, Back Right
+- layout of audio channel
+    - mono
+    - stereo
+    - surround (stereo + front center)
+    - quad (stereo + back left + back right)
+
+- side channel
+- ancillary
+
+Background picture style
+- fill
+- fit
+- stretch
+- tile
+- center
+- span
+
+- spread
+- propagate

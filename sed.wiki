@@ -66,3 +66,8 @@ echo "123 abc" | sed 's/[0-9]*/& &/'
 if will matched "123", and replace it with "123 123" as & is represented as "&"
 
 ref: http://www.grymoire.com/Unix/Sed.html#uh-3
+
+
+=== add spdx license to file header ===
+
+sed -i -E -f spdx.sed *
