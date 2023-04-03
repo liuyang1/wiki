@@ -1,0 +1,343 @@
+= aplay =
+
+When user doesn't indicate device, aplay use "default"
+
+```
+    char *pcm_name = "default";
+    while ((c = getopt_long(...))) {
+        switch (c) {
+        case 'D':
+            pcm_name = optarg;
+            break;
+        ...
+    }
+    err = snd_pcm_open(&handle, pcm_name, stream, open_mode);
+```
+
+= asound.conf =
+
+"default" will goto default device, which is defined in `/etc/asound.conf`
+
+```
+pcm.!default{
+    type plug
+    slave.pcm "dmixer"
+    #For diff mode, need enable it
+    #map right channel to left channel
+    #ttable {
+    #  0.0 1
+    #  1.0 1
+    #}
+}
+
+ctl.!default{
+    type hw
+    card 0
+}
+
+pcm.dmixer {
+    type dmix
+    ipc_key 2048
+    slave {
+        pcm "hw:0,1"
+        period_time 0
+        period_size 1024
+        buffer_size 8192
+        rate 48000
+        format "S32_LE"
+        channels 2
+    }
+
+    bindings {
+        0 0
+        1 1
+    }
+}
+```
+
+= snd_pcm_open =
+
+pcm.c search '_snd_pcm_%s_open' symbols based on config and 'device name'
+
+```
+    snd_pcm_open_conf(...) {
+        if (!open_name) {
+            sprintf(buf, "_snd_pcm_%s_open", str);
+        }
+        open_func = snd_dlobj_cache_get(lib, open_name, 
+                                        SND_DLSYM_VERSION(SND_PCM_DLSYM_VERSION), 1);
+        if (open_func) {
+            err = open_func(pcmp, name, pcm_root, pcm_conf, stream, mode);
+            ...
+        }
+    }
+```
+
+= snd_pcm_dmix_open =
+
+```
+    snd_pcm_dmix_open(...) {
+        first_instance = ret = snd_pcm_direct_shm_create_or_connect(dmix);
+        if (first_instance) {
+            ret = snd_pcm_open_slave(&spcm, root, sconf, stream,
+                                     mode | SND_PCM_NONBLOCK, NULL);
+        } else {
+            if (dmix->shmptr->use_server) {
+                ...
+            } else {
+                ret = snd_pcm_open_slave(&spcm, root, sconf, stream,
+                                         mode | SND_PCM_NONBLOCK | SND_PCM_APPEND,
+                                         NULL);
+            }
+        }
+        ...
+    }
+```
+
+It will add `SND_PCM_APPEND` when not `first_instance`
+
+`first_instance` is based on SystemV's shm `shm_overview`
+
+= snd_pcm_hw_open =
+
+When `aplay -D hw:0,1`, it will directly to `snd_pcm_hw_open` func
+
+`_snd_pcm_hw_open` open device with SND_PCM_NONBLOCK by default
+
+```
+    int _snd_pcm_hw_open(...) {
+        int nonblock = 1; /* non-block per default */
+        if (snd_config_search(root, "defaults.pcm.nonblock", &n) >= 0) {
+            nonblock = err;
+        }
+        ...
+        err = snd_pcm_hw_open(pcmp, name, card, device, subdevices, stream,
+                              mode | (nonblock ? SND_PCM_NONBLOCK : 0), 0 ,
+                              sync_ptr_ioctl);
+        ...
+    }
+```
+
+= ALSA in kernel =
+
+`snd_pcm_open_substream` ->
+    snd_pcm_attach_substream
+
+```
+snd_pcm_attach_substream(...) {
+    if (file->f_flags & O_APPEND) {
+        ...
+        substream->ref_count++;
+        *rsubstream = substream;
+        return 0;
+    }
+    for (substream = pstr->substream; substream; substream = substream->next) {
+        if (!SUBSTREAM_BUSY(substream) &&
+            (prefer_subdevice == -1 ||
+             substream->number == prefer_subdevice))
+            break;
+    }
+    if (substream == NULL)
+        return -EAGAIN;
+}
+```
+
+snd_pcm_open will rewrite EAGAIN to EBUSY when with O_NONBLOCK mask
+
+```
+    snd_pcm_open(...) {
+        while (1) {
+            err = snd_pcm_open_file(file, pcm, stream);
+            // -> snd_pcm_open_substream -> snd_pcm_attach_substream
+            if (err == -EAGAIN) {
+                if (file->f_flags & O_NOBLOCK) {
+                    err = -EBUSY;
+                    break;
+                } // else: when err == -EAGAIN and BLOCK, it will lock again on open_mutex in this loop
+            } else
+                break;
+            set_current_state(TASK_INTERRUPTIBLE); // It's interruptible, even alsa let you wait in kernel
+            mutex_unlock(&pcm->open_mutex);
+            schedule(); // yield CPU, let other task get open_mutex first
+            mutex_lock(&pcm->open_mutex);
+            ...
+        }
+    }
+```
+
+= where to mixing =
+
+{
+snd_pcm_dmix_mmap_commit
+snd_pcm_dmix_start
+snd_pcm_dmix_drain
+} -> snd_pcm_dmix_sync_area
+    -> mix_areas
+
+`mix_areas` support mix with formats (mapping to different `do_mix_areas`
+
+do_mix_areas function prototype is 
+
+```
+typedef void (mix_areas_t)(unsigned int size,
+               volatile void *dst, void *src,
+               volatile signed int *sum, size_t dst_step,
+               size_t src_step, size_t sum_step);
+```
+
+It have dst, src, sum param. WHY it need `sum`? It use `sum`
+
+sample = *src + *sum
+*sum to store original value, and sample <- CLIP(sample) 
+
+It use `sum` to get stable CLIP ADD, otherwise, we may get wrong overflow
+result.
+
+For example:
+
+- [40, 40, 40], it mix to 120
+- [90, 90, 90], it mix to 0x7f=127
+without sum buffer, we may get 
+hex(90+90+90)=0x10E, 0x0E
+or
+hex(0x7F+90)=0xD9
+- [90, 90, -90], it mix to 90
+without sum buffer, we may get
+hex(0x7F-90)=0x25
+
+By `sum` buffer, dmix layer don't need care about number of stream to mixing.
+It only need mix data to `sum` buffer
+
+```
+struct snd_pcm_direct {
+    snd_pcm_type_t type;        /* type (dmix, dsnoop, dshare) */
+    union {
+        struct {
+            int shmid_sum;            /* IPC global sum ring buffer memory identification */
+            signed int *sum_buffer;        /* shared sum buffer */
+            ...
+        } dmix;
+    } u;
+};
+```
+
+```
+static void mix_areas_32(unsigned int size,
+             volatile signed int *dst, signed int *src,
+             volatile signed int *sum, size_t dst_step,
+             size_t src_step, size_t sum_step)
+{
+    register signed int sample, old_sample;
+
+    for (;;) {
+        sample = *src >> 8; // shift 8bits, and shift back, to avoid overflow
+        old_sample = *sum;
+        if (ARCH_CMPXCHG(dst, 0, 1) == 0) // if dst is zero, then we need sum <- sum + (sample - old_sample) = sample, mean reset
+            sample -= old_sample;
+        ARCH_ADD(sum, sample); // otherwise sum <- sum + sample, it accumulate
+        do {
+            old_sample = *sum;
+            if (old_sample > 0x7fffff)
+                sample = 0x7fffffff;
+            else if (old_sample < -0x800000)
+                sample = -0x80000000; // CLIP
+            else
+                sample = old_sample * 256;
+            *dst = sample;
+        } while (IS_CONCURRENT && *sum != old_sample);
+        if (!--size)
+            return;
+        src = (signed int *) ((char *)src + src_step);
+        dst = (signed int *) ((char *)dst + dst_step);
+        sum = (signed int *) ((char *)sum + sum_step);
+    }
+}
+```
+
+= snd_pcm_write to different plugins(dmix/hw/...) =
+
+*slave* mechanism
+
+snd_pcm_...open, set its slave pcm
+
+= behaviour of two stream playback case =
+
+- aplay -D hw:0,1,  => EBUSY when second stream start to playback
+    <<< snd_pcm_hw_open fail due to device is occupied
+- aplay ..,         => mixing playback, second stream play well with mixing
+    <<< O_APPEND, second stream is attached to same device
+- tinyplay          => EBUSY when second stream start to playback
+                    => wait first stream play to end, This behaviour is buggy
+    - old version, it open device with default(BLOCK mode). It will wait at
+    kernel when snd_pcm_open_subtream, it wait for resource due to ASOC device
+    have only one stream for embedded platform in general.
+    - So tinyalsa have one patch to open device with NONBLOCK mode and reset
+    back to BLOCK mode after open. It will detect device is occupied
+    immediately
+    - However, tinyalsa add one more logic to detect device is playable or
+    not. This detect try to open device, too. But it forget that bugs. This
+    kind of issue is added back AGAIN. That's why it wait first stream
+    playback to end
+
++----------------------+
+| APP |
++----------------------+
+
++----------+  +--------+
+| alsa-lib  |   | tinyalsa |
+| *HW*/dmix |   |          |
++----------+  +--------+
+
++-------------+
+| ALSA/kernel |
++-------------+
+
++----+    +-----+
+| TDM |   | PDM |   | LP |   | VAD |
++-----+
+
+= tinyalsa =
+
+tinyplay -> pcm_open -> pcm_hw_open (by hw_ops) -> /dev/snd/PcmC%uD%u%c
+
+```
+    // Open the device with non-blocking flag to avoid to be blocked in kernel when all of the
+    //   substreams of this PCM device are opened by others.
+    fd = open(fn, O_RDWR | O_NONBLOCK);
+
+    if (fd < 0) {
+        free(hw_data);
+        return fd;
+    }
+
+    if ((flags & PCM_NONBLOCK) == 0) {
+        // Set the file descriptor to blocking mode.
+        if (fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) & ~O_NONBLOCK) < 0) {
+            fprintf(stderr, "failed to set to blocking mode on %s", fn);
+            close(fd);
+            free(hw_data);
+            return -ENODEV;
+        }
+    }
+```
+
+The device file is openned with O_NONBLOCK *ALWAYS*
+
+snd_pcm_open -> snd_pcm_open_file, It will retry with TASK_INTERRUPTIBLE
+status
+
+`fs/fcntl` is generic for all file descriptors. It is updated by fs/fcntl.c/setfl function or `fcntl` system call
+
+ALSA driver will get f_flags again when `snd_pcm_pre_prepare` or
+`snd_pcm_prepare`
+
+tinyalsa is good, but tinyplay call `sample_is_playable`.
+
+sample_is_playable -> pcm_params_get -> `fd = ops->open(card, device, flags, &data, snd_node)`
+
+pcm_open -> `fd = ops->open(card, device, flags, &data, snd_node)` ->
+pcm_hw_open -> open(O_NONBLOCK)
+
+<<<CONCLUSION>>>
+
+so we should add O_NONBLOCK flag by default, and let it fail with EBUSY

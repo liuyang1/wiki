@@ -63,4 +63,20 @@ TODO:
 === 面包店Lamport算法 ===
 ref:http://blog.csdn.net/lmh12506/article/details/6663410
 
+== layout of CPUs ==
 
+=== lstopo ===
+
+lstopo-no-graphics --no-io --no-legend --of txt
+
+- DRAM
+- Package
+- NUMA node
+- L3
+- L2
+- L1 data cache dcache, L1 icache
+- Core
+
+=== numactl ===
+
+numactl --hardware

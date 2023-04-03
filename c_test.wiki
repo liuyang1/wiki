@@ -8,6 +8,10 @@ implement with Ruby
 
 == gtest ==
 
+ASSERT_**
+
+EXPECT_**
+
 ### How to disable one test case
 
 add `DISABLED_` prefix to name

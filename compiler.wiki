@@ -5,3 +5,8 @@
 [[garbage_collection|Garbage Collection]]
 
 [[type_system|Type System]]
+
+== tool ==
+compiler explorer: https://godbolt.org
+
+It support xtensa gcc

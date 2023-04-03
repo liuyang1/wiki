@@ -1,0 +1,31 @@
+= BT: BlueTooth =
+
+== A2DP ==
+== SBC ==
+subband coding
+== AAC ==
+BT will re-encode AAC source file.
+
+AAC source file -> PCM daata -> AAC stream
+
+== aptX ==
+- aptX Adaptive
+- HD
+- Low Latency
+- aptX
+
+人儿感觉的延迟极限是70ms，达到40ms，意味着人不会感觉到延迟
+
+== LDAC ==
+Sony
+
+Up to 990Kbps, for 24bit/96KHz stream
+96KHz,24bit -> 96000*24bit/per second*2ch=4608000bps=4.608Mbps
+
+It need compress data from 4.6Mbps to 990Kbps
+
+== LHDC ==
+HiRes need encoder with JAS (LDAC/LHDC)
+
+Low-Latency Hi-Definition Audio Codec
+

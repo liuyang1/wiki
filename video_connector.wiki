@@ -25,6 +25,25 @@
 
 音频可以传输未压缩的数字音频或者Dolby Digital，DTS等压缩音频流。
 
+=== ARC ===
+since 1.4 version, HDMI support ARC(Audio Return Channel) feature.
+
+Player ->HDMI-> TV
+   +-> speaker
+
+Player <-HDMI_ARC<- TV
+   +-> speaker
+
+so HDMI ARC support audio from Player to TV, and vise versa (by ARC/Audio
+        Return Channel)
+
+=== eARC ===
+
+=== CEC ===
+
+=== HEC ===
+HDMI with Ethernet
+
 === HDCP ===
 
 高清数字内容保护
@@ -35,3 +54,7 @@
 
 
 == Thunderbolt ==
+
+== Optical/SPDIF ==
+
+support 5.1ch, only for Audio

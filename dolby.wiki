@@ -1,0 +1,15 @@
+= dolby =
+
+== dialnorm ==
+dialog normalization, playback gain from -30dB to 0dB
+
+Recommended metering approach uses a power sum of the A-weighted audio level
+in all channels.
+
+Why A-weighted level?
+
+Due to human's ear response differently with different frequencies. For
+example, human is sensitive with 1KHz to 10KHz, but in-senstive under 1KHz. So
+they have different weight.
+
+=> Dolby volume-leveling

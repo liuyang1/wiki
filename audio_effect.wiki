@@ -1,0 +1,17 @@
+= audio effect =
+2023-04-03 13:54:11 
+
+== mixing ==
+== delay ==
+== distortion ==
+== reverb ==
+混响
+
+
+src  -->  reverb_buffer=(src+dst*decay)/(1+decay)
+           |
+           |
+           v
+         final
+
+

@@ -620,3 +620,11 @@ alias gvim="UBUNTU_MENUPROXY= gvim"
 }}}
 
 ref: http://vim.wikia.com/wiki/Converting_variables_to_or_from_camel_case
+
+= install =
+
+install liblua5.2-dev first
+
+    sudo apt install liblua5.2-dev # lua.h under /usr/include/lua5.2
+    ./configure --prefix=/home/yangliu/R/ --with-features=huge
+    --with-lua-prefix=/usr --eanble-luainterp
