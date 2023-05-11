@@ -33,8 +33,7 @@ ltrace paste a.file b.file > /dev/null
 引用:[[test_tool_example|测试工具]]
 
 == debug 工具 ==
-- gdb
-    [[gdb_usage]]
+- [[gdb]]
 - [[valgrind|valgrind]]
     - 也是一个内存检查工具
 - electrice-fence

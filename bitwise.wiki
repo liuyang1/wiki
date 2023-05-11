@@ -32,6 +32,8 @@ for (c = 0; v; c++) {
 }
 }}}
 
+popcount
+
 > KEY skill v && !(v  v && !(v & (v - 1));& (v - 1));
 
 - isolate rightmost 1-bit

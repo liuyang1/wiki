@@ -1,0 +1,598 @@
+= SH-13464 =
+
+hw_write
+    -> aml_alsa_output_open
+    -> 'pcm device already opened,close the %p handle to reopen'
+
+out_write_new
+    -> mixer_aux_buffer_write
+    -> aml_alsa_output_close
+
+mixer_aux_buffer_write
+    -> aml_hw_mixer_write
+mixer_main_buffer_write
+    -> aml_audio_nonm12_render
+    -> $aml_hw_mixer_mixing$
+
+# History
+
+Yujie, 'audio: don't close alsa when do flush'
+
+# problem
+
+- [o] lock on alsa_pcm_lock
+- [X] aml_alsa_output_open, audio out... *refs>=12*
+    - leave STREAM_HW_WRITING stream_status, need reopen, (but missing close??)
+- [X] reopen when I2S device
+
+
+# Tiny
+- refine alsa_manager's log
+
+= 2023-03-30 19:25:52 =
+# Environment
+
+- *MS12 enabled* (efuse key, ms12 lib)
+    - non-MS12 doesn't have this issue (per my test)
+
+ms12 cleanup & prepared
+
+ms12_output -> {
+    dap_pcm_output, -> ms12_output_master
+    stereo_pcm_output, -> ring_buffer_write to spdif
+    spdif_bitstream_output (SPDIF, format=0x90..)
+
+~~MUST ms12 cleanup, otherwise it cannot playback~~
+
+We must
+
+= 2023-04-03 14:53:24 = 
+
+|                         | Add new CL | Base |
+| dolby ms12 cont, refs=1 | ??         | ??   |
+| nonms12                 | GOOD       |      |
+
+- [ ] stream_status, why it change leave from STREAM_HW_WRITING
+
+
+= 2023WK15 =
+== 96k feature ==
+MIXER thread, PRIMARY, config to 96K, 32bit
+
+- [ ] How to affect stream config from AudioFlinger side?? By policy??
+    - [X] audio hw profile, add 96k => but main stream still be 48K
+    - [ ] audio hw profile: ONLY support 96k for all cases => NOT work
+    - [O] config xml?
+        out_get_parameters_wrapper_about_sup_sampling_rates__channels__formats
+config_output
+out_write_new
+    get_sink_format
+        get_sink_capability
+        get_sink_pcm_capability
+            -> get_hdmi_sink_cap_new
+
+
+- [ ] open stream (flags=direct, primary, ...)
+    - [ ] out->hal_rate = config->sample_rate;
+    - [ ] out->config.rate = config->sample_rate;
+    - [ ] out->stream.common.get_sample_rate / set_sample_rate
+- [.] out_get_buffer_size
+- [.] adev->get_latency => audiohal_get_latency
+- [.] adev_create_audio_path
+
+- hwavsync stream??
+- 32k to 48k
+
+- pcm_open fail with 96k <= 2ch
+
+=== 2023-04-12 15:49:57 ===
+- [ ] good path to change to 2ch        <- board_config, bd_config alsa_default_ch=8
+- [ ] keep 2ch data, bypass 8ch expand  <- reduce data
+
+nonms12_render
+-> audio_hal_data_processing_ms12v2
+-> hw_write (8ch)
+
++------+
+| stream |
++------+
+
++------+
+| port |
++------+
+
++-------+
+| render |
++-------+
+
++-------+
+| pcm device |
++-------+
+
+=== 2023-04-13 11:00:37 ===
+
+- [x] check speed
+    - update frame calc in hw_write
+- [x] 96k support is good (keep high freq info)
+
+out_get_presentation_position (frames, timestamp)
+
+- [X] check Qing's 32bit patch <- GOOD, wav generated from DSD is 24bit precision (with 32bit format)
+    - [x] 数据精度不对，为什么？？？ <- GOOD,不知道之前版本怎么了
+- [ ] check Customer's code
+== Journal ==
+- Mon   hires的profile修改，
+    - 测试hires usb设备
+- Tue   hires的config。xml修改，发现pcm open fail问题。
+    - 测试hires usb设备，验证zidoo OK
+    - hisense, underrun, 澄清
+        - TDM-A设备只支持到2ch，96KHz
+        - TDM-B（HDMI I2S）支持到8ch，48KHz（不支持96K）
+    - 我们先用2ch，96KHz继续试下
+    - 实际数据是8ch，96KHz的，需要考虑去掉转换8ch的逻辑
+- Thr
+    - 梳理清楚2ch的配置来源
+    - 梳理清楚8ch的expand的过程。修改为2ch的方式
+    - 播放速率还有问题
+- Wen
+    - 播放速率没问题了（只要修改out get presention的ch，影响frame计算即可）
+    - 加上Qing的patch 32bit原始精度输出也没问题了
+    - 下一步：在客户版本上测试
+
+= UAC for lavaudio =
+
+UAC: USB Audio C?
+
+snd_usb_set_sample_rate_v2v3 <- err=-71 EPROTO, EREMOTE (uapi/asm/errno.h)
+-> snd_usb_ctl_msg
+    -> usb_control_msg
+        -> usb_internal_control_msg
+            -> usb_start_wait_urb
+                -> usb_submit_urb,ctx.status
+                    --> map_urb_for_dma
+-> get_sample_rate_v2v3
+
+hub_probe REGISTER
+    hub_port -> port_event -> port_over_current_notify -> hub_port_connect_change -> hub_port_connect
+finish_port_resume
+usb_reset_device -> usb_reset_and_verify_device
+==> hub_port_init
+    r = -EPROTO
+
+== 2023-04-17 10:25:39 ==
+- [ ] check customer's board (support TDM-A, 96k, 32bit, 8ch or not) <- depend on RongQi's preparation
+
+== Issue ==
+- [x] Hisense:  underrun with low latency buffer
+- [x] Hisense:  no output when force to unpluged devices    => discussion   => HongChao => Qitao
+- QiNuo:    Mixing with HW                      => Pending
+- BT:       HiRes 96k                           => PCM open fail    => temp change to TDM-A
+- Skyworth: HiRes nego
+
+= 2023-04-19 17:28:17 =
+
+== env ==
+board:      S5 AX201 S928X
+Image:      Download for tyson
+Jenkins:    Tyson
+Code:       Android R 32bit
+
+MS12:       MS12 DONE
+HDMI device: TDM-C
+default stream: 48k 2ch 16bit
+device support: 48k 2ch 16bit/96k 2ch 32bit
+
+= 2023-04-20 =
+- !!! Its speed have 2x slow when playback 96k 4ch 32bit        => report to JianZhou+teams
+- [ ] It fail to connect with 功放
+
+上次可以被auido policy configuration xml影响，从而改变上层的输出sample rate。但是底层的sample rate不变，恒定为48000。
+
+为什么?
+
+adev -> stream -> amlAudioMixer.c -> audio_port.c
+
+amlAudioMixer.c
+
+init_mixer_output_port -> mixer_16b_threadloop -> mixer_output_write -> mixer_output_startup
+
+    TCL电视不支持DD+（尽管aud cap汇报说支持，因此tinymix 91 0，切换到spdif A输出，spdif A走DD输出，从而避免这个问题）
+
+adev_get_hal_control_volume_en
+
+MS12必须输出为48K
+
+
+= MBI timestamp =
+sys_get_local_cur_pts(osal_sched_clock)
+
+audio:: CALL_SYS_GET_TIME_STAMP sys_get_time_stamp (local_cur + base - init)
+
+sys_get_local_time_stamp
+sys_sync_time_stamp
+
+= 2023-04-23 10:58:20 =
+- clean up ms12 when user set fix_device=hdmi
+- when user create patch "DEVICE=OUT_HDMI"
+
+= 2023-04-24 13:54:39 = 
+- [x] audiotrack-test with DIRECT stream
+- direct stream
+- 在默认走MS12的情况下，MS12部分会把direct stream转换成48k输出
+
+- A,                    closed
+- B,                    closed
+- C,                    48k 16bit 2ch
+- D,                    closed
+- PDM, capture only
+- SPDIF                 48k 16bit 2ch
+- SPDIF-B               48k 16bit 2ch
+- LOOPBACK, capture only
+- EARC, capture only
+
+playback direct stream 96000, only TDM-C works
+playback direct stream 48k, only TDM-C works at 48k 16bit ch, good
+
+找到了转sample rate的位置（在nonms12中间），那么就可以进一步转换成想要的sample rate
+
+| stream | MS12 | nonms12 |   |
+|--------|------|---------|---|
+| 96k    | c48k |         |   |
+| 48k    | c48k |         |   |
+| 32k    | c48k |         |   |
+
+TODO
+
+- [x] select output rate, negotiate
+- [x] dynamic sample rate
+- [ ] SPDIF sink select + profile
+取不同的sample rate
+
+RecordThread::createAudioPatch_l
+    EffectChain::setInputDevice_l
+onCreatePatch
+    checkPort
+        EffectChain::setInputDevice
+
+RecordThread::threadLoop
+    EffectChain::process_l
+
+
+? PlaybackTrack::isDirect isOffloadOrDirect
+x AudioHwDevice::openOutputStream
+x AudioFlinger::openMmapStream
+  AudioFlinger::openOutput_l -> DirectOutputThread
+  AudioFlinger::PlaybackThread::createTrack_l
+  
+  
+/frameworks/av/media/libmediaplayerservice/nuplayer
+/vendor/amlogic/common/amnuplayer (source code, before prebuilt)
+
+= amnuplayer =
+owner: Qiang Guo
+origin: build-time: 2023-04-11
+
+nuplayer -> Render
+-> mAudioSink (/frameworks/av/media/libmediaplayerservice/MediaPlayerService.cpp)
+-> mAudioTrack (...)
+
+== Where to load libamnuplayer ==
+
+/vendor/amlogic/common/frameworks/av/mediaextconfig/AmLoadAmlogicPlayers.cpp
+
+/frameworks/av/media/mediaserver/main_mediaserver.cpp::main
+-> registerExtensions
+-> LoadAndInitAmlogicSupport -> LoadAndInitAmlogicMediaFactory
+
+== WHY goto sub_mixing_factory ==
+
+initSubMixingInputPcm
+switchNormalStream
+    out_write_subMixingPCM
+    
+因为ms12库的问题
+
+0. Image
+1. MS12库
+2. 功放设备
+3. amnuplayer
+4. audio hal（我的改动）
+5. 配置文件
+6. driver DTS
+
+= output device =
+
+- TDM-A
+- TDM-B         i2s2hdmi
+- TDM-C         i2s
+- TDM-D
+- SPDIF         spdif
+- SPDIF-B       spdifb
+
+目前可选择按照TDM-B，TDM-C，spdif播放出去
+
+TDM-C samesource到spdif。因此HDMI Tx选择spdif即可
+TDM-B，需要HDMI Tx选择tdm-b输出
+spdif，需要hdmi tx选择spdif输出(实际上会spdif和hdmi双输出。如果只想要hdmi，则tinymix spdif mute即可）
+
+= usb audio HAL =
+- S5 platform check USB => 默认96k，2ch，32bit输出
+usb hal:
+    hardware/libhardware/modules/usbaudio
+usb alsa proxy part:
+    system/media/alsa_utils
+
+sup_sampling_rates=96000|88200|192000|176400|48000|44100
+44100, 48000, 88200, 96000, 176400, 192000, 352800, 384000, 705600, 768000.
+
+== zidoo支持情况 ==
+- 一般音频，pcm 48KHz
+- DSD，DSD 2.82MHz
+
+= Mixer的sample rate是何处决定的 =
+- 修改了返回的sup sample rate列表的顺序。 不是的。
+- audio policy配置文件。发现也不是的
+
+void AudioFlinger::PlaybackThread::readOutputParameters_l()
+{
+    const audio_config_base_t audioConfig = mOutput->getAudioProperties();
+    mSampleRate = audioConfig.sample_rate;
+    
+
+AudioStreamOut *mOutput
+
+- 有配置文件，走配置
+- 没配置，走支持的最大sample rate
+- 不看支持的顺序
+- 也不看0的时候的默认值
+
+=== 为什么？？ ===
+- AudioFlinger里面找了一遍，没找到。
+- AudioPolicy应该有的。
+
+AudioPolicyManager.cpp
+
+    findBestMatchingOutputConfig(..., true /* preferHigherSamplingRates */, bestOutputConfig);
+    sinkConfig->sample_rate = bestSinkConfig.sample_rate;
+
+    status findBestMatchingOutputConfig
+        auto sampleRates = preferHigherSamplingRates ? ...
+        bestOutputConfig.sample_rate = *sampleRates.begin();
+
+所以这里总是选择最高的sample rate
+
+| lib | comment            | profile | 32k    | 44.1k | 48k | 96k | 192k | 384k   | dsd    |
+| ori | drt,96k            |         | 96k    | 44.1k | 48k | 96k | !!-  | -      |        |
+|     | drt,96k,skip scan  |         | !!192k | 44.1k |     | 96k | 192k | !!192k | !!192k |
+| ori | drt,96k+,skip scan |         | !!768k | 44.1k | 48k | 96k | 192k | 384k   | 352.8k |
+| ori | drt,96k+,skip scan | 96k     | *96k*  | 44.1k | 48k | 96k | 192k | 384k   | 352.8k |
+| ori | drt,768k-          | 96k     | *96k*  | 44.1k | 48k | 96k | 192k | 384k   | 352.8k | <- final solution
+| bak | drt,768k           |         | !!768k |       |     |     | 192k | 384k   | 352.8k |
+|     | drt,48k,44.1k,768k |         | !!768k |       |     |     |      |        |        |
+
+= Verify @ Jihui =
+0. Image                tyuson jihui.zhang@04281801
+1. MS12库               0
+2. 功放设备
+3. amnuplayer           0
+4. audio hal（我的改动）
+5. 配置文件
+6. driver DTS
+
+- [x] 43579, usb播放44.1khz的流，没有按照48khzresample
+- [ ] 43582, 352800的patch，应该没加入。QA再次测试
+- [ ] 43581, 需要QA复测验证
+
+== 43578 ==
+选择spdif，播放176k，结果按照48k输出
+
+= Qinuo =
+board:  SC2 S905X4 Rev1.1 2022.08.19
+Image:  self build
+        Android R
+        SC2 AH212
+MS12:
+HDMI device: TDM-B
+
+我测试了TDM-A设备，录音无声。B设备，录音也没声音。C设备，录音卡住了，不能停下来
+
+内部数据直接输出到DAC，不要输出到HDMI SPDIF
+外部数据ADC，I2S录制到audio HAL。录音数据可以被上层录音，同时走HDMI SPDIF进行播放
+
+- play internal stream,     I2S TDM-B
+- capture mixed data,       I2S TDM-B
+- play, goto HDMI+spdif:    spdif HDMI
+
+tinycap 1.wav -d 2 -b 32 -c 2 -r 48000
+
+= C3audio =
+原理图检查
+
+- 找到audio章节，analog amp就是模拟放大器。这里的输入为【2】AU_LOL，【2】表示，这里引用第二页说明。
+- 第二页是CPU IO部分，可以找到AU LOL的pin脚
+- AU_LOL连接到7C56的输入部分。经过小芯片AD51652/NC/FT2011M的4口（IN-）进入。
+- 这里的AD51652是Elite半导体的小芯片。这是个3W的单声道无滤波器的D类音频放大器
+-
+
+== USB 384k stream: why goto 384k direct even no direct at amnuplayer ==
+
+1. amnuplayer: is_force_direct = *0*
+2. getOutputForAttrInt (384khz, 16bit, 2ch, flag=*0x9*)
+3. audiofligner: openOutput(384khz, 16bit, 2ch, flag=0x9)
+4. usbaudio:audio_hal adev_open_output_stream(flags:0x9)
+
+这个问题Hongchao继续check
+
+== USB Combo384 Amanero ==
+
+设备只支持32bit。
+
+添加32bit的mixer profile支持        => 会按照32bit 96k下发
+
+依然没有direct stream
+
+= USB passthrough for Hisense =
+
+== 调研 ==
+
+- profile内增加相关的内容
+- calling
+    set_device_connect_state -> a2dp_out_open (adev->a2dp_hal)
+    {hw_write, amlAudioMixer.c} -> a2dp_out_write
+    a2dp_out_get_latency
+    ad2p_out_get_latency
+    ad2p_out_get_status
+
+a2dp_hw.cpp/h 层次
+    从audio bluetooth hw部分搬过来的代码
+
+    BlueTtoothAudioPortOut a2dphw
+    a2dphw.Setup(AUDIO_DEVICE_OUT_BLUETOOTH_A2DP)
+    a2dphw.LoadAudioConfig()
+        a2dphw.WriteData
+    a2dphw.Stop()
+    a2dphw.TearDown()
+    
+== Req ==
+usb方式增加到primary hal里面，从而可以调用primary hal内的解码/播放等代码
+支持各种压缩格式的透传，然后在hal内解码播放。
+
+offload，tunnel，
+
+== 问题 ==
+连接usb，播放dolby，ac3，eac3片源，无法正常播放
+
+播放卡断
+period size 5ms -> ro.audio.usb.period_us
+period count 2 -> 5
+start_thr
+
+| 7680*4     | 11/222 |
+| remove log |        |
+
+| OLD    | bad   |
+| 5ms*2  | bad*2 |
+| 20ms*4 | good  |
+| 80ms*4 | good  |
+
+== stream ==
+
+| name  | format | freq  | ch | bps   |
+| Pian  | float  | 192k  | 2  | 24.6M | X
+| Happy | mp3    | 44.1k | 2  | 96k   | OK
+|       | 32bit  | 192k  | 2  | 12.3M | OK
+|       | 16bit  | 384k  | 2  | 12.3M | OK
+|       | 32bit  | 384k  | 2  | 24.6M | X
+
+| version | Pian float192k2ch | happymp344.k2ch |   |   |
+| log     |                   |                 |   |   |
+
+还剩两个遗留问题
+
+1. 384khz 32bit 2ch文件，发现存在卡顿问题。猜测是上层amnuplayer/mediacodec内部 decoder.ffmpeg有关线程内部的流控（nanosleep）之类存在问题
+    <== 核心问题，应该还是外置usb读写速率的问题。换成内置sdcard的存储器，dd性能可以达到300Mbps。就没有这种问题，而外置usb的性能一般只有30Mbps
+2. 多路数据流播放的问题。没有mixer，导致按键音没有。上层有概率性carsh
+
+=== Audio DAC (from C302X C3 datasheet, pinmux part) ===
+
+| AU_LOL | AO | - | AUdio DAC Line-Out Left channel signal  |
+| AU_LOR |    |   | AUdio DAC Line-out Right channel signal |
+
+AO: Analog output pin
+
+颠倒下相关寄存器的配置即可
+
+I2S DIN通道到I2S Rx，然后I2S Rx可以经过顺序和交错顺序输入到DAC
+
+I2S DIN -> I2S Rx -> DAC -> DAC_inv -> DAC_VC(volume ctrl) -> DAC_Filter -> DAC_LR -> LOL,LOR
+
+
+{{{
++------+
+| DAC |
++-+--+-+
+  X  X
++--------+
+| I2S Rx |
++--------+
+    ^
+    |
+    o I2S DIN
+}}}
+
+= 2023WK23 =
+== USB-passthrough issue ==
+测试codebase的基础Image状态
+-> Mon: build uboot
+    -> Wed: Still have problem
+
+== Qinuo ==
+Test base image with tinycap command (with new patch file on DTS)
+    -> Mon: tinycap works, but only noise data
+    -> Wed: ms12 lib + efuse
+
+== C3 pop when start of playback ==
+Saisai check
+-> mute_pa
+-> Jiebing TDM loopback rerord, find noise
+
+-> 重试确认上次的影响
+    -> 重复的0xA5这样的pattern，怀疑是frddr/tdm的reset问题。
+    **在没有reset的情况下，残余在TDM/FRDDR中的数据会在下一次播放出来**
+    **如果在播放结束的时候填零，或者增加reset，可以避免这类问题**
+-> memset问题？
+-> cache? <- 应该没问题
+aud_dma_malloc -> CALL_PMZ_MALLOC_PMB_UNCACHE("audio_dma_buf") -> pmz_malloc_pmb_uncache
+    -> pmz_manage.c -> pmb_alloc, pmb_map_kernel -> pmbs_map_kernel(0)
+    -> allocator.pmb_map_kernel(0)
+
+    pmb_map_kernel_cache(pmbs_map_kernel(1)
+
+Thu: add dma_buffer size's filling-zero data to reset TDM/FRDDR
+-> __FINAL Solution: It works__
+
+物理角度看
+
+dts文件中配置如下,这里配置为GPIOD_0,1 接口。这个接口在原理图中，连接到SPK_MUTE
+或者LINE out mute上。gpio为高电平有效。
+
+{{{
+		avout_mute-gpios = <&gpio GPIOD_0 GPIO_ACTIVE_HIGH>;
+		hp_mute-gpios = <&gpio GPIOD_1 GPIO_ACTIVE_HIGH>;
+}}}
+
+device初始化的时候，拿到dts配置。
+{{{
+	g_av_mute = osal_devm_gpiod_get_optional(ma_dev,
+			"avout_mute", OSAL_GPIOD_OUT_LOW);
+	hp_mute = osal_devm_gpiod_get_optional(ma_dev,
+			"hp_mute", OSAL_GPIOD_OUT_LOW);
+	msleep(10);
+	if (!OSAL_IS_ERR(g_av_mute))
+		osal_gpiod_direction_output(g_av_mute, OSAL_GPIOD_OUT_HIGH);
+	if (!OSAL_IS_ERR(hp_mute))
+		osal_gpiod_direction_output(hp_mute, OSAL_GPIOD_OUT_HIGH);
+}}}
+
+然后设置为high为输出
+
+== C2 aec function ==
+- TaoQin: check arecord result
+
+== Underrun with hires/direct feature ==
+
+NuplayerRender->mAudioSink.getPlayeredOutDurationUs
+->MediaPlayerService::AudioOutput::getPlayeredOutDurationUs
+=>mTrack->getTimestamp =>mAudioTrack->getTimestamp
+=>mTrack->getPosition
+    => AudioSystem::getRenderPosition
+    => af->getRenderPosition
+    => playbackThread->getRenderPosition (AudioFlinger::PlaybackThread::getRenderPosition)
+    => mOutput->getRenderPosition (AudioStreamOut::getRenderPosition)
+    => stream->getRenderPosition
+    => mStream->get_render_position
+
+PlaybackThread::DirectOutputThread::prepareTracks_l
+    "pause because of UNDERRUN, framesReady = %zu, minFrames = ..."
+
+MixerThread::prepareTracks_l 内没有这种逻辑（因为会mixer嘛）

@@ -1,8 +1,16 @@
 = BT: BlueTooth =
 
 == A2DP ==
+== HFP:hand-free profile ==
+== SCO: Synchronous Connection Oriented Link ==
+
+vs ACL: Asynchronous Connection Oriented Link
+
+= Codec =
+
 == SBC ==
 subband coding
+
 == AAC ==
 BT will re-encode AAC source file.
 

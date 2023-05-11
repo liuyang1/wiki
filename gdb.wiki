@@ -199,3 +199,13 @@ Detach
 board: gdb-server :[port num] --attach [PID]
 server: gdb
 target remote [IP:port]
+
+= gdb for android =
+
+1. gdbclient.py
+    -> depend on adb module         <- `pip3 install adb`
+    -> gdbrunner.py module          <- NDK, `PYTHONPATH=$NDK/python-packages ./gdbclient.py`
+    -> env var `ANDROID_BUILD_TOP`  <- download code, and build it from local
+                                    source build/envsetup.sh
+                                    lunch $profile
+                                    PYTHONPATH=... ./gdbclient.py -p [PID]

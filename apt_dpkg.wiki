@@ -25,3 +25,6 @@ so easy!!
 
 ==  upgrade system ==
 sudo do-release-upgrade
+
+== snap ==
+snap是Ubuntu的母公司推出的新一套的套件安装管理工具。看下来最大的特点是在线安装

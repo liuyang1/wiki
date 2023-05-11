@@ -68,7 +68,7 @@ programming.
 - stop, halt, halting
 - suspend, resume
 - freeze, unfreeze
-- standby
+- standby, STBY
 
 - free(idle), runnable, running, suspend, resume
 - pend, pending
@@ -468,6 +468,7 @@ rtn, ret, rt, r
 - return code: rc
 - building
 BLDN
+- build: BULD
 
 - config
 - setting
@@ -1211,3 +1212,9 @@ Background picture style
 
 - spread
 - propagate
+
+- silence, SIL
+
+- STB, BDS, DUT
+- AVR, av receiver
+- amplification
