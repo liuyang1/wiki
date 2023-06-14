@@ -1,0 +1,20 @@
+= Qinuo =
+board:  SC2 S905X4 Rev1.1 2022.08.19
+Image:  self build
+        Android R
+        SC2 AH212
+MS12:
+HDMI device: TDM-B
+
+我测试了TDM-A设备，录音无声。B设备，录音也没声音。C设备，录音卡住了，不能停下来
+
+内部数据直接输出到DAC，不要输出到HDMI SPDIF
+外部数据ADC，I2S录制到audio HAL。录音数据可以被上层录音，同时走HDMI SPDIF进行播放
+
+- play internal stream,     I2S TDM-B
+- capture mixed data,       I2S TDM-B
+- play, goto HDMI+spdif:    spdif HDMI
+
+tinycap 1.wav -d 2 -b 32 -c 2 -r 48000
+
+

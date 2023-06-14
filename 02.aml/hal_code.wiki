@@ -1,0 +1,9 @@
+= A2DP =
+
+A2DP
+AUDIO_DEVICE_OUT_ALL_A2DP
+→ a2dp_out_open/close/set_parameters/get_latency/write/...
+→ hal→a2dphw.WriteData
+→ BluetoothAudioSessionControl::OutWritePcmData
+→ hardware/interfaces/bluetooth/audio/utils/session/BluetoothAudioSession
+HiDL to AiDL

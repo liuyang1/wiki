@@ -61,7 +61,7 @@ programming.
 - pop
 
 - bound, unbounded
-- thresh, threshold
+- thresh, threshold, thd
 - close, guess, tolerance
 
 - start

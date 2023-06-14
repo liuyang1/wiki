@@ -1,0 +1,247 @@
+= OTT-44713 =
+Subject: [Freesia118][ID1008316][S928X][11.0][video]:BA001_8.00.70,When the USB exclusive function is enabled and the video file is played in the media center, the picture is stuck.100%
+
+== Progress ==
+=== Mon 2023-06-12 ===
+确认可以复现
+    用Leveler.mp4视频文件，可以显著的发现视频在卡顿
+
+out_get_presentation_position log?
+    没发现显著异常
+
+对比direct关掉的情况呢？**正常**
+
+增加timestamp的log
+-> 没发现
+
+getPlayedOutDuration is unstable
+pause becaseuf of UNDERRUN, framesReady = , minFrames =
+
+log去掉一些
+
+libmediaplayerservice.so +log
+libaudioflinger.so +log
+
+回退USB HAL的改动试试看？？？
+
+=== Tue 2023-06-14 ===
+
+==== 回退USB HAL的改动试试看？？？ ====
+
+- src=303e,       bin=3ed4 GOOD, MIXER thread, 96k 2ch 32bit, period=480*2 +FAKE 32bit(alsa_util=bin=9e16)
+- src=978e/32bit, bin=6b84 BAD,  direct,       48k 2ch 32bit, period=960*4 +FAKE 32bit
+
+-FAKE 32bit(alsa utils return to base version)
+- usbaudio=303e,3ed6, alsautil=fc05, Direct, 48k 2ch 16bit, period=240*2
+
+仅修改profile，就会发生问题, 不是usb audio模块的问题
+
+==== amnuplayer: 从is unstable到droped_video?? ====
+
+- adjust timestamp for monotonic，  => FAIL due to truncation error
+- timestamp for HAL layer           => 波动更大了
+- mixer thread的timestamp是如何处理的？？二者不同的逻辑分支，一个走normalsink，一个走direct hal的get_presentation_timestamp
+- amnuplayer check Threshold
+
+Build
+- dad0, bluray support
+
++direct flag Yujie's CL             => 不行
+测试freerun？？                     => FAIL
+playoutus 在direct/mixer的情况
+    direct在1-5s波动
+    mixer在3-5s波动（不是本身数值的问题）
+
+audioflinger/mixer thread有normal sink，getTimestamp走的是normal sink的timestamp
+而direct playback thread，走的是hal的timestamp。这两者不一致
+
+amnuplayer关于direct/offload的支持？
+
+    getPendingAudioPlayoutDurationUs()
+    onNewAudioMediaTime
+    onDrainAudioQueue
+    onFetchAudioPosition
+
+
+    onDrainVideoQueue --> {setVideoLateByUs, "render"}
+    entry->mNotifyConsumed->setInt32("render", render);
+    onRenderBuffer(when msg render is false)
+
+
+    onQueueBuffer -> {postDrainVideoQueue, postDrainAudioQueue}
+
+1. force "render" is true   => X
+2. mVideoLateByUs           => X
+3. offloadingAudio + samplerate     => 没问题
+
+== Thu 2023-06-15 ==
+
+1. mVideoLateByUs, not drop =>
+2. mFirstSlowSync           => 没发现
+3. draA cost too much time  =>
+    3.1 mixer               =>  10ms之内
+    3.2 direct              =>  
+
+4. too long time
+
+    4.1 different at libaudioclient.so
+
+gettimestamp by binder(direct/offload) or shm(mixer/other type)
+
+5. HDMI? => OK
+
+    5.1 cache timestamp at usb hal  => 还是需要太长的时间
+    5.2 measure pcm_get_htimestamp  =>
+
+AudioFlinger::Thread::getTimestamp_l
+-> AudioStreamOut::getPresentationPosition
+-> StreamOutHalInterface stream->getPresentationPosition
+-> IStream->getPresentationPosition (local fast reply)
+
+StreamHalHidl.cpp::getPresentationPosition
+StreamOutHalLocal::getPresentationPosition -> mStream.get_presentation_position
+
+PID:    mediaserver -> audioserver -> audioserver-droidlogic
+
+6. lock???
+
+确认是lock引起的卡顿问题，因为proxy write也在lock的保护范围内，从而导致有一定概率会out_get_presentation_postion耗时太久（约为一个period的时间，当前配置为20ms*4）
+
+== Fir 2023-06-16 ==
+
+1. crash at TimeCheckThread due to timeout
+2. still stutter with low-frequency???
+    没发现问题
+3. primary hal是否存在类似问题？    => 没有锁，没有这类风险
+
+=== AEC @Saisai ===
+1. aec process's buffer (上层填入的数据刚好够一次aec algo处理的，直接进行一次处理即可）
+2. aec's output buffer (不能和input buffer一样，二者相同会有冲突的）
+
+== Underrun with hires/direct feature ==
+
+frameworks/av/media/libmediaplayerservice/nuplayer/NuplayerRenderer.cpp
+
+NuplayerRender->mAudioSink.getPlayedOutDurationUs
+
+frameworks/av/media/libmediaplayerservice/MediaPlayerService.cpp
+
+->MediaPlayerService::AudioOutput::getPlayedOutDurationUs
+
+    int64_t durationUs = numFramesPlayed * 1M / mSampleRateHz + nowUs - numFramesPlayedAtUs;
+
+=>mTrack->getTimestamp =>mAudioTrack->getTimestamp
+=>mTrack->getPosition
+    => AudioSystem::getRenderPosition
+    => af->getRenderPosition
+    => playbackThread->getRenderPosition (AudioFlinger::PlaybackThread::getRenderPosition)
+    => mOutput->getRenderPosition (AudioStreamOut::getRenderPosition)
+    => stream->getRenderPosition
+    => mStream->get_render_position
+
+PlaybackThread::DirectOutputThread::prepareTracks_l
+    "pause because of UNDERRUN, framesReady = %zu, minFrames = ..."
+
+MixerThread::prepareTracks_l 内没有这种逻辑（因为会mixer嘛）
+
+= OTT-45125 倍速播放 =
+
+- amnuplayer.setPlaybackRate
+- libaudioclient/AudioTrack.cpp中，对于direct/offload stream，则直接使用track的setPlaybackRateParameters函数
+    - 对于其他情况则调用到mProxy->setPlaybackRate中
+    - mPlaybackRateMutator.push(playbackRate)
+    - 对端则采用mPlyabackRateObserver.poll(的方式获得最新的playbackrate（注意这个queue/mutator/observer的配合机制）
+    - AudioTrackServerProxy::getPlaybackRate
+- AudioFlinger::MixerThread::prepareTrack_l
+    - sourceFramesNeededWithTimeStretch这个功能调整播放速率
+- mAudioMixer->setParameter(TIMESTRETCH, &playbackRate)
+- media/libaudioprocessing/AudioMixer.cpp
+- BufferProvidier.cpp::TimestretchBufferProvider
+    - sonicWriteShortToStream
+- sonic.c 核心功能
+
+= 副作用:播放卡顿问题？？？ =
+proxy open失败
+1. 修改锁的机制导致的？？
+老版本303e，是否有问题？？ >> 原始版本就有问题（303e版本）
+
+2. direct stream和mixer stream的切换问题？？
+是的，原始mixer stream没问题。
+切换direct stream和mixer stream才会有问题
+
+3. out get presentation的时间戳问题？
+检查原有mixer thread的方式是否存在问题？
+    xfered被重置，导致不对？可以正常工作的？？
+修改时间戳机制
+    修补为上次的值？？？
+
+4. postDrainAudioQueue 依然会有long delay的log
+增加out_get_presentation_position的log检查
+
+= Tue 2023-06-20 =
+
+总结：
+- LPCM stream:
+    - audio 16bit, 6ch, 48khz
+    - video: AVC, 2k, 29.97fps
+- direct steram之后再播放mixer stream则发生这种现象，还是在视频的开始位置
+
+1. 流本身的问题？？重新编码之后播放那么？？？
+    - 重新编码之后，依然可以看到类似的log
+
+2. postDrainAudioQueue long delay????
+    - 尝试不要返回-1，而是返回上次的结果呢？？ => 依然卡顿
+    - 尝试消减上层的polling 时间，             => 依然卡顿
+    - 修改为写入时候的时间戳信息               => 依然卡顿
+    - 修改为HAL层次的时间戳
+    - getBufferDurationInUs -> getBufferSizeInFrames
+
+
+
+FLTP
+
+onFetchAudioPosition -> onNewAudioMediaTime(mLastAudioDrainTimeUs)
+
+    shm timestamp
+    mProxy->getTimeStamp(ExtendedTimeStamp...)
+    
+SSQ: single state queue
+
+From @Zhi.Liu>>> 启播的消耗的时间，多于播放出去的声音，这样就会导致视频卡顿
+
+
+mAudioMixer, track disable??? enable???
+MixerThread
+
+mFrameMap用于计算各个track相对于mixer的offset
+并且添加track到thread上 AudioFlinger::PlaybackThread::Track::start()
+
+= Tue 2023-06-21 =
+- 即时失败不能写入数据的时候，也要正常更新时间戳
+
+= Sun 2023-06-25 =
+origin stream: 192k float 24.6Mbps  => stutter
+192k 16bit 6.144Mbps                => Good
+384k 16bit 12.288Mbps               => Good
+768k 16bit 24.6Mbps                 => stutter (NO decoder ffmpeg task)
+
+
+Read Speed is enough, 200+Mbps
+
+应该也不是decoder task的问题。也不完全是sample rate的问题。
+
+= Mon 2023-06-26 =
+- C3(无法播放start thd/EQ/DRC模块问题）问题转角给Saisai
+- T3 freertos问题转给赛赛
+- DRTS/AEC问题转给saisai
+
+- 192k float播放卡顿问题转给sijia
+- 耳机无法播放（一直走direct stream） 转给Hongchao
+- speed播放问题，不做，关闭？ 转给Terrence Shen
+
+- mailbox/dsp dev设备节点不存问题，转给Shunzhou/Jie Yao
+
+由我继续处理的问题
+- 45240，卡顿问题？？@Jihui @Mengxuan
+- Qinuo
+- USB Passthrough

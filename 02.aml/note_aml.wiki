@@ -386,25 +386,6 @@ AudioPolicyManager.cpp
 == 43578 ==
 选择spdif，播放176k，结果按照48k输出
 
-= Qinuo =
-board:  SC2 S905X4 Rev1.1 2022.08.19
-Image:  self build
-        Android R
-        SC2 AH212
-MS12:
-HDMI device: TDM-B
-
-我测试了TDM-A设备，录音无声。B设备，录音也没声音。C设备，录音卡住了，不能停下来
-
-内部数据直接输出到DAC，不要输出到HDMI SPDIF
-外部数据ADC，I2S录制到audio HAL。录音数据可以被上层录音，同时走HDMI SPDIF进行播放
-
-- play internal stream,     I2S TDM-B
-- capture mixed data,       I2S TDM-B
-- play, goto HDMI+spdif:    spdif HDMI
-
-tinycap 1.wav -d 2 -b 32 -c 2 -r 48000
-
 = C3audio =
 原理图检查
 
@@ -525,6 +506,7 @@ I2S DIN -> I2S Rx -> DAC -> DAC_inv -> DAC_VC(volume ctrl) -> DAC_Filter -> DAC_
 测试codebase的基础Image状态
 -> Mon: build uboot
     -> Wed: Still have problem
+    -> Fri: C-media 的设备是可以识别的。其他设备：Generic 。。和Lavaudio DS600都无法识别
 
 == Qinuo ==
 Test base image with tinycap command (with new patch file on DTS)
@@ -579,20 +561,3 @@ device初始化的时候，拿到dts配置。
 == C2 aec function ==
 - TaoQin: check arecord result
 
-== Underrun with hires/direct feature ==
-
-NuplayerRender->mAudioSink.getPlayeredOutDurationUs
-->MediaPlayerService::AudioOutput::getPlayeredOutDurationUs
-=>mTrack->getTimestamp =>mAudioTrack->getTimestamp
-=>mTrack->getPosition
-    => AudioSystem::getRenderPosition
-    => af->getRenderPosition
-    => playbackThread->getRenderPosition (AudioFlinger::PlaybackThread::getRenderPosition)
-    => mOutput->getRenderPosition (AudioStreamOut::getRenderPosition)
-    => stream->getRenderPosition
-    => mStream->get_render_position
-
-PlaybackThread::DirectOutputThread::prepareTracks_l
-    "pause because of UNDERRUN, framesReady = %zu, minFrames = ..."
-
-MixerThread::prepareTracks_l 内没有这种逻辑（因为会mixer嘛）
