@@ -36,6 +36,13 @@ popcount
 
 > KEY skill v && !(v  v && !(v & (v - 1));& (v - 1));
 
+  a b c d     0 a b c     0 b 0 d
+& 0 1 0 1   & 0 1 0 1     0 a 0 c
+---------   ---------    ---------
+  0 b 0 d  +  0 a 0 c  = (a+b) (c+d)
+
+    这个计算方法，重点是将啰嗦的32更多的op，可以放在更少次数操作完成
+
 - isolate rightmost 1-bit
 `x = x & (-x)`
 

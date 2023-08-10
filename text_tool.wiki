@@ -116,6 +116,7 @@ luit -encoding gbk telnet bbs.ustc.edu.cn
 - -m [NUM]          Stop reading a file after [NUM] matching lines.
 
 grep -E "WORD|"     match every line, and colorize WORD
+grep -e '&' -e "WORD" match every line, and colorize WORD
 
 === more grep ===
 ==== egrep ====
@@ -204,7 +205,20 @@ progress of pipe
     lynx -dump -stdin
 - makrdown, html convertor
     pandoc
-- xml: xmlstarlet
+=== xml ===
+==== xmlstarlet ====
+its command name is `xml`
+
+xml format 1.xml    pretty-print xml
+==== xmllint ====
+- valid         validate the doc with xsd (std well-formed check)
+- xinclude      do Xinclude processing
+- format        pretty-print
+
+==== xpath/xpointer ====
+
+
+
 - JSON: jq
 - YAML: shyaml
 - csv: csvkit

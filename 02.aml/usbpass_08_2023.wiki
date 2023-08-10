@@ -6,9 +6,51 @@
 856:06-07 08:11:35.591 26126 26132 E audio_hw_primary: adev_open_output_stream: YYY enter: devices(0x4000000) channel_mask(0x3) rate(48000) format(0x1) flags(0), address:card=0;device=0
 devices == 0x4000000 is AUDIO_DEVICE_OUT_USB_HEADSET
 
-- [ ] proc fs support audio device
-- [ ] alsa_manager doesn't support USB device (we need parse address which come from `adev_open_output_stream`)
-    - [ ] adev_open_output_stream(address='card=0;device=0')
+- [X] proc fs support audio device
+- [X] alsa_manager doesn't support USB device (we need parse address which come from `adev_open_output_stream`)
+    - [X] adev_open_output_stream(address='card=0;device=0')
+- [ ] 仿照a2dp的流程
+
+两种思路：一种是直接在open这里截断掉，然后后续的处理调用decoder模块，然后proxy输出
+这种思路，对于hal的改动和依赖较小，只涉及decoder模块
+另一种，主体path，采用primary hal通路，然后再最后一步输出的时候，选择使用proxy和address决定输出而已
+
+考虑到ac4没有独立decoder，必须要采用ms12的decoder+output path，这里选用第二种思路
+
+采用 ExoPlayer，强制选择 offload 从而令上层可以选择直接输出
+
+- [x] 确认进入到hw write的部分，为解码后的数据
+
+- [ ] 数据量分析,对不上啊
+49152=4ms*48000
+这里是应该是ms12 continuous output的缘故，暂时忽略
+
+- [x] DUMP
+
+== Monday ==
+- [X] rewrite `usb_out_write` function, base on usb's proxy module
+    - [X] build pass
+    - [X] address passing       -> adev_set_device_connected_state_v7
+    - [X] format convert
+    - [X] channel adjust
+    - [X] 噪声？？ dump
+    - [X] test pass
+- [X] AC4 test case
+    - [X]  put usb to device level, instead of stream level
+    - [X] test pass
+- [X] dynamic open/close usb device
+- [O] test cases list
+    - [ ] AC3 DD_6ch_25..        0x9000000
+    - [X] eAC3        0xa000000
+    - [X] AC4        0x22000000
+    - [X] TrueHD      0x9000000
+
+== Tuesday ==
+- [ ] refine CL
+    - [ ] submit
+    - [ ] self review
+- [ ] compatibility test
+    - [ ] other usb devices?
 
 = PHY =
 Serial: 板子左上角POWER KEY旁边的4线插口

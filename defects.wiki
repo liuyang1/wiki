@@ -1,0 +1,98 @@
+= Collections of Defect =
+
+由 Yang Liu创建, 最后修改于大约1分钟以前 21 views since 24 Jun 2022
+
+同时附上概要性的解决问题的方法
+== 程序 ==
+- crash
+crash一般来自于空指针（或者invalid的指针）的解引用。或者除零错误等。
+- null pointer 空指针，比较好解决。加log，追溯为何出现空指针即可
+- divide zero 除零，检查逻辑，避免除零的行为
+- assert
+assert一般来自于断言错误。就是代码认为不应该发生的事情，但是发生了。检查逻辑解决
+- stuck
+卡住。卡死，一般来自于死锁，死循环或者其他问题。见其他问题具体分析
+- hang
+hang，一般来自于硬件bus访问的死掉。可能来自于硬件clk，硬件访问权限等问题
+- exception，exceptional
+异常
+- bus error
+见hang
+== Others ==
+- dead loop
+死循环逻辑。这种一般可以按照循环不变量的思路，书写代码可以避免此类问题
+- out of range
+数组访问的index超过了范围。使用[0, n-1]访问，避免访问-1或者n之类的下标地址。
+== lock ==
+- deadlock
+死锁，按照固定的获得锁的顺序，从而避免此类问题。比如获得锁A，获得锁B，释放锁B，释放锁A。避免交错顺序上锁和解锁
+加锁、解锁。严格按照顺序（不能重复加锁，也不能重复解锁）
+严格按照锁的顺序加锁，上锁，一般按照作用范围从大到小上锁，按照从小到大解锁
+- race condition
+按照固定的顺序，配合semaphore，mutex等保证代码无冲突
+- ABBA problem
+修改数据，需要注意加锁
+- live lock 活锁
+- priority inversion
+优先级反转，注意不同优先级的线程使用同一个资源（或者同一个锁）的情况。避免此类代码的风险
+注意：系统角度的解决方案，是优先级继承机制。也就是如果高优先级task，block在低优先级的task上，则低优先级task的优先级立刻上升，直到unlock高优先级的task
+- starvation 饥饿
+- thrashing 颠簸（系统负载过重，导致效率降低。调度器开销大于程序开销的现象；或者其他频繁换入换出导致的副作用）
+== Cache 缓存 快取 ==
+cache的使用，源自于局部性。https://zh.m.wikipedia.org/zh/%E8%AE%BF%E9%97%AE%E5%B1%80%E9%83%A8%E6%80%A7
+- cache miss （cache hit，正常）
+cache没有命中，代码的局部性不够好。注意内存的访问要有连续性。比如访问a[0],a[1]...性能很好。访问a[0],a[1024],a[2048]...就会导致大量的cache miss，性能急剧下降
+- Penetration 穿透
+cache写入的情况下，如果总是发生writeback的时候的miss，就会导致大量的内存需要直接写入到ddr，而非cache。比如向a[0],a[1],...写入，性能较好。向a[0],a[1024],a[2048]...(特别是cache line的宽度刚好是1024的整数分之一，或者整数倍的时候，更容易触发到同一个cache slot，进而导致cache一直向ddr直接写入的问题。这是内存穿透。
+        避免的办法，就是内存地址的访问，要考虑本地性和cache line的宽度，避免始终命中到同一个cache slot
+- Avalanches 雪崩（高并发下，大量不相关数据引起）
+        和穿透相似，区别在于可能是在不同的slot上。同样通过局部性解决
+- dirty（脏数据, DMA常见
+        使用不同cache的硬件之间传递数据，需要注意在数据源侧flush cache，在读数据端，注意invalid cache
+== Network ==
+- throttling 抖动 网络达到上限，而反复再限速算法调整的过程
+== memory ==
+- leak，resource leak
+        所有的malloc，必须在任意情况下都要有free。对称的写法可以避免此类问题
+        对于内部分配memory的函数，注意free。比如strdup等函数
+- fragile
+        内存碎片。内存碎片发生的概率并没有那么高。可通过画出整体的内存使用图，从而确定发生此类问题。
+        解决内存碎片的问题，主要靠分配内存的顺序。尽量不要交错顺序分配释放内存
+- dangling pointer
+        悬垂指针，释放后的内存，记得写入NULL（并不能根治
+        关键就是分析资源的生命周期
+- wild pointer
+        野指针，见悬垂指针
+- deference null pointer
+空指针解引用。分配完之后记得检查是否为空。注意生命周期分析
+- double free
+分配之后，置为NULL，可缓解此类问题。注意逻辑线，可彻底杜绝此类问题
+- out of memory
+严格来说，这不算是问题。我们应该或者增加memroy，从而避免此类问题。或者减少内存占用等
+- stack overflow
+栈上越界。一般栈顶会有固定的区域设置为特殊值，从而检测到这类问题
+- overwrite
+每块内存的头部，增加magic number，从而检测到这种问题。
+分析内存分布
+对于静态的全局存储，检查内存分布即可
+== Audio ==
+- gap
+- jitter
+抖动，减少抖动。比如增加task的affinity。减少不确定的逻辑
+- glitch
+一般来自于数据的错误，比如overflow了，或者overwrite或者其他脏数据引入的
+- aliasing 混叠 under-sampling 采样不足 over-sampling 过采样
+- xrun，underrun，overrun
+本质上是数据的产生速度和消耗速度在短时间内不一致的问题，可通过增大buffer缓解此类问题
+对于数据产生速度和消耗速度有恒定差异，那么增大buffer也无法解决。应该解决各自的速度，使之匹配
+- echo 回声
+过载 overload？？
+- aperture effect？？孔径效应
+- quantization noise量化误差 （bitdepth太小，或者有效位数不足
+- distortion 失真
+- noise 噪声
+== Video ==
+- mosaic
+- aliasing
+- ringing effect
+- ghosting 鬼影

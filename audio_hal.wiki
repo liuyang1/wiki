@@ -1,0 +1,37 @@
+= audio policy =
+
+== audio policy manager ==
+
+== output device ==
+- speaker
+    - profile
+        - 16bit, 8k..48k
+        - AC3, 8k..48K
+        - eAC3, ..
+- spdif out
+    - profile
+        - dynamic format, channels, rates
+
+== hardware module ==
+- primary
+    - Output MixPorts *10
+        - *primary output*
+            - 16bit, 48K, 2ch
+                - support devices: speaker, wired headset, ...
+        - tunnel pcm
+        - compress offload
+        - tunnel compress offload
+        - *direct output*
+            - dynamic format, channels, rates
+        - tunnel direct output
+        - mmap_no_irq_out
+        - tunnal a2dp
+        - direct a2dp
+    - Input MixPorts
+    - Declared devices *20
+        - speaker
+        - wired headset, wired headphones, ...
+    - Audio Routes
+        - Mix -> Sink
+
+API: out_get_parameters

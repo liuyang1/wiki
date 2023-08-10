@@ -15,7 +15,7 @@ out_get_presentation_position log?
 -> 没发现
 
 getPlayedOutDuration is unstable
-pause becaseuf of UNDERRUN, framesReady = , minFrames =
+pause because of UNDERRUN, framesReady = , minFrames =
 
 log去掉一些
 

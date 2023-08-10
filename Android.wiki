@@ -192,3 +192,30 @@ cp snapshot.xml .repo/manifest/
 repo init -m snapshot.xml
 repo sync -d
 }}}
+
+= build =
+
+- source, lunch, make
+- m audio.primary.[$soc]
+- mm in specific directory
+- mmm
+
+Android.mk --- Kati --> ninja
+Android.bp --- blueprint+soong --> ninja
+
+https://www.cxyzjd.com/article/yiranfeng/109082489
+
+== bootstap_go_package ==
+soong build plugin
+
+Due to blueprint doesn't have branch/logic-control, it use `bootstrap_go_package` to control build
+
+pluginFor: ["soong_build"], use this package for soong plugin
+
+cc_binary -> cc.DefaultsFactory
+cc_library_shared -> cc.LibrarySharedFactory
+java_library -> java.LibraryFactory
+
+具体参考这里：https://blog.csdn.net/zhzhangnews/article/details/105634037
+
+PRODUCT_COPY_FILES

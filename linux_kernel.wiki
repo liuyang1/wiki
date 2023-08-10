@@ -151,3 +151,17 @@ int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout
 - 减小需要复制到内核的内容
 - mmap
 - 边沿触发
+
+= printk format in kernel =
+
+kernel doesn't support %n, floating point formats ("%e, %f, %g, %a")
+
+pointer
+
+%p hashed pointer
+%pF symbols/function pointer (recommended)
+%pSR symbol with translation
+
+%px unmodified address
+
+https://www.kernel.org/doc/Documentation/printk-formats.txt

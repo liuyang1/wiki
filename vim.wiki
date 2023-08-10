@@ -31,7 +31,7 @@ vim scp://hd0/.bash_profile
 更多的关于inert模式下的快捷键,直接:help insert-index
 ===自动补全===
 - *<C-P>*           向前搜索可匹配词,补全.
-- <C-N>         后****
+- i_Ctrl-N         后****
 - *<C-X><C-L>*  向前,句子
 - ???           向后,句子
 - <C-X><C-F>    auto-complete for pathname
@@ -152,6 +152,7 @@ stoped last time in the current buffer.
 - `.                    move to last modification postion(exactly)
 - L/M/H                 移动到页面的下部,中间,上部
 - f/F[字母]             向前或者向后跳转到该字符
+- t/T[字母]             向前或者向后跳转到该字符的前面
 - nnnG                  跳转到指定行
 - 024l                  跳转到第24列,注意这个其实是组合命令,0移动到行首,然后向右移动24列
 * %                     move to match char, for exmaples: ( aabc )
@@ -168,6 +169,9 @@ so if function with { as tail, this method won't detect it, and skip it.
 
 ====文件跳转====
 - gf                    跳转到文件
+- gF                    skip to file (skip to specific line)
+        testfile:10
+        testfile 10
 - <C-W>f                open in new window
 {{{
 <C-W>L                  move the window to RIGHT as vertical split
@@ -189,7 +193,7 @@ so if function with { as tail, this method won't detect it, and skip it.
 
 g[uU~][uU~wW/iw/$]
 
-=== delteing text ===
+=== delete text ===
 - x
 - dd
 - D
@@ -226,8 +230,10 @@ textwidth or 80)
 
 for example: va{ will select a block;
 yaw will copy whole word
-ci" will change content in quote
+- ci" will change content in quote
 this is so useful for moving, deleting, and so on.
+
+- di"       delete in quote
 
 === search 查找===
 - /表达式
@@ -236,8 +242,19 @@ this is so useful for moving, deleting, and so on.
 - gd                    类似上面,但是不包括注释
 - gD                    search and jump to current word in current file
 - ]I                    查找被调用的函数出现的位置(单个文件中)
+- :set hlsearch         highlight search result
+- :set nohlsearch       no highlight
+- [i                    find the word under cursor in include files
+- [<Tab>                jump the defintion
 
 === fold 折叠 ===
+- :set fdm              打开/关闭fold的模式，foldmethod
+manual
+indent
+syntax
+expr
+marker
+diff
 - zn                    禁用折叠
 - zN                    打开折叠
 
@@ -271,11 +288,14 @@ this is so useful for moving, deleting, and so on.
 
 - :r[ead] [++opt] [name] insert the file [name] (default: current file) below
 the cursor.
-- :r !CMD               exec the cmd, and insert the output
 === commands ===
 - :as/ga                print the ascii value of current char
 - :=                    print last line number
 - :!{cmd}               execute {cmd} with the shell.
+- :r !CMD               exec the cmd, and insert the output
+- :w !CMD
+- :.!CMD    !!CMD
+- 
 - :addr0,addr1!{cmd}    execute {cmd} for the addresses, and sent back to
 buffer!!
 address with 1,2,... for line number, G for last line. 'a,'b for mark a and
@@ -301,6 +321,8 @@ v
 - m[a-z,A-Z]       设置书签
 - '[a-z,A-Z]      书签跳转 jump to line of mark
 - `[a-z,A-Z]        jump to postion of mark
+- ma
+- `a
 
 === replace 替换===
 ==== replace action ====
@@ -506,14 +528,12 @@ set listchars=tab:\>\-,trail:<,extends:>
 
 == spell ==
 
-:set spell
-
-:set nospell
-
-- ]s, [s to move next / prior spell checking point
-- `z=` list correct spell
-- `zg`      add user defined spell
-- `zw`      delete user spell
+- :set spell        turn on spell checking
+- :set nospell      turn off
+- ]s, [s            move next / prior spell checking point
+- `z=`              list correct spell
+- `zg`              add user defined spell, (Good Word)
+- `zw`              delete user spell       (Woops!)
 
 == ctag ==
 - tag [TAGNAME]         search tag
@@ -628,3 +648,10 @@ install liblua5.2-dev first
     sudo apt install liblua5.2-dev # lua.h under /usr/include/lua5.2
     ./configure --prefix=/home/yangliu/R/ --with-features=huge
     --with-lua-prefix=/usr --eanble-luainterp
+
+I must warn for a pitfall when overdoing it. Learning every feature of Vim might make you the great wizard of Vim, but it will not be very effective. And it will be impossible to make everything a habit.
+
+== insert mode ==
+- <Ctrl_U>      delete to line of header
+- <Ctrl-T>      more indent level
+- <Ctrl-U>      less indent level

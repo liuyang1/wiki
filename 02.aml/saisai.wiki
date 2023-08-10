@@ -1,0 +1,8 @@
+如何培养，如何Lead一个人，是需要学习和训练的. <- 这点是对我而言的。
+
+- 代码能力,逻辑分析和结构梳理
+- 沟通能力
+
+= TODO =
+- MBP Audio load performance
+- MBP audio driver's size

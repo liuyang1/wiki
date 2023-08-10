@@ -225,3 +225,9 @@ For each archive mentioned on the command line after the --whole-archive option,
 This is normally used to turn an archive file into a shared library,
      forcing every object to be included in the resulting shared library.
      This option may be used more than once.
+
+Linux 5.4 + gcc 9.4 have stack protection (compared with Linux 4.4 gcc 4.8.4)
+
+so we prefer to use Linux5.4
+
+Apple clang 14.0 doesn't have stack protection (and valgrind have false alarm on memory leaking)

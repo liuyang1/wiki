@@ -23,3 +23,65 @@ Verance音频水印
 It's signed number
 
 0xFFFF -> -1
+
+[[audio_processing]]
+
+= 双mic降噪技术 =
+CVC降噪
+
+主动降噪技术
+
+= PESQ: Perceptual Evalution of Speech Quality =
+
+= 风噪 =
+== 物理声学结构降噪的方法 ==
+- 防风罩
+
+常见于手持式传声器以及专业枪式传声器。有海绵、人造毛皮、铁网等多种材料。原理主要是降低传声器振膜附近的空气流速，打散气流减小湍流的产生，作用等效于声学低通滤波器。
+
+- Conada effect
+
+康达效应的例子还有：在一根点燃的蜡烛前放置罐子，对罐子吹气，气流可以将罐子后方的蜡烛吹熄
+
+== 算法消除 ==
+
+= Spatial Audio =
+https://source.android.com/docs/core/audio/spatial?hl=zh-cn
+
+Legacy: Decoder -> Renderer -> Ear
+Spatial audio architecture:
+
+                                   mono/stereo ----\
+Decoder -> 5.1/7.1 PCM -> Mixer -> Spatializer -> Accumulator -> Ear
+                                        |
+                                   (headtracker)
+
+HID: Header Tracker? Device?
+
+- rx,ry,rz rotate vector
+- vx,vy,vz angle-speed?
+
+= 优先级和audio =
+https://source.android.com/docs/core/audio/avoiding_pi?hl=zh-cn
+
+= latency =
+
+1. use SCHED_FIFO (instead of SCHED_NORMAL)
+    normal是公平的，但是不符合audio在指定时间前执行的策略
+2. RMS速率单调调度（较高优先级分配给周期较短的线程）
+3. 中断，建议放到其他CPU上，而非CPU0
+4. ..
+
+= Audio Test =
+- FR, frequency response
+- THD, 总谐波失真, 百分比，一般在2%-3%，低于1%则无法分辨
+- SNR 信噪比
+- SPL 声压级
+
+- 电路失真，（音频信号在电路中传输，转换DAC电磁干扰，转换器件，谐振等
+高频谐波，基本无法消除，可忽略
+    -> 两级滤波器，\pi滤波器或者倒L滤波器？
+- 结构失真，音腔、前壳，整机结构设计导致的反射、共振等失真
+如果失真的频带很窄，可以忽略
+    -> 避免直角，音腔底部设计弧度，前腔不能过大过深，音强声容积大于喇叭的2倍
+- 喇叭失真，

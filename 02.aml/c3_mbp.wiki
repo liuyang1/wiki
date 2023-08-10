@@ -1,0 +1,38 @@
+= build BR =
+
+c3_aw409_a32_release
+
+output/build/buildroot-config
+
+BR2_LINUX_KERNEL="meson64_a32_C3_mini"
+
+sync from dir buildroot../kernel/aml-5.15
+
+1. syncing
+2. patching
+3. Configuring
+4. Building
+
+# configuration written to .config
+
+Using ../ as base
+
+merge_config.sh +174 'echo # merged configuration written to .../.config (needs make)'
+
+-> build.config.amlogic
+-> Makefile +1485
+
+= DRC =
+
+vol=32
+
+| signal      | DRC    | RMS mV |
+| -4dB signal | -      | 366    |
+|             | -12dB  | 137    |
+|             | -1.3dB | 500    |
+|             | 2dB    | 732?   |
+
+db=20*log10(rms)
+
+4=20*log10(366)
+=20*log10(500)

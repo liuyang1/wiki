@@ -341,3 +341,11 @@ pcm_hw_open -> open(O_NONBLOCK)
 <<<CONCLUSION>>>
 
 so we should add O_NONBLOCK flag by default, and let it fail with EBUSY
+
+
+== dsnoop ==
+
+record stream as multiple virtual node based on ONE hardware node
+
+== dmix ==
+

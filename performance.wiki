@@ -1,0 +1,28 @@
+= Performance =
+
+What's real meaning behind of performance?
+
+Time. This affect user's visible feeling.
+
+What's real meaning for specific layer's performance?
+
+Do same job, it consume how much low layer's cycle.
+
+For example, we have one SoC. It have two adders. 我们的编程语言，转换为具体这个CPU的执行指令，需要多少。
+
+影响因素
+- 算法
+- 编译器本身（映射的效率等）
+- 读写的效率等，cache的效率等
+- 硬件本身的效率
+
+一般传统的分析，着重在算法
+常见的优化手段，则在于第二点。也就是通过各种库和编译器选项，来加速。
+第三点，则在于pipeline分析
+第四点，则在于硬件本身的优化（不在于软件，所以我们SW engineer一般不会涉及这部分）
+
+PPA: performance, power, area
+
+area
+
+这个指标化最常见的就是芯片制程。换言之，晶体管密度

@@ -1,0 +1,35 @@
+= dbfs =
+
+fs: full scale
+
+sine wave of full scale value is 0dB
+
+value of dbFS = 20 * log10(rms(signal) * sqrt(2)) = 20*log10(rms(signal)) + 3.0103
+
+== Why 3.0103? ==
+
+RMS(root mean square) of sine wave is `A_1/sqrt(2))`
+
+For example, `RMS(sin(0), sin(pi/2), sin(pi), sin(3*pi/2)) = RMS(0,1,0,1) = sqrt((0+1+0+1)/4) = 1/sqrt(2)`
+
+For any theta, `RMS(sin(a),sin(pi/2+a),sin(pi+a),sin(3*pi/2+a) = sqrt((sin2(a)+sin2(pi/2+a)+sin2(pi+a)+sin2(3*pi/2+a))/4) = 1/sqrt(2)`
+
+`sin2(a)+sin2(pi/2+a)=sin2(a)+cos2(a)=1`
+
+20*log10(1/sqrt(2))=-10*log10(2)=-10*0.3010=-3.0103dB
+
+= mels frequency =
+
+'mels=1127.01048*log10(1+freq/700)'
+
+| freq  | mels    |
+| 0     | 0       |
+| 1000  | 434.294 |
+| 24000 | 1744.16 |
+
+Filter bank
+
+Each triangle represents a single band, where the amount of energy contributed to the band is proportional to the amplitude of triangle.
+
+1. Overlapping
+2. Triangle weights

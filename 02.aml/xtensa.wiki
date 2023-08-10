@@ -1,0 +1,12 @@
+= xtensa_xcc_compiler_ug.pdf =
+== SIMD vectorization ==
+
+automatically vectorize certain loops, resulting in greatly improved performance
+
+-LNO:simd                   enable vectorization. ONLY valid in conjunction with the -O3 option
+-LNO:aligned_pointers=on    treats all pointer used as array bases as if they are aligned correctly for use with the vectorizer
+
+如果SIMD指令是4个对齐的，那么可以用SIMD指令加速，从而提升4倍速度?
+
+如果不对齐，那么需要aligned pointers部分
+

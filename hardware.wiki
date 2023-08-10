@@ -1,0 +1,8 @@
+PLL: Phase-locked loop 锁相环 （相位锁定的回路）
+
+= 硬件设计流程 =
+
+- functional verification
+- implementation
+- equivalence checking
+- timing/power signoff

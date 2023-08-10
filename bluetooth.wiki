@@ -2,6 +2,9 @@
 
 == A2DP ==
 == HFP:hand-free profile ==
+== HHP ==
+手持式
+
 == SCO: Synchronous Connection Oriented Link ==
 
 vs ACL: Asynchronous Connection Oriented Link

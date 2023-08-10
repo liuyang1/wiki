@@ -1,0 +1,5 @@
+= duplicated loopback =
+
+UNIX socket
+
+selinux policy?

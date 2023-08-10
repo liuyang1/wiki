@@ -1,3 +1,308 @@
+= DevLog of Low latency of USB =
+
+- 12-13            Assign task from @Shuai
+                   requirement discussion with @Daozai
+
+- 12-14 19:41      replace lib              <= OK
+
+- 12-15 10:52      Default MS12 status?     <= Dcv!!
+                   hw_write -> aml_alsa_output_write !!
+-       11:31      aml_alsa_output_open's config
+                    <= 8ch, 16bit(1), 48KHz
+
+-       16:52       init HMixer for test
+        18:24       check ret of pcm_read/pcm_write     <= -9
+                    switch from PDM to TDM-A
+
+- 12-16 10:12       avali_min = 0                       <= 依然是-9
+        10:52       switch back to PDM + first init in **adev_open**
+        15:12       follow tinycap's status             <=
+        `tinycap /data/a.pcm -d 0 -r 48000 -c 2 -b 16`
+
+- 12-19 16:23       pcm_read get 0 >> try more times
+        16:34       enlarge read buffer + tune log
+        16:45       add log, read buffer, reset buf
+        17:00       add log on pcm_read
+        17:22       add log on timespec + speaker config, shrink buffer size
+        17:36       only read       <= 4,036,859us
+                    only write      <= 7,860,171us ???
+                    read+write
+        18:19       wirte+config
+
+- 12-20 14:00       test only write speed
+        14:07       use TDM-C for playback      <= 3,945,934us
+        14:17       read(TDM-A)+write(TDM-C)    <= 4,014,959us
+<<< read+write in ONE task is possible
+        15:25       test delay (period=2048)    <= avail=2048+-
+        15:41       test delay (period=192)
+
+| period | avail avg | comment   |
+|--------|-----------|-----------|
+| 2048   | 5622 117ms| buf=192   |
+| 1024   | 2195 46ms | *default* |
+| 512    | 999  21ms | buf=192   |
+| 384    |           | buf=384   | WRONG: 8s
+| 384    | 875 18ms  | buf=192   | reset many times
+| 384    | 759 16ms  | buf=192   | start_thr=384, out start_thr=768
+| 384    |           | buf=192   | start thr=384, out start_thr=768, cpu23
+| 384    | 1536 20ms | buf=192   | start_thr=384, out start_thr=384, cpu23
+| 192    | BAD       | buf=192   | reset many times, cpu23
+| 192    | 435 9ms   | buf=192   | reset many times
+
+- 12-21 *Build with hires*
+- 12-22 15:32       SUBMIXER_V1_1
+
+| input config | output config | period | theory | real | comment |
+|--------------|---------------|--------|--------|------|---------|
+| 384x(4,1)    | 384x(4,2)     | 192    | 384x3  | 609 13ms |
+| 384x(4,1)    | 384x(4,2)     | 192    | 384x3  | 653 14ms | GOOD
+| 384x(4,1)    | 384x(4,2)     | 384    | 384x3  | 537 11ms | GOOD
+| 384x(4,1)    | 384x(4,1)    | 384 | 384x2 |
+| 384x(8,1)    | 384x(8,2)     | 384    | 384x3  | 300 6ms  | GOOD, 不能复现
+| 384x(8,1)    | 384x(8,2)     | 384    | 384x3  | 2451 51ms| double-check
+| 384x(16,2)   | 384x(16,2)    | 384    | 384x4  | 5504 115ms ｜buffer太大了导致的问题？
+| 384x(8,1)    | 384x(8,1)     | 384    | 384x2  | 1841 38ms | BAD
+| 192x(16,2)   | 192x(16,2)    | 192    | 192x4  | 2470 51ms | BAD
+
+>>> 结论：没有什么特别的线索。估计20ms还是有可能的。进一步的数值，过于不稳定了.
+
+- 12-23 10:48       PCM-LINK    <= CANNOT work, EBUSY
+        14:38       loop test with period, 64*(4,2) is best, 196, 112
+                    64, 152
+        15:47       default task
+                    task FIFO
+                    task Round-Robin        <= 64, mean ratio=0.98, var-ratio=6.27
+>>> 结论：affinity或者sched都可以提高task的调度，能够满足要求. 同时设置两个值，取得更好的结果
+
+
+- 12-26 13:36       define SUBMIXER_V1_1, ~~ no audio ~~
+                    disalbe SUBMIXER_V1_1 <= GDOO
+                    remove hmixer test+define SUBMIXER_V1_1 <= GOOD
+                    usercase_change_validate_l_sm <=
+
++-------------------+
+| audio_hw/hw_write |
++-------------------+
+
++-------------------------------------------+
+| sub_mixing_factory/out_write_subMixingPCM |
+| - consume_output_data                     |
+| - out_write_system                        |
+| - out_write_direct_pcm                    |
+| - **mixer_aux_buffer_write_sm**           |
+| - mixer_mmap_buffer_write_sm              |
+| aml_out_write_to_mixer/mixer_write_inport |
++-------------------------------------------+
+
++---------------------------------------------------------+
+| mixer_write_inport                                      |
+| mixer_inports_read/mixer_read_inport                    |
+| amlAudioMixer.c/mixer_16b_threadloop/mixer_output_write |
++---------------------------------------------------------+
+
++------------------------+
+| audio_port.c           |
+| output_port_write_alsa |
++------------------------+
+
+- 12-27 10:48       debug linein-kara module
+|cpu | prio | result=(mean,var) |
+|----|------|-------------------|
+| 23 | FIFO | 1756, 4500+-      |
+| 23 | RR   | 1750+,4000        |
+| 1  | FIFO |                   |
+| 1  | RR   | 1792, **0**/4000  |
+
+Current Task List
+
+- ATVRemoteAudioHotplug
+- binder:PID_TASK
+- vndbinder:PID_
+- HwBinder:
+
+# 12-28 **MS12 path **
+
+- disable SUBMIXER_V1_1
+- writer task, backtrace is bad
+- add tinyalsa's `pcm_write` log
+
+# 12-29 **MS12 path**
+
+- DOLBY_MS12 task's status
+
+# Design
+
+it must work CONTINOUS mode
+
+orignal, we have SubMix way
+- SUBMIXER_V1_1     DISABLED
+- USB_KARAOKE       DISABLED
+
+# 2023-01-10
+
+- Dolby Stream playback well
+    - [X] efuse
+    - [X] ms12 lib
+- MS12 path
+    - [X] game mode, 256 period size
+- Kara path
+    - [X] buffer frame <= 256
+- LINE in
+    - tinymix 73 7 <= select TDM-B source is acodec_adec
+    - use LINE-in special line from laptop
+    - 示波器测量正弦波信号
+- [X] mix function
+- [X] DUMP
+- [X] stat
+    256*4+512,256*8+512 => 1136~1221
+    256*4+256,256*4+256 => 1279
+- [X] 示波器测量latency
+- [X] tinymix 73 7，TDM B source select acodec_adc, 自动选择的支持
+    - aml_audio_input_routing
+
+- adev_create_audio_path -> aml_audio_input_routing
+- adev_set_parameters -> set_tv_source_switch_parameters -> aml_audio_input_routing
+
+# Issue
+
+- [ ] continuious MS12 path, 没播放的时候，MS12通路没数据。
+- [ ] line in只有左声道有声音，右声道没声音
+
+# HDMI Rx issue
+
+audio_patch_output_threadloop -> out_write_new -> mixer_main_buffer_write
+-> ms12_render
+-> hw_write
+-> ??
+
+               +----------------+               +--------------+
+               |                |  +---------+  |              |
+               | +------------+ |  | pcm_read|  |  +-------+   |
+ +-----------+ | | RENDER TSK | |  +---------+  |  | MS12  |   | +-------+
+ | hr_render | | +------------+ |      |        |  +-------+   | | main  |
+ +-----------+ |       |        |   +------+    |      |       | +-------+
+       |       |       |        |   | KARA |    |      |       |     |
+       +---------------|        |   +------+    |      |-------------+
+               |       |        |      |        | +----------+ |
+               |       |---------------+----------| hw_write | |
+               |       |        |               | +----------+ |
+               |       |        |               |      |       |
+               | +-----------+  |               | +----------+ |
+               | | pcm_write |  |               | | pcm_write| |
+               | +-----------+  |               | +----------+ |
+               +----------------+               +--------------+
+
+
+2023-03-22 13:54:27
+- [X] render start
+- [-] render switch with different main device & config
+
+相对来说，hires 需要混合多路的数据（这个多路在上层上的多路）因此需要port 这一层级
+而对于当前任务来说，并不需要port这一层。甚至continous task也可以随时创建。那么我们就把它修改到stream layer
+
++------+   +------+
+| data |   | kara |
++------+   +------+
+
++---------+ +--------+ +--------+
+| stream  | | device | | render |
++---------+ +--------+ +--------+
+
++-------------------------------+
+| dev,alsa,process              |
++-------------------------------+
+
+- [X] render with fixed device, config, (virtual buffer)
+- [X] ring buffer for input, pop ring buffer, playback
+
+2023-03-23 10:26:23 
+- [x] ticlog
+     -----=====----___
+设计一套状态指示的log
+空白为dummy输出
+下划线__为__仅有linein/usbin输出
+---为仅有主路输出
+====为kara输出
+粒度为每个period（比如4ms）那么200个period大约为0.8s。时间粒度太小了
+
+## finish
+- [X] register render to hw_write or some where?
+- [X] switch to FRAME (instead of bytes at API layer)
+- [X] add dump support
+
++----+                                +----+
+| WR |                                | RD |
++----+                                +----+
+  |<---------------<<<<------------------|
+  | take space (wait forever)            |
+  || write, generate it                  |
+  ||                                     |
+  | post payload                         |
+  |---------------->>>>----------------->|
+  |                     try take payload |
+  |                                      || read, consume it
+  |                                      || give space
+
+2023-03-24 15:51:04
+- [X] 对比标准情况的配置和信息
+标准情况，不会出现问题。检查配置
+
+2023-03-27 13:52:16
+- [ ] 检查，在同样配置下，是否会有问题
+alsa open + alsa write   AAA 正常
+alsa_open + pcm_write:   XXX 直接走pcm write就播放不了声音，那TDM还怎么搞啊，直接基于原有的API接口和模块来玩？
+render open + alsa write: ???
+render open + pcm write: XXX 无法播放
+
+|            | alsa open | rnd open |
+| alsa write | AAA       | XXX      |
+| pcm write  | XXX       | XXX      |
+
+为什么，替换掉哪一部分，看上去都不行，难道就原模原样照搬
+
+- [X] render, directly use aml_alsa_output_open
+    - [x] correct sequence to pcm_frame_to_bytes
+- [.] render, directly use aml_alsa_output_write
+- [X] render, use dummy buffer + task
+- [o] add start_threshold for smooth playback
+- [X] continuuse use old render
+- [-] add ping-pong from hw_write to render task, to reduce polling when ring buffer write
+- [X] add waiting to reduce polling
+
+## output_mix_source=line
+- [.] pcm_mic_open fail, check error
+- [.] decrease threshold for playback
+
+|      | output_mix=null | linein      |
+| no   | DUMMY           | DUMMY+linein|
+| main | main            | main+linein |
+
+2023-03-28 10:21:50
+
+- [x] move dummy to task to allocate
+- [-] move all API based on frame, instead of bytes
+- [x] clean card, device, pcm in render
+- [x] error handling
+
+validation
+- [x] dummy?
+- [x] playback
+- [x] only line in
+- [x] kara: playback + line in
+
+re-format CL
+- [.] format CL
+- [x] render close
+
+
+## TODO
+
+## WIP
+- [ ] process time, correct or not, it should not XRUN
+## TODO
+- [ ] correct period/frame size, 8ch output
+## backlog
+- [ ] commit(timestamp, frame position)
 = SH-13464 =
 
 hw_write
@@ -16,7 +321,7 @@ mixer_main_buffer_write
 
 # History
 
-Yujie, 'audio: don't close alsa when do flush'
+@Yujie, 'audio: don't close alsa when do flush'
 
 # problem
 
@@ -121,10 +426,10 @@ out_get_presentation_position (frames, timestamp)
     - [x] 数据精度不对，为什么？？？ <- GOOD,不知道之前版本怎么了
 - [ ] check Customer's code
 == Journal ==
-- Mon   hires的profile修改，
-    - 测试hires usb设备
-- Tue   hires的config。xml修改，发现pcm open fail问题。
-    - 测试hires usb设备，验证zidoo OK
+- Mon   hi-res的profile修改，
+    - 测试hi-res usb设备
+- Tue   hi-res的config。xml修改，发现pcm open fail问题。
+    - 测试hi-res usb设备，验证zidoo OK
     - hisense, underrun, 澄清
         - TDM-A设备只支持到2ch，96KHz
         - TDM-B（HDMI I2S）支持到8ch，48KHz（不支持96K）
@@ -166,8 +471,8 @@ usb_reset_device -> usb_reset_and_verify_device
 - [x] Hisense:  underrun with low latency buffer
 - [x] Hisense:  no output when force to unpluged devices    => discussion   => HongChao => Qitao
 - QiNuo:    Mixing with HW                      => Pending
-- BT:       HiRes 96k                           => PCM open fail    => temp change to TDM-A
-- Skyworth: HiRes nego
+- BT:       hi-res 96k                           => PCM open fail    => temp change to TDM-A
+- Skyworth: hi-res nego
 
 = 2023-04-19 17:28:17 =
 
@@ -263,8 +568,8 @@ x AudioHwDevice::openOutputStream
 x AudioFlinger::openMmapStream
   AudioFlinger::openOutput_l -> DirectOutputThread
   AudioFlinger::PlaybackThread::createTrack_l
-  
-  
+
+
 /frameworks/av/media/libmediaplayerservice/nuplayer
 /vendor/amlogic/common/amnuplayer (source code, before prebuilt)
 
@@ -289,7 +594,7 @@ nuplayer -> Render
 initSubMixingInputPcm
 switchNormalStream
     out_write_subMixingPCM
-    
+
 因为ms12库的问题
 
 0. Image
@@ -337,7 +642,7 @@ void AudioFlinger::PlaybackThread::readOutputParameters_l()
 {
     const audio_config_base_t audioConfig = mOutput->getAudioProperties();
     mSampleRate = audioConfig.sample_rate;
-    
+
 
 AudioStreamOut *mOutput
 
@@ -371,7 +676,7 @@ AudioPolicyManager.cpp
 |     | drt,48k,44.1k,768k |         | !!768k |       |     |     |      |        |        |
 
 = Verify @ Jihui =
-0. Image                tyuson jihui.zhang@04281801
+0. Image                tyson Jihui.Zhang@04281801
 1. MS12库               0
 2. 功放设备
 3. amnuplayer           0
@@ -393,7 +698,6 @@ AudioPolicyManager.cpp
 - 第二页是CPU IO部分，可以找到AU LOL的pin脚
 - AU_LOL连接到7C56的输入部分。经过小芯片AD51652/NC/FT2011M的4口（IN-）进入。
 - 这里的AD51652是Elite半导体的小芯片。这是个3W的单声道无滤波器的D类音频放大器
--
 
 == USB 384k stream: why goto 384k direct even no direct at amnuplayer ==
 
@@ -433,7 +737,7 @@ a2dp_hw.cpp/h 层次
         a2dphw.WriteData
     a2dphw.Stop()
     a2dphw.TearDown()
-    
+
 == Req ==
 usb方式增加到primary hal里面，从而可以调用primary hal内的解码/播放等代码
 支持各种压缩格式的透传，然后在hal内解码播放。
@@ -446,6 +750,7 @@ offload，tunnel，
 播放卡断
 period size 5ms -> ro.audio.usb.period_us
 period count 2 -> 5
+/mnt/fileroot2/yang.liu/FY23/koltin.BT_96K/system/media/alsa_utils/alsa_device_profile.c:117:1
 start_thr
 
 | 7680*4     | 11/222 |
@@ -561,3 +866,556 @@ device初始化的时候，拿到dts配置。
 == C2 aec function ==
 - TaoQin: check arecord result
 
+
+= USB pass through code review in trunk =
+== Tue 2023-07-25 ==
+- [x] SND FS enable in trunk
+- [ ] AC4 test stream
+
+当前工作
+- Dolby Passthrough + hi-res for USB
+- ESPON 全民K歌
+
+- BT/USB latency
+- Loopback duplicated的需求（还在继续讨论）
+- DSD over PCM, DSD native for USB issue
+
+= Saisai当前工作2023WK31 =
+- AEC effect CL整理
+- Return value of MBP 修改
+- AEC for HFP
+
+- DRC API接口
+- MBP AW402 pop noise
+
+= HFP =
+
+1. param_set 0 'hfp_enable=true'
+2. check HFP flow
+3. replace with loopback device
+4. add aec process
+
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/hardware/amlogic/audio/audio_hal/aml_hfp.c:145:21
+
+= Re-test Dolby passthrough feature & hi-res for USB =
+1. SDK version, connection function, refine
+2. sample rate not default one (due to proxy change)
+3. BT & alsa dual output
+== 2023-08-04 ==
+S5 AX201 AS928X
+proc fs
+MS12 lib
+
+| 0xE0000000 | DIRECT, OFFLOAD | HDMI | OK |
+| 0xA0000000 | DIRECT, OFFLOAD | HDMI | OK |
+| PCM        | 2ch             | HDMI | OK |
+
+policy
+- device USB_HEADSET, truehd, 48k, 1/2ch
+- output truehd, 48k..192k, 1/2/3/../8ch, direct|offload **NO USB**
+- output offload usb, 48k, 1/2ch, none, USB
+
+- [x] fix flag
+- [ ] policy flag ' '/'|' which one?
+
+
+= 2023WK32 =
+== OTT-46608 ==
+- wav stability issue
+period=5ms*2 -> 32ms*4
+
+- [X] fix wav playback noise
+
+- noise when truehd
+1. dump input file when out_write_new
+MLP (from dolby truehd)
+PCM
+
+./msd_ac4_generic_float32_release -im 1.mpl -oms 1.wav
+
+- [X] MLP is good
+- [X] aux retry, no related
+- [ ] volume
+
+| USB  | 0.1 | 1 | BAD  |
+| USB  | 1   | 1 | GOOD |
+| HDMI | ??  | ? | BAD  |
+| HDMI | 1   | ? | GOOD |
+
+apply volume for aux to debug
+
+
+aux_app -> dolby_ms12_system_process -> dolby_ms12_input_system
+main -> aml_audio_ms12_render -> aml_audio_ms12_process aml_audio_ms12_process_wrapper -> dolby_ms12_main_process -> dolby_ms12_input_associate
+dolby_ms12_app_prcess -> dolby_ms12_input_app
+
+2. dump input of usb_out_write, it have noise
+
+3. MS12 path
+
+- MS12 callback == ms12_output
+- stereo_pcm_output_l? stereo_pcm_output
+- ms12_output_master
+- hw_write
+
+4. SRC feature
+
+- [X] hi-res stream doesn't dispatch to HAL
+    - [X] need update policy (dynamic)
+    - [X] check dynamic profile
+- [X] nego with usb rate
+- [X] dynamic open usb with rates
+- [X] truehd fail (due to dynamic channel, it doesn't check with fixed policy xml ??? WHY?)
+
+5. 32bit only device support
+
+hack in profile
+
+/mnt/fileroot2/yang.liu/FY23/koltin.BT_96K/system/media/alsa_utils/alsa_device_profile.c:176:9
+
+6. volume
+
+volume do effect in 
+
+fade out cannot support
+
+- original design of nonms12 render have this issue
+- no continous task, it cannot fade out without output data when close
+
+= WK33 =
+- hi-res, USB passthrough for trunk
+== PC -> DUT/HDMI-Rx -> DUT/HDMI-Tx -> AVR no audio ==
+- jira: https://jira.amlogic.com/browse/SH-15324
+P0, finish date: 0831
+Test AVR: DENON SH-AVR-005 SH17150-094 AVR-X2400H
+
+T7c AN400 Android-T
+
+Update policy with HDMI-In to resolve part of issue
+
+Codebase with repo init
+repo init -u git://aml-code-master.amlogic.com/ref-o/platform/manifest.git -b t-tv-dev  -m  openlinux/bds/t-amlogic-20230531-bds.xml  --repo-url=git://10.8.9.5/tools/repo.git
+*BOARD_COMPILE_HDMITX_ONLY=true*
+
+-> /mnt/fileroot2/yang.liu/FY23/berlin.BDS/device/amlogic/t7_an400/BoardConfig.mk:67:9
+
+out_write_new   GOOD
+audio port
+alsa write      ZERO
+
+with MS12 lib
+
+ms12 lib
+/vendor/etc/init/dolby_fw_dolbyms12.rc
+
+/vendor/bin/dolby_fw_dolbyms12 /odm/etc/ms12/libdolbyms12.so /odm/lib/ms12/libdolbyms12.so
+
+Update policy
+
+PCM output, HDMI-In & Local playback GOOD
+XXX: DD output(auto), Local playback & HDMI-in BAD
+
+- ms12_input_sys.pcm good 48k_2ch_16bit
+- ms12_spdif_pcm.raw good 48k_2ch_16bit
+    stereo_pcm_output
+        /mnt/fileroot2/yang.liu/FY23/berlin.BDS/hardware/amlogic/audio/audio_hal/audio_hw_ms12_v2.c:2733:9
+- ms12_bitstream.mat ? NOT
+    bitstream_output
+        /mnt/fileroot2/yang.liu/FY23/berlin.BDS/hardware/amlogic/audio/audio_hal/audio_hw_ms12_v2.c:2824:9
+- alsa_spdif_write.mat ? NOT size too large
+- alsa_pcm_write.raw good 48k_2ch_16bit
+
+1. tinymix/HTMITX Audio Source Select=Spdif
+2. tinymix/Audio Spdif format=Dolby TrueHD
+3. ms12_output/optical_format=0x24000000 (MAT)
+
+    It's conflict
+
+We should output with TDM device when MAT format
+
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/hardware/amlogic/audio/audio_hal/aml_audio_spdifout.c:77:95
+
+{{{
+    /* for MAT, if json config that mat output by i2s, then we should select tdm */
+    if (phandle->audio_format == AUDIO_FORMAT_MAT && bd_config->hdmitx_hbr_src >= AML_TDM_A_TO_HDMITX)
+        device_id = TDM_DEVICE;
+}}}
+
+1554: test aml_audio_config.json HDMITX_Src_Select: 3 => still BAD
+HDMITX_Src_Select: 4 =>
+
+|             | md5  | PCM  | Audio/DD |
+| original    | d274 | Good | BAD      |
+| my_codebase | 561d | XXX: |          |
+| my+mute     | d4bf | Good |          |
+
+- a67c: is_TV (true, TV_AUDIO_OUTPUT) is_BDS = false;
+- 0e0e: force to TDM device
+- force to TDM_C
+
+<<< spdif out open fail
+
+|                | md5               |   |
+| rongqi         | d274              |   |
+| rongqi         | aaa1 +spdif debug |   |
+| force to TDM   |                   |   |
+| WHY SRC is -1? | *HBR*             |   |
+| +force TDM-C   | 1100              |   |
+| refine code    | 5f5c              |   |
+
+TDM_DEVICE -(audio_hw_utils.c/alsa_device_get_port_index)-> PORT_I2S2HDMI
+    -(alsa_device_parser.c/alsa_device_update_pcm_index)-> -1
+
+== 全民k歌 ==
+- JIRA: https://jira.amlogic.com/browse/TV-72721
+- Page: https://confluence.amlogic.com/pages/viewpage.action?pageId=283706155
+P1, finish date: 0825
+
+Serial Config: driver of Windows
+baud rate:  115200
+data:       8bit
+parity:     none
+stop:       1bit
+flow control: *NONE*
+
+adb 开启方式
+
+4kTV (@dan.chen)
+
+adev_set_parameters(direct-mode=1)
+    /mnt/fileroot2/yang.liu/FY23/wiener.epson/hardware/amlogic/audio/audio_hal/audio_hw.c:4408:22
+out_write_new (close stream, sleep, and fake to playback)
+    /mnt/fileroot2/yang.liu/FY23/wiener.epson/hardware/amlogic/audio/audio_hal/audio_hw.c:7599:15
+out_pause_new ->>
+out_standby_new ->>
+audio_patch_output_threadloop ->>
+    do_output_standby_l ->
+        /mnt/fileroot2/yang.liu/FY23/wiener.epson/hardware/amlogic/audio/audio_hal/audio_hw.c:5193:1
+    out_write_new line7694 ->
+
+usecase_change_validate_l send MS12_SCHEDULER_STANDBY
+
+When playing music, audioserver PID use pcmC0D1p to playback
+When switch to karaoke, aoke.micmanager use that device to playback
+
+system notify HAL by 'direct-mode=1'
+
+@zeming.huang 2022-01-17 develop this feature
+fix solution: https://scgit.amlogic.com/#/c/243526/
+duplicated issue: https://jira.amlogic.com/browse/TV-59747
+*Resolved*
+
+== Hi-Res spdif 176k to 48k ==
+JIRA: https://jira.amlogic.com/browse/OTT-45861
+P2, finish date: NO
+
+已检查设备不支持176k，导致没有下发176k的stream下来。无法进行hi-res输出
+
+*Resolved*: multi pcm need config 176400 PCM
+
+== ADT-4 SC2 S905X4 hifi support ==
+
+hifi4rpc_client_test --tinycap
+/mnt/fileroot2/yang.liu/hifi4/workspace/dsp_util/hifi4rpc_test/hifi4rpc_pcm_test.c:722:17
+
+== other ==
+get_hdmi_sink_cap_new why return 352800 multiple times?
+
+/mnt/fileroot2/yang.liu/FY23/koltin.BT_96K/hardware/amlogic/audio/audio_hal/audio_hw_profile.c:938:51
+
+= FY23 codebase =
+
+| Path          | FAE                      | Project             | LUD        | Comment                     |
+| berlin.BDS    | @Qitao,@Rongqi           | BDS project         | 2023-08-29 |                             |
+| Cantor.C3     | @Qiang.Wei,@Xinjun.Zheng | C3 doorbell project |            |                             |
+| koltin.BT_96K | @Jihui                   | Hi-Res feature      | 2023-08-28 | update to 20230309 aosp.xml |
+| qinglai.qinuo | @Mountain                | Qinuo project       | Outdated?  |                             |
+| trunk.bds     | @Daozai                  | Trunk               |            |                             |
+| wiener.epson  | @White                   | 全民k歌             | outdated?  |                             |
+
+= WK34 =
+== DD format no audio? ==
+- JIRA: https://jira.amlogic.com/browse/OTT-47896
+P0, finish date: 0825
+project: gazelle 后续问题
+start: WK33
+
+- ms12_force_ddp_out
+
+note: input stream type use DDP for DD & DDP stream
+
+msd_ac4_generic_float32_release -it DDP -im alsa_spdif_write.ddp -oms ddp.wav
+msd_ac4_generic_float32_release -it DDP -im alsa_spdif_write.dd -oms dd.wav
+
+*Resolve: Transferred to @Zongdong.Jiao*
+
+= AudioHAL Refine =
+TODO:
+- render
+- device
+- input
+== output module abstract ==
+
+Support
+
+- alsa output
+- spdif output
+- USB (proxy)
+- A2DP
+
+= ALSA driver =
+== snd_pcm_link ==
+The two PCMs will start/stop/prepare in sync.
+
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/common-5.15/common/sound/core/pcm_native.c:2249:5
+core function is : snd_pcm_group_assign
+
+snd_pcm_action -> {snd_pcm_action_group, snd_pcm_action_single}
+snd_pcm_action_group -> foreach in group
+    pre_action; do_action; undo_action (when fail); post_action
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/common-5.15/common/sound/core/pcm_native.c:1212:61
+
+<<< pure software implementation
+<<< delay of two device 没有保证的机制
+
+Streams synchronization
+
+There are two functions allowing link multiple streams together. In the case, the linking means that all operations are synchronized. Because the drivers cannot guarantee the synchronization (sample resolution) on hardware lacking this feature, the snd_pcm_info_get_sync() function returns synchronization ID - snd_pcm_sync_id_t, which is equal for hardware synchronized streams. When the snd_pcm_link() function is called, all operations managing the stream state for these two streams are joined. The opposite function is snd_pcm_unlink().
+
+<<< snd_pcm_sync_id_t 这里没特别理解清楚
+
+Related CL: https://patchwork.kernel.org/project/alsa-devel/patch/20190122161915.8445-6-tiwai@suse.de/
+
+= How to config 'configurable policy' =
+- xml with processing instruction?
+- xml with xsd? schema?
+- Intel's configurable policy is deprecated
+- sed/awk
+    - is ugly but works
+
+    SED solution
+
+=== xml with xinclude/xpointer/sed ===
+build/make/core/Makefile:72: error: real file "out/target/product/t7_an400/vendor/etc/my_audio_policy_configuration.xml" depends on PHONY target "final.xml"
+
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/build/make/Changes.md:408:1
+
+"xmllint" is not allowed to be used. See https://android.googlesource.com/platform/build/+/master/Changes.md#PATH_Tools 
+
+TODO:
+- [ ] xmllint is bad, we could static xinclude without expanding
+- [ ] static put many feature type enabled version for QA
+
+== MBP ==
+- loopback config
+/mnt/fileroot2/yang.liu/FY23/Cantor.C3/vendor/amlogic/ipc/mbp/mbd/audio/src/audio/audio_new/audio_board.c:49:45
+
+= Google AEC at DSP =
+google aec interface
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/hardware/amlogic/audio/audio_hal/google_aec.h:32:1
+
+= WK35 =
+== rtos T3x profile build fail ==
+assign to @Jiebing to handle
+
+*WON'T FIX*: git clone --recursive
+
+== SH16077 ==
+Subject:    [Sonos Pinewood][A311D2/T7C][T-13][Audio]Auto mode,MAT AVR, HDMI play Atmos audio source after MAT sound source, MAT sound source format is recognized as ATMOS,And no sound output,100%
+JIRA:       https://jira.amlogic.com/browse/SH-16077
+            https://jira.amlogic.com/browse/SH-15323
+            SH-15324 后续
+Priority:   P2 -> P1
+
+由@xiushan继续解决
+
+== USB proxy prepare issue ==
+Subject:    [T963D4_AY301][{Android S][Video call] After unplugging/plugging in the USB camera, enter the video call again, and the USB camera cannot record，1/15
+JIRA:       https://jira.amlogic.com/browse/SWPL-129472
+Device:     logitech BRIO
+            support 16k, 24k, 32k, 48k, 16bit, 2ch
+Priority:   P1
+
+Key Log:
+alsa_device_proxy: Limiting sampling rate from 48000 to 32000.
+modules.usbaudio.audio_hal: proxy_prepare error -22
+
+WHY it consider 48k is unsupported???
+
+*Xfered to @Saisai*
+
+usb_audio_probe
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/card.c:855:3
+snd_usb_create_streams
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/card.c:332:5
+snd_usb_create_stream
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/card.c:211:8
+snd_usb_parse_audio_interface
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/stream.c:1229:3
+snd_usb_init_sample_rate
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/clock.c:602:10
+set_sample_rate_v1
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/clock.c:451:3
+
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/pcm.c:1669:15
+snd_usb_playback_ops .hw_params = snd_usb_hw_params
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/pcm.c:562:8
+configure_endpoints
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/pcm.c:444:12
+snd_usb_endpoint_configure
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/endpoint.c:1332:9
+snd_usb_init_sample_rate
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/clock.c:602:10
+set_sample_rate_v1
+/mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/clock.c:451:3
+== OTT-48515 ==
+Subject:    [Freesia118][ID1009078][S928X][11.0][]:BA001_8.00.96、5x Playback truehd source with 96k resample via usb speaker，the playback speed is doubled100%
+JIRA:       https://jira.amlogic.com/browse/OTT-48515
+Priority:   P2 -> P1
+board:      S5 AX201 S928X
+Image:      Download for tyson
+Jenkins:    Tyson
+Code:       Android R 32bit
+
+推测rate选择不对的问题
+
+- 5276, origin
+- 282e, add log ->
+- 93b3, use data's sample rate instead of stream's rate
+
+具体选择用什么rate，这个需要更多测试
+
+Non-ms12 render is supported.
+For 96k truehd, it need support in ms12 render
+
+mixer_main_buffer_write -> aml_audio_ms12_render/aml_audio_ms12_process_wrapper -> dolby_ms12_main_process -> ms12_output -> hw_write
+
+dec -> switch (TrueHD) -> aml_iec_func -> 
+
+- 5865 + d124, 没打印？？？
+- 78a0, ms12_render (bypass decoder)
+- 8f2c,
+
+MS12 output path is 48khz, 我们需要更新流的属性（按照其他render的做法），不然直接利用流原始的96k，会导致播放速率变快
+
+*Resolved*
+
+增加ms12模式下，对于stream.config.rate的更新，这样它就会从96k truehd的原始96k，更新到ms12 output sr的48khz，从而保证正确输出
+
+== OTT-48553 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48553
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-光纤音频-选择光纤输出格式功能
+Priority:   P1
+
+adev_set_parameters(hal_param_spdif_highest_rate=96000)?
+
+== OTT-48554 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48554
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-HDMI音频-选择HDMI输出的音频格式功能
+
+== OTT-48547 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48547
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-USB音频开关控制功能
+
+
+== OTT-48552 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48552
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-解码格式-解码格式选择功能
+
+== memory overwrite of audioHAL ==
+JIRA:       https://jira.amlogic.com/browse/SH-16140
+Subject:    [CVTE][AR31BJ][T982][Android T-13][27954][audio]:[370W]HWAddressSanitizer 开启后开机遇到audio 部分遇到内存越界风险报错 100%
+Priority:   P1
+board:      T3 T982 AR31B
+Image:      from @Qitao
+
+@Qitao.Tang feedback
+
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/system/media/audio_route/audio_route.c:687:44
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/external/tinyalsa/mixer.c:554:1
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/common-5.15/common/include/uapi/sound/asound.h:1076:8
+
+- [X] Codebase
+- [X] Image
+- [X] Reproduce
+- [X] change
+- [X] 16:48, f1d3, 
+- [X] 17:49, add more log in route, change tag?
+    - [X] 19:10, fix wrong free on tlv
+- [X] 19:33, add tail checking
+**find tail overwrite**
+- [ ] 20:19, tas5805, 32bit/64bit compatblity issue, kernel add log
+    - [ ] 结构体的size一致的啊，那是什么问题啊？？？
+- [ ] 11:38, fix access user buf panic issue
+- [ ] 11:57, enlarge buffer, and add showXxd function
+- [ ] 13:06, reset cursor in showXxd, fix cursor calculation
+- [ ] 14:42, fix tlv->tlv to tlv
+**Root Cause Located**
+- [ ] 15:50, check with final solution
+
+{{{
+struct snd_ctl_tlv {
+	unsigned int numid;	/* control element numeric identification */
+	unsigned int length;	/* in bytes aligned to 4 */
+	unsigned int tlv[0];	/* first TLV */
+};
+}}}
+mount -t vfat -o rw /dev/block/sda1 /data/usb
+remount         <= fail to boot after remount
+setenforce 0
+
+HWASan: https://source.android.com/docs/security/test/hwasan?hl=zh-cn
+code:   https://codebrowser.dev/llvm/compiler-rt/lib/hwasan/hwasan_report.cpp.html
+
+== crash when switch from SCO to A2DP ==
+JIRA:       https://jira.amlogic.com/browse/SH-16144
+Subject:    [恒毅][AR30A1][T982][Android R-11][26904][audio]:设备连接上蓝牙音响，播放视频，音频输出从sco切换到a2dp，audio hal发生crash. 1%
+
+@Qitao.Tang feedback
+
+== CL port back to trunk ==
+JIRA:       https://jira.amlogic.com/browse/SWPL-137568
+Subject:    support USB device in primary HAL
+- usb-passthrough
+- hi-res
+
+- [X] sync code
+- [X] image? https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/15281/
+    - [X] with defconfig https://scgit.amlogic.com/#/c/335031/
+    - [ ] NO usb card at T7c AN400
+    - [ ] https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/15374/
+    - [ ] https://jenkins-sh.amlogic.com/job/android/job/Android_R/job/Android_R_Google_AOSP_PATCHBUILD/32226/
+- [O] code porting
+    - [X] profile
+    - [X] ms12 lib
+    - [X] d945 无声，为什么？？ <- ms12 lib
+    - [X] 4c89 Rebase
+    - [ ] d4cb refine
+
+| stream           | origin      | +CL           |                                         |
+| PCM              |             |               |                                         |
+| mp3  happy       | 96k32b mix  | 48k16b2ch mix |                                         |
+| AC3 48k6ch dd    | no audio    | mix           |                                         |
+| eAC3 48k8ch ChID | no audio    | mix           |                                         |
+| AC4  48k silent  | unsupported | 0x22000000    | direct compress_offload=0x11            |
+| TrueHD 48k 8ch   | unsupported | unsupported   | 需要amnuplayer send direct,offload data |
+
+amnuplayer: Jul 11
+
+== C2 AQ pre-process && post-process discussion ==
+
+一个差的speaker/mic/structure是无法使用AQ弥补的
+
+= links=
+== confluences ==
+DSK SDK Release flow
+https://confluence.amlogic.com/display/FCP/DSP+SDK+release+flow
+
+@HongChao.Yin Amlogic Debug Tool
+https://confluence.amlogic.com/display/SQA/Amlogic+Debug+tool
+
+2023 Audio Platform Work Log
+https://docs.qq.com/doc/DUXNZWnN3akRUVGJ0
+
+AATS
+http://aats.amlogic.com:10000/weekly_sumup/

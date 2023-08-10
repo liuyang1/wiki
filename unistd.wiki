@@ -96,5 +96,11 @@ prefix with `pthread_rwlock_`
 
 - shm_open
 
+mmap style
+
+- MAP_SHARED to save memory for different process
+- avoid copy
+- faster load (amortized cost, when load model AGAIN until memory pressure caused your file cache to be evicted)
+
 == futex ==
 TODO:

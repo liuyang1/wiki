@@ -74,6 +74,8 @@ programming.
 - pend, pending
 
 - yield, resume, status, state
+- statement, stmt
+- parser
 
 - begin
 - end
@@ -215,7 +217,7 @@ notify end of stream
 - directory
 - folder
 - path
-- basename
+- basename dirname
 
 == decoder in OMX ==
 - emptyThisBuffer
@@ -307,7 +309,7 @@ notify end of stream
 - package
 
 == concurrent ==
-- parllel
+- parallel
 - concurrently, simultaneously
 - synchronous, sync,
 - same time
@@ -384,6 +386,8 @@ notify end of stream
 - reference
 - self-reference
 - dereference
+
+klass, funktion
 
 == search ==
 - haystack
@@ -677,7 +681,7 @@ ref: https://www.douban.com/group/topic/12410327/
 - dead store
 
 == direction / orientation ==
-- down/up, dn, up
+- down/up, dw, up
 - left/right, lft/rgt
 - horizontal
 - vertical, 竖直
@@ -1031,7 +1035,7 @@ dividend / divisor = qutotient ... remainder
 - GLR: generalized Left to Right
 - LALR: Look Ahead Left to Right
 - lookahead
-- grammer
+- grammar
 - syntax
 - semantic
 - nonterminal
@@ -1062,10 +1066,10 @@ dividend / divisor = qutotient ... remainder
 - stable, steady
 
 - OOM: out of memory
-- memory fragmetation
+- memory fragmentation
 - ANR: application not responding
 - NAN: not a number
-- NA: not avaiable
+- NA: not available
 - NULL, null, nil, nihil(来自拉丁语)
 - undefined
 - ()
@@ -1081,6 +1085,7 @@ dividend / divisor = qutotient ... remainder
 - branch, commit, message, tag, version
 
 - osal: OS abstraction layer
+- HAL: hardware abstraction layer
 - host, target
 - meta
 
@@ -1165,7 +1170,7 @@ dividend / divisor = qutotient ... remainder
 
 - scatter-gather,sg
 - nents, number of entries
-- src, dst, tgt
+- src, dst, tgt(target)
 
 = socket =
 - bind
@@ -1218,3 +1223,8 @@ Background picture style
 - STB, BDS, DUT
 - AVR, av receiver
 - amplification
+
+- excellent, good, fair, poor, bad
+
+- IIRC: If I remember correctly
+- OT: over time
