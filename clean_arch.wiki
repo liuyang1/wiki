@@ -1,0 +1,14 @@
+http://prof.mau.ac.ir/images/Uploaded_files/Clean%20Architecture_%20A%20Craftsman’s%20Guide%20to%20Software%20Structure%20and%20Design-Pearson%20Education%20
+
+= clean arch =
+Title:      a craftsman's guide to software structure and design
+Author:     Robert C. Martin
+
+= ch1 =
+design
+architecture
+
+TDD(test-driven develop)
+The only way to go fast, is to go well.
+
+

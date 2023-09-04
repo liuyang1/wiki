@@ -4,5 +4,31 @@
 - 沟通能力
 
 = TODO =
+== MBP ==
 - MBP Audio load performance
+    - enable硬件放到uboot里面，从而节约等待硬件稳定的500ms时间
 - MBP audio driver's size
+
+== kernel/alsa ==
+- loopback channel number
+- tinymix 1, error snd_BUG_ON when CONFIG_SND_DEBUG
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/common-5.15/common/sound/core/control.c:1114:27
+
+== hal ==
+- gtest
+- log (enum 2 string)
+- clean up more code???
+
+
+= g12a =
+- [x] clk, pinmux alsa声卡正常加载
+- [x] line-in
+- [x] HDMI声音正常
+- [ ] speaker ???
+- [ ] TDM in/out、PDM in
+- [ ] SPDIF in/out
+- [ ] ARC/EARC
+- [ ] LoopBack
+- [ ] EQ/DRC
+- [ ] VAD
+- [ ] AudioResample

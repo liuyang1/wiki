@@ -1,0 +1,7 @@
+= kernel =
+dts
+:/sys/firmware/devicetree/base/auge_sound/aml-audio-card,dai-link@2/cpu
+
+clock summary
+https://confluence.amlogic.com/display/SW/Clock+command+and+debug
+

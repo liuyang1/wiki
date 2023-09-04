@@ -349,3 +349,17 @@ record stream as multiple virtual node based on ONE hardware node
 
 == dmix ==
 
+
+= alsa in kernel =
+
+== config ==
+- CONFIG_SND_VERBOSE_PROCFS
+for verbose procfs, like /proc/asound/card0/pcm*c/sub0/status
+
+- CONFIG_SND_PROC_FS
+- CONFIG_SND_VERBOSE_PRINTK=y
+- CONFIG_SND_DEBUG=y
+- CONFIG_SND_DEBUG_VERBOSE=y
+
+- CONFIG_SND_PCM_XRUN_DEBUG=y
+/proc/asound/card0/pcm*c/xrun_debug

@@ -1,0 +1,9 @@
+= Technology Adoption Lifecycle =
+- innovators
+- early adopters
+- early majority
+- late majority
+- laggards
+
+The Chasm: innovators -> early adopters
+

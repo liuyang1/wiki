@@ -1128,9 +1128,10 @@ get_hdmi_sink_cap_new why return 352800 multiple times?
 | Path          | FAE                      | Project             | LUD        | Comment                     |
 | berlin.BDS    | @Qitao,@Rongqi           | BDS project         | 2023-08-29 |                             |
 | Cantor.C3     | @Qiang.Wei,@Xinjun.Zheng | C3 doorbell project |            |                             |
+| jordan.jieke  | @Mountain                | Jieke               | 2023-09-14 |                             |
 | koltin.BT_96K | @Jihui                   | Hi-Res feature      | 2023-08-28 | update to 20230309 aosp.xml |
 | qinglai.qinuo | @Mountain                | Qinuo project       | Outdated?  |                             |
-| trunk.bds     | @Daozai                  | Trunk               |            |                             |
+| trunk.bds     | @Daozai                  | Trunk               | 2023-09-04 |                             |
 | wiener.epson  | @White                   | 全民k歌             | outdated?  |                             |
 
 = WK34 =
@@ -1220,15 +1221,6 @@ assign to @Jiebing to handle
 
 *WON'T FIX*: git clone --recursive
 
-== SH16077 ==
-Subject:    [Sonos Pinewood][A311D2/T7C][T-13][Audio]Auto mode,MAT AVR, HDMI play Atmos audio source after MAT sound source, MAT sound source format is recognized as ATMOS,And no sound output,100%
-JIRA:       https://jira.amlogic.com/browse/SH-16077
-            https://jira.amlogic.com/browse/SH-15323
-            SH-15324 后续
-Priority:   P2 -> P1
-
-由@xiushan继续解决
-
 == USB proxy prepare issue ==
 Subject:    [T963D4_AY301][{Android S][Video call] After unplugging/plugging in the USB camera, enter the video call again, and the USB camera cannot record，1/15
 JIRA:       https://jira.amlogic.com/browse/SWPL-129472
@@ -1268,6 +1260,35 @@ snd_usb_init_sample_rate
 /mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/clock.c:602:10
 set_sample_rate_v1
 /mnt/fileroot2/yang.liu/FY23/berlin.BDS/common-5.15/common/sound/usb/clock.c:451:3
+
+
+/* quirk applied after snd_usb_ctl_msg(); not applied during boot quirks */
+void snd_usb_ctl_msg_quirk(struct usb_device *dev, unsigned int pipe,
+			   __u8 request, __u8 requesttype, __u16 value,
+			   __u16 index, void *data, __u16 size)
+{
+	struct snd_usb_audio *chip = dev_get_drvdata(&dev->dev);
+
+	if (!chip || (requesttype & USB_TYPE_MASK) != USB_TYPE_CLASS)
+		return;
+
+	if (chip->quirk_flags & QUIRK_FLAG_CTL_MSG_DELAY)
+		msleep(20);
+	else if (chip->quirk_flags & QUIRK_FLAG_CTL_MSG_DELAY_1M)
+		usleep_range(1000, 2000);
+	else if (chip->quirk_flags & QUIRK_FLAG_CTL_MSG_DELAY_5M)
+		usleep_range(5000, 6000);
+}
+
+	DEVICE_FLG(0x046d, 0x084c, /* Logitech ConferenceCam Connect */
+		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_CTL_MSG_DELAY_1M),
+	DEVICE_FLG(0x046d, 0x0991, /* Logitech QuickCam Pro */
+		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_IGNORE_CTL_ERROR),
+	DEVICE_FLG(0x046d, 0x09a4, /* Logitech QuickCam E 3500 */
+		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_IGNORE_CTL_ERROR),
+
+在USB协议中，"quirk"是指一种特殊的设备行为或特性，该特性不符合USB规范的要求，但仍然可以通过一些特殊的处理方式来支持和兼容。这些quirk常常是针对特定的设备或芯片，用于解决一些不兼容或兼容性问题。通过在USB设备驱动程序中引入quirk，可以使设备在不符合规范的情况下仍然能够正常工作。常见的quirk包括延迟响应时间、修改设备描述符等。
+
 == OTT-48515 ==
 Subject:    [Freesia118][ID1009078][S928X][11.0][]:BA001_8.00.96、5x Playback truehd source with 96k resample via usb speaker，the playback speed is doubled100%
 JIRA:       https://jira.amlogic.com/browse/OTT-48515
@@ -1302,26 +1323,6 @@ MS12 output path is 48khz, 我们需要更新流的属性（按照其他render�
 
 增加ms12模式下，对于stream.config.rate的更新，这样它就会从96k truehd的原始96k，更新到ms12 output sr的48khz，从而保证正确输出
 
-== OTT-48553 ==
-JIRA:       https://jira.amlogic.com/browse/OTT-48553
-Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-光纤音频-选择光纤输出格式功能
-Priority:   P1
-
-adev_set_parameters(hal_param_spdif_highest_rate=96000)?
-
-== OTT-48554 ==
-JIRA:       https://jira.amlogic.com/browse/OTT-48554
-Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-HDMI音频-选择HDMI输出的音频格式功能
-
-== OTT-48547 ==
-JIRA:       https://jira.amlogic.com/browse/OTT-48547
-Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-USB音频开关控制功能
-
-
-== OTT-48552 ==
-JIRA:       https://jira.amlogic.com/browse/OTT-48552
-Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-解码格式-解码格式选择功能
-
 == memory overwrite of audioHAL ==
 JIRA:       https://jira.amlogic.com/browse/SH-16140
 Subject:    [CVTE][AR31BJ][T982][Android T-13][27954][audio]:[370W]HWAddressSanitizer 开启后开机遇到audio 部分遇到内存越界风险报错 100%
@@ -1335,23 +1336,25 @@ Image:      from @Qitao
 /mnt/fileroot2/yang.liu/FY23/trunk.bds/external/tinyalsa/mixer.c:554:1
 /mnt/fileroot2/yang.liu/FY23/trunk.bds/common-5.15/common/include/uapi/sound/asound.h:1076:8
 
-- [X] Codebase
-- [X] Image
-- [X] Reproduce
-- [X] change
-- [X] 16:48, f1d3, 
-- [X] 17:49, add more log in route, change tag?
-    - [X] 19:10, fix wrong free on tlv
-- [X] 19:33, add tail checking
+- Codebase
+- Image
+- Reproduce
+- change
+- 16:48, f1d3, 
+- 17:49, add more log in route, change tag?
+    - 19:10, fix wrong free on tlv
+- add tail checking
 **find tail overwrite**
-- [ ] 20:19, tas5805, 32bit/64bit compatblity issue, kernel add log
-    - [ ] 结构体的size一致的啊，那是什么问题啊？？？
-- [ ] 11:38, fix access user buf panic issue
-- [ ] 11:57, enlarge buffer, and add showXxd function
-- [ ] 13:06, reset cursor in showXxd, fix cursor calculation
-- [ ] 14:42, fix tlv->tlv to tlv
+- 20:19, tas5805, 32bit/64bit compatblity issue, kernel add log
+    - 结构体的size一致的啊，那是什么问题啊？？？
+- 11:38, fix access user buf panic issue
+- 11:57, enlarge buffer, and add showXxd function
+- 13:06, reset cursor in showXxd, fix cursor calculation
+- 14:42, fix tlv->tlv to tlv
 **Root Cause Located**
-- [ ] 15:50, check with final solution
+- 15:50, check with final solution
+
+https://scgit.amlogic.com/353694
 
 {{{
 struct snd_ctl_tlv {
@@ -1366,6 +1369,105 @@ setenforce 0
 
 HWASan: https://source.android.com/docs/security/test/hwasan?hl=zh-cn
 code:   https://codebrowser.dev/llvm/compiler-rt/lib/hwasan/hwasan_report.cpp.html
+
+- 5.15 issue
+- 5.4 ??
+- 4.9 good
+
+PB: https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/16297/console
+
+CLList:
+- 341196 enable log
+- 353694 kernel remove tlv
+- 354497 tinymix remove tlv
+- 354251 AQ remove tlv
+
+- [X] PB16399? https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/16399/
+T7 AN400, it use 5707codec. This codec doesn't have issue on tlv
+- [ ] PB16411  https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/16411/
+T982 AR301 ARM64
+- [ ] PB16564   https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/16564
+BAD iamge (kernel with TLV bug)
+
+SND_SOC_BYTES_TLV
+SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK
+tlv.c
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/common-5.15/common/sound/core/control.c:1867:17
+
+SOC_SINGLE_TLV
+tlv.p
+control.c directly read from the buffer
+/mnt/fileroot2/yang.liu/FY23/trunk.bds/common-5.15/common/sound/core/control.c:1812:14
+
+EDID TODO
+
+~~Fix in audio route part~~
+
+2023-09-07 Solution: fix in kernel, tinymix, AQ part
+
+=== next step ===
+
+- tinymix checking like HWASan
+
+
+== C2 AQ pre-process && post-process discussion ==
+
+一个差的speaker/mic/structure是无法使用AQ弥补的
+
+= WK36 =
+
+== SH-15323 ==
+JIRA:       https://jira.amlogic.com/browse/SH-15323
+PCM only TV, no audio when select auto mode
+
+hdmitx_src_select=3
+| mode     | status       | device        | format    | hdmitx src |
+| pcm mode | good         | TDM-B         | 48k16b2ch | SPDIF      |
+| auto     | **no audio** | TDM-B & SPDIF | 48k16b2ch | TDM-B      |
+
+hdmitx_src_select=0
+| pcm mode | good         | TDM-B         | 48k16b2ch | SPDIF stereo pcm |
+| auto     | **no audio** | TDM-B & SPDIF | 48k16b2ch | SPDIF stereo pcm |
+
+hdmitx_src_select=-1
+| pcm mode | good     | TDM-B | 48k16b2ch | SPDIF stereo pcm |
+| auto     | **GOOD** | TDM-B | 48k16b2ch | SPDIF stereo pcm |
+
+Solution: hdmitx_src_select <== -1
+
+== aloop dicussion with Hisense/VHD ==
+- VHD soft take all real audio driver
+- aloop for audio HAL
+
+= WK37 =
+== OTT_48976 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48976
+Subject:    [GAZELLEFOS-3606][Amazon][GAZELLE][AN40A3][POP1][Android P-9.0]:[EDT HDMI IOP] : Nvidia Shield Pro->Gazelle->Sink: Audio disappears and will not return after performing trick play operation
+
+依然是RT throttle的问题
+
+== OTT-48553 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48553
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-光纤音频-选择光纤输出格式功能
+Priority:   P1
+
+adev_set_parameters(hal_param_spdif_highest_rate=96000)?
+
+Codebase with repo init
+
+== OTT-48554 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48554
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-HDMI音频-选择HDMI输出的音频格式功能
+
+== OTT-48547 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48547
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-USB音频开关控制功能
+
+打开，关闭
+
+== OTT-48552 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48552
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-解码格式-解码格式选择功能
 
 == crash when switch from SCO to A2DP ==
 JIRA:       https://jira.amlogic.com/browse/SH-16144
@@ -1402,10 +1504,84 @@ Subject:    support USB device in primary HAL
 
 amnuplayer: Jul 11
 
-== C2 AQ pre-process && post-process discussion ==
+== SH16077 ==
+Subject:    [Sonos Pinewood][A311D2/T7C][T-13][Audio]Auto mode,MAT AVR, HDMI play Atmos audio source after MAT sound source, MAT sound source format is recognized as ATMOS,And no sound output,100%
+JIRA:       https://jira.amlogic.com/browse/SH-16077
+            https://jira.amlogic.com/browse/SH-15323
+            SH-15324 后续
+Priority:   P2 -> P1
 
-一个差的speaker/mic/structure是无法使用AQ弥补的
+由@xiushan继续解决
 
+Xiushan think format changing detect have issue
+
+soft_parser
+audio_type_parse on pcm buf
+cur_audio_type
+audio_type
+audio_parse_get_audio_type
+/mnt/fileroot2/yang.liu/FY23/koltin.BT_96K/hardware/amlogic/audio/audio_hal/audio_hw.c:7140:5
+
+0x24000000 AUDIO_FORMAT_MAT
+0x0a000000 AUDIO_FORMAT_E_AC3
+
+~~codebase: berlin~~
+
+1. enable dump, log
+
+ATOMS test stream: Datmos_id_obj_voice_ddp.ec3
+MAT test stream: Atmos_ChID_Voice_704_MAT2.mat
+
+| ATOMS | eac3=2 | AUDIO_FORMAT_E_AC3=0x0a000000 |
+| MAT   | mat=5  | AUDIO_FORMAT_MAT  =0x24000000 |
+
+- parse result, GOOD
+- detect flow, GOOD
+
+2. Use Rongqi's codebase
+3. Rongqi's code difference
+
+| origin      | 229d | issue                                 |                   |
+| +log        | a76e | DIFF                                  |                   |
+| rongqi+log  | 7c12 | 确认现象                              |                   |
+| rongqi+dump | b760 | 没有对应的log，也没有dump，为什么？？ | permission denied |
+|             | 0c10 |                                       |                   |
+
+4. Which port? device? WHY fail? config?
+port=15/PORT_I2S4PARSER device=2
+
+00-02: TDM-C-dummy-alsaPORT-i2s4parser soc:dummy-2 :  : playback 1 : capture 1
+
+AudioALSADeviceParser: auge sound card, pAdd=0xb4000078dc8e2d20 fix alsaPORT:15 to :2
+audio_format_parse: open device failed: cannot set hw params: Invalid argument
+
+audio_raw_data_parse -> audio_type_parse (@Wei.Huang add this)
+audio_type_parse_threadloop -> audio_type_parse
+
+4.1 add log for config & confirm #4
+
+Symmetric clock control, make fail to open TDM-C with 48khz (it playback 192khz)
+
+tinypcminfo
+
+5. add symmetric clk's code
+5.1 side-effect: volume-up
+
+WindowManager KeyEvent { action=ACTION_UP, keyCOde=KEYBOCD_VOLUME_UP)
+AudioService: adjustStreamVolume
+
+adb shell dumpsys audio | ag -A 10 '\- STREAM_MUSIC'
+
+
+Root Cause:
+i2s 4 parse 是 TDM-C device. 当使用TDM-C device播放的话，则会限制TDM-C device作为录音的打开支持的sample rate。
+这种情况下，HDMI Rx的format parse打开TDM-C device失败。进而导致无法识别到ATOMS/MAT的格式切换。
+解决方法
+kernel内部修改，去掉TDM的symmetric rate限制（这个限制同一个TDM device上input和output必须按照同一个rate打开）
+ 
+在解决问题后，发现另外一个独立问题，启动后播放无声，按音量键向上则声音正常输出
+通过dumpsys audio检查STREAM MUSIC的音量发现，启动后，这个streamVolume设置为0. 音量键向上后则streamVolume正常
+这个问题在policy/volume control部分。请Rongqi Wang 进一步确认是否引入其他有问题的CL，或者请相关工程师继续检查下
 = links=
 == confluences ==
 DSK SDK Release flow
@@ -1419,3 +1595,6 @@ https://docs.qq.com/doc/DUXNZWnN3akRUVGJ0
 
 AATS
 http://aats.amlogic.com:10000/weekly_sumup/
+
+== History ==
+AEC summary: https://confluence.amlogic.com/display/~Yang.Liu/ART+test+eraser+case+summary
