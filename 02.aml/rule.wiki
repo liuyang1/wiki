@@ -1,0 +1,11 @@
+= jira =
+
+audio-pmlist-common-issue
+
+为了更好统计我们目前在解决的pmlist问题是否是公共问题或者项目独有问题，请大家问题resolve 闭环时候打下label:
+audio-pmlist-specific-issue
+这个label表示项目独有需求 或者客户案子独有的问题，公版没有。比方说MS12 认证，如果公版好的，项目才存在的，那也归到这类。
+audio-pmlist-common-issue
+这个label表示公共需求或者公共问题。需要回归公版的CL 一般都是common问题。
+
+= gerrit =

@@ -110,6 +110,7 @@ stoped last time in the current buffer.
 - *D*               删除到行尾,_不用使用d$这么恶心的操作了._ delete to tail of line
 - d0                delete to head of line
 - di",di[,di{       删除对应的符号内部的内容
+- dit               delete inner object (delete in xml's object)
 - dw                删除一个单词
 - dW                删除从该位置到下一个空白处
 - dtC               直到符号C的内容删除（t是till的意思），不包含符号C

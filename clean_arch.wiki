@@ -12,3 +12,14 @@ TDD(test-driven develop)
 The only way to go fast, is to go well.
 
 
+= ch2 =
+代码的两个方向的价值，行为和结构。
+行为满足客户的需求，结构，满足可变形。soft-ware。可变形，是软件的精髓
+
+作为程序员，要保护代码的结构。（与需求、市场、销售争辩，从而得到尽可能好的折中方案）
+
+
+Structured programming `imposes discipline` on `direct` transfer of control
+Object-oriented programming imposes discipline on `indirect` transfer of control
+Functional programming imposes discipline upon assignment
+

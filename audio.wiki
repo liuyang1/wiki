@@ -8,6 +8,12 @@
 - DSD
 - WAV
 
+== audio encoder/decoder ==
+- MP3, good, old, patent-free since 2017, most cases
+- AAC, better for low-bitrate
+- ogg vorbis/opus, have similar quality advatages as AAC with (probably) no patent issues.
+    - not witdely supported
+
 == AMR ==
 Adaptive multi-rate compression
 自适应多速率音频压缩

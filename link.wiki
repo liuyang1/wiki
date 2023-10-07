@@ -1,0 +1,13 @@
+= English =
+- Paraphraser
+https://quillbot.com
+
+= chatGPT =
+* http://ai1.douresources.com/#/chat/1694595805480
+* https://chat.yqcloud.top/#/chat/1694597260700
+
+= code =
+https://elixir.bootlin.com/linux/latest/source/sound/usb/quirks.c
+
+== benchmark ==
+https://github.com/ARM-software/optimized-routines

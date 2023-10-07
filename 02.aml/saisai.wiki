@@ -6,7 +6,8 @@
 = TODO =
 == MBP ==
 - MBP Audio load performance
-    - enable硬件放到uboot里面，从而节约等待硬件稳定的500ms时间
+    - ~~enable硬件放到uboot里面，从而节约等待硬件稳定的500ms时间~~
+    - [x] remove 500ms
 - MBP audio driver's size
 
 == kernel/alsa ==

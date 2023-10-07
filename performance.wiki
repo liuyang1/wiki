@@ -26,3 +26,40 @@ PPA: performance, power, area
 area
 
 这个指标化最常见的就是芯片制程。换言之，晶体管密度
+
+= Performance based on processor-archtecture =
+
+缓存命中（考虑cache line size）
+指令预测（likely、unlikely）
+数据预取 prefetch
+数据对齐 （和缓存也有关系）
+内存copy优化 （利用外部dma）
+ddr访问延迟
+硬件内存管理优化
+指令优化等
+
+== 指令预测的机制 ==
+branch target buffer（最近几次的跳转结果
+
+数据预取，
+
+缓存行对其的方式来保证数据对齐
+
+ecc，也是安装带宽对齐的。合理的位置和数据结构大小，可以减少内存访问
+
+ddr的性能参数（行选通、数据延迟、预充电）
+ddr地址的粒度，列、行、页
+不同页，那么需要预充电、行选通、数据延迟，3个时间之和
+同页不同行的访问，需要行选通、数据延迟
+同页同行不同列连续访问，需要数据延迟
+
+工具，kprofile、oprofile
+
+一个非常好的例子
+
+https://lwn.net/Articles/255364/
+
+= flame graph =
+
+0. sampling callstack, for example 997Hz (largest prime number less than 1k, why this? To avoid aliasing issue if equal to 1k)
+1. accumulate same callstack, sort with lexicographic order.

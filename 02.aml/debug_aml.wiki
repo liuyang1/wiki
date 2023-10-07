@@ -1,7 +1,24 @@
+= android =
+stop audioserver
+start audioserver
+
+adb shell dumpsys audio | ag -A 10 '\- STREAM_MUSIC'
+dumpsys media.audio_flinger
+dumpsys media.audio_policy
+
 = kernel =
-dts
+check dts in active Linux
 :/sys/firmware/devicetree/base/auge_sound/aml-audio-card,dai-link@2/cpu
 
-clock summary
+== clock summary ==
 https://confluence.amlogic.com/display/SW/Clock+command+and+debug
 
+mount -t debugfs none /sys/kernel/debug
+cat /sys/kernel/debug/clk/clk_summary
+
+= HAL dump =
+vendor.media.audio.stream.dump
+
+AML_DUMP_AUDIOHAL_ALSA      vendor.media.audiohal.alsadump
+aml_alsa_output_write           /data/vendor/audiohal/alsa_pcm_write.raw
+aml_alsa_output_write_new       /data/vendor/audiohal/alsa_spdif_write[.pcm,.dd,.ddp,.mat,.dts]

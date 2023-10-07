@@ -165,3 +165,9 @@ pointer
 %px unmodified address
 
 https://www.kernel.org/doc/Documentation/printk-formats.txt
+
+= module probe type =
+
+ASYNC way, to async load "slow" module
+
+IPC project loading module is too slow, they may could try with "ASYNC" probe.

@@ -1098,7 +1098,7 @@ usecase_change_validate_l send MS12_SCHEDULER_STANDBY
 When playing music, audioserver PID use pcmC0D1p to playback
 When switch to karaoke, aoke.micmanager use that device to playback
 
-system notify HAL by 'direct-mode=1'
+system notify HAL by 'direct-mode=1' to release device, and let aoke.micmanager to take it.
 
 @zeming.huang 2022-01-17 develop this feature
 fix solution: https://scgit.amlogic.com/#/c/243526/
@@ -1440,40 +1440,19 @@ Solution: hdmitx_src_select <== -1
 - aloop for audio HAL
 
 = WK37 =
-== OTT_48976 ==
-JIRA:       https://jira.amlogic.com/browse/OTT-48976
-Subject:    [GAZELLEFOS-3606][Amazon][GAZELLE][AN40A3][POP1][Android P-9.0]:[EDT HDMI IOP] : Nvidia Shield Pro->Gazelle->Sink: Audio disappears and will not return after performing trick play operation
-
-依然是RT throttle的问题
-
-== OTT-48553 ==
-JIRA:       https://jira.amlogic.com/browse/OTT-48553
-Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-光纤音频-选择光纤输出格式功能
-Priority:   P1
-
-adev_set_parameters(hal_param_spdif_highest_rate=96000)?
-
-Codebase with repo init
-
 == OTT-48554 ==
 JIRA:       https://jira.amlogic.com/browse/OTT-48554
 Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-HDMI音频-选择HDMI输出的音频格式功能
+
+== OTT-48552 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48552
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-解码格式-解码格式选择功能
 
 == OTT-48547 ==
 JIRA:       https://jira.amlogic.com/browse/OTT-48547
 Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-USB音频开关控制功能
 
 打开，关闭
-
-== OTT-48552 ==
-JIRA:       https://jira.amlogic.com/browse/OTT-48552
-Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-解码格式-解码格式选择功能
-
-== crash when switch from SCO to A2DP ==
-JIRA:       https://jira.amlogic.com/browse/SH-16144
-Subject:    [恒毅][AR30A1][T982][Android R-11][26904][audio]:设备连接上蓝牙音响，播放视频，音频输出从sco切换到a2dp，audio hal发生crash. 1%
-
-@Qitao.Tang feedback
 
 == CL port back to trunk ==
 JIRA:       https://jira.amlogic.com/browse/SWPL-137568
@@ -1582,6 +1561,347 @@ kernel内部修改，去掉TDM的symmetric rate限制（这个限制同一个TDM
 在解决问题后，发现另外一个独立问题，启动后播放无声，按音量键向上则声音正常输出
 通过dumpsys audio检查STREAM MUSIC的音量发现，启动后，这个streamVolume设置为0. 音量键向上后则streamVolume正常
 这个问题在policy/volume control部分。请Rongqi Wang 进一步确认是否引入其他有问题的CL，或者请相关工程师继续检查下
+
+= WK38 =
+== CL port back to trunk ==
+JIRA:       https://jira.amlogic.com/browse/SWPL-137568
+Subject:    support USB device in primary HAL
+- usb-passthrough
+- hi-res
+
+- [X] sync code
+- [X] image? https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/15281/
+    - [X] with defconfig https://scgit.amlogic.com/#/c/335031/
+    - [ ] NO usb card at T7c AN400
+    - [ ] https://jenkins-sh.amlogic.com/job/android/job/Android_T/job/Android_T_Google_AOSP_PATCHBUILD/15374/
+    - [ ] https://jenkins-sh.amlogic.com/job/android/job/Android_R/job/Android_R_Google_AOSP_PATCHBUILD/32226/
+- [O] code porting
+    - [X] profile
+    - [X] ms12 lib
+    - [X] d945 无声，为什么？？ <- ms12 lib
+    - [X] 4c89 Rebase
+    - [ ] d4cb refine
+
+| stream           | origin      | +CL           |                                         |
+| PCM              |             |               |                                         |
+| mp3  happy       | 96k32b mix  | 48k16b2ch mix |                                         |
+| AC3 48k6ch dd    | no audio    | mix           |                                         |
+| eAC3 48k8ch ChID | no audio    | mix           |                                         |
+| AC4  48k silent  | unsupported | 0x22000000    | direct compress_offload=0x11            |
+| TrueHD 48k 8ch   | unsupported | unsupported   | 需要amnuplayer send direct,offload data |
+
+amnuplayer: Jul 11
+
+== C3 audio insmod too long ==
+- acodec mdelay to 1ms
+    - [ ] test result
+
+= WK40 =
+== crash when switch from SCO to A2DP ==
+JIRA:       https://jira.amlogic.com/browse/SH-16144
+Subject:    [恒毅][AR30A1][T982][Android R-11][26904][audio]:设备连接上蓝牙音响，播放视频，音频输出从sco切换到a2dp，audio hal发生crash. 1%
+
+@Qitao.Tang feedback
+
+- 2023-09-26 add log
+
+allocation
+
+int open_btSCO_device(struct aml_audio_device *adev, size_t frames)
+    output_frames = frames * bt->cfg.rate / MM_FULL_POWER_SAMPLING_RATE + 1; // 683
+    bt->bt_out_buffer = aml_audio_calloc(1, output_frames * 2); // 683*2=1366 => 5464=683*2*4
+    // resampler config from 48k to 16k, **ch=2**
+
+use
+ssize_t write_to_sco(struct aml_audio_device *adev, audio_config_base_t *config,
+    const void *buffer, size_t bytes)
+    // channel_mask=0x3/2ch, format=1/16bit, bytes_per_sample=2, frame_size=4 in_frames=2048
+    
+    // 2048*16k/48k+1=682.67+1=683.67=683
+    out_frames = in_frames * bt->cfg.rate / MM_FULL_POWER_SAMPLING_RATE + 1;
+    frame_size /= 2; // 2, **it want discard right channel**
+        // WHY logcat frame_size is still 4???
+        bt->resampler->resample_from_input(bt->resampler,
+                     bt->resampler_buffer, &res_in_frames,
+                     (int16_t*)bt->bt_out_buffer, &out_frames);
+        ret = pcm_write(bt->pcm_bt, bt->bt_out_buffer, out_frames * frame_size);
+
+ACTION: pending @Qitao
+
+是不是代码不一致啊？？
+
+= WK41 =
+== SWPL-14019 ==
+DSP SC2 VAD interrupts conflict issue
+
+== OTT_48976 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48976
+Subject:    [GAZELLEFOS-3606][Amazon][GAZELLE][AN40A3][POP1][Android P-9.0]:[EDT HDMI IOP] : Nvidia Shield Pro->Gazelle->Sink: Audio disappears and will not return after performing trick play operation
+
+依然是RT throttle的问题
+
+Solution:
+
+With semaphore solution
+
+Find new issue: https://jira.amlogic.com/browse/OTT-50881
+
+== USB merge issue ==
+JIRA:
+Subject:
+Priority:
+
+com:        921600
+adb:        mini-usb
+test case:  USB device, playback
+
+Image:      https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_AOSP_AUTOBUILD_Run/146/
+Wrong: production build, cannot switch to root
+Image:      https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_AOSP_AUTOBUILD_Run/144/
+user debug build
+
+~~T7 AN400 board, NO usb devices~~ There is usb audio device
+
+- [X] 1009 14:42 basic work with PB144
+- [ ] replace lib & xml
+md5sum ORIGIN 4b28
+md5sum 1b52
+md5sum 8cc6 64bit version
+- [ ] enable log
+有新的track，但是没有新的stream。为什么没有到USB device？？？
+- [ ] Need dolby lib
+
+PB:         https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_AOSP_PATCHBUILD/664/
+- [X] support procfs for ALSA
+
+- [X] With C-media 48k 16bit 2ch card, baseline case pass
+- image baseline 7839, GOOD
+- codebase baseline 33c5 with origin policy is GOOD
+- 33c5 + my policy is BAD
+- my code(f46c) + my policy ??? BAD 没声音
+
+- enable log: fd6c
+- WITH DOLBY LIB, this issue is GONE
+dolby lib directory /oem/lib/ms12
+
+=== 2nd stage: support submix ===
+- 13c8: check flow
+- 6e2c: more log
+- 28cf: add usb in mixer_output_write
+
+amlAudioMixer.c mixer_output_write ->
+{
+    sco; a2dp out write;
+    default to alsa write, out_port->write = audio_port.c/input_port_write
+}
+
+is_include_usb_out_port one of USB ACCESSORY, USB DEVICE, USB HEADSET
+- cur_out_devices, 没有USB为啥？？ 不是这里？？
+compare with dolby version
+    - dolby: add condition in hw_write, USB playback well
+
+==== 2.1 stage: continue to support submix ====
+
+
+= WK43 =
+== OTT-48553 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-48553
+Subject:    [杰科][GIEC][928X][R][audio]: 应用相关功能API--音频设置-光纤音频-选择光纤输出格式功能
+Priority:   P1 -> P0 (deadline: 2023-10-27)
+Codebase:   FY23/jordan.jieke
+
+adev_set_parameters(hal_param_spdif_highest_rate=96000)?
+
+Codebase with repo init
+
+Requirement Link:
+https://rp.mockplus.cn/run/kNoBfztDYe/q3GfRdX3yo/D7AMDNY3dnDI?cps=expand&rps=expand&nav=1&ha=0&la=0&fc=0&out=1&rt=1
+
+1. [ ] add patch (USB, Hires)
+2. [ ] improve patch
+
+- image default, Happy mp3, and 96 stream all play as 48k 16bit 2ch
+    - amnuplayer is May 5 2023
+    - https://jenkins-sh.amlogic.com/job/android/job/Android_R/job/Android_R_DRM_PATCHBUILD/13528/
+    - select p-amlogic branch, change "commit" to df0b51b, select "build amnuplayer" => FAIL
+    - select p-amlogic branch, select "build amnuplayer" => build FAIL to due ffmpeg's function declaration
+        https://jenkins-sh.amlogic.com/job/android/job/Android_R/job/Android_R_DRM_PATCHBUILD/13563/console
+
+With this version, build pass: https://scgit.amlogic.com/#/c/367322/
+
+amnuplayer -> 
+hardware/amlogic/media/ammediaext e7552a
+
+amnuplayer default md5=2705, git version: df0b51bf018edc621fae16f600868be15e300f23
+my direct one: md5=4c9f
+
+0. [X] MS12 lib
+1. [X] my CL
+2. [X] Hongchao's CL to support direct flag
+NOTE: need ALL patch (individual output menu, patch in policy side (getOutput?)
+3. [X] Amnuplayer to pass direct stream to FW
+4. Policy file
+5. [X] Property persist.vendor.audio.direct_device
+NOTE: This point is individual with #2
+6. [X] Capability of device? / Fake sample rate of TV
+
+1026 11:01  check with hack TV CL   => Cannot dispatch direct stream with audio policy/engine's getOutputForAttrInt
+     16:25  with Hongchao's ALL patch
+     18:38  find direct stream      => with hires CL
+     18:55  replace ALL lib         => original HACK CL
+     19:13  with SPDIF->Line-out device + policy (direct pcm)
+            MUSILAND SVDAC05 This device only support 96k pcm 16bit (not support 192k)
+     19:40  +spdif highest rate CL
+
+| version    | md5        | policy | load | play 48k | play 192k |
+| origin lib | d68e       | Good   | Good | Good     | 48k       |
+| +hack      | 11:01 59af |        | Good | Good     | 48k       |
+| +hires     | 18:43 075a |        |      |          | 48k       |
+
+= WK44 =
+== OTT-50985 ==
+JIRA:       https://jira.amlogic.com/browse/OTT-50985
+
+fdsan problem
+https://android.googlesource.com/platform/bionic/+/master/docs/fdsan.md
+
+Wait for feedback
+
+== OTT-50881 ==
+noise Nvidia Shield -> gazelle
+
+频繁的切换 ms12 dolby / pcm hires stream??
+
+- [ ] dump hires stream
+first 200ms data may introduce error as wrong detect raw to pcm
+
+#00. 1097 dump per stream   >>>
+pcm, all zero (hires)
+pcm, 48khz 8ch 16bit NOISE?
+
+#01, dump with tag          >>>
+noise in hires?? data, middle of stream, how to filter out it?
+
+#02, add log in audio-patch format change       >>>
+11-06 19:06:57.464   388  6679 E audio_hw_primary-aml_audio_stream: yyy HDMI Format Switch [audio_packet pre:1->cur:1 changed:0] [channel pre:2->cur:2 changed:0], hires = 1 non_audio 0
+11-06 19:06:57.464   388  6679 E audio_hw_primary-aml_audio_stream: yyy reconfig_read_param_through_hdmiin(), rate 48000->192000, fmt 0->0
+
+11-06 19:11:25.915   388   681 I audio_hw_primary-alsa_manager: aml_alsa_output_write_new, alsa format =0x3 delay frames =640 total frames=768000
+11-06 19:11:26.787   388  6679 E audio_hw_primary-aml_audio_stream: yyy HDMI Format Switch [audio_packet pre:1->cur:1 changed:0] [channel pre:2->cur:2 changed:0], hires = 1 non_audio 1
+11-06 19:11:26.787   388  6679 E audio_hw_primary-aml_audio_stream: yyy reconfig_read_param_through_hdmiin(), rate 192000->48000, fmt 0->0
+11-06 19:11:26.787   388  6679 I audio_hw_primary-aml_audio_stream: [reconfig_read_param_through_hdmiin:1532] ringbuffer size 98304
+
+#03, add log (enable NDEBUG) + check reinit flow
+
+patch_input_thread -> ???
+hdmi_cfg? / reinit_out_thread
+patch_output_thread(need_reinit_output_stream) -> adev_close_output_stream(hires/close)
+
+#04, memset before out_write_new (It doesn't work). WHY not drop?
+
+    8ms noise
+
+#05, check_audio_level
+audio_level after reinit check
+#06, check non_audio flag
+#07, clear only when after need_reinit_output_stream && level != 0
+HDMIIN nonaudio NONAUDIO/PCM        192k pcm 16bit 2ch => hires
+                                    192k nonaudio 16bit 2ch => dolby
+
+
+#08, clear data when 1) need_reinit 2) dolby data init
+
+| ---- hires stream ---------00 | 00---dolby stream --------- |
+
+Solution::
+
+1) after need_reinit_output_stream, memset
+2) when switch to dolby stream, patch_write_cnt <= 20, memset
+
+== USB on Android U ==
+- [X] policy XML need update 2023-11-06 11:13:02
+- [X] CTS passed
+- [X] USB Audio Input/Output Test @Shengyu.Gu
+- [X] auto submit 2023-11-08 11:23:51
+
+== Cartographer ==
+Slow at ARM A35, How to optimize it?
+
+- [X] download, and built it
+- check libeigen3 depend on arch part. NEON optimization is PARTLY work.
+- openmp support
+- dense matrix (4x4) operation is too frequent, mailbox is 10kHz
+- I still suggest to optimize at ARM/NEON side.
+
+== saisai far field with DSP ==
+- rebase audio HAL's CL
+- PB: https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_ref_PATCHBUILD/9968/
+- freertos's CL leaves alone: https://scgit.amlogic.com/#/c/371434/2
+
+== WK 11-13 ==
+== Merge Back ==
+
+https://confluence.amlogic.com/display/SW/FY23+merge+back?src=contextnavpagetreemode
+
+- [ ] improve log
+- android U, true HD related CL
+- hires related CL
+
+== alsa manager refine ==
+== refine of alsa manager ==
+
+- [X] delay和position什么关系
+
+SNDRV_PCM_IOCTL_DELAY
+htimestamp -> SNDRV_PCM_SYNC_PTR_APPL | SNDRV_PCM_SYNC_PTR_HWSYNC ->
+
+DELAY + position = buffer size
+
+board:      T7 AN400
+repo:       Android U
+codebase:   upsidedown
+CL:         https://scgit.amlogic.com/#/c/367732/
+
+- [X] android U codebase, need procfs CL: https://scgit.amlogic.com/#/c/341196/1
+PB https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_AOSP_PATCHBUILD/1288/
+- [X] base version, playback mp3, good 2023-11-13 14:52:49, md5=9e88
+- [ ] rebase CL, add log, md5=f3e7
+audioserver process is good
+    - FAIL to replace lib
+    - 64bit vs 32bit ? good
+- add log in hw_write, output_base_open         md5=488b
+    - >>> dcv version goto submixing -> output_porc -> pcm_write interface
+    - verify that path                          md5=
+
+with libdolbyms12
+
+crash at audio_hw_ms12_v2.c     => switch to ms12_out->handle, add log md5=d886
+open succ, fail to write??? 2023-11-15 15:51:38
+
+= FFV + Suspend Resume flow =
+android doc: https://source.android.com/docs/core/power/systemsuspend?hl=zh-cn
+code: https://cs.android.com/android/platform/superproject/+/master:prebuilts/vndk/v33/x86/include/generated-headers/system/hardware/interfaces/suspend/1.0/android.system.suspend@1.0_genc++_headers/gen/android/system/suspend/1.0/ISystemSuspend.h;l=21?q=ISystemSuspend%20HIDL&sq=
+
+Yujie 1e5f8e
+A2dpSuspend -> a2dp_out_set_parameters -> a2dphw.Stop
+
+Hongchao.Yin
+hal_param_vad_wakeup -> aml_vad_suspend/aml_vad_resume
+https://scgit.amlogic.com/#/c/317452/
+
+ApmAudio/ApmOUtput -> suspendOutput -> af->suspendOutput -> PlaybackThread->suspend
+
+suspend() { (void) android_atomic_inc(&mSuspended); }
+
+Screen State
+
+
+IDevice.hal
+hardware/interfaces/audio/core/all-versions/default/Device.cpp setScreenState
+services/audioflinger/AudioFlinger.cpp get (keyScreenState)
+HAL AUDIO_PARAMETER_KEY_SCREEN_STATE on/off
+
+https://developer.android.com/reference/android/os/PowerManager.html
 = links=
 == confluences ==
 DSK SDK Release flow
@@ -1598,3 +1918,5 @@ http://aats.amlogic.com:10000/weekly_sumup/
 
 == History ==
 AEC summary: https://confluence.amlogic.com/display/~Yang.Liu/ART+test+eraser+case+summary
+
+Android U codebase: https://confluence.amlogic.com/pages/viewpage.action?spaceKey=SW&title=Android+U+A311D2+64bit

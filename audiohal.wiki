@@ -1,0 +1,45 @@
+= definition =
+
+== output ==
+AUDIO_DEVICE_OUT
+https://cs.android.com/android/platform/superproject/main/+/main:system/media/audio/include/system/audio-hal-enums.h;l=338;bpv=0;bpt=1
+ear piece       1
+speaker         2                   <<<+1
+bt sco          0x10
+hdmi            0x400
+usb accessory   0x2000
+usb device      0x4000
+line            0x2_0000
+spdif           0x8_0000            <<<+1
+usb headset     0x400_0000          <<<+2
+echo canceller  0x1000_0000
+
+AUDIO_OUTPUT_FLAG
+https://cs.android.com/android/platform/superproject/main/+/main:system/media/audio/include/system/audio-hal-enums.h;l=433;bpv=0;bpt=1
+None        0x00
+Direct      0x01
+Primary     0x02
+Fast        0x04
+Deep Buffer             0x08
+Compress Offload        0x10
+
+| Direct, Deep Buffer      | 0x09 |
+| Direct, compress offload | 0x11 |
+
+AUDIO_FORMAT
+https://cs.android.com/android/platform/superproject/main/+/main:frameworks/proto_logging/stats/enums/media/audio/enums.proto;l=210?q=AUDIO_FORMAT_AAC%20&ss=android%2Fplatform%2Fsuperproject%2Fmain
+PCM_MAIN        0
+PCM_SUB_16_BIT  0x1
+PCM_SUB_32_BIT  0x3
+PCM_SUB_FLOAT   0x5
+
+AC3             0x0900_0000
+EAC3            0x0a00_0000
+DTS             0x0b00_0000
+
+== input ==
+AUDIO_SOURCE_DEFAULT        0
+VOICE_RECOGNITION           6
+VOICE_COMMUNICATION         7 (general for built-in mic)
+ECHO_REFERENCE              1997
+

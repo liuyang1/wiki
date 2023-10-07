@@ -701,3 +701,6 @@ worse.
 Analysis motion vector, macroblock types, QP values
 
 https://trac.ffmpeg.org/wiki/Debug/MacroblocksAndMotionVectors
+
+= audio channel manipulation =
+https://trac.ffmpeg.org/wiki/AudioChannelManipulation

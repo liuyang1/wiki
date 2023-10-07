@@ -1,0 +1,193 @@
+fpu: onvoard floating point support
+vme: virtual 8086 mode enhancements
+de: debugging extensions
+pse: page size extensions (4MB memory pages)
+tsc: timestamp counter
+msr: model specific register
+pae: physical address extensions (support for more than 4GB of RAM)
+mce: machine check exception
+cx8: cmpxchg8 insturction (64bit compare and swap)
+apic: onboard APIC
+sep: sysenter/sysexit
+mtrr: memory type range registers
+pge: page global enable (global bit in PDEs and PTEs)
+
+mca: machine check architecture
+cmov CMOV instruction (condition move)
+pat page attribute table
+pse36 32-bit PSEs
+
+clflush cache line flush instruction
+dts debug store (buffer for debugging and profiling instructions)
+acpi (acpi vs MSR, temperature monitoring and clock speed modulation)
+mmx (multi-media extensions)
+fxsr FXSAVE/FXRSTOR, CR4.OSFXSR
+sse Intel SSE vector instructions
+sse2 SSE2
+for four floating point number, or two double precistion number (128bit)
+https://chryswoods.com/vector_c++/emmintrin.html
+
+ss CPU self snoop
+ht hyper-threading and/or multi-core
+tm automatic clock control (Thermal monitor)
+
+= AMD-defined CPU features =
+pbe  pending break enable (wakeup support)
+syscall (fast system call) and SYSRET(return from fast system call)
+nx execute disable
+pdpe1gb one gb pages (allow hugepagesz=1G)
+rdtscp Read Time-stamp Counter and processor ID
+lm (long Mode (x86-64: amd64)
+constant_tsc
+arch_perfmon
+pebs
+bts
+rep_good
+nopl
+xtopology
+nonstop_tsc
+aperfmperf
+eagerfpu
+pni
+pclmulqdq
+dtes64
+monitor
+ds_cpl
+vmx
+smx
+est
+tm2
+ssse3
+sdbg
+fma fused multiply and add
+y = round(a*b + c)
+cx16
+xtpr
+pdcm
+pcid
+dca
+sse4_1
+sse4_2
+x2apic
+movbe
+popcnt
+tsc_deadline_timer
+aes
+xsave
+avx advanced vector extensions
+f16c
+rdrand
+lahf_lm
+abm
+3dnowprefetch
+epb
+intel_pt
+tpr_shadow
+vnmi
+flexpriority
+ept
+vpid
+fsgsbase
+tsc_adjust
+bmi1
+hle
+avx2 AVX2 instructions
+for 8 floating/4double
+https://chryswoods.com/vector_c++/immintrin.html
+
+__m256i (8 integers)
+    mpsadbw?
+    abs
+    pack
+    add
+    adds
+    alignr
+    and
+    andnot
+    avg
+    blendv
+    blend?
+    cmpeq
+    cmpgt
+    hadd
+    hsub
+    maddubs
+    max/min
+    movemask
+    cvtepi8?
+    madd
+    mul
+    or
+    sad
+    shuffle
+    sign
+
+
+
+
+AVX512
+smep
+bmi2
+erms
+invpcid
+rtm
+cqm
+rdseed
+adx
+smap
+xsaveopt
+cqm_llc
+cqm_occup_llc
+cqm_mbm_total
+cqm_mbm_local
+dtherm
+ida
+arat
+pln
+pts
+
+https://unix.stackexchange.com/questions/43539/what-do-the-flags-in-proc-cpuinfo-mean
+
+INT 4bytes, 32bits
+AVX2 256bites=8*INT
+
+= TODO: AVX512 =
+
+AVX512 have 32 512bit ZMM registers
+
+512bit is 32bit*16
+
+16zmm*16zmm is better. [32i 256*256] * [32i 256*256]
+
+AVX2 have 16 256bit YMM registers
+
+256bit is 32bit*8
+
+8ymm*8ymm is better. [32i 64*64] * [32i 64*64]
+
+2048*2048=7*1024*1024=7*7*512*512=7*7*7*256*256=7^4*128*128=7^5*64*64
+
+
+https://codeforces.com/blog/entry/98594
+= demo some algorithm based on AVX =
+
+0 a b c
+a b c d
+a a+b b+c c+d
+
+0 0 a a+b
+a a+b a+b+c a+b+c+d
+
+2 add, 2 shuffle
+
+= AVX, MSA, NEON, SSE compare =
+SSE old fashion
+AVX: sample code: https://github.com/Triple-Z/AVX-AVX2-Example-Code/blob/master/Arithmetic_Intrinsics/src/mullo.c
+https://db.in.tum.de/~finis/x86-intrin-cheatsheet-v2.1.pdf
+
+MSA MIPS SIMD Architecuture
+NEON: ARM
+
+= NEON =
+VQADD saturated add, this is designed for audio mixing
+https://documentation-service.arm.com/static/63299276e68c6809a6b41308

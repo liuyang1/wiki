@@ -199,6 +199,7 @@ repo sync -d
 - m audio.primary.[$soc]
 - mm in specific directory
 - mmm
+- mma
 
 Android.mk --- Kati --> ninja
 Android.bp --- blueprint+soong --> ninja
@@ -219,3 +220,12 @@ java_library -> java.LibraryFactory
 具体参考这里：https://blog.csdn.net/zhzhangnews/article/details/105634037
 
 PRODUCT_COPY_FILES
+
+== input ==
+input text "hello"
+input keyevent 66 # Enter
+input keyevent 3 # Home
+input keyevent 24 # volume up
+input keyevent 25 # volume down
+
+https://blog.csdn.net/moyu123456789/article/details/71209893
