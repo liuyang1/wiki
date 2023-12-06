@@ -1,0 +1,22 @@
+= color pick =
+https://blog.datawrapper.de/beautifulcolors/
+
+HSB(Hue, Saturation, Brightness)
+HSV(Hue, Saturation, Value)
+
+Hue, 0°-360° color wheel
+Saturation, 0%-100% gray to super duper colorful
+Brightness, Value 0% (black) to 100% (actual color)
+
+    1. choose a few hues and their neighbors (DO not choose too many colors)
+    2. complementary and their neighbors
+    3. +Saturation + lightness
+
+    a. warm colors & blue
+    b. when using green, make it a yellow or blue one (not pure green)
+    c. avoid any pure colors
+    d. avoid bright, saturated colors
+    e. combine with different lightness
+    ...
+
+

@@ -11,3 +11,7 @@ https://elixir.bootlin.com/linux/latest/source/sound/usb/quirks.c
 
 == benchmark ==
 https://github.com/ARM-software/optimized-routines
+
+== blog ==
+Brendan site, performance
+https://www.brendangregg.com/overview.html

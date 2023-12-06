@@ -1,0 +1,24 @@
+= representation =
+
+可以将浮点数当做整数来进行排序，这是刻意而为之的设计，正浮点数从小到大，其二进制表达如果按照unsigned来解释，也是从小到大，负浮点数的刚好反过来，从大到小。
+
+= floating-point arithmetic =
+
+https://www.numericalexpert.com/tutorials/floating_point/floating_point.php
+
+= BP16/bfloat16 =
+NOT IEEE 754
+
+WHY?/Background
+
+deep learning don't need as much precision as double/signle precision floats.
+Lower precision make it possible to hold more numbers in memory, reducing the time spent swapping numbers in and out of memory
+1. storage
+2. transmission (in/out of memory)
+3. calculation
+
+| format | bits | exponent | fraction |
+| FP32   | 32   | 8        | 23       |
+| FP16   | 16   | 5        | 10       |
+| BP16   | 16   | 8        | 7        |
+more exponent (large dynamic range), and 

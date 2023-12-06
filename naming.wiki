@@ -1228,3 +1228,5 @@ Background picture style
 
 - IIRC: If I remember correctly
 - OT: over time
+
+- biz: business

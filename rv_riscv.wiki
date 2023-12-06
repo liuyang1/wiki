@@ -1,0 +1,24 @@
+= RISC-V ISA =
+
+/risk-five/
+
+royalty-free
+
+load-store architecture/register-register architecture
+    (What? Compared with register-memory architecture/CISC, such as x86) one of the operands for the ADD operation may be in memmory)
+[[floating-point]] IEEE-754 
+
+== ISA base and ext ==
+Base: RV32I base integer instruction set, 32-bit
+
+- M: integer Multiplication and division
+- A: Atomic instructions
+- F: single Floating point
+- D: Double floating point
+- V: Vector operations
+- C: Compressed instructions (16bits)
+- P: Packed-SIMD instructions
+
+Nuclei: RV32I MACFDPV
+
+ISA Manual: https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf

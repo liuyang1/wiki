@@ -28,3 +28,7 @@ VRRP
 
 TODO:
 Activesyec
+
+= network & remote suspend-resume =
+WOL: Wake On LAN
+WOW: Wake On WAN

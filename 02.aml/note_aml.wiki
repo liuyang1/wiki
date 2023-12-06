@@ -546,8 +546,6 @@ playback direct stream 48k, only TDM-C works at 48k 16bit ch, good
 | 48k    | c48k |         |   |
 | 32k    | c48k |         |   |
 
-TODO
-
 - [x] select output rate, negotiate
 - [x] dynamic sample rate
 - [ ] SPDIF sink select + profile
@@ -588,6 +586,8 @@ nuplayer -> Render
 /frameworks/av/media/mediaserver/main_mediaserver.cpp::main
 -> registerExtensions
 -> LoadAndInitAmlogicSupport -> LoadAndInitAmlogicMediaFactory
+
+/system_ext/lib{,64}/libamnuplayer.so
 
 == WHY goto sub_mixing_factory ==
 
@@ -1125,14 +1125,14 @@ get_hdmi_sink_cap_new why return 352800 multiple times?
 
 = FY23 codebase =
 
-| Path          | FAE                      | Project             | LUD        | Comment                     |
-| berlin.BDS    | @Qitao,@Rongqi           | BDS project         | 2023-08-29 |                             |
-| Cantor.C3     | @Qiang.Wei,@Xinjun.Zheng | C3 doorbell project |            |                             |
-| jordan.jieke  | @Mountain                | Jieke               | 2023-09-14 |                             |
-| koltin.BT_96K | @Jihui                   | Hi-Res feature      | 2023-08-28 | update to 20230309 aosp.xml |
-| qinglai.qinuo | @Mountain                | Qinuo project       | Outdated?  |                             |
-| trunk.bds     | @Daozai                  | Trunk               | 2023-09-04 |                             |
-| wiener.epson  | @White                   | 全民k歌             | outdated?  |                             |
+| Path          | FAE                      | Project             | LUD        | Comment                     |       |
+| berlin.BDS    | @Qitao,@Rongqi           | BDS project         | 2023-08-29 |                             |       |
+| Cantor.C3     | @Qiang.Wei,@Xinjun.Zheng | C3 doorbell project |            |                             |       |
+| jordan.jieke  | @Mountain                | Jieke               | 2023-09-14 |                             |       |
+| koltin.BT_96K | @Jihui                   | Hi-Res feature      | 2023-08-28 | update to 20230309 aosp.xml | tyson |
+| qinglai.qinuo | @Mountain                | Qinuo project       | Outdated?  |                             |       |
+| trunk.bds     | @Daozai                  | Trunk               | 2023-09-04 |                             |       |
+| wiener.epson  | @White                   | 全民k歌             | outdated?  |                             |       |
 
 = WK34 =
 == DD format no audio? ==
@@ -1878,6 +1878,15 @@ with libdolbyms12
 crash at audio_hw_ms12_v2.c     => switch to ms12_out->handle, add log md5=d886
 open succ, fail to write??? 2023-11-15 15:51:38
 
+2023-11-17 14:03:32 
+
+rm alsa_manager.c
+
+=== MS12 path ===
+
+2023-11-15: Milestone: Happy_Baby.mp3 case is passed
+
+
 = FFV + Suspend Resume flow =
 android doc: https://source.android.com/docs/core/power/systemsuspend?hl=zh-cn
 code: https://cs.android.com/android/platform/superproject/+/master:prebuilts/vndk/v33/x86/include/generated-headers/system/hardware/interfaces/suspend/1.0/android.system.suspend@1.0_genc++_headers/gen/android/system/suspend/1.0/ISystemSuspend.h;l=21?q=ISystemSuspend%20HIDL&sq=
@@ -1902,6 +1911,77 @@ services/audioflinger/AudioFlinger.cpp get (keyScreenState)
 HAL AUDIO_PARAMETER_KEY_SCREEN_STATE on/off
 
 https://developer.android.com/reference/android/os/PowerManager.html
+
+Final Conclusion (Discussion with Wei.Wang):
+Use SCREEN_ON/OFF (early suspend) to tigger HAL/DSP to enter/exit low power mode
+But keep AudioRecord functionality when system is suspended
+
+= WK47 =
+== pcm_get_htimestamp implement in RTOS ==
+
+pcm_get_htimestamp API
+-> xHwClockSourceRead(us) -> timespec(tv_sec, tv_nsec)
+
+alsa-lib/snd_pcm_get_htimestamp, tinyalsa/pcm_get_htimestamp
+-> pcm_sync_ptr(PTR_APPL|PTR_HWSYNC)
+-> snd_pcm_update_hw_ptr0 (pcm_native.c)
+-> pointer; snd_pcm_gettime
+-> MONOTONIC:ktime_get_ts64 -> uptime after boot
+
+same with clock_gettime(CLOCK_MONOTONIC)
+
+== hires merge back ==
+- [X] base version (2023-11-20 + procfs CL: https://scgit.amlogic.com/#/c/341196/1)
+PB https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_AOSP_PATCHBUILD/1505/
+- [X] libamnuplayer.so is ready
+- [X] dolby lib
+- [X] origin test result: mp3 good, AC4 good
+- [X] FAIL to replace lib
+- [X] SYNC FULL CODEBASE
+- [X] resolve with exactly match version
+- [X] build pass 2023-11-20 19:23:20
+
+- [X] ALL libraries
+- [ ] with fake sample rate support TV cap
+- [ ] verify
+- [X] +CL 374047
+PB 1572
+
+Build again with T3 T982 platform
+https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_AOSP_PATCHBUILD/1602/
+
+Build agian with S5 tyson platform
+
+
+== OTT-50881 Gazelle: Audio Noise issue ==
+
+== SWPL-147013 ==
+
+USB-in is removed??
+
+Regression test with old version
+
+= TODO Task =
+# USB input in trunk
+check USB input
+
+== hires merge back ==
++341196, 374047
+https://jenkins-sh.amlogic.com/job/android/job/Android_U/job/Android_U_Google_ref_PATCHBUILD/11051/
+
+fix build       ->PB 11090
++hack 96k ..    ->PB 11120
+rebase          ->PB 11129
+
+stop audioserver
+tinymix hdmi source select spdif
+tinymix hdmi format stereo pcm
+tinymix hdmi mute off
+tinyplay gen_48000... -D 0 -d 4 (spdif)
+Spdif switch choose RCA
+GOOD
+
+
 = links=
 == confluences ==
 DSK SDK Release flow
@@ -1915,6 +1995,9 @@ https://docs.qq.com/doc/DUXNZWnN3akRUVGJ0
 
 AATS
 http://aats.amlogic.com:10000/weekly_sumup/
+
+Openlinux Maintain & Release Status
+https://confluence.amlogic.com/display/SW/Openlinux+information
 
 == History ==
 AEC summary: https://confluence.amlogic.com/display/~Yang.Liu/ART+test+eraser+case+summary
