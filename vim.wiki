@@ -221,8 +221,8 @@ textwidth or 80)
 * W WORD
     * W     move forward one WORD
     * E     move forward of end of one WORD
-    * B     movw forward one WORD
-    * gE    movw backgward to end of one WORD
+    * B     move forward one WORD
+    * gE    move backward to end of one WORD
 * p pargraph
 * s string
 * square braket: block of bracket
@@ -338,6 +338,7 @@ v
 - :%s/表达式1/表达式2/g     同上,比上面少了2个字符
 
 - <C-R><C-W>            copy & paste current word under cursor
+- <C-R><C-f>            copy & paste current filename under cursor
 - empty pattern0        pattern0 default to "@/", which is the search value by
 "\*" or "#"
 - `:%s/.*\zeAAA//g`     from head until pattern (AAA)

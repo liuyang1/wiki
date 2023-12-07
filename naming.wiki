@@ -62,6 +62,7 @@ programming.
 
 - bound, unbounded
 - thresh, threshold, thd
+- watermark
 - close, guess, tolerance
 
 - start
@@ -232,6 +233,9 @@ notify end of stream
 - idle
 - run / executing
 - pause
+- resume
+- cancel
+- start
 - stop
 
 - state: submit/apply change
@@ -332,6 +336,7 @@ notify end of stream
 - feed
 - fullness
 - drain
+- flush
 - print, println
 - scan
 - get
@@ -347,6 +352,7 @@ notify end of stream
 - tell
 - rewind
 == callback ==
+- callback: cb, cbk
 - register
 - unregister
 - notify
@@ -372,6 +378,7 @@ notify end of stream
 
 == data type ==
 - type, class, kind, interface, superclass
+- interface: if
 - super, self
 - local, nonlocal, global
 - instance
@@ -403,6 +410,7 @@ klass, funktion
 - internal, inward
 - import, export, reveal, expose
 - prototypes, interface, implementation, representation
+- boilerplate
 - declare, declaration
 - right, own, owner, privilege, enforce, permissive
 
@@ -455,8 +463,8 @@ klass, funktion
 
 - chunk, block, sample
 - atom, box
-- video/stream/track/sequence/gop/frame/picture/field/tile/slice/macro
-block/block/unit/block/pixel
+- video/stream/track/sequence/gop/frame/picture/field/tile/slice/macro block
+/block unit/block/pixel
 
 - example (xmpl)
 - sample
@@ -751,6 +759,8 @@ ref: https://www.douban.com/group/topic/12410327/
 - latency
 - jitter 抖动
 - stuck
+- drift 漂移
+
 
 - trivial
 
@@ -1025,7 +1035,7 @@ dividend / divisor = qutotient ... remainder
 - RPN: reverse polish ??
 - Ambiguity 二义性
 - keyword
-- identifier
+- id, identify, identifier, identification
 - token, symbol
 - lexical analysis, scaning
 - lexical analyzer
@@ -1156,8 +1166,6 @@ dividend / divisor = qutotient ... remainder
 - award
 - medal
 
-- drift 漂移
-
 - quantity, Qty
 - false alarm
 
@@ -1230,3 +1238,14 @@ Background picture style
 - OT: over time
 
 - biz: business
+
+- cookie
+- bacon
+
+- metadata
+
+- track
+
+- mute
+
+- port, jack, plug, pad
